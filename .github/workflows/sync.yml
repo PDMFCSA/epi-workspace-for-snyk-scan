@@ -25,6 +25,7 @@ jobs:
 
       - name: 'Commit files'
         run: |
+          ls -al
           git status
           git add -A .
           git config --local user.email "psk.build.track@gmail.com"
