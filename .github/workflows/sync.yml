@@ -1,0 +1,36 @@
+name: Sync
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 'Check out epi-workspace repo'
+        uses: actions/checkout@v4.1.3
+        with:
+          repository: https://github.com/axiologic-pla/epi-workspace
+          path: "."
+          ref: master
+          
+      - name: 'Run dev install for epi-workspace'
+        run: cd epi-workspace && npm run dev-install
+
+      - name: 'Commit files'
+        run: |
+          git config --local user.email "psk.build.track@gmail.com"
+          git config --local user.name "devteam[bot]"
+          git commit -a -m "Code base updates"
+      - name: 'Push changes'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
+      
+      
