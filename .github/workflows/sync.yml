@@ -25,6 +25,7 @@ jobs:
 
       - name: 'Commit files'
         run: |
+          rm -rf epi-workspace/.git
           ls -al
           git status
           git add -A .
