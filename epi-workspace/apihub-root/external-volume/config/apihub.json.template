@@ -1,0 +1,99 @@
+{
+  "storage": "../apihub-root",
+  "port": 8080,
+  "preventRateLimit": true,
+  "activeComponents": [
+    "bdns",
+    "bricking",
+    "anchoring",
+    "epi-mapping-engine",
+    "epi-mapping-engine-results",
+    "get-gtin-owner",
+    "leaflet-web-api",
+    "integration-api",
+    "health-check-api",
+    "versionlessDSU",
+    "mq",
+    "secrets",
+    "lightDBEnclave",
+    "staticServer"
+  ],
+  "componentsConfig": {
+    "epi-mapping-engine": {
+      "module": "./../../gtin-resolver",
+      "function": "getEPIMappingEngineForAPIHUB"
+    },
+    "epi-mapping-engine-results": {
+      "module": "./../../gtin-resolver",
+      "function": "getEPIMappingEngineMessageResults"
+    },
+    "leaflet-web-api": {
+      "module": "./../../gtin-resolver",
+      "function": "getWebLeaflet"
+    },
+    "get-gtin-owner": {
+      "module": "./../../gtin-resolver",
+      "function": "getGTINOwner"
+    },
+    "integration-api": {
+      "module": "./../../gtin-resolver",
+      "function": "getIntegrationAPIs",
+      "requestLimiterConfig": {
+        "metadataCapacity": 5,
+        "epiCapacity": 5
+      }
+    },
+    "health-check-api": {
+          "module": "./../../gtin-resolver",
+          "function": "getHealthCheckAPIs"
+    },
+    "versionlessDSU": {
+      "module": "./components/versionlessDSU"
+    },
+    "staticServer": {
+      "excludedFiles": [
+        ".*.secret"
+      ]
+    },
+    "bricking": {},
+    "anchoring": {}
+  },
+  "responseHeaders": {
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-XSS-Protection": "1; mode=block"
+  },
+  "enableRequestLogger": true,
+  "enableJWTAuthorisation": false,
+  "enableOAuth": ${enable_oauth},
+  "enableAPIKeyAuth": ${enable_oauth},
+  "enableClientCredentialsOauth": ${enable_oauth},
+  "oauthJWKSEndpoint": "${oauth_jwks_endpoint}",
+  "enableLocalhostAuthorization": false,
+  "skipOAuth": [
+    "/assets",
+    "/bdns",
+    "/bundles",
+    "/gtinOwner/",
+    "/leaflets/"
+  ],
+  "oauthConfig": {
+    "issuer": {
+      "issuer": "${issuer}",
+      "authorizationEndpoint": "${authorization_endpoint}",
+      "tokenEndpoint": "${token_endpoint}",
+      "userInfoEndpoint": "https://graph.microsoft.com/oidc/userinfo"
+    },
+    "client": {
+      "clientId": "${client_id}",
+      "scope": "email user.read offline_access openid api://${client_id}/access_as_user",
+      "redirectPath": "https://${dns_name}/?root=true",
+      "clientSecret": "${client_secret}",
+      "logoutUrl": "${logout_url}",
+      "postLogoutRedirectUrl": "https://${dns_name}/?logout=true"
+    },
+    "sessionTimeout": 1800000,
+    "keyTTL": 3600000,
+    "debugLogEnabled": false
+  },
+  "serverAuthentication": ${server_authentication}
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="css/responsive.css" rel="stylesheet">
+    <script src="./js/controllers/MenuPageController.js" type="module"></script>
+    <title>PharmaLedger</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../favicon/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="../favicon/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="shortcut icon" href="../favicon/favicon.ico">
+    <link rel="manifest" href="../favicon/site.webmanifest">
+
+</head>
+<body>
+
+<div class="loader-container main-page-loader">
+    <div class="loader"></div>
+</div>
+
+<div id="settings-modal" class="modal-container info-modal">
+    <div class="modal-body terms">
+        <header>
+            <div class="modal-header left-aligned-header">
+                <button class="close-modal" aria-label="close" tabindex="1"></button>
+                <div class="icon-title-container">
+                    <div role="heading" aria-level="1" class="modal-title bold-title" tabindex="2"
+                         translate="terms_modal_title"></div>
+                </div>
+                <div role="heading" aria-level="2" class="modal-subtitle" tabindex="3"
+                     translate="terms_modal_subtitle"></div>
+            </div>
+        </header>
+        <div class="modal-content" tabindex="4" translate="terms_content"></div>
+    </div>
+    <button id="go-home-button" class="scan-button go-home-button" translate="go_home"></button>
+</div>
+
+</div>
+
+</body>
+
+</html>

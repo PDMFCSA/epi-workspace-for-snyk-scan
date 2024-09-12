@@ -1,0 +1,26 @@
+{
+  "name": "lwa",
+  "version": "2.0.1",
+  "description": "LWA Application code",
+  "main": "index.html",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "node ./node_modules/octopus/scripts/run dependencies devmode"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pharmaledgerassoc/LWA.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pharmaledgerassoc/LWA/issues"
+  },
+  "homepage": "https://github.com/pharmaledgerassoc/LWA#readme",
+  "dependencies": {
+    "octopus": "git+http://github.com/opendsu/octopus.git"
+  }
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="js/cacheControl.js"></script>
+    <link href="css/responsive.css" rel="stylesheet">
+    <title>PharmaLedger</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../favicon/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="../favicon/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="shortcut icon" href="../favicon/favicon.ico">
+    <link rel="manifest" href="../favicon/site.webmanifest">
+
+</head>
+
+<body>
+
+<div class="loader-container">
+    <div class="loader"></div>
+</div>
+
+<div id="settings-modal" class="page-container fill-available-width leaflet-page info-modal hiddenElement">
+    <div class="modal-body">
+        <div class="page-header modal-header left-aligned-header">
+            <div class="icon-title-container" tabindex="0">
+                <h1 class="product-name bold-title"></h1>
+                <!--<div class="modal-icon leaflet-title-icon hiddenElement"></div>-->
+            </div>
+            <div class="product-description" tabindex="0"></div>
+        </div>
+        <div class="modal-content">
+            <div class="leaflet-content-wrapper">
+                <div id="leaflet-content">
+                </div>
+                <button id="scan-again-button" class="scan-button go-home-button"
+                        translate="scan_again"></button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="expired-modal" class="modal-container popup-modal error-modal hiddenElement">
+    <div class="modal-body">
+        <div class="modal-header centered-header">
+            <div class="icon-title-container">
+                <div class="modal-icon"></div>
+                <div class="modal-title bold-title" id="expired-title" translate="leaflet_expired_title"
+                     role="alert"></div>
+            </div>
+            <button class="close-modal" modal-id="expired-modal" tabindex="0"
+                    aria-label="close error message"></button>
+        </div>
+        <div class="modal-content" translate="leaflet_expired_message" role="alert"></div>
+    </div>
+</div>
+<div id="incorrect-date-modal" class="modal-container popup-modal error-modal hiddenElement">
+    <div class="modal-body">
+        <div class="modal-header centered-header">
+            <div class="icon-title-container">
+                <div class="modal-icon"></div>
+                <h1 class="modal-title bold-title" id="incorrect-date-title" translate="leaflet_incorrect_date_title"
+                    role="alert"></h1>
+            </div>
+            <button class="close-modal" modal-id="incorrect-date-modal"
+                    aria-label="close error modal"></button>
+        </div>
+        <div class="modal-content" translate="leaflet_incorrect_date_message"></div>
+    </div>
+</div>
+<div id="leaflet-lang-select" class="modal-container popup-modal warning-modal hiddenElement">
+    <div class="modal-body" tabindex="0">
+        <div class="modal-header centered-header">
+            <button class="close-modal" modal-id="leaflet-lang-select"
+                    aria-label="close" tabindex="1"></button>
+            <div class="icon-title-container">
+                <div class="modal-icon" aria-label="alert-icon" role="img" tabindex="2"></div>
+                <h1 class="modal-title bold-title" id="lang-title" role="heading" aria-level="1"
+                    translate="select_lang_title" role="alert"
+                    tabindex="3"></h1>
+            </div>
+
+        </div>
+        <div class="modal-content" role="alert">
+            <div class="text-section has-leaflets" role="heading" aria-level="2"
+                 translate="leaflet_lang_select_message"></div>
+            <!-- <div class="text-section no-leaflet" translate="no_leaflet_message"></div>-->
+            <div class="languages-container" role="radiogroup" aria-label="leaflet available languages"
+                 tabindex="2"></div>
+            <button id="proceed-button" class="proceed-button has-leaflets"
+                    translate="lang_proceed"></button>
+            <div id="modal-scan-again-button" class="proceed-button no-leaflet"
+                 translate="scan_again"></div>
+            <button id="go-back-button" class="go-back-button go-home-button"
+                    translate="go_home"></button>
+        </div>
+
+    </div>
+</div>
+</body>
+<script src="./js/controllers/LeafletController.js" type="module"></script>
+</html>

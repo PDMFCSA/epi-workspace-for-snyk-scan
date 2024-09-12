@@ -1,0 +1,12 @@
+export default {
+  "epiDomain": "${epi_domain}",
+  "epiProtocolVersion": 1,
+  "appBuildVersion":  "${app_build_version}",
+  "timePerCall": ${time_per_call},
+  "totalWaitTime": ${total_wait_time},
+  "gto_TimePerCall": ${gto_time_per_call},
+  "gto_TotalWaitTime": ${gto_total_wait_time},
+  "enableEpiDomain": false,
+  "enableRootVersion": true,
+  "bdnsUrl": "${bdns_url}"
+}

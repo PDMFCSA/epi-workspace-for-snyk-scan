@@ -1,0 +1,16 @@
+{
+  "menu-items": [
+    {
+      "href": "dsu-fabric/",
+      "background_color": "#8782E1",
+      "icon": "fa-solid fa-building-columns fa-4x",
+      "label": "Enterprise Wallet"
+    },
+    {
+      "href": "demiurge",
+      "background_color": "#FAA368",
+      "icon": "fa-solid fa-atom fa-4x",
+      "label": "Demiurge Wallet"
+    }
+  ]
+}

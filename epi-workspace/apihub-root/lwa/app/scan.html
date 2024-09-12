@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="js/cacheControl.js"></script>
+    <link href="css/responsive.css" rel="stylesheet">
+    <script src="./js/controllers/ScanController.js" type="module"></script>
+    <title>PharmaLedger</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../favicon/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="../favicon/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="shortcut icon" href="../favicon/favicon.ico">
+    <link rel="manifest" href="../favicon/site.webmanifest">
+
+</head>
+<body>
+
+<div class="loader-container scan-page-loader">
+    <div class="loader"></div>
+</div>
+
+<div class="page-container fill-available-width scan-page">
+    <div class="scan-header">
+        <button id="cancel-scan-button" class="scan-cancel" translate="cancel"></button>
+        <button id="change-camera-button" class="camera-switch" translate="change_camera"></button>
+    </div>
+    <div id="scan-error" class="modal-container error-modal popup-modal hiddenElement">
+        <div class="modal-body">
+            <div class="modal-header centered-header">
+                <div class="icon-title-container">
+                    <div class="modal-icon"></div>
+                    <h1 class="modal-title bold-title" translate="scan_error_title" role="alert"></h1>
+                </div>
+                <button id="close-modal-button" class="close-modal" modal-id="scan-error"
+                        aria-label="close error message"></button>
+            </div>
+            <div class="modal-content" translate="camera_error_message" role="alert">
+            </div>
+
+        </div>
+    </div>
+
+    <div id="scanner-placeholder">
+        <!-- injected automatically -->
+    </div>
+
+</div>
+</body>
+</html>
