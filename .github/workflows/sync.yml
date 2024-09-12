@@ -25,6 +25,8 @@ jobs:
 
       - name: 'Commit files'
         run: |
+          git status
+          git add -A .
           git config --local user.email "psk.build.track@gmail.com"
           git config --local user.name "devteam[bot]"
           git commit -a -m "Code base updates"
