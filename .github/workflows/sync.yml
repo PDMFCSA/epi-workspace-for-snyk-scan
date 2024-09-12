@@ -25,9 +25,8 @@ jobs:
 
       - name: 'Commit files'
         run: |
-          rm -rf epi-workspace/.git
-          ls -al
-          git status
+          find ./epi-workspace -name .git -exec rm -rf {} \;
+          find ./epi-workspace -name .gitignore -exec rm -rf {} \;
           git add -A .
           git config --local user.email "psk.build.track@gmail.com"
           git config --local user.name "devteam[bot]"
