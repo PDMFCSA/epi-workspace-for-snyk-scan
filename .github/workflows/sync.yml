@@ -20,6 +20,8 @@ jobs:
           
       - name: 'Run dev install for epi-workspace'
         run: cd epi-workspace && npm run dev-install
+        env:
+          GITHUB_ORGANIZATION: 'axiologic-pla'
 
       - name: 'Commit files'
         run: |
