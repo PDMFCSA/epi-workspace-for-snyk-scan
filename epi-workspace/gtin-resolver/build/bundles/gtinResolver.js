@@ -1517,6 +1517,7 @@ function StatusController(server) {
         try {
             await fs.access(domainsPath);
         } catch (e) {
+            console.error(e);
             res.statusCode = 500;
             res.end(`Error`);
             return;
@@ -1677,13 +1678,14 @@ function StatusController(server) {
             // const checkData = { products: products, status: Status.COMPLETED, name: Task.CHECK_PRODUCTS };
             // resolve(markCheckCompletion(Task.CHECK_PRODUCTS, healthCheckId, checkData));
         } catch (error) {
+            console.error(error);
             res.statusCode = 500;
             let message = "";
             // Handle errors by logging the appropriate message
             if (error.statusCode) {
                 message = `Request to ${error.url} failed with status ${error.statusCode} and response body ${error.body}`;
             } else {
-                message = `Request failed with error: ${error.message}`;
+                message = `Request failed with error.`;
             }
             res.end(message);
         }
@@ -1737,13 +1739,14 @@ function StatusController(server) {
             // const checkData = { batches: batches, status: Status.COMPLETED, name: Task.CHECK_BATCHES };
             // resolve(markCheckCompletion(Task.CHECK_BATCHES, healthCheckId, checkData));
         } catch (error) {
+            console.error(error);
             res.statusCode = 500;
             let message = "";
             // Handle errors by logging the appropriate message
             if (error.statusCode) {
                 message = `Request to ${error.url} failed with status ${error.statusCode} and response body ${error.body}`;
             } else {
-                message = `Request failed with error: ${error.message}`;
+                message = `Request failed with error.`;
             }
             res.end(message);
         }
@@ -1843,8 +1846,9 @@ function StatusController(server) {
             res.statusCode = 200;
             res.end("Success");
         } catch (e) {
+            console.error(e);
             res.statusCode = 500;
-            res.end(e.message);
+            res.end("Fail");
         }
     }
 
@@ -4893,7 +4897,7 @@ module.exports = function (server) {
         } catch (e) {
             console.error(e);
             res.statusCode = 500;
-            res.end(e.message);
+            res.end("Failed to reset user DID");
         }
     })
 
@@ -4931,8 +4935,9 @@ module.exports = function (server) {
             res.statusCode = 200;
             res.end(apiKey.scope);
         } catch (e) {
+            console.error(e);
             res.statusCode = 500;
-            res.end(e.message);
+            res.end("Failed to parse secret.");
         }
     });
 }
@@ -6862,13 +6867,13 @@ function getIntegrationAPIsAuthorizationMiddleware(server) {
             apiKey = JSON.parse(Object.values(secret)[0]);
         } catch (e) {
             res.statusCode = 401;
-            res.end(`User ${userId} is not authorized`);
+            res.end(`User is not authorized`);
             return;
         }
 
         if (!SCOPES.includes(apiKey.scope)) {
             res.statusCode = 401;
-            res.end(`User ${userId} does not have the necessary permissions`);
+            res.end(`User does not have the necessary permissions`);
             return;
         }
 
@@ -6880,7 +6885,7 @@ function getIntegrationAPIsAuthorizationMiddleware(server) {
 
             if ((req.method === "PUT" || req.method === "POST" || req.method === "DELETE")) {
                 res.statusCode = 401;
-                res.end(`User ${userId} does not have write access`);
+                res.end(`User does not have write access`);
                 return;
             }
         }
@@ -7136,7 +7141,7 @@ function getWebLeaflet(server) {
         return sendResponse(response, 400, JSON.stringify({code: "002"}));
       }
 
-      if(gtin.length !== 14){
+      if(typeof gtin !== "string" || gtin.length !== 14){
         logger.info(0x103, `Validation failed for gtin.length: <gtin>`);
         return sendResponse(response, 400, JSON.stringify({code: "002"}));
       }

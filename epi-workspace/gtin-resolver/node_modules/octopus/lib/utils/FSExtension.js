@@ -305,7 +305,7 @@ function FSExtention() {
      * Computes checksum to a file or a directory based on their contents only.
      * If the source is directory, the checksum is a hash of all concatenated file hashes.
      * @param src {String} Path of a file or directory.
-     * @param algorithm {String} Hashing algorithm(default: md5). The algorithm is dependent on the available algorithms
+     * @param algorithm {String} Hashing algorithm(default: sha512). The algorithm is dependent on the available algorithms
      * supported by the version of OpenSSL on the platform. E.g. 'md5', 'sha256', 'sha512'.
      * @param encoding {String} Hashing encoding (default: 'hex'). The encoding is dependent on the
      * available digest algorithms. E.g. 'hex', 'latin1' or 'base64'.
@@ -334,7 +334,7 @@ function FSExtention() {
     /**
      * Computes hash of a string.
      * @param str {String}
-     * @param algorithm {String} Hashing algorithm(default: md5). The algorithm is dependent on the available algorithms
+     * @param algorithm {String} Hashing algorithm(default: sha512). The algorithm is dependent on the available algorithms
      * supported by the version of OpenSSL on the platform. E.g. 'md5', 'sha256', 'sha512'.
      * @param encoding {String} Hashing encoding (default: 'hex'). The encoding is dependent on the
      * available digest algorithms. E.g. 'hex', 'latin1' or 'base64'.
@@ -343,7 +343,7 @@ function FSExtention() {
      */
     var __hash = function (str, algorithm, encoding) {
         return crypto
-            .createHash(algorithm || 'md5')
+            .createHash(algorithm || 'sha512')
             .update(str)
             .digest(encoding || 'hex')
     };
@@ -351,7 +351,7 @@ function FSExtention() {
     /**
      * Computes hash of a file based on its content only.
      * @param src {String} Path of a file.
-     * @param algorithm {String} Hashing algorithm(default: md5). The algorithm is dependent on the available algorithms
+     * @param algorithm {String} Hashing algorithm(default: sha512). The algorithm is dependent on the available algorithms
      * supported by the version of OpenSSL on the platform. E.g. 'md5', 'sha256', 'sha512'.
      * @param encoding {String} Hashing encoding (default: 'hex'). The encoding is dependent on the
      * available digest algorithms. E.g. 'hex', 'latin1' or 'base64'.
@@ -372,7 +372,7 @@ function FSExtention() {
      * Computes hash of a directory based on its content only.
      * If directory has multiple files, the result is a hash of all concatenated file hashes.
      * @param src {String} Path of a directory.
-     * @param algorithm {String} Hashing algorithm(default: md5). The algorithm is dependent on the available algorithms
+     * @param algorithm {String} Hashing algorithm(default: sha512). The algorithm is dependent on the available algorithms
      * supported by the version of OpenSSL on the platform. E.g. 'md5', 'sha256', 'sha512'.
      * @param encoding {String} Hashing encoding (default: 'hex'). The encoding is dependent on the
      * available digest algorithms. E.g. 'hex', 'latin1' or 'base64'.

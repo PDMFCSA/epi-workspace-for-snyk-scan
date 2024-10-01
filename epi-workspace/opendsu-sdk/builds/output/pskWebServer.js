@@ -2509,6 +2509,12 @@ function forwardRequestToWorker(dsuWorker, req, res) {
         requestedPath = `/${requestedPath}`;
     }
 
+    if(typeof dsuWorker.port !== "undefined" || typeof dsuWorker.port !== "number") {
+        res.statusCode = 400;
+        res.end();
+        return res.end();
+    }
+
     const options = {
         hostname: "127.0.0.1",
         port: dsuWorker.port,
@@ -4728,8 +4734,9 @@ function secrets(server) {
         try {
             await secretsService.putSecretAsync(name, did, secret);
         } catch (e) {
+            console.error(e);
             res.statusCode = e.code;
-            res.end(e.message);
+            res.end("Failed to put did secret");
             return;
         }
         res.statusCode = 200;
@@ -4748,8 +4755,9 @@ function secrets(server) {
             secret = secretsService.getSecretSync(name, did);
             res.statusCode = 200;
         } catch (err) {
+            console.error(err);
             res.statusCode = err.code;
-            res.end(err.message);
+            res.end("Failed to get DID secret");
             return;
         }
         res.end(secret);
@@ -4761,8 +4769,9 @@ function secrets(server) {
             await secretsService.deleteSecretAsync(name, did)
             res.statusCode = 200;
         } catch (err) {
+            console.error(err);
             res.statusCode = err.code;
-            res.end(err.message);
+            res.end("Failed to delete DID secret");
             return;
         }
 
@@ -4870,8 +4879,9 @@ function secrets(server) {
             res.statusCode = 403;
             res.end("Forbidden");
         } catch (error) {
+            console.error(error);
             res.statusCode = 500;
-            res.end(error.message);
+            res.end("Failed");
         }
     });
 
@@ -4898,8 +4908,9 @@ function secrets(server) {
             res.statusCode = 200;
             res.end('System administrator added successfully.');
         } catch (error) {
+            console.error(error);
             res.statusCode = 500;
-            res.end(error.message);
+            res.end("Failed");
         }
     });
 
@@ -4924,9 +4935,9 @@ function secrets(server) {
             res.statusCode = 200;
             res.end('System administrator added successfully.');
         } catch (error) {
-            console.log(error);
+            console.error(error);
             res.statusCode = 500;
-            res.end(error.message);
+            res.end("Failed");
         }
     });
 
@@ -4953,8 +4964,9 @@ function secrets(server) {
             res.statusCode = 200;
             res.end('API key associated successfully.');
         } catch (error) {
+            console.error(error);
             res.statusCode = 500;
-            res.end(error.message);
+            res.end("Failed to associate API key");
         }
     });
 
@@ -4989,8 +5001,9 @@ function secrets(server) {
             res.statusCode = 200;
             res.end('API key deleted successfully.');
         } catch (error) {
+            console.error(error);
             res.statusCode = 500;
-            res.end(error.message);
+            res.end("Failed to delete API key");
         }
     });
 
@@ -5018,8 +5031,9 @@ function secrets(server) {
             res.statusCode = 200;
             res.end(secret[name]);
         } catch (error) {
+            console.error(error);
             res.statusCode = 500;
-            res.end(error.message);
+            res.end("Failed to read API key");
         }
     });
 
@@ -5049,6 +5063,7 @@ function secrets(server) {
             res.statusCode = 200;
             res.end('true');
         } catch (error) {
+            console.error(error);
             res.statusCode = 500;
             res.end('Failed to check user access.');
         }
@@ -5122,6 +5137,11 @@ function StaticServer(server) {
                     res.end();
                 }
 
+                function checkIfReservedProp(prop){
+                    let reservedProps = ["__proto__", "constructor", "prototype"];
+                    return reservedProps.indexOf(prop) !== -1;
+                }
+
                 let summary = {};
                 let directories = {};
 
@@ -5133,6 +5153,13 @@ function StaticServer(server) {
                         summaryId = "/";
                     }
                     //summaryId = path.basename(summaryId);
+                    if(checkIfReservedProp(summaryId)){
+                        logger.info(0x04, `Prototype pollution detected while constructing directory summary`);
+                        res.statusCode = 403;
+                        res.end();
+                        return;
+                    }
+
                     summary[summaryId] = {};
 
                     fs.readdir(currentPath, function (err, files) {
@@ -5146,6 +5173,12 @@ function StaticServer(server) {
                         } else {
                             for (let i = 0; i < files.length; i++) {
                                 let file = files[i];
+                                if(checkIfReservedProp(file)){
+                                    logger.info(0x04, `Prototype pollution detected while constructing directory summary`);
+                                    res.statusCode = 403;
+                                    res.end();
+                                    return;
+                                }
                                 const fileName = path.join(currentPath, file);
                                 if (fs.statSync(fileName).isDirectory()) {
                                     extractContent(fileName);
@@ -5447,7 +5480,7 @@ async function handleCreateWallet(request, response) {
     } catch (error) {
         logger.error("[Stream] Error", error);
         response.statusCode = 500;
-        return response.end(error);
+        return response.end("Failed to create wallet");
     }
 }
 
@@ -5514,7 +5547,7 @@ async function handleStreamRequest(request, response) {
     } catch (error) {
         logger.error("[Stream] error", error);
         response.statusCode = 500;
-        return response.end(error);
+        return response.end("Failed to handle stream");
     }
 }
 
@@ -6834,7 +6867,7 @@ function bodyContentLength(request) {
         return;
     }
 
-    if (request.body.constructor.name in ['String', '$$.Buffer', 'ArrayBuffer']) {
+    if (typeof request.body !== "undefined" && request.body.constructor.name in ['String', '$$.Buffer', 'ArrayBuffer']) {
         request.options.headers['Content-Length'] = $$.Buffer.byteLength(request.body);
     }
 }
@@ -7431,38 +7464,9 @@ function bodyParser(req, res, next) {
     });
 }
 
-function serveStaticFile(baseFolder, ignorePath) {
-    return function (req, res) {
-        const fs = require('fs');
-        const path = require("swarmutils").path;
+module.exports = {setDataHandler, setDataHandlerMiddleware, sendErrorResponse, bodyParser};
 
-        const url = req.url.substring(ignorePath.length);
-        const filePath = path.join(baseFolder, url);
-        fs.stat(filePath, (err) => {
-            if (err) {
-                res.statusCode = 404;
-                res.end();
-                return;
-            }
-
-            if (url.endsWith('.html')) {
-                res.contentType = 'text/html';
-            } else if (url.endsWith('.css')) {
-                res.contentType = 'text/css';
-            } else if (url.endsWith('.js')) {
-                res.contentType = 'text/javascript';
-            }
-
-            const fileStream = fs.createReadStream(filePath);
-            fileStream.pipe(res);
-
-        });
-    };
-}
-
-module.exports = {setDataHandler, setDataHandlerMiddleware, sendErrorResponse, bodyParser, serveStaticFile};
-
-},{"fs":false,"swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/http-wrapper/src/index.js":[function(require,module,exports){
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/http-wrapper/src/index.js":[function(require,module,exports){
 const Client = require('./classes/Client');
 const Server = require('./classes/Server');
 const httpUtils = require('./httpUtils');
@@ -8076,8 +8080,9 @@ module.exports = function (server) {
                 let tasks = await $$.promisify(lightDBEnclaveClient.getAllRecords)($$.SYSTEM_IDENTIFIER, HISTORY_TABLE);
                 status.total = tasks ? tasks.length : 0;
             }catch(err){
+                console.error(err);
                 res.statusCode = 500;
-                res.end(`Failed to generate status info ${err.message}`);
+                res.end(`Failed to generate status info`);
             }
             res.statusCode = 200;
             res.end(JSON.stringify(status));
@@ -8282,8 +8287,9 @@ module.exports = function (server) {
             let fixedUrl = body.pop();
             taskRegistry.register(fixedUrl, function (err) {
                 if (err) {
+                    console.error(err);
                     res.statusCode = 500;
-                    return res.end(`Failed to register url because: ${err.message}`);
+                    return res.end(`Failed to register url`);
                 }
                 recursiveRegistry();
             });
@@ -8301,9 +8307,9 @@ module.exports = function (server) {
         }
         taskRegistry.schedule(req.body.toString(), function (err) {
             if (err) {
-                logger.log(err);
+                logger.error(err);
                 res.statusCode = 500;
-                return res.end(`Failed to schedule task ${err.message}`);
+                return res.end(`Failed to schedule task`);
             }
             res.statusCode = 200;
             res.end();
@@ -8319,9 +8325,9 @@ module.exports = function (server) {
         }
         taskRegistry.cancel(req.body.toString(), function (err) {
             if (err) {
-                logger.log(err);
+                logger.error(err);
                 res.statusCode = 500;
-                return res.end(`Failed to cancel task ${err.message}`);
+                return res.end(`Failed to cancel task`);
             }
             res.statusCode = 200;
             res.end();
@@ -9113,8 +9119,9 @@ function OAuthMiddleware(server) {
                 body: params
             })
         } catch (e) {
+            console.error(e);
             res.statusCode = 500;
-            res.end(e.message);
+            res.end("Failed");
             return;
         }
         if (response.status !== 200) {
@@ -9141,8 +9148,9 @@ function OAuthMiddleware(server) {
         try {
             data = await response.json();
         } catch (e) {
+            console.error(e);
             res.statusCode = 500;
-            res.end(e.message);
+            res.end("Failed");
             return;
         }
         const {payload} = util.parseAccessToken(data.access_token);
@@ -10182,8 +10190,9 @@ module.exports = function (server) {
                 try {
                     await fsPromises.writeFile(secretsFilePath, updatedData, 'utf8');
                 } catch (e) {
+                    console.error(e);
                     res.statusCode = 500;
-                    return res.end(`Error writing file: ${e.message}`);
+                    return res.end(`Fail`);
                 }
             }
             let apiKey;
@@ -10191,8 +10200,9 @@ module.exports = function (server) {
                 apiKey = await secretsService.generateAPIKeyAsync(formResult.username, false);
                 await secretsService.putSecretAsync(appName, formResult.username, apiKey);
             } catch (e) {
+                console.error(e);
                 res.statusCode = 500;
-                return res.end(`Error writing secret: ${e.message}`);
+                return res.end(`Error writing secret`);
             }
             res.setHeader('Set-Cookie', [`SimpleAuthorisation=${formResult.username}:${apiKey}; HttpOnly`, `ssoId=${ssoId}; HttpOnly`, `apiKey=${apiKey}; HttpOnly`]);
             res.writeHead(302, {'Location': '/redirect'});
@@ -19512,11 +19522,12 @@ function CloudEnclaveBootService(server) {
         const didDocument = await $$.promisify(w3cDID.createIdentity)("key", undefined, key);
         this.createFolderForDID(didDocument.getIdentifier(), (err) => {
             if (err) {
-                res.end(err);
+                console.debug("Failed to create folder for DID in order to create enclave.", err);
+                res.end("Failed to create folder for DID in order to create enclave.");
             }
             // initEnclave(logger, didDocument, didDir);
             //to do
-            res.end(didDocument.getIdentifier())
+            res.end(didDocument.getIdentifier());
         })
 
     }
@@ -27648,7 +27659,7 @@ function LightDBServer(config, callback) {
                         if (err) {
                             res.statusCode = 500;
                             logger.debug(`Error while executing command ${command.commandName}`, err);
-                            res.write(`Error while executing command ${command.commandName}: ${err.message}`);
+                            res.write(`Error while executing command`);
                             return res.end();
                         }
 
@@ -27679,7 +27690,7 @@ function LightDBServer(config, callback) {
                 if (err) {
                     logger.error(`Failed to resolve DID ${args[0]}`, err);
                     res.statusCode = 500;
-                    res.write(`Failed to resolve DID ${args[0]}`);
+                    res.write(`Failed to resolve DID`);
                     return res.end();
                 }
 
