@@ -8,3 +8,4 @@ exclude:
         - epi-workspace/bin/**
         - epi-workspace/ethadapter/**
         - epi-workspace/apihub-root/lwa/**
+        - epi-workspace/opendsu-sdk/modules/opendsu/tests/**
