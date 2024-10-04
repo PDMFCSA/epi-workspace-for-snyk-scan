@@ -828,6 +828,12 @@ function getGTINOwner(server) {
   const GTIN_OWNERS_TABLE = "gtinOwners";
   async function getGtinOwnerHandler(request, response) {
     let epiDomain = request.params.epiDomain;
+    const isValidDomain = require("swarmutils").isValidDomain;
+    if(!isValidDomain(epiDomain)) {
+      logger.error("Domain validation failed", epiDomain);
+      response.statusCode = 400;
+      return response.end("Fail");
+    }
     let gtin = request.params.gtin;
     const url = `/gtinOwner/${epiDomain}/${gtin}`;
     let gtinOwnerDomain;
@@ -917,7 +923,7 @@ function sendResponse(response, statusCode, message) {
 
 module.exports.getGTINOwner = getGTINOwner;
 
-},{"../GTIN_SSI":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/GTIN_SSI.js","fs":false,"loki-enclave-facade":false,"opendsu":false,"path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/healthCheckAPIs/constants.js":[function(require,module,exports){
+},{"../GTIN_SSI":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/GTIN_SSI.js","fs":false,"loki-enclave-facade":false,"opendsu":false,"path":false,"swarmutils":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/healthCheckAPIs/constants.js":[function(require,module,exports){
 module.exports = {
     HEALTH_CHECK_STATUSES : {
         IN_PROGRESS: "in_progress",
@@ -7125,6 +7131,13 @@ function getWebLeaflet(server) {
   async function getLeafletHandler(request, response) {
 
     let domainName = request.params.domain;
+    const isValidDomain = require("swarmutils").isValidDomain;
+    if(!isValidDomain(domainName)) {
+      logger.error("Domain validation failed", domainName);
+      response.statusCode = 400;
+      return response.end("Fail");
+    }
+
     let leaflet_type = request.query.leaflet_type || "";
     let gtin = request.query.gtin || null;
     let lang = request.query.lang || "";
@@ -7342,7 +7355,7 @@ function sendResponse(response, statusCode, message) {
 
 module.exports.getWebLeaflet = getWebLeaflet;
 
-},{"../GTIN_SSI":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/GTIN_SSI.js","../utils/ValidationUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/ValidationUtils.js","./../services/LeafletInfoService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/LeafletInfoService.js","./../services/XMLDisplayService/XMLDisplayService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/XMLDisplayService/XMLDisplayService.js","./../utils/Languages":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/Languages.js","./leafletUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/leaflet-web-api/leafletUtils.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/leaflet-web-api/leafletUtils.js":[function(require,module,exports){
+},{"../GTIN_SSI":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/GTIN_SSI.js","../utils/ValidationUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/ValidationUtils.js","./../services/LeafletInfoService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/LeafletInfoService.js","./../services/XMLDisplayService/XMLDisplayService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/XMLDisplayService/XMLDisplayService.js","./../utils/Languages":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/Languages.js","./leafletUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/leaflet-web-api/leafletUtils.js","swarmutils":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/leaflet-web-api/leafletUtils.js":[function(require,module,exports){
 const XMLDisplayService = require("../services/XMLDisplayService/XMLDisplayService");
 const GTIN_SSI = require("../GTIN_SSI");
 

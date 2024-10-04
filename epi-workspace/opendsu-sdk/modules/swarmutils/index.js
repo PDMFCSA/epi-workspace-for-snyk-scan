@@ -50,3 +50,9 @@ module.exports.ensureIsBuffer = function (data) {
 
 module.exports.removeDir = require("./lib/removeDir").removeDir;
 module.exports.removeDirSync = require("./lib/removeDir").removeDirSync;
+
+module.exports.isValidDomain = function(domain){
+    const urlParamRegex = /^[a-zA-Z0-9\-_.\/]+$/;
+
+    return urlParamRegex.test(domain);
+}
