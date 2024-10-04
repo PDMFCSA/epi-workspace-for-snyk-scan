@@ -80,10 +80,12 @@ assert.callback("Enclave default db insert test", (testFinishCallback) => {
         data = await $$.promisify(testDb.filter)(DID, TABLE_NAME)
         assert.equal(data.length, 5);
 
-        data = await $$.promisify(testDb.filter)(DID, TABLE_NAME, "age >= 15", "desc", 3)
+        data = await $$.promisify(testDb.filter)(DID, TABLE_NAME, ["age >= 15", "age <= 25"], "desc");
         assert.equal(data.length, 3);
         assert.equal(data[0].age > data[1].age && data[1].age > data[2].age, true)
 
+        data = await $$.promisify(testDb.filter)(DID, TABLE_NAME, "name like \\btest\\w*", "desc", 3)
+        assert.equal(data.length, 3);
         testFinishCallback();
     })
 }, 60000)
