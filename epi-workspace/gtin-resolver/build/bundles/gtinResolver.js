@@ -5161,10 +5161,12 @@ function ModelBase(enclave, domain, subdomain, gtin) {
 
         let sreadSSI = await $$.promisify(mutableDSU.getKeySSIAsString)("sread");
         const mutableMountingPoint = this.getMutableMountingPoint();
-
-        const batchId = await immutableDSU.startOrAttachBatchAsync();
-        await $$.promisify(immutableDSU.mount)(mutableMountingPoint, sreadSSI);
-
+        const existingFilesAndFolders = await $$.promisify(immutableDSU.readDir)(mutableMountingPoint);
+        let batchId;
+        if (existingFilesAndFolders.length === 0) {
+            batchId = await immutableDSU.startOrAttachBatchAsync();
+            await $$.promisify(immutableDSU.mount)(mutableMountingPoint, sreadSSI);
+        }
         return {mutableDSU, immutableDSU, batchId};
     }
 
@@ -5344,9 +5346,9 @@ function ModelBase(enclave, domain, subdomain, gtin) {
                 }
 
                 //not sure why we had this timeout, but i'll leave it for backward compatible behaviour
-                setTimeout(() => {
-                    resolve(dsu);
-                }, 3000);
+                // setTimeout(() => {
+                resolve(dsu);
+                // }, 3000);
             })
         }
 
@@ -5384,7 +5386,6 @@ function ModelBase(enclave, domain, subdomain, gtin) {
         return new Promise(async (resolve, reject) => {
             try {
                 await recoverDSU(gtinSSI, recoveryImmutableDSU);
-
                 let recoveredMutableDSU;
                 let mutableJustCreated = false;
                 try{

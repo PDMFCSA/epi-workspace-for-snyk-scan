@@ -28030,7 +28030,7 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
 
         conditions.forEach(condition => {
             // Update regex pattern to capture more complex patterns for LIKE
-            const match = condition.match(/^(\w+)\s*(>=|<=|=|==|!=|<>|>|<|like)\s*(.*)$/i);
+            const match = condition.match(/^(\w+)\s*(>=|<=|==|!=|<>|>|<|like)\s*(.*)$/i);
             if (!match) {
                 throw new Error(`Invalid condition: ${condition}`);
             }
