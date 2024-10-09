@@ -27765,7 +27765,7 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
     const SEED_SSIS_TABLE = "seedssis";
     const DIDS_PRIVATE_KEYS = "dids_private";
     const AUTOSAVE_INTERVAL = 5000;
-    const adapter = adaptorConstructorFunction === undefined ? new loki.LokiPartitioningAdapter(new loki.LokiFsAdapter()) : new adaptorConstructorFunction();
+    const adapter = adaptorConstructorFunction === undefined ? new Adapters.PARTITIONED() : new adaptorConstructorFunction();
 
     logger.info(`Initializing Loki database ${rootFolder}`);
     autosaveInterval = autosaveInterval || AUTOSAVE_INTERVAL;
@@ -28629,7 +28629,11 @@ const Adapters = {
     FS: require("./lib/lokijs/src/lokijs").LokiFsAdapter,
     FS_SYNC: require("./lib/lokijs/src/loki-fs-sync-adapter.js"),
     STRUCTURED: require("./lib/lokijs/src/loki-fs-structured-adapter.js"),
-    PARTITIONED: require("./lib/lokijs/src/lokijs").LokiPartitioningAdapter
+    PARTITIONED: function () {
+        const LokiPartitioningAdapter = require("./lib/lokijs/src/lokijs").LokiPartitioningAdapter
+        const LokiFsAdapter = require("./lib/lokijs/src/lokijs").LokiFsAdapter
+        return new LokiPartitioningAdapter(new LokiFsAdapter());
+    }
 }
 
 module.exports = Adapters;
