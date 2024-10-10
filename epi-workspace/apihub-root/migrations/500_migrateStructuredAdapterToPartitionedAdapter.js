@@ -39,7 +39,6 @@ const migrateTable = async (structuredLokiEnclaveFacadeInstance, tableName, part
 }
 const migrateAllTables = async (structuredLokiEnclaveFacadeInstance, partitionedLokiEnclaveFacadeInstance) => {
     const tables = await $$.promisify(structuredLokiEnclaveFacadeInstance.getCollections)($$.SYSTEM_IDENTIFIER);
-    // const tables = ["path-keyssi-private-keys", "user-access", "path", "audit", "products", "batches"];
     for (let table of tables) {
         try {
             await migrateTable(structuredLokiEnclaveFacadeInstance, table, partitionedLokiEnclaveFacadeInstance);
@@ -51,7 +50,6 @@ const migrateAllTables = async (structuredLokiEnclaveFacadeInstance, partitioned
 }
 
 const migrateStructuredAdapterToPartitionedAdapter = async () => {
-    // return
     try {
         fs.accessSync(DSU_FABRIC_ENCLAVE_MIGRATED_PATH);
         console.log("DSU Fabric Enclave already migrated");
@@ -71,10 +69,8 @@ const migrateStructuredAdapterToPartitionedAdapter = async () => {
     const newContent = fileContent.toString().replace(DSU_FABRIC_ENCLAVE_FOLDER_NAME, DSU_FABRIC_ENCLAVE_RENAMED_FOLDER_NAME);
     fs.writeFileSync(DSU_FABRIC_ENCLAVE_RENAMED_PATH, newContent);
 
-    const structuredLokiEnclaveFacade = LokiEnclaveFacade.createLokiEnclaveFacadeInstance(DSU_FABRIC_ENCLAVE_RENAMED_PATH, undefined, adapters.PARTITIONED);
+    const structuredLokiEnclaveFacade = LokiEnclaveFacade.createLokiEnclaveFacadeInstance(DSU_FABRIC_ENCLAVE_RENAMED_PATH, undefined, adapters.STRUCTURED);
 
-    // sleep for 1 second to allow the database to be created
-    await new Promise((resolve) => setTimeout(resolve, 3000));
     try {
         fs.mkdirSync(DSU_FABRIC_ENCLAVE_FOLDER_PATH, {recursive: true});
     } catch (e) {
