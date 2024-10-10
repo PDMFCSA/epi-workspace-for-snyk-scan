@@ -4656,7 +4656,7 @@ function secrets(server) {
             secret = secretsService.getSecretSync(appName, userId);
         } catch (e) {
             response.statusCode = e.code;
-            response.end(e.message);
+            response.end("Fail");
             return;
         }
 
@@ -4671,9 +4671,9 @@ function secrets(server) {
         try {
             secret = JSON.parse(request.body).secret;
         } catch (e) {
-            logger.error("Failed to parse body", request.body);
+            logger.error("Failed to parse body", e);
             response.statusCode = 500;
-            response.end(e);
+            response.end("Fail");
             return;
         }
 
@@ -4681,7 +4681,7 @@ function secrets(server) {
             await secretsService.putSecretAsync(appName, userId, secret);
         } catch (e) {
             response.statusCode = e.code;
-            response.end(e.message);
+            response.end("Fail");
             return;
         }
 
@@ -4697,7 +4697,7 @@ function secrets(server) {
             await secretsService.deleteSecretAsync(appName, userId);
         } catch (e) {
             response.statusCode = e.code;
-            response.end(e.message);
+            response.end("Fail");
             return;
         }
 

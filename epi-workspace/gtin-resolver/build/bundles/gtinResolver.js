@@ -2696,6 +2696,16 @@ function BatchController(enclave, version) {
 
         try {
             batch = await batchFactory.createBatch(domain, subdomain, gtin, batchNumber, version);
+
+            try{
+                await batch.lock();
+            }catch(err){
+                logger.info(err);
+                await auditService.auditFail(auditId, operationFailContext);
+                res.send(423);
+                return;
+            }
+
             batch.update(batchData);
             try {
                 await batch.persist(operationSuccessContext);
@@ -2802,6 +2812,16 @@ function BatchController(enclave, version) {
         }
 
         try {
+
+            try{
+                await batch.lock();
+            }catch(err){
+                logger.info(err);
+                await auditService.auditFail(auditId, operationFailContext);
+                res.send(423);
+                return;
+            }
+
             batch.update(batchData);
             try {
                 await batch.persist(operationSuccessContext);
@@ -2811,6 +2831,8 @@ function BatchController(enclave, version) {
                 res.send(529, err.message);
                 return;
             }
+
+            await batch.unlock();
             await auditService.auditBatch(auditId, JSON.parse(JSON.stringify(batch)), operationSuccessContext);
         } catch (err) {
             logger.error(err);
@@ -3086,8 +3108,20 @@ function LeafletController(enclave, version) {
             }
             let {otherFilesContent} = leafletMessage.payload;
             try {
+
+                try{
+                    await targetObject.lock();
+                }catch(err){
+                    logger.info(err);
+                    await auditService.auditFail(auditId, operationFailContext);
+                    res.send(423);
+                    return;
+                }
+
                 await targetObject.addEPI(language, epiType, base64XMLFileContent, otherFilesContent);
                 await targetObject.persist(operationSuccessContext);
+
+                await targetObject.unlock();
             } catch (err) {
                 logger.error(err);
                 await auditService.auditFail(auditId, operationFailContext);
@@ -3196,11 +3230,22 @@ function LeafletController(enclave, version) {
             }
 
             try {
+                try{
+                    await targetObject.lock();
+                }catch(err){
+                    logger.info(err);
+                    await auditService.auditFail(auditId, operationFailContext);
+                    res.send(423);
+                    return;
+                }
+
                 let existing = await targetObject.deleteEPI(language, epiType);
                 if (!existing) {
                     successStatusCode = 204;
                 }
                 await targetObject.persist(operationSuccessContext);
+
+                await targetObject.unlock();
             } catch (err) {
                 await auditService.auditFail(auditId, operationFailContext);
                 logger.error(err);
@@ -3390,6 +3435,16 @@ function ProductController(enclave, version) {
 
         try {
             product = await productFactory.createProduct(domain, subdomain, gtin, version);
+
+            try{
+                await product.lock();
+            }catch(err){
+                logger.info(err);
+                await auditService.auditFail(auditId, failedOperationContext);
+                res.send(423);
+                return;
+            }
+
             //todo: CODE-REVIEW - why do we call this function here? can we hide this in the update function before doing the update?!
             product.update(productData);
             try {
@@ -3402,8 +3457,10 @@ function ProductController(enclave, version) {
                 return;
             }
 
+            await product.unlock();
+
         } catch (err) {
-            logger.error(err)
+            logger.error(err);
             await auditService.auditFail(auditId, failedOperationContext);
             res.send(500);
             return;
@@ -3453,6 +3510,15 @@ function ProductController(enclave, version) {
             userId
         }
 
+        let auditId;
+        try {
+            auditId = await auditService.auditOperationInProgress(operationInProgressContext);
+        } catch (err) {
+            logger.error(err)
+            res.send(500, "Failed to audit start of an operation");
+            return;
+        }
+
         try {
             product = await productFactory.lookupProduct(domain, subdomain, gtin, version);
             if (!product) {
@@ -3465,16 +3531,18 @@ function ProductController(enclave, version) {
             return;
         }
 
-        let auditId;
-        try {
-            auditId = await auditService.auditOperationInProgress(operationInProgressContext);
-        } catch (err) {
-            logger.error(err)
-            res.send(500, "Failed to audit start of an operation");
-            return;
-        }
 
         try {
+
+            try{
+                await product.lock();
+            }catch(err){
+                logger.info(err);
+                await auditService.auditFail(auditId, failedOperationContext);
+                res.send(423);
+                return;
+            }
+
             product.update(productData);
             try {
                 await product.persist(successOperationContext);
@@ -3485,6 +3553,7 @@ function ProductController(enclave, version) {
                 return;
             }
 
+            await product.unlock();
         } catch (err) {
             logger.error(err);
             await auditService.auditFail(auditId, failedOperationContext);
@@ -3561,6 +3630,15 @@ function ProductController(enclave, version) {
                 return;
             }
 
+            try{
+                await product.lock();
+            }catch(err){
+                logger.info(err);
+                await auditService.auditFail(auditId, failedOperationContext);
+                res.send(423);
+                return;
+            }
+
             try {
                 await product.addPhoto(imageData);
                 successOperationContext.diffs = await product.persist(successOperationContext);
@@ -3570,6 +3648,8 @@ function ProductController(enclave, version) {
                 return res.send(500, "Failed to add photo");
                 //.... return proper error to the client
             }
+
+            await product.unlock();
 
         } catch (err) {
             logger.error(err);
@@ -3653,6 +3733,15 @@ function ProductController(enclave, version) {
                 return;
             }
 
+            try{
+                await product.lock();
+            }catch(err){
+                logger.info(err);
+                await auditService.auditFail(auditId, failedOperationContext);
+                res.send(423);
+                return;
+            }
+
             try {
                 await product.deletePhoto();
                 successOperationContext.diffs = await product.persist(successOperationContext);
@@ -3661,6 +3750,8 @@ function ProductController(enclave, version) {
                 await auditService.auditFail(auditId, failedOperationContext);
                 //.... return proper error to the client
             }
+
+            await product.unlock();
 
         } catch (err) {
             logger.error(err);
@@ -4054,7 +4145,7 @@ module.exports = function (server) {
         req.auditService = auditService;
         req.demiurgeAuditService = demiurgeAuditService;
         next();
-    })
+    });
 
     //------ Product
     server.post("/integration/product/:gtin", requestBodyJSONMiddleware);
@@ -5439,6 +5530,22 @@ function ModelBase(enclave, domain, subdomain, gtin) {
         let version = await require("opendsu").loadApi("anchoring").getNextVersionNumberAsync(mutableDSU.getCreationSSI());
         return --version;
     }
+
+    this.lock = async function(){
+        const {acquireLock} = require("../../utils/Locks.js");
+        const anchorId = await this.getGTINSSI().getAnchorIdAsync();
+        try{
+            this.lockId = await acquireLock(anchorId, 55*1000);
+        }catch(err){
+            throw Error("Failed to lock the resource!");
+        }
+    }
+
+    this.unlock = async function(){
+        const {releaseLock} = require("../../utils/Locks.js");
+        const anchorId = await this.getGTINSSI().getAnchorIdAsync();
+        await releaseLock(anchorId, this.lockId);
+    }
 }
 
 ModelBase.prototype.constants = {
@@ -5499,7 +5606,7 @@ ModelBase.prototype.checkStatus = async function () {
 
 module.exports = ModelBase;
 
-},{"../../mappings/errors/errorUtils.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/mappings/errors/errorUtils.js","../../services/XMLDisplayService/XMLDisplayService.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/XMLDisplayService/XMLDisplayService.js","../../utils/CommonUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/CommonUtils.js","../utils/Events":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/integrationAPIs/utils/Events.js","../utils/constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/integrationAPIs/utils/constants.js","./../../mappings/utils.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/mappings/utils.js","opendsu":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/integrationAPIs/models/Product.js":[function(require,module,exports){
+},{"../../mappings/errors/errorUtils.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/mappings/errors/errorUtils.js","../../services/XMLDisplayService/XMLDisplayService.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/XMLDisplayService/XMLDisplayService.js","../../utils/CommonUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/CommonUtils.js","../../utils/Locks.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/Locks.js","../utils/Events":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/integrationAPIs/utils/Events.js","../utils/constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/integrationAPIs/utils/constants.js","./../../mappings/utils.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/mappings/utils.js","opendsu":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/integrationAPIs/models/Product.js":[function(require,module,exports){
 const ModelBase = require("./ModelBase.js");
 const GTIN_SSI = require("../../GTIN_SSI.js");
 const constants = require("../../constants/constants.js");
@@ -13666,7 +13773,35 @@ module.exports = {
   getLanguageRegex
 }
 
-},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/LogUtils.js":[function(require,module,exports){
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/Locks.js":[function(require,module,exports){
+const opendsu = require("opendsu");
+const lockApi = opendsu.loadApi("lock");
+
+async function acquireLock(resourceId, period) {
+    const crypto = opendsu.loadApi("crypto");
+    let secret = crypto.encodeBase58(crypto.generateRandom(32));
+
+    let lockAcquired;
+
+    lockAcquired = await lockApi.lockAsync(resourceId, secret, period);
+
+    if (!lockAcquired) {
+        secret = undefined;
+    }
+
+    return secret;
+}
+
+async function releaseLock(resourceId, secret) {
+    try {
+        await lockApi.unlockAsync(resourceId, secret);
+    } catch (err) {
+        //if the unlock fails, the lock will be released after the expiration period set at the beginning.
+    }
+}
+
+module.exports = {acquireLock, releaseLock};
+},{"opendsu":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/LogUtils.js":[function(require,module,exports){
 const constants = require("../constants/constants");
 const utils = require("../utils/CommonUtils.js");
 let instance;
