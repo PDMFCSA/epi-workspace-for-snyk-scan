@@ -610,11 +610,16 @@ const path = require('path');
 const constants = require("../constants/constants");
 const MESSAGE_SEPARATOR = "#$%/N";
 function getEPIMappingEngineMessageResults(server) {
-  const MESSAGES_PATH =path.join(server.rootFolder, "external-volume", "messages")
+  const MESSAGES_PATH =path.join(server.rootFolder, "external-volume", "messages");
 
   function getLogs(msgParam, domain, callback) {
     const LOGS_FOLDER = path.join(MESSAGES_PATH, domain);
     const LOGS_FILE = path.join(LOGS_FOLDER, constants.LOGS_TABLE);
+
+    if(path.resolve(LOGS_FILE).indexOf(MESSAGES_PATH) === -1) {
+      return callback(Error("Path Traversal detected!"));
+    }
+
     fs.access(LOGS_FILE, fs.F_OK, (err) => {
       if (err) {
         return callback(`No logs found for domain -  ${domain}`);
@@ -654,6 +659,12 @@ function getEPIMappingEngineMessageResults(server) {
         const logsFile = path.join(fileDir, constants.LOGS_TABLE);
         if (!fs.existsSync(fileDir)) {
           fs.mkdirSync(fileDir, {recursive: true});
+        }
+
+        if(path.resolve(logsFile).indexOf(MESSAGES_PATH) === -1) {
+          response.statusCode = 403;
+          response.end();
+          return
         }
 
         fs.appendFile(logsFile, body + MESSAGE_SEPARATOR, (err) => {
