@@ -275,7 +275,7 @@ function getEPIMappingEngineForAPIHUB(server) {
         } catch (err) {
           console.log(err);
           err.debug_message === "Invalid credentials" ? response.statusCode = 403 : response.statusCode = 500;
-          response.write(err.message);
+          response.write("Failed to digest messages.");
           return response.end();
         }
 
@@ -293,7 +293,7 @@ function getEPIMappingEngineForAPIHUB(server) {
       } catch (err) {
         console.error("Error on parse request message", err);
         err.debug_message === "Invalid credentials" ? response.statusCode = 403 : response.statusCode = 500;
-        response.write(err.message);
+        response.write("Failed to parse request message");
         response.end();
       }
     })
