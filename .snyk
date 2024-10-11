@@ -9,4 +9,5 @@ exclude:
         - epi-workspace/ethadapter/**
         - epi-workspace/apihub-root/lwa/**
         - epi-workspace/opendsu-sdk/modules/opendsu/tests/**
+        - epi-workspace/opendsu-sdk/modules/apihub/tests/**
         - epi-workspace/gtin-resolver/tests/**
