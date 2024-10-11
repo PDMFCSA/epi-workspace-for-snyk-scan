@@ -17827,7 +17827,6 @@ const handle = (dsu, req, res, requestedPath) => {
 
     let data = [];
     req.on("data", (chunk) => {
-        console.log("chuink", chunk);
         data.push(chunk);
         // data += chunk;
     });
@@ -17835,7 +17834,6 @@ const handle = (dsu, req, res, requestedPath) => {
     req.on("end", () => {
         try {
             req.body = $$.Buffer.concat(data);
-            console.log("req.body", req.body.toString())
             uploader.upload(req, function (err, uploadedFiles) {
                 if (err && (!Array.isArray(uploadedFiles) || !uploadedFiles.length)) {
                     console.log(err);
