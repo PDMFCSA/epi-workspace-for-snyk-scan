@@ -4244,6 +4244,14 @@ module.exports = function (server) {
             return res.end();
         }
 
+        let disabledSchemas = ["file://", "dict://", "ftp://", "gopher://"];
+        for(let schema of disabledSchemas){
+            if(url.startsWith(schema)){
+                res.statusCode = 403;
+                return res.end();
+            }
+        }
+
         let body = req.body.body || "";
         let options = req.body.options || {method: "POST"};
 
@@ -5675,6 +5683,8 @@ async function init(server) {
 }
 
 function sendVersionlessDSUContent(parsedDSUContent, response) {
+    //generic content type header for snyk identified vulnerability
+    response.setHeader('Content-Type', 'application/octet-stream');
     response.statusCode = 200;
     response.write(parsedDSUContent);
     response.end();
