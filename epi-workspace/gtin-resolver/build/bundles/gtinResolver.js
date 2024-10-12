@@ -3521,15 +3521,6 @@ function ProductController(enclave, version) {
             userId
         }
 
-        let auditId;
-        try {
-            auditId = await auditService.auditOperationInProgress(operationInProgressContext);
-        } catch (err) {
-            logger.error(err)
-            res.send(500, "Failed to audit start of an operation");
-            return;
-        }
-
         try {
             product = await productFactory.lookupProduct(domain, subdomain, gtin, version);
             if (!product) {
@@ -3542,6 +3533,15 @@ function ProductController(enclave, version) {
             return;
         }
 
+
+        let auditId;
+        try {
+            auditId = await auditService.auditOperationInProgress(operationInProgressContext);
+        } catch (err) {
+            logger.error(err)
+            res.send(500, "Failed to audit start of an operation");
+            return;
+        }
 
         try {
 
