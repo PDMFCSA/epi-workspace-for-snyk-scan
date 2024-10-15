@@ -27482,6 +27482,7 @@ function LightDBServer(config, callback) {
         config.storage = lightDBStorage;
     }
     const enclaves = {};
+    const clonedEnclaves = {};
     const path = require("path");
     const fs = require("fs");
     try {
@@ -27492,6 +27493,7 @@ function LightDBServer(config, callback) {
                 let enclaveName = entry.name;
                 logger.info(`Loading database ${enclaveName}`);
                 enclaves[enclaveName] = new LokiEnclaveFacade(path.join(lightDBStorage, enclaveName, DATABASE));
+                clonedEnclaves[enclaveName] = new LokiEnclaveFacade(path.join(lightDBStorage, enclaveName, DATABASE));
             }
         }
     } catch (err) {
@@ -27673,8 +27675,11 @@ function LightDBServer(config, callback) {
                         try {
                             let lastRefresh = lastRefreshes[req.params.dbName];
                             if (!lastRefresh || LAST_REFRESH_TIMEOUT < Date.now() - lastRefresh) {
-                                await enclaves[req.params.dbName].refreshAsync();
-                                lastRefreshes[req.params.dbName] = Date.now();
+                                enclaves[req.params.dbName].refresh(undefined, (err) => {
+                                    clonedEnclaves[req.params.dbName].refresh(undefined, (err) => {
+                                        lastRefreshes[req.params.dbName] = Date.now();
+                                    });
+                                });
                             }
                         } catch (err) {
                             //we ignore any refresh errors for now...
@@ -27701,7 +27706,11 @@ function LightDBServer(config, callback) {
 
                     // trying to capture any sync error that might occur during the execution of the command
                     try {
-                        enclaves[req.params.dbName][command.commandName](...args);
+                        if (enclaves[req.params.dbName].refreshInProgress()) {
+                            clonedEnclaves[req.params.dbName][command.commandName](...args);
+                        } else {
+                            enclaves[req.params.dbName][command.commandName](...args);
+                        }
                     } catch (e) {
                         cb(e);
                     }
@@ -28486,12 +28495,22 @@ function LokiEnclaveFacade(rootFolder, autosaveInterval, adaptorConstructorFunct
     const EnclaveMixin = openDSU.loadAPI("enclave").EnclaveMixin;
     EnclaveMixin(this);
 
+    let refreshInProgress = false;
+
     this.close = async () => {
         return await this.storageDB.close();
     }
 
+    this.refreshInProgress = (forDID) => {
+        return refreshInProgress;
+    }
+
     this.refresh =  (forDID, callback) => {
-        this.storageDB.refresh(callback);
+        refreshInProgress = true;
+        this.storageDB.refresh((err) => {
+            refreshInProgress = false;
+            callback(err);
+        });
     }
 
     this.saveDatabase =  (forDID, callback) => {
