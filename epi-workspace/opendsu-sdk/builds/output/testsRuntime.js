@@ -29547,7 +29547,7 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
     const SEED_SSIS_TABLE = "seedssis";
     const DIDS_PRIVATE_KEYS = "dids_private";
     const AUTOSAVE_INTERVAL = 5000;
-    const adapter = adaptorConstructorFunction === undefined ? new Adapters.PARTITIONED() : new adaptorConstructorFunction();
+    const adapter = adaptorConstructorFunction === undefined ? new Adapters.FS() : new adaptorConstructorFunction();
 
     logger.info(`Initializing Loki database ${rootFolder}`);
     autosaveInterval = autosaveInterval || AUTOSAVE_INTERVAL;
@@ -29804,7 +29804,7 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
     }
 
     function convertConditionsToLokiQuery(conditions) {
-        if (!conditions || conditions.length === 0) {
+        if (!conditions || conditions.length === 0 || conditions === "") {
             return {};
         }
         // Array to store the conditions that will go into the $and structure
