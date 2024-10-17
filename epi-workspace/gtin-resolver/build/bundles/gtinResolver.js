@@ -281,6 +281,7 @@ function getEPIMappingEngineForAPIHUB(server) {
 
         response.statusCode = 200;
         if (droppedMessages.length > 0) {
+          response.setHeader("Content-type", 'application/json');
           response.write(JSON.stringify({droppedMessages, reason: "Invalid or missing token"}));
           let messagesToPersist = workerController.getResponseTemplates(droppedMessages);
           let errInfo = customErr.otherErrors.details[0];
@@ -1813,6 +1814,7 @@ function StatusController(server) {
         }
         if (record) {
             res.statusCode = 200;
+            res.setHeader("Content-type", "application/json");
             res.end(JSON.stringify(record));
             return;
         }
