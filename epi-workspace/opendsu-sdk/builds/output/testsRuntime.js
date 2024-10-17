@@ -5513,13 +5513,30 @@ async function handleCreateWallet(request, response) {
 }
 
 async function handleStreamRequest(request, response) {
-    const {keySSI} = request.params;
+    const { keySSI } = request.params;
+
+    // Validate keySSI to allow only Base64 or Base58 characters
+    const keySSIPattern = /^[A-Za-z0-9+/=]*$|^[A-HJ-NP-Za-km-z1-9]*$/;
+    if (!keySSIPattern.test(keySSI)) {
+        response.statusCode = 400;
+        return response.end("Invalid keySSI");
+    }
+
     let requestedPath = request.url.substr(request.url.indexOf(keySSI) + keySSI.length);
+
+    // Sanitize requestedPath
     if (!requestedPath) {
         requestedPath = "/";
     }
     if (!requestedPath.startsWith("/")) {
         requestedPath = `/${requestedPath}`;
+    }
+
+    // Allow requestedPath to contain alphanumeric characters, /, _, -, ., and spaces
+    const pathPattern = /^[a-zA-Z0-9/_\-\. ]*$/;
+    if (!pathPattern.test(requestedPath)) {
+        response.statusCode = 400;
+        return response.end("Invalid path");
     }
 
     let range = request.headers.range;
@@ -5549,7 +5566,7 @@ async function handleStreamRequest(request, response) {
                 return callback(err);
             }
 
-            let {error, result} = typeof Event !== "undefined" && message instanceof Event ? message.data : message;
+            let { error, result } = typeof Event !== "undefined" && message instanceof Event ? message.data : message;
 
             if (error) {
                 return callback(error);
@@ -5578,6 +5595,7 @@ async function handleStreamRequest(request, response) {
         return response.end("Failed to handle stream");
     }
 }
+
 
 module.exports = {
     handleCreateWallet,
