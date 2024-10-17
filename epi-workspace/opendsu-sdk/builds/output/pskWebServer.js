@@ -4685,6 +4685,7 @@ function secrets(server) {
         }
 
         response.statusCode = 200;
+        response.setHeader("Content-type", "text/plain");
         response.end(secret);
     }
 
@@ -4781,6 +4782,7 @@ function secrets(server) {
             res.end("Failed to get DID secret");
             return;
         }
+        res.setHeader("Content-type", "text/plain");
         res.end(secret);
     }
 
@@ -4847,6 +4849,7 @@ function secrets(server) {
         // generate a new API key
         const apiKey = await secretsService.generateAPIKeyAsync(keyId, isAdmin === "true")
         res.statusCode = 200;
+        res.setHeader("Content-type", "text/plain");
         res.end(apiKey);
     });
 
@@ -5050,6 +5053,7 @@ function secrets(server) {
             }
 
             res.statusCode = 200;
+            res.setHeader("Content-type", "text/plain");
             res.end(secret[name]);
         } catch (error) {
             console.error(error);
