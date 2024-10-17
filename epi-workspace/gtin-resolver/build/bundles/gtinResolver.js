@@ -932,6 +932,7 @@ function getGTINOwner(server) {
 
 function sendResponse(response, statusCode, message) {
   response.statusCode = statusCode;
+  response.setHeader("Content-Type", "text/plain");
   response.end(message);
 }
 
