@@ -5172,13 +5172,26 @@ function StaticServer(server) {
 
                 function extractContent(currentPath) {
                     directories[currentPath] = -1;
+
+                    // Ensure that currentPath is inside the targetPath
+                    const resolvedCurrentPath = path.resolve(currentPath);
+                    const resolvedTargetPath = path.resolve(targetPath);
+
+                    // Prevent path traversal by checking that resolvedCurrentPath is within resolvedTargetPath
+                    if (!resolvedCurrentPath.startsWith(resolvedTargetPath)) {
+                        logger.info(0x04, `Path traversal attempt detected`);
+                        res.statusCode = 403;
+                        res.end();
+                        return;
+                    }
+
                     let summaryId = currentPath.replace(targetPath, "");
                     summaryId = summaryId.split(path.sep).join("/");
                     if (summaryId === "") {
                         summaryId = "/";
                     }
-                    //summaryId = path.basename(summaryId);
-                    if(checkIfReservedProp(summaryId)){
+
+                    if (checkIfReservedProp(summaryId)) {
                         logger.info(0x04, `Prototype pollution detected while constructing directory summary`);
                         res.statusCode = 403;
                         res.end();
@@ -5187,36 +5200,47 @@ function StaticServer(server) {
 
                     summary[summaryId] = {};
 
-                    fs.readdir(currentPath, function (err, files) {
+                    fs.readdir(resolvedCurrentPath, function (err, files) {
                         if (err) {
                             return markAsFinish(currentPath);
                         }
                         directories[currentPath] = files.length;
-                        //directory empty test
+
                         if (files.length === 0) {
                             return markAsFinish(currentPath);
                         } else {
                             for (let i = 0; i < files.length; i++) {
                                 let file = files[i];
-                                if(checkIfReservedProp(file)){
+                                if (checkIfReservedProp(file)) {
                                     logger.info(0x04, `Prototype pollution detected while constructing directory summary`);
                                     res.statusCode = 403;
                                     res.end();
                                     return;
                                 }
-                                const fileName = path.join(currentPath, file);
-                                if (fs.statSync(fileName).isDirectory()) {
-                                    extractContent(fileName);
+
+                                const fileName = path.join(resolvedCurrentPath, file);
+                                const resolvedFileName = path.resolve(fileName);
+
+                                // Ensure that resolvedFileName is inside the targetPath
+                                if (!resolvedFileName.startsWith(resolvedTargetPath)) {
+                                    logger.info(0x04, `Path traversal attempt detected`);
+                                    res.statusCode = 403;
+                                    res.end();
+                                    return;
+                                }
+
+                                if (fs.statSync(resolvedFileName).isDirectory()) {
+                                    extractContent(resolvedFileName);
                                 } else {
-                                    let fileContent = fs.readFileSync(fileName);
+                                    let fileContent = fs.readFileSync(resolvedFileName);
                                     let fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1);
                                     let mimeType = utils.getMimeTypeFromExtension(fileExtension);
+
                                     if (mimeType.binary) {
                                         summary[summaryId][file] = Array.from(fileContent);
                                     } else {
                                         summary[summaryId][file] = fileContent.toString();
                                     }
-
                                 }
                                 directories[currentPath]--;
                             }
@@ -8214,8 +8238,11 @@ module.exports = function (server) {
             url = converter.toString().replace(urlBase, "");
 
             //executing the request
-
+            let start = performance.now();
+            console.debug(0x666, "Start making local request", url, start);
             server.makeLocalRequest("GET", url, "", {}, function (error, result) {
+                const end = performance.now();
+                console.debug(0x666, "Finished making local request", url, end, (end - start) / 1000);
                 if (error) {
                     logger.error("caught an error during fetching fixedUrl", error.message, error.code, error);
                     if (error.httpCode && error.httpCode > 300) {
@@ -27739,6 +27766,8 @@ function LightDBServer(config, callback) {
 
             let didDocument;
             const __verifySignatureAndExecuteCommand = () => {
+                let start = performance.now();
+                logger.debug(0x667,`Start executing command on server: ${command.commandName} commandID: ${command.commandID}`, start);
                 didDocument.verify(body.command, $$.Buffer.from(body.signature, "base64"), async (err, result) => {
                     if (err) {
                         logger.error(`Failed to verify signature`, err);
@@ -27791,6 +27820,8 @@ function LightDBServer(config, callback) {
                             res.write(JSON.stringify(result));
                         }
 
+                        let end = performance.now();
+                        logger.debug(0x667,`Finished executing command on server: ${command.commandName} commandID: ${command.commandID}`, end, (end - start)/1000);
                         res.end();
                     }
 
@@ -28048,6 +28079,8 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
     }
 
     this.insertRecord = (tableName, pk, record, callback) => {
+        let start = performance.now();
+        console.debug(0x667, `Inserting record in table ${tableName} with pk ${pk}`, start);
         let table = db.getCollection(tableName) || db.addCollection(tableName);
         if (record.meta) {
             delete record.meta;
@@ -28075,10 +28108,14 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
             return callback(createOpenDSUErrorWrapper(` Could not insert record in table ${tableName} `, err))
         }
 
+        let end = performance.now();
+        console.debug(0x667, `Finished inserting record in table ${tableName} with pk ${pk}`, end, (end - start)/1000);
         callback(null, result);
     }
 
     this.updateRecord = function (tableName, pk, record, callback) {
+        let start = performance.now();
+        console.debug(0x667, `Updating record in table ${tableName} with pk ${pk}`, start);
         let table = db.getCollection(tableName) || db.addCollection(tableName);
         let doc;
         try {
@@ -28106,10 +28143,14 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
             return callback(createOpenDSUErrorWrapper(` Could not insert record in table ${tableName} `, err));
         }
 
+        let end = performance.now();
+        console.debug(0x667, `Finished updating record in table ${tableName} with pk ${pk}`, end, (end - start)/1000);
         callback(null, result);
     }
 
     this.deleteRecord = function (tableName, pk, callback) {
+        let start = performance.now();
+        console.debug(0x667, `Deleting record in table ${tableName} with pk ${pk}`, start);
         let table = db.getCollection(tableName);
         if (!table) {
             return callback();
@@ -28126,10 +28167,14 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
             return callback(createOpenDSUErrorWrapper(`Couldn't do remove for pk ${pk} in ${tableName}`, err))
         }
 
+        let end = performance.now();
+        console.debug(0x667, `Finished deleting record in table ${tableName} with pk ${pk}`, end, (end - start)/1000);
         callback(null, record);
     }
 
     this.getRecord = function (tableName, pk, callback) {
+        let start = performance.now();
+        console.debug(0x667, `Getting record in table ${tableName} with pk ${pk}`, start);
         let table = db.getCollection(tableName);
         if (!table) {
             return callback(Error(`Table ${tableName} not found`));
@@ -28141,6 +28186,8 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
             return callback(createOpenDSUErrorWrapper(`Could not find object with pk ${pk}`, err));
         }
 
+        let end = performance.now();
+        console.debug(0x667, `Finished getting record in table ${tableName} with pk ${pk}`, end, (end - start)/1000);
         callback(null, result)
     }
 
@@ -28191,6 +28238,8 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
     }
 
     this.filter = function (tableName, filterConditions, sort, max, callback) {
+        let start = performance.now();
+        console.debug(0x667, `Filtering records in table ${tableName}`, start);
         if (typeof filterConditions === "string") {
             filterConditions = [filterConditions];
         }
@@ -28237,10 +28286,14 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
         }
 
 
+        let end = performance.now();
+        console.debug(0x667, `Finished filtering records in table ${tableName}`, end, (end - start)/1000);
         callback(null, result);
     }
 
     this.getAllRecords = (tableName, callback) => {
+        let start = performance.now();
+        console.debug(0x667, `Getting all records in table ${tableName}`, start);
         let table = db.getCollection(tableName);
         if (!table) {
             return callback(undefined, []);
@@ -28256,6 +28309,8 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
         if (!results) {
             results = [];
         }
+        let end = performance.now();
+        console.debug(0x667, `Finished getting all records in table ${tableName}`, end, (end - start)/1000);
         callback(null, results);
     };
 
@@ -47995,6 +48050,8 @@ function LightDBEnclave(dbName, slots, saveSSIMapping = false) {
         }
 
         command = JSON.stringify(command);
+        let start = performance.now();
+        console.debug(0x667, `Start executing command: ${command}`, start);
         didDocument.sign(command, (err, signature) => {
             if (err) {
                 return callback(err);
@@ -48015,6 +48072,7 @@ function LightDBEnclave(dbName, slots, saveSSIMapping = false) {
                     return callback(e);
                 }
 
+                console.debug(0x667, `Finished executing command: ${command}`, performance.now());
                 callback(undefined, response);
             });
         })
