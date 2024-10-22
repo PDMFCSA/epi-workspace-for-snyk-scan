@@ -1332,6 +1332,7 @@ function StatusController(server) {
         }
         await initiateCheck(Tasks.SECRETS, checkId);
         res.statusCode = 200;
+        res.setHeader("Content-Type", "text/plain");
         res.end(checkId);
         const encryptionKeys = process.env.SSO_SECRETS_ENCRYPTION_KEY ? process.env.SSO_SECRETS_ENCRYPTION_KEY.split(",") : undefined;
         let encryptionKey = encryptionKeys ? encryptionKeys[0].trim() : undefined;
@@ -1534,6 +1535,7 @@ function StatusController(server) {
         }
         await initiateCheck(Tasks.ANCHORING, checkId);
         res.statusCode = 200;
+        res.setHeader("Content-Type", "text/plain");
         res.end(checkId);
         const domainsPath = path.join(server.rootFolder, "external-volume", "domains");
         try {
@@ -1622,6 +1624,7 @@ function StatusController(server) {
         }
         await initiateCheck(Tasks.BRICKING, checkId);
         res.statusCode = 200;
+        res.setHeader("Content-Type", "text/plain");
         res.end(checkId);
         const domainsPath = path.join(server.rootFolder, "external-volume", "domains");
         const domains = await fs.readdir(domainsPath);
@@ -1709,7 +1712,8 @@ function StatusController(server) {
             } else {
                 message = `Request failed with error.`;
             }
-            res.end(message);
+            res.setHeader("Content-Type", "text/plain");
+            res.end("Failed to check products");
         }
     }
 
@@ -1756,6 +1760,7 @@ function StatusController(server) {
 
 
             res.statusCode = 200;
+            res.setHeader("Content-Type", "text/plain");
             // If no errors occur, log success message
             res.end("Batches check successful, no issues found");
             // const checkData = { batches: batches, status: Status.COMPLETED, name: Task.CHECK_BATCHES };
@@ -1770,7 +1775,9 @@ function StatusController(server) {
             } else {
                 message = `Request failed with error.`;
             }
-            res.end(message);
+            console.debug(message);
+            res.setHeader("Content-Type", "text/plain");
+            res.end("Failed to check batches");
         }
     }
 
@@ -1803,6 +1810,7 @@ function StatusController(server) {
         if (!checkType) {
             const statuses = await getCheckStatusForAllComponents(healthCheckId);
             res.statusCode = 200;
+            res.setHeader("Content-Type", "application/json");
             res.end(JSON.stringify(statuses));
             return;
         }
@@ -1819,6 +1827,7 @@ function StatusController(server) {
             return;
         }
         res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json");
         res.end(JSON.stringify({status: Status.NEVER_EXECUTED}));
     }
 
@@ -1835,6 +1844,7 @@ function StatusController(server) {
             pk
         };
         res.statusCode = 200;
+        res.setHeader("Content-Type", "text/plain");
         res.end(pk);
 
         let objectData = {
