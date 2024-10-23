@@ -23481,7 +23481,7 @@ const {_getResolver, _getKeySSISpace} = require('./commands/utils');
  * <pre>
  *     {
  anchoring: "default",
- publicSecretsKey: '-$Identity-',
+ pskPlaceholder: '-$Identity-',
  environmentKey: "-$Environment-",
  basePath: "",
  stripBasePathOnInstall: false,
@@ -23504,7 +23504,7 @@ const {_getResolver, _getKeySSISpace} = require('./commands/utils');
  */
 const OPTIONS = {
     anchoring: process.env.VAULT_DOMAIN || "vault",
-    publicSecretsKey: '-$Identity-',
+    pskPlaceholder: '-$Identity-',
     environmentKey: "-$Environment-",
     basePath: "",
     stripBasePathOnInstall: false,
@@ -23791,7 +23791,7 @@ function AppBuilderService(environment, opts) {
             // embed the environment and identity into in the initializations commands
             let commands = data.toString().replace(options.environmentKey, JSON.stringify(resetBasePath(options.environment)));
             commands = (publicSecrets
-                ? commands.replace(options.publicSecretsKey, JSON.stringify(publicSecrets))
+                ? commands.replace(options.pskPlaceholder, JSON.stringify(publicSecrets))
                 : commands)
                 .split(/\r?\n/).map(cmd => cmd.trim()).filter(cmd => !!cmd && !cmd.startsWith('##'));
 
