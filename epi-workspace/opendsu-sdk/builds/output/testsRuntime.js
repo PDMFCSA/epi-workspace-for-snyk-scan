@@ -8383,7 +8383,19 @@ module.exports = function (server) {
                             logger.error("Failed to grant write access to the enclave", err.message, err.code, err.rootCause);
                         }
 
-                        setInterval(taskRunner.execute, INTERVAL_TIME);
+                        lightDBEnclaveClient.createCollection($$.SYSTEM_IDENTIFIER, TASKS_TABLE, ["pk", "__timestamp"], (err) => {
+                            if (err) {
+                                logger.error("Failed to create collection", err.message, err.code, err.rootCause);
+                            }
+
+                            lightDBEnclaveClient.createCollection($$.SYSTEM_IDENTIFIER, HISTORY_TABLE, ["pk", "__timestamp"], (err) => {
+                                if (err) {
+                                    logger.error("Failed to create collection", err.message, err.code, err.rootCause);
+                                }
+
+                                setInterval(taskRunner.execute, INTERVAL_TIME);
+                            });
+                        });
                     })
                 })
             })
@@ -29816,7 +29828,7 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
         } catch (err) {
             return callback(createOpenDSUErrorWrapper(`Could not create collection ${tableName}`, err))
         }
-        callback();
+        callback(undefined, {message: `Collection ${tableName} created`});
     }
 
     this.addIndex = function (tableName, property, callback) {
@@ -29832,7 +29844,7 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
     this.insertRecord = (tableName, pk, record, callback) => {
         let start = Date.now();
         console.debug(0x667, `Inserting record in table ${tableName} with pk ${pk}`, start);
-        let table = db.getCollection(tableName) || db.addCollection(tableName);
+        let table = db.getCollection(tableName) || db.addCollection(tableName, {indices: ["pk", "__timestamp"]});
         if (record.meta) {
             delete record.meta;
         }
@@ -29867,10 +29879,10 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
     this.updateRecord = function (tableName, pk, record, callback) {
         let start = Date.now();
         console.debug(0x667, `Updating record in table ${tableName} with pk ${pk}`, start);
-        let table = db.getCollection(tableName) || db.addCollection(tableName);
+        let table = db.getCollection(tableName) || db.addCollection(tableName, {indices: ["pk", "__timestamp"]});
         let doc;
         try {
-            doc = table.findObject({'pk': pk});
+            doc = table.by("pk", pk);
             if (!doc && record.__fallbackToInsert) {
                 //this __fallbackToInsert e.g. is used by fixedURL component
                 record.__fallbackToInsert = undefined;
@@ -29907,13 +29919,13 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
             return callback();
         }
 
-        let record = table.findOne({'pk': pk});
+        let record = table.by('pk', pk);
         if (!record) {
             return callback(undefined, {pk});
         }
 
         try {
-            table.findAndRemove({'pk': pk});
+            table.remove(record);
         } catch (err) {
             return callback(createOpenDSUErrorWrapper(`Couldn't do remove for pk ${pk} in ${tableName}`, err))
         }
@@ -29932,7 +29944,7 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
         }
         let result;
         try {
-            result = table.findObject({'pk': pk});
+            result = table.by('pk', pk);
         } catch (err) {
             return callback(createOpenDSUErrorWrapper(`Could not find object with pk ${pk}`, err));
         }
@@ -49574,7 +49586,9 @@ module.exports = {
     GET_PRIVATE_INFO_FOR_DID:"getPrivateInfoForDID",
     GET_COLLECTIONS: "getCollections",
     SAVE_DATABASE: "saveDatabase",
-    REMOVE_COLLECTION: "removeCollection"
+    REMOVE_COLLECTION: "removeCollection",
+    CREATE_COLLECTION: "createCollection",
+    ADD_INDEX: "addIndex"
 }
 },{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/enclave/constants/constants.js":[function(require,module,exports){
 module.exports = {
@@ -51428,6 +51442,18 @@ function ProxyMixin(target) {
 
     target.hasExecutionAccess = (forDID, callback) => {
         target.__putCommandObject(commandNames.HAS_EXECUTION_ACCESS, forDID, callback);
+    }
+
+    target.createCollection = (forDID, tableName, indicesList, callback) => {
+        if (typeof indicesList === "function") {
+            callback = indicesList;
+            indicesList = undefined;
+        }
+        target.__putCommandObject(commandNames.CREATE_COLLECTION, forDID, tableName, indicesList, callback);
+    }
+
+    target.addIndex = (forDID, tableName, field, callback) => {
+        target.__putCommandObject(commandNames.ADD_INDEX, forDID, tableName, field, callback);
     }
 
     target.getCollections = (forDID, callback) => {
@@ -54849,8 +54875,8 @@ const Client = require('./Client');
 
 
 const ID_TOKEN = 'session.idToken';
-const ACCESS_TOKEN = 'session.accessToken';
-const REFRESH_TOKEN = 'session.refreshToken';
+const ACCESS_TKN = 'session.accessToken';
+const REFRESH_TKN = 'session.refreshToken';
 const EXPIRATION_TIMESTAMP = 'session.expirationTimestamp';
 const AUTHORIZATION_CODE_VERIFIER = 'session.codeVerifier';
 const AUTHORIZATION_STATE = 'session.state';
@@ -54925,7 +54951,7 @@ class OIDC {
 
 
     getToken(decoded) {
-        const token = this.storage.get(ACCESS_TOKEN);
+        const token = this.storage.get(ACCESS_TKN);
         return decoded ? this.decodeToken(token) : token;
     }
 
@@ -54937,7 +54963,7 @@ class OIDC {
 
 
     isAccessTokenInStorage() {
-        return !!this.storage.get(ACCESS_TOKEN);
+        return !!this.storage.get(ACCESS_TKN);
     }
 
 
@@ -54967,11 +54993,11 @@ class OIDC {
 
     refreshWithRefreshToken() {
         console.log('refresh.refreshToken');
-        if (!this.storage.get(REFRESH_TOKEN)) {
+        if (!this.storage.get(REFRESH_TKN)) {
             return Promise.reject(Error('Refresh token not found'));
         }
         const options = {
-            refreshToken: this.storage.get(REFRESH_TOKEN)
+            refreshToken: this.storage.get(REFRESH_TKN)
         }
 
         this.storage.set(INTERACTION, INTERACTION_REFRESH);
@@ -55114,8 +55140,8 @@ class OIDC {
 
     updateStorageWithTokenSet(tokenSet) {
         this.storage.set(EXPIRATION_TIMESTAMP, Date.now() + (tokenSet['expires_in'] * 1000));
-        this.storage.set(ACCESS_TOKEN, tokenSet['access_token']);
-        this.storage.set(REFRESH_TOKEN, tokenSet['refresh_token']);
+        this.storage.set(ACCESS_TKN, tokenSet['access_token']);
+        this.storage.set(REFRESH_TKN, tokenSet['refresh_token']);
         if (tokenSet['id_token']) {
             this.storage.set(ID_TOKEN, tokenSet['id_token']);
         }
@@ -55144,9 +55170,9 @@ class OIDC {
 
 
     cleanUpTokenStorage() {
-        this.storage.remove(ACCESS_TOKEN);
+        this.storage.remove(ACCESS_TKN);
         this.storage.remove(ID_TOKEN);
-        this.storage.remove(REFRESH_TOKEN);
+        this.storage.remove(REFRESH_TKN);
         this.storage.remove(EXPIRATION_TIMESTAMP);
     }
 
