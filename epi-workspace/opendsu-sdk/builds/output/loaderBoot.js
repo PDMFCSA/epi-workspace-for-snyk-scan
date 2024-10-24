@@ -26714,7 +26714,8 @@ module.exports = {
     SAVE_DATABASE: "saveDatabase",
     REMOVE_COLLECTION: "removeCollection",
     CREATE_COLLECTION: "createCollection",
-    ADD_INDEX: "addIndex"
+    ADD_INDEX: "addIndex",
+    GET_ONE_RECORD: "getOneRecord"
 }
 },{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/enclave/constants/constants.js":[function(require,module,exports){
 module.exports = {
@@ -26896,6 +26897,10 @@ function LightDBEnclave(dbName, slots, saveSSIMapping = false) {
             http.doPut(url, JSON.stringify(signedCommand), (err, response) => {
                 if (err) {
                     return callback(err);
+                }
+
+                if(!response){
+                    return callback();
                 }
 
                 try {
@@ -28623,6 +28628,10 @@ function ProxyMixin(target) {
             encryptedRecord = plainRecord;
         }
         target.__putCommandObject(commandNames.UPDATE_RECORD, forDID, table, pk, encryptedRecord, callback);
+    }
+
+    target.getOneRecord = (forDID, table, callback) => {
+        target.__putCommandObject(commandNames.GET_ONE_RECORD, forDID, table, callback);
     }
 
     target.getRecord = (forDID, table, pk, callback) => {
