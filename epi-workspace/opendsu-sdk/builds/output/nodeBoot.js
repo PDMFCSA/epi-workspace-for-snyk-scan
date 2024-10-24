@@ -17703,7 +17703,8 @@ const handle = (dsu, res, requestedPath) => {
                 }
 
                 res.statusCode = 500;
-                return res.end(Object.prototype.toString.call(err));
+                console.debug(Object.prototype.toString.call(err));
+                return res.end();
             }
 
             // Extract the filename
@@ -17871,7 +17872,7 @@ const handle = (dsu, req, res, requestedPath) => {
             req.body = $$.Buffer.concat(data);
             uploader.upload(req, function (err, uploadedFiles) {
                 if (err && (!Array.isArray(uploadedFiles) || !uploadedFiles.length)) {
-                    console.log(err);
+                    console.debug(err);
                     let statusCode = 400; // Validation errors
 
                     if (err instanceof Error) {
@@ -17883,15 +17884,7 @@ const handle = (dsu, req, res, requestedPath) => {
 
                     res.setHeader("Content-Type", "application/json");
                     res.statusCode = statusCode;
-                    res.end(
-                        JSON.stringify(err, (key, value) => {
-                            if (value instanceof Error) {
-                                return value.message;
-                            }
-
-                            return value;
-                        })
-                    );
+                    res.end();
 
                     return;
                 }

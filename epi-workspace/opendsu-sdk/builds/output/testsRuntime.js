@@ -2987,7 +2987,9 @@ function InstallationDetails(server) {
         summary.resourceUsage = getProcessResourceUsage();
         getLog(targetPath, (err, log) => {
             if (err) {
-                return sendSummary(res, {err});
+                res.statusCode = 500;
+                res.end("Failed to read log");
+                return;
             }
             summary[path.basename(targetPath)] = log;
 
@@ -3087,14 +3089,16 @@ function KeySSINotifications(server) {
             notificationManager.readMessage(anchorId, function (err, message) {
                 try {
                     if (err) {
-                        return response.send(err.statusCode || 500, message);
+                        response.statusCode = err.statusCode || 500;
+                        response.end(message);
+                        return;
                     }
 
                     response.send(200, message);
                 } catch (err) {
                     //here we expect to get errors when a connection has reached timeout
                     logger.error(err);
-                    response.send(400, 'opps');
+                    response.send(400, 'ups. something went wrong.');
                 }
             });
         });
