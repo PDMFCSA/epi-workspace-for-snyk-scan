@@ -138,26 +138,19 @@ function PskCrypto() {
     };
 
     this.deriveKey = function deriveKey(algorithm, password, iterations) {
-        if (arguments.length === 2) {
-            if (typeof password === "number") {
-                iterations = password
-                password = algorithm;
-                algorithm = "aes-256-gcm";
-            } else {
-                iterations = 1000;
-            }
-        }
-        if (typeof password === "undefined") {
+        if(typeof iterations === "undefined"){
             iterations = 1000;
-            password = algorithm;
-            algorithm = "aes-256-gcm";
         }
+
+        if(typeof password === "undefined") {
+            throw new Error("Password argument must be provided");
+        }
+
 
         const keylen = utils.getKeyLength(algorithm);
         const salt = utils.generateSalt(password, 32);
         return crypto.pbkdf2Sync(password, salt, iterations, keylen, 'sha256');
-    };
-
+    }
 
     this.randomBytes = (len) => {
         if ($$.environmentType === "browser" /*or.constants.BROWSER_ENVIRONMENT_TYPE*/) {

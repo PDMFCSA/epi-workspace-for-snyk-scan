@@ -10605,7 +10605,7 @@ function ConstSSI(enclave, identifier) {
     }
 
     self.initialize = (dlDomain, constString, vn, hint) => {
-        const key = cryptoRegistry.getKeyDerivationFunction(self)(constString, 1000);
+        const key = cryptoRegistry.getKeyDerivationFunction(self)("aes-256-gcm", constString, 1000);
         self.load(SSITypes.CONST_SSI, dlDomain, cryptoRegistry.getBase64EncodingFunction(self)(key), "", vn, hint);
     };
 
@@ -20334,7 +20334,7 @@ const ecies_decrypt_ds = (receiverKeySSI, data) => {
 };
 
 const deriveEncryptionKey = (password, iterations) => {
-    return crypto.deriveKey(password, iterations);
+    return crypto.deriveKey("aes-256-gcm", password, iterations);
 }
 
 const convertDerSignatureToASN1 = (derSignature) => {
@@ -50019,26 +50019,19 @@ function PskCrypto() {
     };
 
     this.deriveKey = function deriveKey(algorithm, password, iterations) {
-        if (arguments.length === 2) {
-            if (typeof password === "number") {
-                iterations = password
-                password = algorithm;
-                algorithm = "aes-256-gcm";
-            } else {
-                iterations = 1000;
-            }
-        }
-        if (typeof password === "undefined") {
+        if(typeof iterations === "undefined"){
             iterations = 1000;
-            password = algorithm;
-            algorithm = "aes-256-gcm";
         }
+
+        if(typeof password === "undefined") {
+            throw new Error("Password argument must be provided");
+        }
+
 
         const keylen = utils.getKeyLength(algorithm);
         const salt = utils.generateSalt(password, 32);
         return crypto.pbkdf2Sync(password, salt, iterations, keylen, 'sha256');
-    };
-
+    }
 
     this.randomBytes = (len) => {
         if ($$.environmentType === "browser" /*or.constants.BROWSER_ENVIRONMENT_TYPE*/) {
