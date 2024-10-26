@@ -20,7 +20,7 @@ function ConstSSI(enclave, identifier) {
     }
 
     self.initialize = (dlDomain, constString, vn, hint) => {
-        const key = cryptoRegistry.getKeyDerivationFunction(self)("aes-256-gcm", constString, 1000);
+        const key = cryptoRegistry.getKeyDerivationFunction(self)(constString, 1000);
         self.load(SSITypes.CONST_SSI, dlDomain, cryptoRegistry.getBase64EncodingFunction(self)(key), "", vn, hint);
     };
 
