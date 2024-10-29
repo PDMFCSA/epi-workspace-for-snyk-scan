@@ -8033,7 +8033,6 @@ module.exports = function (server) {
         },
         add: function (task, callback) {
             let newRecord = taskRegistry.createModel(task);
-            const startTime = Date.now();
             lightDBEnclaveClient.getRecord($$.SYSTEM_IDENTIFIER, TASKS_TABLE, newRecord.pk, function (err, record) {
                 if (err || !record) {
                     return lightDBEnclaveClient.insertRecord($$.SYSTEM_IDENTIFIER, TASKS_TABLE, newRecord.pk, newRecord, (insertError)=>{
@@ -8048,13 +8047,9 @@ module.exports = function (server) {
                                 if(err){
                                     return callback(err);
                                 }
-                                const endTime = Date.now();
-                                logger.debug(0x666, `Task ${newRecord.url} updated in ${(endTime - startTime)/1000} seconds`);
                                 callback(undefined);
                             });
                         }
-                        const endTime = Date.now();
-                        logger.debug(0x666, `Task ${newRecord.url} inserted in ${(endTime - startTime)/1000} seconds`);
                         callback(undefined);
                     });
                 }
@@ -8067,7 +8062,6 @@ module.exports = function (server) {
             });
         },
         remove: function (task, callback) {
-            let start = Date.now();
             let toBeRemoved = taskRegistry.createModel(task);
             lightDBEnclaveClient.getRecord($$.SYSTEM_IDENTIFIER, TASKS_TABLE, toBeRemoved.pk, function (err, record) {
                 if (err || !record) {
@@ -8084,13 +8078,11 @@ module.exports = function (server) {
                         return callback(err);
                     }
                     const end = Date.now();
-                    logger.debug(0x666, `Task ${toBeRemoved.url} removed in ${(end - start)/1000} seconds`);
                     callback(undefined);
                 });
             });
         },
         getOneTask: function (callback) {
-            let start = Date.now();
             lightDBEnclaveClient.getOneRecord($$.SYSTEM_IDENTIFIER, TASKS_TABLE, function (err, task) {
                 if (err) {
                     return callback(err);
@@ -8105,7 +8097,6 @@ module.exports = function (server) {
                 }
                 taskRegistry.markInProgress(task.url);
                 const end = Date.now();
-                logger.debug(0x666, `Task ${task.url} retrieved in ${(end - start)/1000} seconds`);
                 callback(undefined, task);
             });
         },
@@ -8113,14 +8104,11 @@ module.exports = function (server) {
             return !!taskRegistry.inProgress[task];
         },
         isScheduled: function (task, callback) {
-            let start = Date.now();
             let tobeChecked = taskRegistry.createModel(task);
             lightDBEnclaveClient.getRecord($$.SYSTEM_IDENTIFIER, TASKS_TABLE, tobeChecked.pk, function (err, task) {
                 if (err || !task) {
                     return callback(undefined, undefined);
                 }
-                const end = Date.now();
-                logger.debug(0x666, `Task ${tobeChecked.url} checked in ${(end - start)/1000} seconds`);
                 callback(undefined, task);
             });
         },
@@ -8138,7 +8126,6 @@ module.exports = function (server) {
             lightDBEnclaveClient.getRecord($$.SYSTEM_IDENTIFIER, HISTORY_TABLE, target.pk, callback);
         },
         schedule: function (criteria, callback) {
-            let start = Date.now();
             if(server.readOnlyModeActive){
                 return callback(new Error("FixedURL scheduling is not possible when server is in readOnly mode"));
             }
@@ -8149,8 +8136,6 @@ module.exports = function (server) {
                     }
                     return callback(err);
                 }
-                let end = Date.now();
-                logger.debug(0x666, `Task ${criteria} scheduled in ${(end - start)/1000} seconds`);
                 function createTask() {
                     if (records.length === 0) {
                         return callback(undefined);
@@ -8257,7 +8242,6 @@ module.exports = function (server) {
             url = converter.toString().replace(urlBase, "");
 
             //executing the request
-            let start = Date.now();
             server.makeLocalRequest("GET", url, "", {}, function (error, result) {
                 const end = Date.now();
                 if (error) {
@@ -27795,8 +27779,6 @@ function LightDBServer(config, callback) {
 
             let didDocument;
             const __verifySignatureAndExecuteCommand = () => {
-                let start = Date.now();
-                logger.debug(0x667,`Start executing command on server: ${command.commandName} commandID: ${command.commandID}`, start);
                 didDocument.verify(body.command, $$.Buffer.from(body.signature, "base64"), async (err, result) => {
                     if (err) {
                         logger.error(`Failed to verify signature`, err);
@@ -27849,8 +27831,6 @@ function LightDBServer(config, callback) {
                             res.write(JSON.stringify(result));
                         }
 
-                        let end = Date.now();
-                        logger.debug(0x667,`Finished executing command on server: ${command.commandName} commandID: ${command.commandID}`, end, (end - start)/1000);
                         res.end();
                     }
 
@@ -28117,8 +28097,6 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
     }
 
     this.insertRecord = (tableName, pk, record, callback) => {
-        let start = Date.now();
-        console.debug(0x667, `Inserting record in table ${tableName} with pk ${pk}`, start);
         let table = getCollection(tableName);
         if (record.meta) {
             delete record.meta;
@@ -28147,14 +28125,10 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
             return callback(createOpenDSUErrorWrapper(` Could not insert record in table ${tableName} `, err))
         }
 
-        let end = Date.now();
-        console.debug(0x667, `Finished inserting record in table ${tableName} with pk ${pk}`, end, (end - start) / 1000);
         callback(null, result);
     }
 
     this.updateRecord = function (tableName, pk, record, callback) {
-        let start = Date.now();
-        console.debug(0x667, `Updating record in table ${tableName} with pk ${pk}`, start);
         let table = getCollection(tableName);
         let doc;
         try {
@@ -28183,13 +28157,10 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
         }
 
         let end = Date.now();
-        console.debug(0x667, `Finished updating record in table ${tableName} with pk ${pk}`, end, (end - start) / 1000);
         callback(null, result);
     }
 
     this.deleteRecord = function (tableName, pk, callback) {
-        let start = Date.now();
-        console.debug(0x667, `Deleting record in table ${tableName} with pk ${pk}`, start);
         let table = getCollection(tableName);
         if (!table) {
             return callback();
@@ -28206,14 +28177,10 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
             return callback(createOpenDSUErrorWrapper(`Couldn't do remove for pk ${pk} in ${tableName}`, err))
         }
 
-        let end = Date.now();
-        console.debug(0x667, `Finished deleting record in table ${tableName} with pk ${pk}`, end, (end - start) / 1000);
         callback(null, record);
     }
 
     this.getOneRecord = function (tableName, callback) {
-        let start = Date.now();
-        console.debug(0x667, `Getting one record in table ${tableName}`, start);
         let table = getCollection(tableName);
         if (!table) {
             return callback(undefined, []);
@@ -28226,15 +28193,11 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
             return callback(createOpenDSUErrorWrapper(`Filter operation failed on ${tableName}`, err));
         }
 
-        let end = Date.now();
-        console.debug(0x667, `Finished getting one record in table ${tableName}`, end, (end - start) / 1000);
         callback(null, result);
 
     }
 
     this.getRecord = function (tableName, pk, callback) {
-        let start = Date.now();
-        console.debug(0x667, `Getting record in table ${tableName} with pk ${pk}`, start);
         let table = getCollection(tableName);
         if (!table) {
             return callback(Error(`Table ${tableName} not found`));
@@ -28246,8 +28209,6 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
             return callback(createOpenDSUErrorWrapper(`Could not find object with pk ${pk}`, err));
         }
 
-        let end = Date.now();
-        console.debug(0x667, `Finished getting record in table ${tableName} with pk ${pk}`, end, (end - start) / 1000);
         callback(null, result)
     }
 
@@ -28298,8 +28259,6 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
     }
 
     this.filter = function (tableName, filterConditions, sort, max, callback) {
-        let start = Date.now();
-        console.debug(0x667, `Filtering records in table ${tableName}`, start);
         if (typeof filterConditions === "string") {
             filterConditions = [filterConditions];
         }
@@ -28338,14 +28297,10 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
             result = table.chain().simplesort(sortingField, true).limit(max || Infinity).data();
         }
 
-        let end = Date.now();
-        console.debug(0x667, `Finished filtering records in table ${tableName}`, end, (end - start) / 1000);
         callback(null, result);
     }
 
     this.getAllRecords = (tableName, callback) => {
-        let start = Date.now();
-        console.debug(0x667, `Getting all records in table ${tableName}`, start);
         let table = getCollection(tableName);
         if (!table) {
             return callback(undefined, []);
@@ -28361,8 +28316,6 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
         if (!results) {
             results = [];
         }
-        let end = Date.now();
-        console.debug(0x667, `Finished getting all records in table ${tableName}`, end, (end - start) / 1000);
         callback(null, results);
     };
 
@@ -32704,10 +32657,6 @@ module.exports = Adapters;
 
       if (!this.throttledSaves) {
         this.saveDatabaseInternal(function(err) {
-          // Calculate elapsed time in seconds
-          const elapsedTime = (Date.now() - startTime) / 1000;
-          console.log(0x555, "Saved database in", elapsedTime.toFixed(3), "seconds");
-
           if (typeof callback === 'function') {
             callback(err);
           }
@@ -32728,10 +32677,6 @@ module.exports = Adapters;
       var self = this;
       this.saveDatabaseInternal(function (err) {
         self.throttledSavePending = false;
-
-        // Calculate elapsed time in seconds
-        const elapsedTime = (Date.now() - startTime) / 1000;
-        console.debug(0x555, "Saved database in", elapsedTime.toFixed(3), "seconds");
 
         localCallbacks.forEach(function (pcb) {
           if (typeof pcb === 'function') {
@@ -48109,8 +48054,6 @@ function LightDBEnclave(dbName, slots, saveSSIMapping = false) {
         }
 
         command = JSON.stringify(command);
-        let start = Date.now();
-        console.debug(0x667, `Start executing command: ${command}`, start);
         didDocument.sign(command, (err, signature) => {
             if (err) {
                 return callback(err);
@@ -48135,7 +48078,6 @@ function LightDBEnclave(dbName, slots, saveSSIMapping = false) {
                     return callback(e);
                 }
 
-                console.debug(0x667, `Finished executing command: ${command}`, Date.now());
                 callback(undefined, response);
             });
         })

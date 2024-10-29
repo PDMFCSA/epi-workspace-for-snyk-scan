@@ -26879,8 +26879,6 @@ function LightDBEnclave(dbName, slots, saveSSIMapping = false) {
         }
 
         command = JSON.stringify(command);
-        let start = Date.now();
-        console.debug(0x667, `Start executing command: ${command}`, start);
         didDocument.sign(command, (err, signature) => {
             if (err) {
                 return callback(err);
@@ -26905,7 +26903,6 @@ function LightDBEnclave(dbName, slots, saveSSIMapping = false) {
                     return callback(e);
                 }
 
-                console.debug(0x667, `Finished executing command: ${command}`, Date.now());
                 callback(undefined, response);
             });
         })
