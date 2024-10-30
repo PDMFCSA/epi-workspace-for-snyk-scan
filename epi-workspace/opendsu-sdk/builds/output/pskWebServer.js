@@ -6198,7 +6198,10 @@ const defaultConfig = {
         "/enclave",
         "/secrets",
         "/logs"
-    ]
+    ],
+    "oauthConfig":{
+        "whitelist":[]
+    }
 };
 
 module.exports = Object.freeze(defaultConfig);
@@ -9260,6 +9263,12 @@ function OAuthMiddleware(server) {
             return;
         }
         const {clientId, clientSecret, scope, tokenEndpoint} = req.body;
+
+        if(oauthConfig.whitelist && !oauthConfig.whitelist.contains(tokenEndpoint)) {
+            res.statusCode = 401;
+            res.end("Forbidden");
+            return;
+        }
 
         const params = new URLSearchParams();
         params.append('grant_type', 'client_credentials');
