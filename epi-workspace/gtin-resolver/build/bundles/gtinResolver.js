@@ -5158,7 +5158,7 @@ module.exports = Batch;
 
 },{"../../GTIN_SSI.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/GTIN_SSI.js","../../constants/constants.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/constants/constants.js","../../mappings/utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/mappings/utils.js","./../../mappings/utils.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/mappings/utils.js","./../../utils/Languages.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/Languages.js","./ModelBase.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/integrationAPIs/models/ModelBase.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/integrationAPIs/models/ModelBase.js":[function(require,module,exports){
 const {EventRecorder, EVENTS} = require("../utils/Events");
-const {base64ToArrayBuffer, arrayBufferToBase64, getImageAsBase64} = require("../../utils/CommonUtils");
+const {getImageAsBase64} = require("../../utils/CommonUtils");
 
 function ModelBase(enclave, domain, subdomain, gtin) {
     let eventRecorder;
@@ -5314,20 +5314,15 @@ function ModelBase(enclave, domain, subdomain, gtin) {
     }
 
     this.addEPI = async (language, epiType, base64XMLFileContent, otherFilesContent) => {
-
         await this.registerFixedUrl(language, epiType);
-
         let eventRecorder = await this.getEventRecorderInstance(this.getGTINSSI());
-        let arrayBufferXMLFileContent = base64ToArrayBuffer(base64XMLFileContent);
-
         // if already exists should be replaced, so try to delete first
         eventRecorder.register(EVENTS.DELETE, this.getLeafletStoragePath(language, epiType));
-
-        eventRecorder.register(EVENTS.WRITE, this.getLeafletFilePath(language, epiType), $$.Buffer.from(arrayBufferXMLFileContent));
+        eventRecorder.register(EVENTS.WRITE, this.getLeafletFilePath(language, epiType), $$.Buffer.from(base64XMLFileContent, "base64"));
         if (otherFilesContent) {
             for (let i = 0; i < otherFilesContent.length; i++) {
                 let filePath = `${this.getLeafletStoragePath(language, epiType)}/${otherFilesContent[i].filename}`;
-                eventRecorder.register(EVENTS.WRITE, filePath, $$.Buffer.from(base64ToArrayBuffer(otherFilesContent[i].fileContent)));
+                eventRecorder.register(EVENTS.WRITE, filePath, $$.Buffer.from(otherFilesContent[i].fileContent, "base64"));
             }
         }
 
@@ -5343,7 +5338,7 @@ function ModelBase(enclave, domain, subdomain, gtin) {
             for (let file of files) {
                 let fileContent = await dsu.readFileAsync(`${epiPath}/${file}`);
                 if (file.endsWith("xml")) {
-                    epiResult.xmlFileContent = arrayBufferToBase64(fileContent);
+                    epiResult.xmlFileContent = fileContent.toString("base64");
                 } else {
                     epiResult.otherFilesContent.push({filename: file, fileContent: getImageAsBase64(fileContent)})
                 }
@@ -12877,12 +12872,25 @@ function getImageAsBase64(imageData) {
     if (typeof imageData === "string") {
         return imageData;
     }
-    if (!(imageData instanceof Uint8Array)) {
-        imageData = new Uint8Array(imageData);
+    const envTypes = require("opendsu").constants.ENVIRONMENT_TYPES;
+    let base64Image;
+
+    if ($$.environmentType === envTypes.NODEJS_ENVIRONMENT_TYPE) {
+        const buffer = $$.Buffer.isBuffer(imageData) ? imageData : $$.Buffer.from(imageData);
+        base64Image = buffer.toString('base64');
+    } else {
+        if (!(imageData instanceof Uint8Array)) {
+            imageData = new Uint8Array(imageData);
+        }
+        let binary = '';
+        const len = imageData.byteLength;
+        for (let i = 0; i < len; i++) {
+            binary += String.fromCharCode(imageData[i]);
+        }
+        base64Image = btoa(binary);
     }
-    let base64Image = bytesToBase64(imageData);
-    base64Image = `data:image/png;base64,${base64Image}`;
-    return base64Image;
+
+    return `data:image/png;base64,${base64Image}`;
 }
 
 //used to validate image data in mapping manager
