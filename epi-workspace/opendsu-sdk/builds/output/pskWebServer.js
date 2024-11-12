@@ -1133,9 +1133,9 @@ function ETH(server, domainConfig, anchorId, newAnchorValue, jsonData) {
 
 module.exports = ETH;
 },{"../../utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/utils/index.js","opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/fs/filePersistence.js":[function(require,module,exports){
-function FilePersistenceStrategy(rootFolder, configuredPath) {
+function FilePersistenceStrategy(rootFolder, configuredPath, domainName) {
     const self = this;
-    const fileOperations = new FileOperations();
+    const fileOperations = new FileOperations(domainName);
     const FSLock = require("../utils/FSLock");
     const AnchorPathResolver = require("../utils/AnchorPathResolver");
     const anchorPathResolver = new AnchorPathResolver(rootFolder, configuredPath);
@@ -1249,13 +1249,15 @@ function FilePersistenceStrategy(rootFolder, configuredPath) {
 }
 
 
-function FileOperations() {
+function FileOperations(domainName) {
     const self = this;
     const fs = require('fs');
     const path = require('path');
     let anchoringFolder;
     const endOfLine = require("os").EOL;
     const logger = $$.getLogger("FileOperations", "apihub/anchoring");
+    const backupUtils = require("../../../../utils/backupUtils");
+    const domainConfig = require("../../../../config").getDomainConfig(domainName);
     self.InitializeFolderStructure = function (rootFolder, configuredPath) {
         let storageFolder = path.join(rootFolder, configuredPath);
         anchoringFolder = path.resolve(storageFolder);
@@ -1338,21 +1340,26 @@ function FileOperations() {
         const fileContent = anchorValueSSI + endOfLine;
         const filePath = path.join(anchoringFolder, anchorId);
         fs.writeFile(filePath, fileContent, callback);
+        if (domainConfig.enableBackup) {
+            backupUtils.notifyBackup(filePath);
+        }
     }
 
     self.appendAnchor = function (anchorId, anchorValueSSI, callback) {
         const fileContent = anchorValueSSI + endOfLine;
         const filePath = path.join(anchoringFolder, anchorId);
         fs.appendFile(filePath, fileContent, callback);
+        if (domainConfig.enableBackup) {
+            backupUtils.notifyBackup(filePath);
+        }
     }
 }
-
 
 module.exports = {
     FilePersistenceStrategy
 }
 
-},{"../utils/AnchorPathResolver":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/utils/AnchorPathResolver.js","../utils/FSLock":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/utils/FSLock.js","fs":false,"os":false,"path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/fs/index.js":[function(require,module,exports){
+},{"../../../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","../../../../utils/backupUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/backupUtils.js","../utils/AnchorPathResolver":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/utils/AnchorPathResolver.js","../utils/FSLock":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/utils/FSLock.js","fs":false,"os":false,"path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/fs/index.js":[function(require,module,exports){
 const openDSU = require("opendsu");
 
 class FS {
@@ -1363,7 +1370,7 @@ class FS {
         this.commandData.anchorValue = anchorValue;
         this.commandData.jsonData = jsonData || {};
         const FilePersistence = require('./filePersistence').FilePersistenceStrategy;
-        this.fps = new FilePersistence(server.rootFolder, domainConfig.option.path);
+        this.fps = new FilePersistence(server.rootFolder, domainConfig.option.path, domainConfig.name);
         this.anchoringBehaviour = openDSU.loadApi("anchoring").getAnchoringBehaviour(this.fps);
     }
 
@@ -1409,89 +1416,15 @@ class FS {
 
 module.exports = FS;
 
-},{"./filePersistence":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/fs/filePersistence.js","opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/fsWithS3Backup/index.js":[function(require,module,exports){
-const S3 = require('../s3');
-const FS = require('../fs');
-
-function FsWithS3Backup(server, domainConfig, anchorId, anchorValue, jsonData) {
-    const fsStrategy = new FS(server, domainConfig, anchorId, anchorValue, jsonData);
-    const s3Strategy = new S3(server, domainConfig, anchorId, anchorValue, jsonData);
-
-    const backupToS3 = (action) => {
-        s3Strategy[action]((err, result) => {
-            if (err) {
-                console.error(`Error backing up ${action} to S3:`, err);
-            } else {
-                console.log(`${action} successfully backed up to S3.`, result);
-            }
-        });
-    };
-
-    this.createAnchor = (callback) => {
-        fsStrategy.createAnchor((err, result) => {
-            if (err) {
-                console.error("Error creating anchor in FS:", err);
-                // Fall back to S3 if FS fails
-                s3Strategy.createAnchor(callback);
-            } else {
-                // Asynchronously back up to S3
-                backupToS3('createAnchor');
-                callback(undefined, result);
-            }
-        });
-    };
-
-    this.appendAnchor = (callback) => {
-        fsStrategy.appendAnchor((err, result) => {
-            if (err) {
-                console.error("Error appending anchor in FS:", err);
-                // Fall back to S3 if FS fails
-                s3Strategy.appendAnchor(callback);
-            } else {
-                // Asynchronously back up to S3
-                backupToS3('appendAnchor');
-                callback(undefined, result);
-            }
-        });
-    };
-
-    this.getAllVersions = (callback) => {
-        fsStrategy.getAllVersions((err, anchorValues) => {
-            if (err || anchorValues.length === 0) {
-                console.error("Error retrieving all versions from FS or anchor not found:", err);
-                // Fall back to S3 if FS fails or no versions found
-                s3Strategy.getAllVersions(callback);
-            } else {
-                callback(undefined, anchorValues);
-            }
-        });
-    };
-
-    this.getLastVersion = (callback) => {
-        fsStrategy.getLastVersion((err, anchorValue) => {
-            if (err || !anchorValue) {
-                console.error("Error retrieving last version from FS or anchor not found:", err);
-                // Fall back to S3 if FS fails or last version not found
-                s3Strategy.getLastVersion(callback);
-            } else {
-                callback(undefined, anchorValue);
-            }
-        });
-    };
-}
-
-module.exports = FsWithS3Backup;
-
-},{"../fs":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/fs/index.js","../s3":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/s3/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/index.js":[function(require,module,exports){
+},{"./filePersistence":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/fs/filePersistence.js","opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/index.js":[function(require,module,exports){
 module.exports = {
     FS: require("./fs"),
     ETH: require("./eth"),
     /* Contract: require("./contract"),*/
-    OBA: require("./oba"),
-    FS_S3: require("./fsWithS3Backup")
+    OBA: require("./oba")
 };
 
-},{"./eth":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/eth/index.js","./fs":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/fs/index.js","./fsWithS3Backup":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/fsWithS3Backup/index.js","./oba":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/oba/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/oba/ethereumSyncService.js":[function(require,module,exports){
+},{"./eth":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/eth/index.js","./fs":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/fs/index.js","./oba":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/oba/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/oba/ethereumSyncService.js":[function(require,module,exports){
 const {ALIAS_SYNC_ERR_CODE, ANCHOR_ALREADY_EXISTS_ERR_CODE} = require("../../utils");
 const {getLokiEnclaveFacade} = require("./lokiEnclaveFacadeSingleton");
 const {getLogFilePath} = require("./getLogFilePath");
@@ -1831,77 +1764,7 @@ module.exports = {
     getLokiEnclaveFacade
 }
 
-},{"fs":false,"loki-enclave-facade":"loki-enclave-facade","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/s3/index.js":[function(require,module,exports){
-function S3(server, domainConfig, anchorId, anchorValue, jsonData) {
-    let domain = domainConfig.name;
-    const getUrl = (action) => {
-        let url = domainConfig.option.endpoint;
-        url = `${url}/${action}`;
-        if (domain) {
-            url = `${url}/${domain}`;
-        }
-        if (anchorId) {
-            url = `${url}/${anchorId}`;
-        }
-        if (anchorValue) {
-            url = `${url}/${anchorValue}`;
-        }
-        return url;
-    };
-
-    const writeToServer = (action, callback) => {
-        const endpoint = getUrl(action);
-        let options = {
-            method: 'PUT',
-            headers: {}
-        };
-
-        if (jsonData) {
-            const bodyData = JSON.stringify(jsonData);
-            options.headers['Content-Type'] = 'application/json';
-            options.body = bodyData;
-        }
-
-        fetch(endpoint, options)
-            .then(response => response.json())
-            .then(data => callback(undefined, data))
-            .catch(error => {
-                console.error("Error:", error);
-                callback(error);
-            });
-    };
-
-    const readFromServer = (action, domain, anchorId, callback, asJson = true) => {
-        const endpoint = getUrl(action);
-
-        fetch(endpoint)
-            .then(response => asJson ? response.json() : response.text())
-            .then(data => callback(undefined, data))
-            .catch(error => {
-                console.error("Error:", error);
-                callback(error);
-            });
-    };
-
-    this.createAnchor = (callback) => {
-        writeToServer("create-anchor", domain, anchorId, anchorValue, undefined, callback);
-    };
-
-    this.appendAnchor = (callback) => {
-        writeToServer("append-to-anchor", domain, anchorId, anchorValue, undefined, callback);
-    };
-
-    this.getAllVersions = (callback) => {
-        readFromServer("get-all-versions", domain, anchorId, callback, true);
-    };
-
-    this.getLastVersion = (callback) => {
-        readFromServer("get-last-version", domain, anchorId, callback, false);
-    };
-}
-
-module.exports = S3;
-},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/utils/AnchorPathResolver.js":[function(require,module,exports){
+},{"fs":false,"loki-enclave-facade":"loki-enclave-facade","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/utils/AnchorPathResolver.js":[function(require,module,exports){
 function AnchorPathResolver(rootFolder, configPath) {
     const path = require("path");
     const anchoringFolder = path.resolve(path.join(rootFolder, configPath));
@@ -2289,8 +2152,9 @@ async function requestFSBrickStorageMiddleware(request, response, next) {
     const {domain: domainName} = request.params;
     const logger = $$.getLogger("requestFSBrickStorageMiddleware", "apihub/bricking");
 
-    const domainConfig = await require("./utils").getBricksDomainConfig(domainName);
-    if (!domainConfig || !domainConfig.path) {
+    const brickingConfig = await require("./utils").getBricksDomainConfig(domainName);
+    const domainConfig = require("../../config").getDomainConfig(domainName);
+    if (!brickingConfig || !brickingConfig.path) {
         const message = `[Bricking] Domain '${domainName}' not found!`;
         logger.error(message);
         return response.send(404, message);
@@ -2303,16 +2167,18 @@ async function requestFSBrickStorageMiddleware(request, response, next) {
     const FsBrickPathsManager = require("./replication/FSBrickPathsManager");
     request.fsBrickStorage = createFSBrickStorage(
         domainName,
-        domainConfig.path,
+        brickingConfig.path,
         request.server.rootFolder,
-        new FsBrickPathsManager(2)
+        new FsBrickPathsManager(2),
+        domainConfig
     );
 
     request.oldFsBrickStorage = createFSBrickStorage(
         domainName,
-        domainConfig.path,
+        brickingConfig.path,
         request.server.rootFolder,
-        new FsBrickPathsManager(5)
+        new FsBrickPathsManager(5),
+        domainConfig
     );
 
     next();
@@ -2322,7 +2188,7 @@ module.exports = {
     requestFSBrickStorageMiddleware
 };
 
-},{"./replication/FSBrickPathsManager":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/replication/FSBrickPathsManager.js","./replication/FSBrickStorage":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/replication/FSBrickStorage.js","./utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/utils.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/replication/FSBrickPathsManager.js":[function(require,module,exports){
+},{"../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","./replication/FSBrickPathsManager":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/replication/FSBrickPathsManager.js","./replication/FSBrickStorage":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/replication/FSBrickStorage.js","./utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/utils.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/replication/FSBrickPathsManager.js":[function(require,module,exports){
 class FSBrickPathsManager {
     constructor(bricksFolderSize = 2) {
         this.brickPaths = {};
@@ -2362,11 +2228,12 @@ class FSBrickPathsManager {
 module.exports = FSBrickPathsManager;
 },{"path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/replication/FSBrickStorage.js":[function(require,module,exports){
 class FSBrickStorage {
-    constructor(domainName, domainFolder, serverRoot, fsBrickPathsManager) {
+    constructor(domainName, domainFolder, serverRoot, fsBrickPathsManager, domainConfig) {
         this.domain = domainName;
         const FSBrickPathsManager = require("./FSBrickPathsManager");
         this.fsBrickPathsManager = fsBrickPathsManager || new FSBrickPathsManager(2);
         this.fsBrickPathsManager.storeDomainPath(this.domain, domainFolder, serverRoot);
+        this.domainConfig = domainConfig;
     }
 
     getBrick(hash, callback) {
@@ -2416,6 +2283,9 @@ class FSBrickStorage {
 
         const brickPath = this.fsBrickPathsManager.resolveBrickPath(this.domain, hash);
         await $$.promisify(fs.writeFile)(brickPath, data);
+        if(this.domainConfig && this.domainConfig.enableBackup) {
+            require("../../../utils/backupUtils").notifyBackup(brickPath);
+        }
         return hash;
     }
 
@@ -2447,7 +2317,7 @@ function create(...params) {
 module.exports = {
     create
 };
-},{"./FSBrickPathsManager":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/replication/FSBrickPathsManager.js","fs":false,"opendsu":"opendsu","swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/utils.js":[function(require,module,exports){
+},{"../../../utils/backupUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/backupUtils.js","./FSBrickPathsManager":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/replication/FSBrickPathsManager.js","fs":false,"opendsu":"opendsu","swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/utils.js":[function(require,module,exports){
 const {clone} = require("../../utils");
 const {
     getLocalBdnsEntryListExcludingSelfAsync,
@@ -10733,7 +10603,26 @@ module.exports = {
         return new ExpiringFileLock(folderLock, timeout);
     }
 };
-},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/cookie-utils.js":[function(require,module,exports){
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/backupUtils.js":[function(require,module,exports){
+const fs = require('fs');
+const path = require('path');
+const serverConfig = require('../config').getConfig();
+const backupJournalFilePath = serverConfig.backupJournalFilePath || path.join(serverConfig.storage, "external-volume", "backup", "backup-journal.txt");
+const notifyBackup = (filePath) => {
+    fs.mkdirSync(path.dirname(backupJournalFilePath), {recursive: true});
+    fs.appendFile(backupJournalFilePath, `${filePath}\n`, (err) => {
+        if (err) {
+            console.error(`Failed to add file path to backup request: ${filePath}`);
+            return;
+        }
+        console.log(`File path added to backup request: ${filePath}`);
+    });
+};
+
+module.exports = {
+    notifyBackup
+};
+},{"../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","fs":false,"path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/cookie-utils.js":[function(require,module,exports){
 const COOKIE_REGEX = /([^;=\s]*)=([^;]*)/g;
 
 function parseCookies(str) {
