@@ -1325,6 +1325,15 @@ function FileOperations(domainName) {
         const filePath = path.join(anchoringFolder, anchorId);
         fs.readFile(filePath, (err, fileHashes) => {
             if (err) {
+                if(domainConfig.enableBackup){
+                    backupUtils.restoreFileFromBackup(domainConfig.backupServerUrl, filePath, (err) => {
+                        if (err) {
+                            return callback(err);
+                        }
+
+                        self.getAllVersions(anchorId, callback);
+                    })
+                }
                 return callback(new Error(`Failed to read file <${filePath}>`));
             }
             const fileContent = fileHashes.toString().trimEnd();
@@ -2224,6 +2233,8 @@ class FSBrickPathsManager {
 
 module.exports = FSBrickPathsManager;
 },{"path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/replication/FSBrickStorage.js":[function(require,module,exports){
+const backupUtils = require("../../../utils/backupUtils");
+
 class FSBrickStorage {
     constructor(domainName, domainFolder, serverRoot, fsBrickPathsManager, domainConfig) {
         this.domain = domainName;
@@ -2245,7 +2256,16 @@ class FSBrickStorage {
         const fs = require("fs");
         const brickPath = this.fsBrickPathsManager.resolveBrickPath(this.domain, hash);
         await $$.promisify(fs.access)(brickPath);
-        return await $$.promisify(fs.readFile)(brickPath);
+        try {
+            return await $$.promisify(fs.readFile)(brickPath);
+        } catch (error) {
+            if (this.domainConfig && this.domainConfig.enableBackup) {
+                const backupServerUrl = this.domainConfig.backupServerUrl;
+                await $$.promisify(backupUtils.restoreFileFromBackup)(backupServerUrl, brickPath);
+                return await $$.promisify(fs.readFile)(brickPath);
+            }
+            throw error;
+        }
     }
 
     async brickExists(hash) {
@@ -2255,6 +2275,14 @@ class FSBrickStorage {
             await $$.promisify(fs.access)(brickPath);
             return true;
         } catch (error) {
+            if (this.domainConfig && this.domainConfig.enableBackup) {
+                const backupServerUrl = this.domainConfig.backupServerUrl;
+                try {
+                    await $$.promisify(backupUtils.restoreFileFromBackup)(backupServerUrl, brickPath);
+                    return true;
+                } catch (e) {
+                }
+            }
         }
         return false
     }
@@ -2280,7 +2308,7 @@ class FSBrickStorage {
 
         const brickPath = this.fsBrickPathsManager.resolveBrickPath(this.domain, hash);
         await $$.promisify(fs.writeFile)(brickPath, data);
-        if(this.domainConfig && this.domainConfig.enableBackup) {
+        if (this.domainConfig && this.domainConfig.enableBackup) {
             require("../../../utils/backupUtils").notifyBackup(brickPath);
         }
         return hash;
@@ -10616,10 +10644,27 @@ const notifyBackup = (filePath) => {
     });
 };
 
+const restoreFileFromBackup = (backupServiceUrl, filePath, callback) => {
+    const http = require("opendsu").loadAPI("http");
+    const fileUrl = `${backupServiceUrl}/getFile/${encodeURIComponent(filePath)}`;
+    http.fetch(fileUrl).then(async (response) => {
+        if (response.statusCode !== 200) {
+            callback(new Error(`Failed to fetch file from backup service: ${fileUrl}`));
+            return;
+        }
+        const fileContent = await response.text();
+        fs.writeFileSync(filePath, fileContent, callback);
+    }).catch((err) => {
+        console.error(`Failed to fetch file from backup service: ${fileUrl}`, err);
+        callback(err);
+    });
+}
+
 module.exports = {
-    notifyBackup
+    notifyBackup,
+    restoreFileFromBackup
 };
-},{"../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","fs":false,"path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/cookie-utils.js":[function(require,module,exports){
+},{"../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","fs":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/cookie-utils.js":[function(require,module,exports){
 const COOKIE_REGEX = /([^;=\s]*)=([^;]*)/g;
 
 function parseCookies(str) {
