@@ -17773,12 +17773,13 @@ const handle = async (dsu, req, res, seed, requestedPath, dsuCodeFileCacheHandle
                 const baseUrl = `${url.substr(0, baseIndex)}/cloud-wallet/${encodedSeed}/`;
 
                 const sanitizeBaseUrl = (unsafe) => {
-                    return unsafe
-                        .replace(/&/g, "&amp;")
-                        .replace(/</g, "&lt;")
-                        .replace(/>/g, "&gt;")
-                        .replace(/"/g, "&quot;")
-                        .replace(/'/g, "&#039;");
+                    const { URL } = require('url');
+                    const parsedUrl = new URL(unsafe);
+
+                    let sanitizedUrl = `${parsedUrl.protocol}//${parsedUrl.hostname}${parsedUrl.port ? `:${parsedUrl.port}` : ''}`;
+                    sanitizedUrl += parsedUrl.pathname;
+
+                    return sanitizedUrl;
                 };
 
                 const sanitizedBaseUrl = sanitizeBaseUrl(baseUrl);
@@ -17832,7 +17833,7 @@ module.exports = {
     handle,
 };
 
-},{"../browser/util/MimeType":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/bootScripts/browser/util/MimeType.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/bootScripts/NodeThreadWorkerBootScript/mainDSUSSIHandler.js":[function(require,module,exports){
+},{"../browser/util/MimeType":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/bootScripts/browser/util/MimeType.js","url":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/bootScripts/NodeThreadWorkerBootScript/mainDSUSSIHandler.js":[function(require,module,exports){
 const handle = (seed, res) => {
     res.statusCode = 200;
     res.end(seed);

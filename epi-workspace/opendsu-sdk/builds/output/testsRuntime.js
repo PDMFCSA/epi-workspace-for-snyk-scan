@@ -1130,6 +1130,8 @@ function ETH(server, domainConfig, anchorId, newAnchorValue, jsonData) {
 
 module.exports = ETH;
 },{"../../utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/utils/index.js","opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/fs/filePersistence.js":[function(require,module,exports){
+const backupUtils = require("../../../../utils/backupUtils");
+
 function FilePersistenceStrategy(rootFolder, configuredPath, domainName) {
     const self = this;
     const fileOperations = new FileOperations(domainName);
@@ -1285,6 +1287,17 @@ function FileOperations(domainName) {
         const filePath = path.join(anchoringFolder, anchorId);
         fs.stat(filePath, (err) => {
             if (err) {
+                if(domainConfig.enableBackup) {
+                    backupUtils.restoreFileFromBackup(domainConfig.backupServerUrl, filePath, (err) => {
+                        if (err) {
+                            return callback(undefined, false);
+                        }
+
+                        callback(undefined, true);
+                    })
+                    return;
+                }
+
                 if (err.code === "ENOENT") {
                     return callback(undefined, false);
                 }
@@ -2309,7 +2322,7 @@ class FSBrickStorage {
         const brickPath = this.fsBrickPathsManager.resolveBrickPath(this.domain, hash);
         await $$.promisify(fs.writeFile)(brickPath, data);
         if (this.domainConfig && this.domainConfig.enableBackup) {
-            require("../../../utils/backupUtils").notifyBackup(brickPath);
+            backupUtils.notifyBackup(brickPath);
         }
         return hash;
     }
@@ -9351,7 +9364,7 @@ function OAuthMiddleware(server) {
             return;
         }
         const { clientId, clientSecret, scope, tokenEndpoint } = req.body;
-        const whitelist = oauthConfig.whitelist;
+        const whitelist = oauthConfig.whitelist || [oauthConfig.issuer.tokenEndpoint];
 
         let sanitizedUrl;
         try {
@@ -9364,7 +9377,7 @@ function OAuthMiddleware(server) {
 
             sanitizedUrl = `${parsedUrl.protocol}//${parsedUrl.hostname}${parsedUrl.port ? `:${parsedUrl.port}` : ''}`;
             sanitizedUrl += parsedUrl.pathname;
-            if (whitelist && Array.isArray(whitelist) && !whitelist.some(allowedUrl => new URL(allowedUrl).hostname === parsedUrl.hostname)) {
+            if (Array.isArray(whitelist) && !whitelist.some(allowedUrl => new URL(allowedUrl).hostname === parsedUrl.hostname)) {
                 res.statusCode = 401;
                 res.end("Forbidden: tokenEndpoint not allowed");
                 return;
@@ -10648,12 +10661,14 @@ const restoreFileFromBackup = (backupServiceUrl, filePath, callback) => {
     const http = require("opendsu").loadAPI("http");
     const fileUrl = `${backupServiceUrl}/getFile/${encodeURIComponent(filePath)}`;
     http.fetch(fileUrl).then(async (response) => {
-        if (response.statusCode !== 200) {
+        if (response.status !== 200) {
             callback(new Error(`Failed to fetch file from backup service: ${fileUrl}`));
             return;
         }
-        const fileContent = await response.text();
-        fs.writeFileSync(filePath, fileContent, callback);
+        let fileContent = await response.arrayBuffer();
+        fileContent = $$.Buffer.from(fileContent);
+        fs.mkdirSync(path.dirname(filePath), {recursive: true});
+        fs.writeFile(filePath, fileContent, callback);
     }).catch((err) => {
         console.error(`Failed to fetch file from backup service: ${fileUrl}`, err);
         callback(err);
