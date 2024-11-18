@@ -11,3 +11,4 @@ exclude:
         - epi-workspace/opendsu-sdk/modules/opendsu/tests/**
         - epi-workspace/opendsu-sdk/modules/apihub/tests/**
         - epi-workspace/gtin-resolver/tests/**
+        - ‎epi-workspace/opendsu-sdk/node_modules/des.js/test/**
