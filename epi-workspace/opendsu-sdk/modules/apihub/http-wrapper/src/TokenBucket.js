@@ -5,7 +5,7 @@
  * @param unitOfTime - for each "unitOfTime" (in milliseconds) passed "tokenValuePerTime" amount of tokens will be given back
  * @constructor
  */
-const config = require('./../config');
+const config = require('../config');
 
 function TokenBucket(startTokens = config.getConfig('tokenBucket', 'startTokens'),
                      tokenValuePerTime = config.getConfig('tokenBucket', 'tokenValuePerTime'),

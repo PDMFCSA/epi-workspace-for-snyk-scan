@@ -655,7 +655,7 @@ function AdminComponentHandler(server) {
 
     server.use("/admin/:mainDomain/*", enforceMainDomainMiddleware);
 
-    server.use("/admin/*", require("./../../utils/middlewares/index").requestBodyJSONMiddleware);
+    server.use("/admin/*", require("../../http-wrapper/utils/middlewares/index").requestBodyJSONMiddleware);
 
     server.post("/admin/:mainDomain/addDomain", addDomain);
     server.post("/admin/:mainDomain/disableDomain", disableDomain);
@@ -815,7 +815,7 @@ module.exports = {
     AdminComponentHandler,
     getAdminService
 };
-},{"./../../utils/middlewares/index":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/middlewares/index.js","loki-enclave-facade":"loki-enclave-facade","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/controllers/index.js":[function(require,module,exports){
+},{"../../http-wrapper/utils/middlewares/index":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/middlewares/index.js","loki-enclave-facade":"loki-enclave-facade","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/controllers/index.js":[function(require,module,exports){
 const {ALIAS_SYNC_ERR_CODE} = require("../utils");
 const utils = require("../utils");
 const anchoringStrategies = require("../strategies");
@@ -991,7 +991,7 @@ function Anchoring(server) {
         totalNumberOfAnchors
     } = require("./controllers");
 
-    const {responseModifierMiddleware, requestBodyJSONMiddleware} = require("../../utils/middlewares");
+    const {responseModifierMiddleware, requestBodyJSONMiddleware} = require("../../http-wrapper/utils/middlewares");
     const {getEthereumSyncServiceSingleton} = require("./strategies/oba/ethereumSyncService");
 
     const ethSyncService = getEthereumSyncServiceSingleton(server);
@@ -1021,7 +1021,7 @@ function Anchoring(server) {
 
 module.exports = Anchoring;
 
-},{"../../utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/middlewares/index.js","./controllers":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/controllers/index.js","./strategies/oba/ethereumSyncService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/oba/ethereumSyncService.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/eth/index.js":[function(require,module,exports){
+},{"../../http-wrapper/utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/middlewares/index.js","./controllers":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/controllers/index.js","./strategies/oba/ethereumSyncService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/oba/ethereumSyncService.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/eth/index.js":[function(require,module,exports){
 const {ALIAS_SYNC_ERR_CODE} = require("../../utils");
 
 function ETH(server, domainConfig, anchorId, newAnchorValue, jsonData) {
@@ -1133,7 +1133,7 @@ function ETH(server, domainConfig, anchorId, newAnchorValue, jsonData) {
 
 module.exports = ETH;
 },{"../../utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/utils/index.js","opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/fs/filePersistence.js":[function(require,module,exports){
-const backupUtils = require("../../../../utils/backupUtils");
+const backupUtils = require("../../../../http-wrapper/utils/backupUtils");
 
 function FilePersistenceStrategy(rootFolder, configuredPath, domainName) {
     const self = this;
@@ -1258,8 +1258,8 @@ function FileOperations(domainName) {
     let anchoringFolder;
     const endOfLine = require("os").EOL;
     const logger = $$.getLogger("FileOperations", "apihub/anchoring");
-    const backupUtils = require("../../../../utils/backupUtils");
-    const domainConfig = require("../../../../config").getDomainConfig(domainName);
+    const backupUtils = require("../../../../http-wrapper/utils/backupUtils");
+    const domainConfig = require("../../../../http-wrapper/config").getDomainConfig(domainName);
     self.InitializeFolderStructure = function (rootFolder, configuredPath) {
         let storageFolder = path.join(rootFolder, configuredPath);
         anchoringFolder = path.resolve(storageFolder);
@@ -1381,7 +1381,7 @@ module.exports = {
     FilePersistenceStrategy
 }
 
-},{"../../../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","../../../../utils/backupUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/backupUtils.js","../utils/AnchorPathResolver":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/utils/AnchorPathResolver.js","../utils/FSLock":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/utils/FSLock.js","fs":false,"os":false,"path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/fs/index.js":[function(require,module,exports){
+},{"../../../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","../../../../http-wrapper/utils/backupUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/backupUtils.js","../utils/AnchorPathResolver":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/utils/AnchorPathResolver.js","../utils/FSLock":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/utils/FSLock.js","fs":false,"os":false,"path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/fs/index.js":[function(require,module,exports){
 const openDSU = require("opendsu");
 
 class FS {
@@ -1892,10 +1892,10 @@ function FSLock(filePath, maxTimeMilliSeconds, forcedLockDelay) {
 
 module.exports = FSLock;
 },{"fs":false,"swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/utils/index.js":[function(require,module,exports){
-const {clone} = require("../../../utils");
+const {clone} = require("../../../http-wrapper/utils");
 
 const getAnchoringDomainConfig = async (domain) => {
-    const config = require("../../../config");
+    const config = require("../../../http-wrapper/config");
     let domainConfiguration = await config.getSafeDomainConfig(domain);
 
     if (!domainConfiguration) {
@@ -1937,7 +1937,7 @@ const ANCHOR_ALREADY_EXISTS_ERR_CODE = "anchor-already-exists";
 
 module.exports = {getAnchoringDomainConfig, getDomainFromKeySSI, ALIAS_SYNC_ERR_CODE, ANCHOR_ALREADY_EXISTS_ERR_CODE};
 
-},{"../../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","../../../utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/index.js","opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bdns/index.js":[function(require,module,exports){
+},{"../../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","../../../http-wrapper/utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/index.js","opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bdns/index.js":[function(require,module,exports){
 function BDNS(server) {
     const logger = $$.getLogger("BDNS", "apihub/bdns");
 
@@ -1954,10 +1954,10 @@ function BDNS(server) {
         ]
     };
     const URL_PREFIX = "/bdns";
-    const {headersMiddleware} = require('../../utils/middlewares');
+    const {headersMiddleware} = require('../../http-wrapper/utils/middlewares');
 
     let bdnsCache;
-    const config = require("../../config");
+    const config = require("../../http-wrapper/config");
     const bdnsConfig = config.getConfig("componentsConfig", "bdns");
 
     async function getBDNSHostsFromURL(url) {
@@ -2041,7 +2041,7 @@ function BDNS(server) {
 
 module.exports = BDNS;
 
-},{"../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","../../utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/middlewares/index.js","./../admin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/admin/index.js","fs":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/controllers.js":[function(require,module,exports){
+},{"../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","../../http-wrapper/utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/middlewares/index.js","./../admin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/admin/index.js","fs":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/controllers.js":[function(require,module,exports){
 const {getBrickWithExternalProvidersFallbackAsync} = require("./utils");
 const logger = $$.getLogger("apihub", "bricking");
 
@@ -2147,7 +2147,7 @@ function Bricks(server) {
         next();
     }
 
-    const {headersMiddleware, responseModifierMiddleware} = require('../../utils/middlewares');
+    const {headersMiddleware, responseModifierMiddleware} = require('../../http-wrapper/utils/middlewares');
 
     const {requestFSBrickStorageMiddleware} = require('./middlewares');
 
@@ -2169,13 +2169,13 @@ function Bricks(server) {
 
 module.exports = Bricks;
 
-},{"../../utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/middlewares/index.js","./controllers":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/controllers.js","./middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/middlewares.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/middlewares.js":[function(require,module,exports){
+},{"../../http-wrapper/utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/middlewares/index.js","./controllers":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/controllers.js","./middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/middlewares.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/middlewares.js":[function(require,module,exports){
 async function requestFSBrickStorageMiddleware(request, response, next) {
     const {domain: domainName} = request.params;
     const logger = $$.getLogger("requestFSBrickStorageMiddleware", "apihub/bricking");
 
     const brickingConfig = await require("./utils").getBricksDomainConfig(domainName);
-    const domainConfig = require("../../config").getDomainConfig(domainName);
+    const domainConfig = require("../../http-wrapper/config").getDomainConfig(domainName);
     if (!brickingConfig || !brickingConfig.path) {
         const message = `[Bricking] Domain '${domainName}' not found!`;
         logger.error(message);
@@ -2210,7 +2210,7 @@ module.exports = {
     requestFSBrickStorageMiddleware
 };
 
-},{"../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","./replication/FSBrickPathsManager":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/replication/FSBrickPathsManager.js","./replication/FSBrickStorage":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/replication/FSBrickStorage.js","./utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/utils.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/replication/FSBrickPathsManager.js":[function(require,module,exports){
+},{"../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","./replication/FSBrickPathsManager":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/replication/FSBrickPathsManager.js","./replication/FSBrickStorage":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/replication/FSBrickStorage.js","./utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/utils.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/replication/FSBrickPathsManager.js":[function(require,module,exports){
 class FSBrickPathsManager {
     constructor(bricksFolderSize = 2) {
         this.brickPaths = {};
@@ -2249,7 +2249,7 @@ class FSBrickPathsManager {
 
 module.exports = FSBrickPathsManager;
 },{"path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/replication/FSBrickStorage.js":[function(require,module,exports){
-const backupUtils = require("../../../utils/backupUtils");
+const backupUtils = require("../../../http-wrapper/utils/backupUtils");
 
 class FSBrickStorage {
     constructor(domainName, domainFolder, serverRoot, fsBrickPathsManager, domainConfig) {
@@ -2358,12 +2358,12 @@ function create(...params) {
 module.exports = {
     create
 };
-},{"../../../utils/backupUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/backupUtils.js","./FSBrickPathsManager":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/replication/FSBrickPathsManager.js","fs":false,"opendsu":"opendsu","swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/utils.js":[function(require,module,exports){
-const {clone} = require("../../utils");
+},{"../../../http-wrapper/utils/backupUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/backupUtils.js","./FSBrickPathsManager":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/replication/FSBrickPathsManager.js","fs":false,"opendsu":"opendsu","swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/utils.js":[function(require,module,exports){
+const {clone} = require("../../http-wrapper/utils");
 const {
     getLocalBdnsEntryListExcludingSelfAsync,
     getHeadersWithExcludedProvidersIncludingSelf
-} = require("../../utils/request-utils");
+} = require("../../http-wrapper/utils/request-utils");
 const logger = $$.getLogger("bricking", "apihub/bricking")
 
 function convertReadableStreamToBuffer(readStream, callback) {
@@ -2378,7 +2378,7 @@ function convertReadableStreamToBuffer(readStream, callback) {
 
 async function getBricksDomainConfig(domain) {
     logger.debug("Looking for domain", domain);
-    const config = require("../../config");
+    const config = require("../../http-wrapper/config");
     let domainConfiguration = await config.getSafeDomainConfig(domain);
 
     if (!domainConfiguration) {
@@ -2456,13 +2456,13 @@ module.exports = {
     getBrickWithExternalProvidersFallbackAsync,
 };
 
-},{"../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","../../utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/index.js","../../utils/request-utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/request-utils.js","opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/cloudWallet/controller.js":[function(require,module,exports){
+},{"../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","../../http-wrapper/utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/index.js","../../http-wrapper/utils/request-utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/request-utils.js","opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/cloudWallet/controller.js":[function(require,module,exports){
 const http = require("http");
 const crypto = require("crypto");
 const worker_threads = "worker_threads";
 const {Worker} = require(worker_threads);
-const config = require("../../config");
-const {parseCookies, stringifyCookies} = require("../../utils/cookie-utils");
+const config = require("../../http-wrapper/config");
+const {parseCookies, stringifyCookies} = require("../../http-wrapper/utils/cookie-utils");
 const path = require("swarmutils").path;
 const logger = $$.getLogger("CloudWallet", "apihub/cloudWallet");
 let dsuBootPath;
@@ -2773,7 +2773,7 @@ module.exports = {
     handleSetSSAppTokenRequest,
 };
 
-},{"../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","../../utils/cookie-utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/cookie-utils.js","crypto":false,"http":false,"path":false,"swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/cloudWallet/index.js":[function(require,module,exports){
+},{"../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","../../http-wrapper/utils/cookie-utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/cookie-utils.js","crypto":false,"http":false,"path":false,"swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/cloudWallet/index.js":[function(require,module,exports){
 function Iframe(server) {
     const {
         init,
@@ -2781,7 +2781,7 @@ function Iframe(server) {
         handleSetSSAppTokenRequest,
         handleCloudWalletRequest,
     } = require("./controller");
-    const {requestBodyJSONMiddleware} = require("../../utils/middlewares");
+    const {requestBodyJSONMiddleware} = require("../../http-wrapper/utils/middlewares");
 
     init(server);
 
@@ -2805,11 +2805,11 @@ function Iframe(server) {
 
 module.exports = Iframe;
 
-},{"../../utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/middlewares/index.js","./controller":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/cloudWallet/controller.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/config/index.js":[function(require,module,exports){
-const config = require("../../config");
+},{"../../http-wrapper/utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/middlewares/index.js","./controller":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/cloudWallet/controller.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/config/index.js":[function(require,module,exports){
+const config = require("../../http-wrapper/config");
 
 function Config(server) {
-    const {requestBodyJSONMiddleware, responseModifierMiddleware} = require("../../utils/middlewares");
+    const {requestBodyJSONMiddleware, responseModifierMiddleware} = require("../../http-wrapper/utils/middlewares");
 
     function getDomainConfig(request, response) {
         const {domain} = request.params;
@@ -2858,7 +2858,7 @@ function Config(server) {
 
 module.exports = Config;
 
-},{"../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","../../utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/middlewares/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/debugLogger/controllers.js":[function(require,module,exports){
+},{"../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","../../http-wrapper/utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/middlewares/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/debugLogger/controllers.js":[function(require,module,exports){
 const url = require('url');
 const fs = require('fs');
 const path = require('swarmutils').path;
@@ -2996,7 +2996,7 @@ module.exports = {createHandlerAppendToLog, createHandlerReadFromLog};
 
 },{"apihub":"apihub","fs":false,"swarmutils":"swarmutils","url":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/debugLogger/index.js":[function(require,module,exports){
 function DebugLogger(server) {
-    const {responseModifierMiddleware, requestBodyJSONMiddleware} = require('../../utils/middlewares');
+    const {responseModifierMiddleware, requestBodyJSONMiddleware} = require('../../http-wrapper/utils/middlewares');
     const {createHandlerAppendToLog, createHandlerReadFromLog} = require('./controllers');
 
     const appendToLog = createHandlerAppendToLog();
@@ -3011,7 +3011,7 @@ function DebugLogger(server) {
 
 module.exports = DebugLogger;
 
-},{"../../utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/middlewares/index.js","./controllers":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/debugLogger/controllers.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/installation-details/index.js":[function(require,module,exports){
+},{"../../http-wrapper/utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/middlewares/index.js","./controllers":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/debugLogger/controllers.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/installation-details/index.js":[function(require,module,exports){
 function InstallationDetails(server) {
 
     function getLog(targetPath, callback) {
@@ -3083,10 +3083,10 @@ module.exports = {URL_PREFIX};
 function KeySSINotifications(server) {
     const logger = $$.getLogger("KeySSINotifications", "apihub/keySsiNotifications");
     let notificationManager;
-    const utils = require('../../utils');
+    const utils = require('../../http-wrapper/utils');
     const readBody = utils.streams.readStringFromStream;
-    const config = require('../../config');
-    const {responseModifierMiddleware} = require('./../../utils/middlewares');
+    const config = require('../../http-wrapper/config');
+    const {responseModifierMiddleware} = require('../../http-wrapper/utils/middlewares');
     const {URL_PREFIX} = require('./constants');
     const path = require("path");
     const workingDirPath = path.join(server.rootFolder, config.getConfig('componentsConfig', 'notifications', 'workingDirPath'));
@@ -3169,7 +3169,7 @@ function KeySSINotifications(server) {
         response.send(503);
     }
 
-    require('./../../libs/Notifications').getManagerInstance(workingDirPath, (err, instance) => {
+    require('../../http-wrapper/src/Notifications').getManagerInstance(workingDirPath, (err, instance) => {
         if (err) {
             return logger.error(err);
         }
@@ -3185,9 +3185,9 @@ function KeySSINotifications(server) {
 
 module.exports = KeySSINotifications;
 
-},{"../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","../../utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/index.js","./../../libs/Notifications":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/Notifications.js","./../../utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/middlewares/index.js","./constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/keySsiNotifications/constants.js","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/lightDBEnclave/index.js":[function(require,module,exports){
+},{"../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","../../http-wrapper/src/Notifications":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/Notifications.js","../../http-wrapper/utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/index.js","../../http-wrapper/utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/middlewares/index.js","./constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/keySsiNotifications/constants.js","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/lightDBEnclave/index.js":[function(require,module,exports){
 const logger = $$.getLogger("lightDB", "apihub");
-const httpWrapper = require("../../libs/http-wrapper/src/httpUtils");
+const httpWrapper = require("../../http-wrapper/src/httpUtils");
 const prefix = "lightDB";
 
 function LightDBEnclave(server) {
@@ -3253,11 +3253,11 @@ function LightDBEnclave(server) {
 }
 
 module.exports = LightDBEnclave;
-},{"../../libs/http-wrapper/src/httpUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/http-wrapper/src/httpUtils.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mainDSU/controller.js":[function(require,module,exports){
+},{"../../http-wrapper/src/httpUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/httpUtils.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mainDSU/controller.js":[function(require,module,exports){
 const path = require("path");
 const fs = require("fs");
-const config = require("../../config");
-const {parseCookies, stringifyCookies} = require("../../utils/cookie-utils");
+const config = require("../../http-wrapper/config");
+const {parseCookies, stringifyCookies} = require("../../http-wrapper/utils/cookie-utils");
 
 const logger = $$.getLogger("controller", "apihub/mainDSU");
 
@@ -3382,10 +3382,10 @@ module.exports = {
     handleDefaultMainDSURequest,
 };
 
-},{"../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","../../utils/cookie-utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/cookie-utils.js","fs":false,"opendsu":"opendsu","path":false,"pskcrypto":"pskcrypto"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mainDSU/index.js":[function(require,module,exports){
+},{"../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","../../http-wrapper/utils/cookie-utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/cookie-utils.js","fs":false,"opendsu":"opendsu","path":false,"pskcrypto":"pskcrypto"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mainDSU/index.js":[function(require,module,exports){
 function MainDSU(server) {
     const {init, handleSetSSIForMainDSUCookie, handleDefaultMainDSURequest} = require("./controller");
-    const {requestBodyJSONMiddleware} = require("../../utils/middlewares");
+    const {requestBodyJSONMiddleware} = require("../../http-wrapper/utils/middlewares");
 
     init(server);
 
@@ -3399,15 +3399,15 @@ function MainDSU(server) {
 
 module.exports = MainDSU;
 
-},{"../../utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/middlewares/index.js","./controller":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mainDSU/controller.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/MQAdapterMixin.js":[function(require,module,exports){
+},{"../../http-wrapper/utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/middlewares/index.js","./controller":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mainDSU/controller.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/MQAdapterMixin.js":[function(require,module,exports){
 (function (Buffer){(function (){
 function MQAdapterMixin(target, server, prefix, domain, configuration) {
     const logger = $$.getLogger("MQAdapterMixin", "apihub/mqHub");
 
     const subscribers = {};
-    const config = require("../../../config");
+    const config = require("../../../http-wrapper/config");
     let domainConfig = config.getDomainConfig(domain);
-    const utils = require('./../../../utils');
+    const utils = require('../../../http-wrapper/utils');
     const readBody = utils.streams.readStringFromStream;
 
     const settings = {
@@ -3653,10 +3653,10 @@ function MQAdapterMixin(target, server, prefix, domain, configuration) {
 module.exports = MQAdapterMixin;
 }).call(this)}).call(this,require("buffer").Buffer)
 
-},{"../../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","./../../../utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/index.js","buffer":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/lighDBEnclaveAdapter.js":[function(require,module,exports){
+},{"../../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","../../../http-wrapper/utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/index.js","buffer":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/lighDBEnclaveAdapter.js":[function(require,module,exports){
 function LightDBEnclaveAdapter(server, prefix, domain, configuration) {
     const logger = $$.getLogger("LokiMQAdapter", "apihub/mqHub");
-    const config = require("../../../config");
+    const config = require("../../../http-wrapper/config");
     let domainConfig = config.getDomainConfig(domain);
 
     const settings = {
@@ -3748,10 +3748,10 @@ function LightDBEnclaveAdapter(server, prefix, domain, configuration) {
 
 module.exports = LightDBEnclaveAdapter;
 
-},{"../../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","./MQAdapterMixin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/MQAdapterMixin.js","opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/localMQAdapter.js":[function(require,module,exports){
+},{"../../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","./MQAdapterMixin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/MQAdapterMixin.js","opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/localMQAdapter.js":[function(require,module,exports){
 function LocalMQAdapter(server, prefix, domain, configuration) {
     const logger = $$.getLogger("LocalMQAdapter", "apihub/mqHub");
-    const config = require("../../../config");
+    const config = require("../../../http-wrapper/config");
     const swarmUtils = require('swarmutils');
     let path = swarmUtils.path;
     const FILENAME_DELIMITER = "_special_mqs_delimiter_";
@@ -3887,10 +3887,10 @@ function LocalMQAdapter(server, prefix, domain, configuration) {
 
 
 module.exports = LocalMQAdapter;
-},{"../../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","./MQAdapterMixin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/MQAdapterMixin.js","fs":false,"opendsu":"opendsu","swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/lokiMQAdapter.js":[function(require,module,exports){
+},{"../../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","./MQAdapterMixin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/MQAdapterMixin.js","fs":false,"opendsu":"opendsu","swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/lokiMQAdapter.js":[function(require,module,exports){
 function LokiMQAdapter(server, prefix, domain, configuration) {
     const logger = $$.getLogger("LokiMQAdapter", "apihub/mqHub");
-    const config = require("../../../config");
+    const config = require("../../../http-wrapper/config");
     let domainConfig = config.getDomainConfig(domain);
     const path = require("path");
     let storage = config.getConfig('componentsConfig', 'mqs', 'storage');
@@ -3952,7 +3952,7 @@ function LokiMQAdapter(server, prefix, domain, configuration) {
 
 module.exports = LokiMQAdapter;
 
-},{"../../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","./MQAdapterMixin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/MQAdapterMixin.js","fs":false,"loki-enclave-facade":"loki-enclave-facade","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/solaceMQAdapter.js":[function(require,module,exports){
+},{"../../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","./MQAdapterMixin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/MQAdapterMixin.js","fs":false,"loki-enclave-facade":"loki-enclave-facade","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/solaceMQAdapter.js":[function(require,module,exports){
 function SolaceMQAdapter() {
     throw new Error("Not Implemented!!!");
 }
@@ -3973,7 +3973,7 @@ const defaultSettings = {
 function JWTIssuer(workingDir) {
     const logger = $$.getLogger("JWTIssuer", "apihub/mqHub");
     let seeder;
-    const config = require("./../../../config");
+    const config = require("../../../http-wrapper/config");
 
     function getDomainSpecificConfig(domainName) {
         let domainSpecificConfig = JSON.parse(JSON.stringify(defaultSettings));
@@ -4095,7 +4095,7 @@ function JWTIssuer(workingDir) {
 }
 
 module.exports = JWTIssuer;
-},{"./../../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","fs":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/index.js":[function(require,module,exports){
+},{"../../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","fs":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/index.js":[function(require,module,exports){
 const URL_PREFIX = "/mq";
 //known implementations for the MQ adapters
 const adapterImpls = {
@@ -4122,7 +4122,7 @@ async function MQHub(server, signalAsyncLoading, doneLoading) {
 
     signalAsyncLoading();
 
-    const config = require("./../../config/index");
+    const config = require("../../http-wrapper/config/index");
 
     const JWTIssuer = require("./auth/JWTIssuer");
     const issuer = new JWTIssuer(server.rootFolder);
@@ -4309,11 +4309,11 @@ module.exports = {
     MQHub
 };
 
-},{"./../../components/admin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/admin/index.js","./../../config/index":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","./adapters/lighDBEnclaveAdapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/lighDBEnclaveAdapter.js","./adapters/localMQAdapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/localMQAdapter.js","./adapters/lokiMQAdapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/lokiMQAdapter.js","./adapters/solaceMQAdapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/solaceMQAdapter.js","./auth/JWTIssuer":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/auth/JWTIssuer.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/requestForwarder/index.js":[function(require,module,exports){
+},{"../../http-wrapper/config/index":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","./../../components/admin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/admin/index.js","./adapters/lighDBEnclaveAdapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/lighDBEnclaveAdapter.js","./adapters/localMQAdapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/localMQAdapter.js","./adapters/lokiMQAdapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/lokiMQAdapter.js","./adapters/solaceMQAdapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/solaceMQAdapter.js","./auth/JWTIssuer":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/auth/JWTIssuer.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/requestForwarder/index.js":[function(require,module,exports){
 const registeredUrl = "/forwardRequestForAuthenticatedClient";
 const logger = $$.getLogger("requestForwarder", "apihub/requestForwarder");
 module.exports = function (server) {
-    server.post(registeredUrl, require("./../../utils/middlewares/index").requestBodyJSONMiddleware);
+    server.post(registeredUrl, require("../../http-wrapper/utils/middlewares/index").requestBodyJSONMiddleware);
 
     server.post(registeredUrl, function (req, res) {
         let url = req.body.url;
@@ -4366,10 +4366,10 @@ module.exports = function (server) {
     });
 }
 
-},{"./../../utils/middlewares/index":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/middlewares/index.js","http":false,"https":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/SecretsService.js":[function(require,module,exports){
+},{"../../http-wrapper/utils/middlewares/index":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/middlewares/index.js","http":false,"https":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/SecretsService.js":[function(require,module,exports){
 const fs = require("fs");
 const path = require("path");
-const config = require("../../config");
+const config = require("../../http-wrapper/config");
 const {CONTAINERS} = require("./constants");
 
 
@@ -4382,7 +4382,7 @@ function SecretsService(serverRootFolder) {
     }
 
     const lockPath = path.join(getStorageFolderPath(), "secret.lock");
-    const lock = require("../../utils/ExpiringFileLock").getLock(lockPath, 10000);
+    const lock = require("../../http-wrapper/utils/ExpiringFileLock").getLock(lockPath, 10000);
     console.log("Secrets Service initialized");
     const logger = $$.getLogger("secrets", "apihub/secrets");
     const openDSU = require("opendsu");
@@ -4694,7 +4694,7 @@ module.exports = {
     resetInstance
 };
 
-},{"../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","../../utils/ExpiringFileLock":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/ExpiringFileLock.js","./constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/constants.js","fs":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/constants.js":[function(require,module,exports){
+},{"../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","../../http-wrapper/utils/ExpiringFileLock":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/ExpiringFileLock.js","./constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/constants.js","fs":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/constants.js":[function(require,module,exports){
 module.exports = {
     CONTAINERS: {
         API_KEY_CONTAINER_NAME: "apiKeys",
@@ -4715,7 +4715,7 @@ function secrets(server) {
     const whitelistedContainers = [CONTAINERS.DSU_FABRIC, CONTAINERS.DEMIURGE];
     const whitelistedSecrets = ["credential"];
     const logger = $$.getLogger("secrets", "apihub/secrets");
-    const httpUtils = require("../../libs/http-wrapper/src/httpUtils");
+    const httpUtils = require("../../http-wrapper/src/httpUtils");
     const SecretsService = require("./SecretsService");
     let secretsService;
     setTimeout(async () => {
@@ -5171,12 +5171,12 @@ function secrets(server) {
 
 module.exports = secrets;
 
-},{"../../libs/http-wrapper/src/httpUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/http-wrapper/src/httpUtils.js","./SecretsService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/SecretsService.js","./constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/constants.js","fs":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/staticServer/index.js":[function(require,module,exports){
+},{"../../http-wrapper/src/httpUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/httpUtils.js","./SecretsService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/SecretsService.js","./constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/constants.js","fs":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/staticServer/index.js":[function(require,module,exports){
 function StaticServer(server) {
     const fs = require("fs");
     const path = require('swarmutils').path;
-    const utils = require("../../utils");
-    const config = require("../../config");
+    const utils = require("../../http-wrapper/utils");
+    const config = require("../../http-wrapper/config");
     let componentsConfig = config.getConfig("componentsConfig");
     const logger = $$.getLogger("StaticServer", "apihub/staticServer");
     const excludedFiles = ["apihub.json"];
@@ -5592,7 +5592,7 @@ function StaticServer(server) {
 
 module.exports = StaticServer;
 
-},{"../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","../../utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/index.js","./../admin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/admin/index.js","fs":false,"path":false,"swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/stream/controller.js":[function(require,module,exports){
+},{"../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","../../http-wrapper/utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/index.js","./../admin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/admin/index.js","fs":false,"path":false,"swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/stream/controller.js":[function(require,module,exports){
 (function (global){(function (){
 const syndicate = require("syndicate");
 const logger = $$.getLogger("stream", "apihub/stream");
@@ -5876,7 +5876,7 @@ module.exports = async () => {
 },{"buffer":false,"opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/versionlessDSU/controller.js":[function(require,module,exports){
 const path = require("path");
 const fs = require("fs");
-const config = require("../../config");
+const config = require("../../http-wrapper/config");
 const openDSU = require("opendsu");
 const crypto = openDSU.loadAPI("crypto");
 const logger = $$.getLogger("controller", "apihub/versionlessDSU");
@@ -5991,12 +5991,12 @@ module.exports = {
     handlePutVersionlessDSURequest,
 };
 
-},{"../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","fs":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/versionlessDSU/index.js":[function(require,module,exports){
+},{"../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","fs":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/versionlessDSU/index.js":[function(require,module,exports){
 function VersionlessDSU(server) {
     const logger = $$.getLogger("VersionlessDSU");
     logger.info("Initializing VersionlessDSU");
     const {init, handleGetVersionlessDSURequest, handlePutVersionlessDSURequest} = require("./controller");
-    const {bodyReaderMiddleware} = require("../../utils/middlewares");
+    const {bodyReaderMiddleware} = require("../../http-wrapper/utils/middlewares");
 
     init(server);
 
@@ -6009,7 +6009,7 @@ function VersionlessDSU(server) {
 
 module.exports = VersionlessDSU;
 
-},{"../../utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/middlewares/index.js","./controller":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/versionlessDSU/controller.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/config-migrator.js":[function(require,module,exports){
+},{"../../http-wrapper/utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/middlewares/index.js","./controller":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/versionlessDSU/controller.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/config-migrator.js":[function(require,module,exports){
 const logger = $$.getLogger("config-migrator", "apihub/config");
 
 function removeConfigComponent(config) {
@@ -6180,7 +6180,7 @@ module.exports = {
     migrate,
 };
 
-},{"fs":false,"path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/default.js":[function(require,module,exports){
+},{"fs":false,"path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/default.js":[function(require,module,exports){
 const defaultConfig = {
     "storage": require("swarmutils").path.join(process.env.PSK_ROOT_INSTALATION_FOLDER, "tmp"),
     "externalStorage": "./external-volume",
@@ -6308,7 +6308,7 @@ const defaultConfig = {
 
 module.exports = Object.freeze(defaultConfig);
 
-},{"swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js":[function(require,module,exports){
+},{"swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js":[function(require,module,exports){
 let apihubConfig;
 let tokenIssuers;
 let domainConfigs = {};
@@ -6507,7 +6507,7 @@ async function getSafeDomainConfig(domain, ...configKeys) {
     let domainConfig = getDomainConfig(domain);
     if (!domainConfig) {
         try {
-            let adminService = require("./../components/admin").getAdminService();
+            let adminService = require("../../components/admin").getAdminService();
             const getDomainInfo = $$.promisify(adminService.getDomainInfo);
             let domainInfo = await getDomainInfo(domain);
             if (domainInfo && domainInfo.active && domainInfo.cloneFromDomain) {
@@ -6585,7 +6585,7 @@ module.exports = {
     updateDomainConfig
 };
 
-},{"./../components/admin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/admin/index.js","./config-migrator":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/config-migrator.js","./default":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/default.js","fs":false,"opendsu":"opendsu","swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/Notifications.js":[function(require,module,exports){
+},{"../../components/admin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/admin/index.js","./config-migrator":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/config-migrator.js","./default":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/default.js","fs":false,"opendsu":"opendsu","swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/Notifications.js":[function(require,module,exports){
 const stateStorageFileName = 'queues.json';
 
 function NotificationsManager(workingFolderPath, storageFolderPath) {
@@ -6900,7 +6900,7 @@ module.exports = {
     }
 };
 
-},{"fs":false,"opendsu":"opendsu","path":false,"swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/TokenBucket.js":[function(require,module,exports){
+},{"fs":false,"opendsu":"opendsu","path":false,"swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/TokenBucket.js":[function(require,module,exports){
 /**
  * An implementation of the Token bucket algorithm
  * @param startTokens - maximum number of tokens possible to obtain and the default starting value
@@ -6908,7 +6908,7 @@ module.exports = {
  * @param unitOfTime - for each "unitOfTime" (in milliseconds) passed "tokenValuePerTime" amount of tokens will be given back
  * @constructor
  */
-const config = require('./../config');
+const config = require('../config');
 
 function TokenBucket(startTokens = config.getConfig('tokenBucket', 'startTokens'),
                      tokenValuePerTime = config.getConfig('tokenBucket', 'tokenValuePerTime'),
@@ -7020,7 +7020,7 @@ function TokenBucket(startTokens = config.getConfig('tokenBucket', 'startTokens'
 
 module.exports = TokenBucket;
 
-},{"./../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/http-wrapper/src/classes/Client.js":[function(require,module,exports){
+},{"../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/classes/Client.js":[function(require,module,exports){
 const http = require('http');
 const url = require('url');
 const stream = require('stream');
@@ -7242,7 +7242,7 @@ const handler = {
 module.exports = function () {
     return new Proxy(new Client(), handler);
 };
-},{"http":false,"stream":false,"url":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/http-wrapper/src/classes/MiddlewareRegistry.js":[function(require,module,exports){
+},{"http":false,"stream":false,"url":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/classes/MiddlewareRegistry.js":[function(require,module,exports){
 const querystring = require('querystring');
 const logger = $$.getLogger("http-wrapper", "apihub/libs");
 
@@ -7428,7 +7428,7 @@ function MiddlewareRegistry() {
 
 module.exports = MiddlewareRegistry;
 
-},{"querystring":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/http-wrapper/src/classes/Router.js":[function(require,module,exports){
+},{"querystring":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/classes/Router.js":[function(require,module,exports){
 function Router(server) {
     this.use = function use(url, callback) {
         callback(serverWrapper(url, server));
@@ -7464,7 +7464,7 @@ function serverWrapper(baseUrl, server) {
 
 module.exports = Router;
 
-},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/http-wrapper/src/classes/Server.js":[function(require,module,exports){
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/classes/Server.js":[function(require,module,exports){
 const MiddlewareRegistry = require('./MiddlewareRegistry');
 const http = require('http');
 const https = require('https');
@@ -7642,7 +7642,7 @@ function Server(sslOptions) {
 }
 
 module.exports = Server;
-},{"./MiddlewareRegistry":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/http-wrapper/src/classes/MiddlewareRegistry.js","http":false,"https":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/http-wrapper/src/httpUtils.js":[function(require,module,exports){
+},{"./MiddlewareRegistry":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/classes/MiddlewareRegistry.js","http":false,"https":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/httpUtils.js":[function(require,module,exports){
 const logger = $$.getLogger("http-wrapper", "apihub/libs");
 
 function setDataHandler(request, callback) {
@@ -7695,7 +7695,7 @@ function bodyParser(req, res, next) {
 
 module.exports = {setDataHandler, setDataHandlerMiddleware, sendErrorResponse, bodyParser};
 
-},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/http-wrapper/src/index.js":[function(require,module,exports){
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/index.js":[function(require,module,exports){
 const Client = require('./classes/Client');
 const Server = require('./classes/Server');
 const httpUtils = require('./httpUtils');
@@ -7704,7 +7704,759 @@ const Router = require('./classes/Router');
 module.exports = {Server, Client, httpUtils, Router};
 
 
-},{"./classes/Client":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/http-wrapper/src/classes/Client.js","./classes/Router":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/http-wrapper/src/classes/Router.js","./classes/Server":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/http-wrapper/src/classes/Server.js","./httpUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/http-wrapper/src/httpUtils.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/SimpleLock/index.js":[function(require,module,exports){
+},{"./classes/Client":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/classes/Client.js","./classes/Router":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/classes/Router.js","./classes/Server":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/classes/Server.js","./httpUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/httpUtils.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/ExpiringFileLock.js":[function(require,module,exports){
+function ExpiringFileLock(folderLock, timeout) {
+    const fsPromisesName = 'node:fs/promises';
+    const fsPromises = require(fsPromisesName);
+
+    function asyncSleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    this.lock = async () => {
+        while (true) {
+            try {
+                const stat = await fsPromises.stat(folderLock);
+                const currentTime = Date.now();
+                // console.log("checking if lock is expired", folderLock, stat.ctime.getTime(), currentTime - timeout, stat.ctime.getTime() < currentTime - timeout);
+                if (stat.ctime.getTime() < currentTime - timeout) {
+                    await fsPromises.rmdir(folderLock);
+                    console.log("Removed expired lock", folderLock);
+                }
+            } catch (e) {
+                // No such file or directory
+            }
+
+            try {
+                await fsPromises.mkdir(folderLock, {recursive: true});
+                return;
+            } catch (e) {
+                console.log("Retrying to acquire lock", folderLock, "after 100ms");
+                await asyncSleep(100);
+            }
+        }
+    }
+
+    this.unlock = async () => {
+        try {
+            await fsPromises.rmdir(folderLock);
+        } catch (e) {
+            // Nothing to do
+        }
+    }
+}
+
+module.exports = {
+    getLock: (folderLock, timeout) => {
+        return new ExpiringFileLock(folderLock, timeout);
+    }
+};
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/backupUtils.js":[function(require,module,exports){
+const fs = require('fs');
+const path = require('path');
+const serverConfig = require('../config').getConfig();
+const backupJournalFilePath = serverConfig.backupJournalFilePath || path.join(serverConfig.storage, "external-volume", "backup", "backup-journal.txt");
+const notifyBackup = (filePath) => {
+    fs.mkdirSync(path.dirname(backupJournalFilePath), {recursive: true});
+    fs.appendFile(backupJournalFilePath, `${filePath}\n`, (err) => {
+        if (err) {
+            console.error(`Failed to add file path to backup request: ${filePath}`);
+            return;
+        }
+        console.log(`File path added to backup request: ${filePath}`);
+    });
+};
+
+const restoreFileFromBackup = (backupServiceUrl, filePath, callback) => {
+    const http = require("opendsu").loadAPI("http");
+    const fileUrl = `${backupServiceUrl}/getFile/${encodeURIComponent(filePath)}`;
+    http.fetch(fileUrl).then(async (response) => {
+        if (response.status !== 200) {
+            callback(new Error(`Failed to fetch file from backup service: ${fileUrl}`));
+            return;
+        }
+        let fileContent = await response.arrayBuffer();
+        fileContent = $$.Buffer.from(fileContent);
+        fs.mkdirSync(path.dirname(filePath), {recursive: true});
+        fs.writeFile(filePath, fileContent, callback);
+    }).catch((err) => {
+        console.error(`Failed to fetch file from backup service: ${fileUrl}`, err);
+        callback(err);
+    });
+}
+
+module.exports = {
+    notifyBackup,
+    restoreFileFromBackup
+};
+},{"../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","fs":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/cookie-utils.js":[function(require,module,exports){
+const COOKIE_REGEX = /([^;=\s]*)=([^;]*)/g;
+
+function parseCookies(str) {
+    let cookies = {};
+    if (!str) {
+        return cookies;
+    }
+    for (let m; (m = COOKIE_REGEX.exec(str));) {
+        cookies[m[1]] = decodeURIComponent(m[2]);
+    }
+    return cookies;
+}
+
+/**
+ * @param {Object} options
+ * @param {string} [options.name='']
+ * @param {string} [options.value='']
+ * @param {Date} [options.expires]
+ * @param {number} [options.maxAge]
+ * @param {string} [options.domain]
+ * @param {string} [options.path]
+ * @param {boolean} [options.secure]
+ * @param {boolean} [options.httpOnly]
+ * @param {'Strict'|'Lax'|'None'} [options.sameSite]
+ * @return {string}
+ */
+function createSetCookieEntry(options) {
+    return (
+        `${options.name || ""}=${encodeURIComponent(options.value || "")}` +
+        (options.expires != null ? `; Expires=${options.expires.toUTCString()}` : "") +
+        (options.maxAge != null ? `; Max-Age=${options.maxAge}` : "") +
+        (options.domain != null ? `; Domain=${options.domain}` : "") +
+        (options.path != null ? `; Path=${options.path}` : "") +
+        (options.secure ? "; Secure" : "") +
+        (options.httpOnly ? "; HttpOnly" : "") +
+        (options.sameSite != null ? `; SameSite=${options.sameSite}` : "")
+    );
+}
+
+function stringifyCookies(cookies) {
+    if (!Array.isArray(cookies)) {
+        cookies = [cookies];
+    }
+
+    return cookies.map(createSetCookieEntry).join("; ");
+}
+
+module.exports = {
+    parseCookies,
+    stringifyCookies,
+};
+
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/index.js":[function(require,module,exports){
+module.exports.clone = function (data) {
+    return JSON.parse(JSON.stringify(data));
+}
+
+module.exports.streams = require("./streams");
+module.exports.requests = require("./requests");
+module.exports.responseWrapper = require("./responseWrapper");
+module.exports.getMimeTypeFromExtension = require("./mimeType");
+},{"./mimeType":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/mimeType.js","./requests":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/requests.js","./responseWrapper":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/responseWrapper.js","./streams":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/streams.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/middlewares/index.js":[function(require,module,exports){
+(function (Buffer){(function (){
+const responseWrapper = require('../responseWrapper');
+const logger = $$.getLogger("middlewares", "apihub/utils");
+
+function requestBodyJSONMiddleware(request, response, next) {
+    /**
+     * Prepare headers for response
+     */
+    response.setHeader('Content-Type', 'application/json');
+
+    const data = [];
+
+    request.on('data', (chunk) => {
+        data.push(chunk);
+    });
+
+    request.on('end', () => {
+        if (!data.length) {
+            request.body = {};
+            return next();
+        }
+
+        let body;
+
+        try {
+            body = JSON.parse(data);
+        } catch (e) {
+            response.statusCode = 500;
+            return response.end("Unable to decode JSON request body");
+        }
+        request.body = body;
+        next();
+    });
+}
+
+function responseModifierMiddleware(request, response, next) {
+    if (!response.hasOwnProperty('send')) {
+        response.send = function (statusCode, body, callback = response.end) {
+            response.statusCode = statusCode;
+
+            if (body) {
+                response.write(responseWrapper(body));
+            }
+
+            callback.call(response);
+            // callback();
+        };
+    }
+
+    next();
+}
+
+function headersMiddleware(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Content-Length, X-Content-Length');
+    next();
+}
+
+function bodyReaderMiddleware(req, res, next) {
+    const data = [];
+
+    req.on('data', (chunk) => {
+        data.push(chunk);
+    });
+
+    req.on('end', () => {
+        req.body = Buffer.concat(data);
+        next();
+    });
+}
+
+function sendUnauthorizedResponse(req, res, reason, error) {
+    logger.error(`[Auth] [${req.method}] ${req.url} blocked: ${reason}`, error);
+    res.statusCode = 403;
+    res.end();
+}
+
+module.exports = {
+    requestBodyJSONMiddleware,
+    responseModifierMiddleware,
+    headersMiddleware,
+    bodyReaderMiddleware,
+    sendUnauthorizedResponse
+};
+
+}).call(this)}).call(this,require("buffer").Buffer)
+
+},{"../responseWrapper":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/responseWrapper.js","buffer":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/mimeType.js":[function(require,module,exports){
+const extensionsMimeTypes = {
+    "aac": {
+        name: "audio/aac",
+        binary: true
+    },
+    "abw": {
+        name: "application/x-abiword",
+        binary: true
+    },
+    "arc": {
+        name: "application/x-freearc",
+        binary: true
+    },
+    "avi": {
+        name: "video/x-msvideo",
+        binary: true
+    },
+    "azw": {
+        name: "application/vnd.amazon.ebook",
+        binary: true
+    },
+    "bin": {
+        name: "application/octet-stream",
+        binary: true
+    }, "bmp": {
+        name: "image/bmp",
+        binary: true
+    }, "bz": {
+        name: "application/x-bzip",
+        binary: true
+    }, "bz2": {
+        name: "application/x-bzip2",
+        binary: true
+    }, "csh": {
+        name: "application/x-csh",
+        binary: false
+    }, "css": {
+        name: "text/css",
+        binary: false
+    }, "csv": {
+        name: "text/csv",
+        binary: false
+    }, "doc": {
+        name: "application/msword",
+        binary: true
+    }, "docx": {
+        name: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        binary: true
+    }, "eot": {
+        name: "application/vnd.ms-fontobject",
+        binary: true
+    }, "epub": {
+        name: "application/epub+zip",
+        binary: true
+    }, "gz": {
+        name: "application/gzip",
+        binary: true
+    }, "gif": {
+        name: "image/gif",
+        binary: true
+    }, "htm": {
+        name: "text/html",
+        binary: false
+    }, "html": {
+        name: "text/html",
+        binary: false
+    }, "ico": {
+        name: "image/vnd.microsoft.icon",
+        binary: true
+    }, "ics": {
+        name: "text/calendar",
+        binary: false
+    }, "jpeg": {
+        name: "image/jpeg",
+        binary: true
+    }, "jpg": {
+        name: "image/jpeg",
+        binary: true
+    }, "js": {
+        name: "text/javascript",
+        binary: false
+    }, "json": {
+        name: "application/json",
+        binary: false
+    }, "jsonld": {
+        name: "application/ld+json",
+        binary: false
+    }, "mid": {
+        name: "audio/midi",
+        binary: true
+    }, "midi": {
+        name: "audio/midi",
+        binary: true
+    }, "mjs": {
+        name: "text/javascript",
+        binary: false
+    }, "mp3": {
+        name: "audio/mpeg",
+        binary: true
+    }, "mpeg": {
+        name: "video/mpeg",
+        binary: true
+    }, "mpkg": {
+        name: "application/vnd.apple.installer+xm",
+        binary: true
+    }, "odp": {
+        name: "application/vnd.oasis.opendocument.presentation",
+        binary: true
+    }, "ods": {
+        name: "application/vnd.oasis.opendocument.spreadsheet",
+        binary: true
+    }, "odt": {
+        name: "application/vnd.oasis.opendocument.text",
+        binary: true
+    }, "oga": {
+        name: "audio/ogg",
+        binary: true
+    },
+    "ogv": {
+        name: "video/ogg",
+        binary: true
+    },
+    "ogx": {
+        name: "application/ogg",
+        binary: true
+    },
+    "opus": {
+        name: "audio/opus",
+        binary: true
+    },
+    "otf": {
+        name: "font/otf",
+        binary: true
+    },
+    "png": {
+        name: "image/png",
+        binary: true
+    },
+    "pdf": {
+        name: "application/pdf",
+        binary: true
+    },
+    "php": {
+        name: "application/php",
+        binary: false
+    },
+    "ppt": {
+        name: "application/vnd.ms-powerpoint",
+        binary: true
+    },
+    "pptx": {
+        name: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        binary: true
+    },
+    "rtf": {
+        name: "application/rtf",
+        binary: true
+    },
+    "sh": {
+        name: "application/x-sh",
+        binary: false
+    },
+    "svg": {
+        name: "image/svg+xml",
+        binary: false
+    },
+    "swf": {
+        name: "application/x-shockwave-flash",
+        binary: true
+    },
+    "tar": {
+        name: "application/x-tar",
+        binary: true
+    },
+    "tif": {
+        name: "image/tiff",
+        binary: true
+    },
+    "tiff": {
+        name: "image/tiff",
+        binary: true
+    },
+    "ts": {
+        name: "video/mp2t",
+        binary: true
+    },
+    "ttf": {
+        name: "font/ttf",
+        binary: true
+    },
+    "txt": {
+        name: "text/plain",
+        binary: false
+    },
+    "vsd": {
+        name: "application/vnd.visio",
+        binary: true
+    },
+    "wav": {
+        name: "audio/wav",
+        binary: true
+    },
+    "weba": {
+        name: "audio/webm",
+        binary: true
+    },
+    "webm": {
+        name: "video/webm",
+        binary: true
+    },
+    "webp": {
+        name: "image/webp",
+        binary: true
+    },
+    "woff": {
+        name: "font/woff",
+        binary: true
+    },
+    "woff2": {
+        name: "font/woff2",
+        binary: true
+    },
+    "xhtml": {
+        name: "application/xhtml+xml",
+        binary: false
+    },
+    "xls": {
+        name: "application/vnd.ms-excel",
+        binary: true
+    },
+    "xlsx": {
+        name: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        binary: true
+    },
+    "xml": {
+        name: "text/xml",
+        binary: false
+    },
+    "xul": {
+        name: "application/vnd.mozilla.xul+xml",
+        binary: true
+    },
+    "zip": {
+        name: "application/zip",
+        binary: true
+    },
+    "3gp": {
+        name: "video/3gpp",
+        binary: true
+    },
+    "3g2": {
+        name: "video/3gpp2",
+        binary: true
+    },
+    "7z": {
+        name: "application/x-7z-compressed",
+        binary: true
+    }
+};
+
+const defaultMimeType = {
+    name: "text/plain",
+    binary: false
+};
+module.exports = function (extension) {
+    if (typeof extensionsMimeTypes[extension] !== "undefined") {
+        return extensionsMimeTypes[extension];
+    }
+    return defaultMimeType;
+};
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/request-utils.js":[function(require,module,exports){
+const logger = $$.getLogger("request-utils", "apihub/utils");
+
+function getCurrentApiHubUrl(server) {
+    const config = require("../config");
+    const currentApiHubUrl = `${server.protocol}://${config.getConfig("host")}:${config.getConfig("port")}`;
+    return currentApiHubUrl;
+}
+
+function getExcludedProvidersFromRequest(request) {
+    let excludedProviders = request.headers["excluded-providers"];
+    if (!excludedProviders) {
+        return [];
+    }
+
+    excludedProviders = excludedProviders
+        .split(",")
+        .map((provider) => provider.trim())
+        .filter((provider) => provider);
+    return excludedProviders;
+}
+
+function getHeadersWithExcludedProvidersIncludingSelf(request) {
+    let excludedProviders = request.headers["excluded-providers"] || "";
+    if (excludedProviders) {
+        excludedProviders += ",";
+    }
+    const currentApiHubUrl = getCurrentApiHubUrl(request.server);
+    excludedProviders = `${excludedProviders}${currentApiHubUrl}`;
+
+    return {
+        "Excluded-Providers": excludedProviders,
+    };
+}
+
+async function getLocalBdnsEntryListExcludingSelfAsync(request, domain, entryName) {
+    const {server} = request;
+    let entries;
+    const code = 0x401;
+    try {
+        // trying to get the entries via contract call
+        const entriesUrl = `/contracts/${domain}/bdns-entries/anchoringServices`;
+        entries = await server.makeLocalRequestAsync("GET", entriesUrl);
+    } catch (error) {
+        logger.info(code, `[${entryName}] Failed to call contract to get ${entryName}. Falling back to local bdns check`);
+
+        try {
+            const bdnsUrl = `/bdns`;
+            const bdns = await server.makeLocalRequestAsync("GET", bdnsUrl);
+            if (bdns && bdns[domain]) {
+                entries = bdns[domain][entryName];
+            }
+        } catch (error) {
+            logger.info(code, `[${entryName}] Failed to call BDNS to get ${entryName}`);
+        }
+    }
+
+    if (entries && Array.isArray(entries)) {
+        // remove self url from the list
+        const currentApiHubUrl = getCurrentApiHubUrl(server);
+        const {host} = require("../config/default");
+        entries = entries.filter((url) => {
+            let result = false;
+            if (url) {
+                if (url.indexOf(currentApiHubUrl) === -1) {
+                    result = true;
+                }
+
+                if (url.indexOf(host) === -1) {
+                    result = true;
+                }
+            }
+            return result;
+        });
+
+        // remove providers specified in the Excluded-Providers headers in order to avoid cyclic calls
+        const excludedProviders = getExcludedProvidersFromRequest(request);
+        if (excludedProviders.length) {
+            entries = entries.filter(
+                (provider) => !excludedProviders.some((excludedProvider) => excludedProvider.indexOf(provider) !== -1)
+            );
+        }
+    }
+
+    return entries;
+}
+
+module.exports = {
+    getLocalBdnsEntryListExcludingSelfAsync,
+    getHeadersWithExcludedProvidersIncludingSelf,
+};
+
+},{"../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","../config/default":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/default.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/requests.js":[function(require,module,exports){
+const http = require("http");
+const https = require("https");
+
+function makeRequest(url, method = 'GET', requestData, requestOptions = {}) {
+    return new Promise((resolve, reject) => {
+        const myURL = new URL(url);
+
+        const options = {
+            hostname: myURL.hostname,
+            path: myURL.pathname,
+            protocol: myURL.protocol,
+            port: myURL.port,
+            method: method,
+            headers: getHeaders(requestData, requestOptions.headers)
+        };
+
+        const request = (options.protocol === 'https:' ? https : http).request(options, (response) => {
+            let data = [];
+
+            response.on('data', (chunk) => {
+                data.push(chunk);
+            });
+
+            response.on('end', () => {
+                const stringData = $$.Buffer.concat(data).toString();
+
+                return resolve({
+                    statusCode: response.statusCode,
+                    body: isJSON(stringData) ? JSON.parse(stringData) : stringData
+                });
+            });
+        }).on("error", (err) => {
+            return reject({
+                statusCode: err.statusCode,
+                body: err.message || 'Internal error'
+            });
+        });
+
+        if ((method === 'POST' || method === 'PUT') && requestData) {
+            request.write(typeof requestData === 'object' ? JSON.stringify(requestData) : requestData);
+        }
+
+        request.end();
+    })
+}
+
+function isJSON(data) {
+    try {
+        JSON.parse(data)
+    } catch (err) {
+        return false;
+    }
+
+    return true;
+}
+
+function getHeaders(data, headers) {
+    const dataString = data ? JSON.stringify(data) : null;
+    return Object.assign({}, {'Content-Type': 'application/json'}, dataString ? {'Content-Length': dataString.length} : null, headers);
+}
+
+module.exports = makeRequest;
+
+},{"http":false,"https":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/responseWrapper.js":[function(require,module,exports){
+function responseWrapper(body) {
+    if (typeof body === 'string') {
+        return JSON.stringify({message: body});
+    }
+
+    return JSON.stringify(body);
+}
+
+module.exports = responseWrapper;
+
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/streams.js":[function(require,module,exports){
+function readStringFromStream(stream, callback) {
+    let data = "";
+    stream.on("data", (messagePart) => {
+        data += messagePart;
+    });
+
+    stream.on("end", () => {
+        callback(null, data);
+    });
+
+    stream.on("error", (err) => {
+        callback(err);
+    });
+}
+
+function readMessageBufferFromHTTPStream(reqORres, callback) {
+    const contentType = reqORres.headers['content-type'];
+
+    if (contentType === 'application/octet-stream') {
+        const contentLength = Number.parseInt(reqORres.headers['content-length'], 10);
+
+        if (Number.isNaN(contentLength)) {
+            return callback(new Error("Wrong content length header received!"));
+        }
+
+        streamToBuffer(reqORres, contentLength, (err, bodyAsBuffer) => {
+            if (err) {
+                return OpenDSUSafeCallback(callback)(createOpenDSUErrorWrapper(`Failed to convert stream to buffer`, err));
+            }
+            callback(undefined, bodyAsBuffer);
+        });
+    } else {
+        callback(new Error("Wrong message format received!"));
+    }
+
+    function streamToBuffer(stream, bufferSize, callback) {
+        const buffer = $$.Buffer.alloc(bufferSize);
+        let currentOffset = 0;
+
+        stream.on('data', function (chunk) {
+            const chunkSize = chunk.length;
+            const nextOffset = chunkSize + currentOffset;
+
+            if (currentOffset > bufferSize - 1) {
+                stream.close();
+                return callback(new Error('Stream is bigger than reported size'));
+            }
+
+            write2Buffer(buffer, chunk, currentOffset);
+            currentOffset = nextOffset;
+
+
+        });
+        stream.on('end', function () {
+            callback(undefined, buffer);
+        });
+        stream.on('error', callback);
+    }
+
+    function write2Buffer(buffer, dataToAppend, offset) {
+        const dataSize = dataToAppend.length;
+
+        for (let i = 0; i < dataSize; i++) {
+            buffer[offset++] = dataToAppend[i];
+        }
+    }
+}
+
+module.exports = {
+    readStringFromStream,
+    readMessageBufferFromHTTPStream
+}
+
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/SimpleLock/index.js":[function(require,module,exports){
 const fsname = "fs";
 const fs = require(fsname);
 const pathname = "path";
@@ -7899,7 +8651,7 @@ module.exports = function (server) {
 function APIKeyAuth(server) {
     const SecretsService = require("../../components/secrets/SecretsService");
     let secretServiceInstance;
-    const utils = require("../../utils/cookie-utils.js")
+    const utils = require("../../http-wrapper/utils/cookie-utils.js")
 
     const authorizationHeaderContainsAValidAPIKey = async (req) => {
         const apiKey = req.headers["x-api-key"];
@@ -7948,18 +8700,18 @@ function APIKeyAuth(server) {
 }
 
 module.exports = APIKeyAuth;
-},{"../../components/secrets/SecretsService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/SecretsService.js","../../utils/cookie-utils.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/cookie-utils.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/authorisation/index.js":[function(require,module,exports){
+},{"../../components/secrets/SecretsService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/SecretsService.js","../../http-wrapper/utils/cookie-utils.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/cookie-utils.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/authorisation/index.js":[function(require,module,exports){
 const openDSU = require("opendsu");
 const crypto = openDSU.loadApi("crypto");
 
-const {sendUnauthorizedResponse} = require("../../utils/middlewares");
+const {sendUnauthorizedResponse} = require("../../http-wrapper/utils/middlewares");
 
 function Authorisation(server) {
     const logger = $$.getLogger("Authorisation", "apihub/authorisation");
 
     logger.debug(`Registering Authorisation middleware`);
 
-    const config = require("../../config");
+    const config = require("../../http-wrapper/config");
     const skipJWTAuthorisation = config.getConfig("skipJWTAuthorisation");
 
     const urlsToSkip = skipJWTAuthorisation && Array.isArray(skipJWTAuthorisation) ? skipJWTAuthorisation : [];
@@ -8002,9 +8754,9 @@ function Authorisation(server) {
 
 module.exports = Authorisation;
 
-},{"../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","../../utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/middlewares/index.js","opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/clientCredentialsOauth/index.js":[function(require,module,exports){
+},{"../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","../../http-wrapper/utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/middlewares/index.js","opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/clientCredentialsOauth/index.js":[function(require,module,exports){
 function ClientCredentialsOauth(server) {
-    const config = require("../../config");
+    const config = require("../../http-wrapper/config");
     const jwksEndpoint = config.getConfig("oauthJWKSEndpoint");
     const util = require("../oauth/lib/util");
 
@@ -8033,7 +8785,7 @@ function ClientCredentialsOauth(server) {
 
 
 module.exports = ClientCredentialsOauth;
-},{"../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","../oauth/lib/util":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/util.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/fixedUrls/index.js":[function(require,module,exports){
+},{"../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","../oauth/lib/util":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/util.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/fixedUrls/index.js":[function(require,module,exports){
 (function (Buffer){(function (){
 const TAG_FIXED_URL_REQUEST = "fixedurlrequest";
 const INTERVAL_TIME = 1 * 1000; //ms aka 1 sec
@@ -8511,7 +9263,7 @@ module.exports = function (server) {
         });
     }
 
-    server.put("/registerFixedURLs", require("./../../utils/middlewares").bodyReaderMiddleware);
+    server.put("/registerFixedURLs", require("../../http-wrapper/utils/middlewares").bodyReaderMiddleware);
     server.put("/registerFixedURLs", function register(req, res, next) {
         if (!lightDBEnclaveClient) {
             return setTimeout(() => {
@@ -8549,7 +9301,7 @@ module.exports = function (server) {
         recursiveRegistry();
     });
 
-    server.put("/activateFixedURL", require("./../../utils/middlewares").bodyReaderMiddleware);
+    server.put("/activateFixedURL", require("../../http-wrapper/utils/middlewares").bodyReaderMiddleware);
     server.put("/activateFixedURL", function activate(req, res, next) {
         if (!lightDBEnclaveClient) {
             return setTimeout(() => {
@@ -8573,7 +9325,7 @@ module.exports = function (server) {
         });
     });
 
-    server.put("/deactivateFixedURL", require("./../../utils/middlewares").bodyReaderMiddleware);
+    server.put("/deactivateFixedURL", require("../../http-wrapper/utils/middlewares").bodyReaderMiddleware);
     server.put("/deactivateFixedURL", function deactivate(req, res, next) {
         if (!lightDBEnclaveClient) {
             return setTimeout(() => {
@@ -8748,7 +9500,7 @@ module.exports = function (server) {
 }
 }).call(this)}).call(this,require("buffer").Buffer)
 
-},{"./../../utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/middlewares/index.js","buffer":false,"opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/genericErrorMiddleware/index.js":[function(require,module,exports){
+},{"../../http-wrapper/utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/middlewares/index.js","buffer":false,"opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/genericErrorMiddleware/index.js":[function(require,module,exports){
 function setupGenericErrorMiddleware(server) {
     const constants = require("./../../moduleConstants");
     const logger = $$.getLogger("setupGenericErrorMiddleware", "apihub/genericErrorMiddleware");
@@ -8901,7 +9653,7 @@ function Logger(server) {
 module.exports = Logger;
 
 },{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/index.js":[function(require,module,exports){
-const config = require("../../config");
+const config = require("../../http-wrapper/config");
 
 const serverAuthentication = config.getConfig("serverAuthentication")
 if (serverAuthentication) {
@@ -8911,10 +9663,10 @@ if (serverAuthentication) {
 }
 
 
-},{"../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","./lib/AccessTokenValidator":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/AccessTokenValidator.js","./lib/OauthMiddleware":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/OauthMiddleware.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/AccessTokenValidator.js":[function(require,module,exports){
-const {sendUnauthorizedResponse} = require("../../../utils/middlewares");
+},{"../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","./lib/AccessTokenValidator":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/AccessTokenValidator.js","./lib/OauthMiddleware":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/OauthMiddleware.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/AccessTokenValidator.js":[function(require,module,exports){
+const {sendUnauthorizedResponse} = require("../../../http-wrapper/utils/middlewares");
 const util = require("./util");
-const config = require("../../../config");
+const config = require("../../../http-wrapper/config");
 
 function AccessTokenValidator(server) {
     const logger = $$.getLogger("AccessTokenValidator", "apihub/oauth");
@@ -8955,10 +9707,10 @@ function AccessTokenValidator(server) {
 }
 
 module.exports = AccessTokenValidator;
-},{"../../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","../../../utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/middlewares/index.js","./util":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/util.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/OauthMiddleware.js":[function(require,module,exports){
+},{"../../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","../../../http-wrapper/utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/middlewares/index.js","./util":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/util.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/OauthMiddleware.js":[function(require,module,exports){
 const util = require("./util");
 const urlModule = require("url");
-const {httpUtils} = require("../../../libs/http-wrapper");
+const {httpUtils} = require("../../../http-wrapper");
 const {printDebugLog} = require("./util");
 
 function OAuthMiddleware(server) {
@@ -8979,7 +9731,7 @@ function OAuthMiddleware(server) {
 
     logger.debug(`Registering OAuthMiddleware`);
     const staticContentIdentifiers = ["text/html", "application/xhtml+xml", "application/xml"];
-    const config = require("../../../config");
+    const config = require("../../../http-wrapper/config");
     const oauthConfig = config.getConfig("oauthConfig");
     const path = require("path");
     const ENCRYPTION_KEYS_LOCATION = oauthConfig.encryptionKeysLocation || path.join(server.rootFolder, "external-volume", "encryption-keys");
@@ -9455,7 +10207,7 @@ function OAuthMiddleware(server) {
 
 module.exports = OAuthMiddleware;
 
-},{"../../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","../../../libs/http-wrapper":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/http-wrapper/src/index.js","./WebClient":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/WebClient.js","./errorMessages":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/errorMessages.js","./util":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/util.js","path":false,"url":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/WebClient.js":[function(require,module,exports){
+},{"../../../http-wrapper":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/index.js","../../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","./WebClient":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/WebClient.js","./errorMessages":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/errorMessages.js","./util":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/util.js","path":false,"url":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/WebClient.js":[function(require,module,exports){
 (function (Buffer){(function (){
 const url = require('url');
 const util = require("./util");
@@ -10007,7 +10759,7 @@ function getSSODetectedIdAndUserId(tokenSet, callback) {
         SSODetectedIdsAndUserIds[tokenSet.access_token] = res;
         return callback(undefined, res);
     } catch (e) {
-        const config = require("../../../config");
+        const config = require("../../../http-wrapper/config");
         const oauthConfig = config.getConfig("oauthConfig");
         const WebClient = require("./WebClient");
         const webClient = new WebClient(oauthConfig);
@@ -10157,7 +10909,7 @@ function decryptLoginInfo(encryptedLoginInfo, callback) {
 }
 
 function getUrlsToSkip() {
-    const config = require("../../../config");
+    const config = require("../../../http-wrapper/config");
     const skipOAuth = config.getConfig("skipOAuth");
     let urlsToSkip = skipOAuth && Array.isArray(skipOAuth) ? skipOAuth : [];
     const configuredDomains = config.getConfiguredDomains();
@@ -10182,7 +10934,7 @@ function updateAccessTokenExpiration(accessTokenCookie, callback) {
 }
 
 function printDebugLog(...args) {
-    const config = require("../../../config");
+    const config = require("../../../http-wrapper/config");
     const oauthConfig = config.getConfig("oauthConfig");
     if (oauthConfig.debugLogEnabled) {
         logger.debug(...args);
@@ -10210,7 +10962,7 @@ module.exports = {
     getSSODetectedIdFromPayload
 }
 
-},{"../../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","./WebClient":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/WebClient.js","./errorMessages":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/errorMessages.js","fs":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/readOnly/index.js":[function(require,module,exports){
+},{"../../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","./WebClient":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/WebClient.js","./errorMessages":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/errorMessages.js","fs":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/readOnly/index.js":[function(require,module,exports){
 let path = "path";
 path = require(path);
 let fs = "fs";
@@ -10311,7 +11063,7 @@ function ResponseHeaders(server) {
 
     logger.debug(`Registering Response Headers middleware`);
 
-    const config = require("../../config");
+    const config = require("../../http-wrapper/config");
     const responseHeaders = config.getConfig("responseHeaders");
 
     server.use(function (req, res, next) {
@@ -10328,14 +11080,14 @@ function ResponseHeaders(server) {
 
 module.exports = ResponseHeaders;
 
-},{"../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/simpleAuth/index.js":[function(require,module,exports){
+},{"../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/simpleAuth/index.js":[function(require,module,exports){
 const fs = require('fs');
 const fsPromises = fs.promises;
 const path = require('path');
 const openDSU = require("opendsu");
 const crypto = openDSU.loadAPI("crypto");
 const querystring = require('querystring');
-const cookieUtils = require("../../utils/cookie-utils");
+const cookieUtils = require("../../http-wrapper/utils/cookie-utils");
 const SecretsService = require("../../components/secrets/SecretsService");
 const appName = 'simpleAuth'
 const PUT_SECRETS_URL_PATH = "/putSSOSecret/simpleAuth";
@@ -10434,7 +11186,7 @@ module.exports = function (server) {
         next();
     });
 
-    const httpUtils = require("../../libs/http-wrapper/src/httpUtils");
+    const httpUtils = require("../../http-wrapper/src/httpUtils");
 
     server.get('/simpleAuth/*', (req, res) => {
         let wrongCredentials = req.query.wrongCredentials || false;
@@ -10542,15 +11294,15 @@ module.exports = function (server) {
     server.put('/simpleAuth', simpleAuthHandler);
 }
 
-},{"../../components/secrets/SecretsService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/SecretsService.js","../../libs/http-wrapper/src/httpUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/http-wrapper/src/httpUtils.js","../../utils/cookie-utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/cookie-utils.js","../oauth/lib/util.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/util.js","fs":false,"opendsu":"opendsu","path":false,"querystring":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/throttler/index.js":[function(require,module,exports){
-const TokenBucket = require("../../libs/TokenBucket");
+},{"../../components/secrets/SecretsService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/SecretsService.js","../../http-wrapper/src/httpUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/httpUtils.js","../../http-wrapper/utils/cookie-utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/cookie-utils.js","../oauth/lib/util.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/util.js","fs":false,"opendsu":"opendsu","path":false,"querystring":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/throttler/index.js":[function(require,module,exports){
+const TokenBucket = require("../../http-wrapper/src/TokenBucket");
 
 function Throttler(server) {
     const logger = $$.getLogger("Throttler", "apihub");
     const START_TOKENS = 6000000;
     const tokenBucket = new TokenBucket(START_TOKENS, 1, 10);
     let remainingTokens = START_TOKENS;
-    const conf = require('../../config').getConfig();
+    const conf = require('../../http-wrapper/config').getConfig();
 
     function throttlerHandler(req, res, next) {
         const ip = res.socket.remoteAddress;
@@ -10599,762 +11351,10 @@ function Throttler(server) {
 }
 
 module.exports = Throttler;
-},{"../../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","../../libs/TokenBucket":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/TokenBucket.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/moduleConstants.js":[function(require,module,exports){
+},{"../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","../../http-wrapper/src/TokenBucket":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/TokenBucket.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/moduleConstants.js":[function(require,module,exports){
 module.exports = {
     LOG_IDENTIFIER: "[API-HUB]"
 };
-},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/ExpiringFileLock.js":[function(require,module,exports){
-function ExpiringFileLock(folderLock, timeout) {
-    const fsPromisesName = 'node:fs/promises';
-    const fsPromises = require(fsPromisesName);
-
-    function asyncSleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    this.lock = async () => {
-        while (true) {
-            try {
-                const stat = await fsPromises.stat(folderLock);
-                const currentTime = Date.now();
-                // console.log("checking if lock is expired", folderLock, stat.ctime.getTime(), currentTime - timeout, stat.ctime.getTime() < currentTime - timeout);
-                if (stat.ctime.getTime() < currentTime - timeout) {
-                    await fsPromises.rmdir(folderLock);
-                    console.log("Removed expired lock", folderLock);
-                }
-            } catch (e) {
-                // No such file or directory
-            }
-
-            try {
-                await fsPromises.mkdir(folderLock, {recursive: true});
-                return;
-            } catch (e) {
-                console.log("Retrying to acquire lock", folderLock, "after 100ms");
-                await asyncSleep(100);
-            }
-        }
-    }
-
-    this.unlock = async () => {
-        try {
-            await fsPromises.rmdir(folderLock);
-        } catch (e) {
-            // Nothing to do
-        }
-    }
-}
-
-module.exports = {
-    getLock: (folderLock, timeout) => {
-        return new ExpiringFileLock(folderLock, timeout);
-    }
-};
-},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/backupUtils.js":[function(require,module,exports){
-const fs = require('fs');
-const path = require('path');
-const serverConfig = require('../config').getConfig();
-const backupJournalFilePath = serverConfig.backupJournalFilePath || path.join(serverConfig.storage, "external-volume", "backup", "backup-journal.txt");
-const notifyBackup = (filePath) => {
-    fs.mkdirSync(path.dirname(backupJournalFilePath), {recursive: true});
-    fs.appendFile(backupJournalFilePath, `${filePath}\n`, (err) => {
-        if (err) {
-            console.error(`Failed to add file path to backup request: ${filePath}`);
-            return;
-        }
-        console.log(`File path added to backup request: ${filePath}`);
-    });
-};
-
-const restoreFileFromBackup = (backupServiceUrl, filePath, callback) => {
-    const http = require("opendsu").loadAPI("http");
-    const fileUrl = `${backupServiceUrl}/getFile/${encodeURIComponent(filePath)}`;
-    http.fetch(fileUrl).then(async (response) => {
-        if (response.status !== 200) {
-            callback(new Error(`Failed to fetch file from backup service: ${fileUrl}`));
-            return;
-        }
-        let fileContent = await response.arrayBuffer();
-        fileContent = $$.Buffer.from(fileContent);
-        fs.mkdirSync(path.dirname(filePath), {recursive: true});
-        fs.writeFile(filePath, fileContent, callback);
-    }).catch((err) => {
-        console.error(`Failed to fetch file from backup service: ${fileUrl}`, err);
-        callback(err);
-    });
-}
-
-module.exports = {
-    notifyBackup,
-    restoreFileFromBackup
-};
-},{"../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","fs":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/cookie-utils.js":[function(require,module,exports){
-const COOKIE_REGEX = /([^;=\s]*)=([^;]*)/g;
-
-function parseCookies(str) {
-    let cookies = {};
-    if (!str) {
-        return cookies;
-    }
-    for (let m; (m = COOKIE_REGEX.exec(str));) {
-        cookies[m[1]] = decodeURIComponent(m[2]);
-    }
-    return cookies;
-}
-
-/**
- * @param {Object} options
- * @param {string} [options.name='']
- * @param {string} [options.value='']
- * @param {Date} [options.expires]
- * @param {number} [options.maxAge]
- * @param {string} [options.domain]
- * @param {string} [options.path]
- * @param {boolean} [options.secure]
- * @param {boolean} [options.httpOnly]
- * @param {'Strict'|'Lax'|'None'} [options.sameSite]
- * @return {string}
- */
-function createSetCookieEntry(options) {
-    return (
-        `${options.name || ""}=${encodeURIComponent(options.value || "")}` +
-        (options.expires != null ? `; Expires=${options.expires.toUTCString()}` : "") +
-        (options.maxAge != null ? `; Max-Age=${options.maxAge}` : "") +
-        (options.domain != null ? `; Domain=${options.domain}` : "") +
-        (options.path != null ? `; Path=${options.path}` : "") +
-        (options.secure ? "; Secure" : "") +
-        (options.httpOnly ? "; HttpOnly" : "") +
-        (options.sameSite != null ? `; SameSite=${options.sameSite}` : "")
-    );
-}
-
-function stringifyCookies(cookies) {
-    if (!Array.isArray(cookies)) {
-        cookies = [cookies];
-    }
-
-    return cookies.map(createSetCookieEntry).join("; ");
-}
-
-module.exports = {
-    parseCookies,
-    stringifyCookies,
-};
-
-},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/index.js":[function(require,module,exports){
-module.exports.clone = function (data) {
-    return JSON.parse(JSON.stringify(data));
-}
-
-module.exports.streams = require("./streams");
-module.exports.requests = require("./requests");
-module.exports.responseWrapper = require("./responseWrapper");
-module.exports.getMimeTypeFromExtension = require("./mimeType");
-},{"./mimeType":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/mimeType.js","./requests":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/requests.js","./responseWrapper":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/responseWrapper.js","./streams":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/streams.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/middlewares/index.js":[function(require,module,exports){
-(function (Buffer){(function (){
-const responseWrapper = require('../responseWrapper');
-const logger = $$.getLogger("middlewares", "apihub/utils");
-
-function requestBodyJSONMiddleware(request, response, next) {
-    /**
-     * Prepare headers for response
-     */
-    response.setHeader('Content-Type', 'application/json');
-
-    const data = [];
-
-    request.on('data', (chunk) => {
-        data.push(chunk);
-    });
-
-    request.on('end', () => {
-        if (!data.length) {
-            request.body = {};
-            return next();
-        }
-
-        let body;
-
-        try {
-            body = JSON.parse(data);
-        } catch (e) {
-            response.statusCode = 500;
-            return response.end("Unable to decode JSON request body");
-        }
-        request.body = body;
-        next();
-    });
-}
-
-function responseModifierMiddleware(request, response, next) {
-    if (!response.hasOwnProperty('send')) {
-        response.send = function (statusCode, body, callback = response.end) {
-            response.statusCode = statusCode;
-
-            if (body) {
-                response.write(responseWrapper(body));
-            }
-
-            callback.call(response);
-            // callback();
-        };
-    }
-
-    next();
-}
-
-function headersMiddleware(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Content-Length, X-Content-Length');
-    next();
-}
-
-function bodyReaderMiddleware(req, res, next) {
-    const data = [];
-
-    req.on('data', (chunk) => {
-        data.push(chunk);
-    });
-
-    req.on('end', () => {
-        req.body = Buffer.concat(data);
-        next();
-    });
-}
-
-function sendUnauthorizedResponse(req, res, reason, error) {
-    logger.error(`[Auth] [${req.method}] ${req.url} blocked: ${reason}`, error);
-    res.statusCode = 403;
-    res.end();
-}
-
-module.exports = {
-    requestBodyJSONMiddleware,
-    responseModifierMiddleware,
-    headersMiddleware,
-    bodyReaderMiddleware,
-    sendUnauthorizedResponse
-};
-
-}).call(this)}).call(this,require("buffer").Buffer)
-
-},{"../responseWrapper":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/responseWrapper.js","buffer":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/mimeType.js":[function(require,module,exports){
-const extensionsMimeTypes = {
-    "aac": {
-        name: "audio/aac",
-        binary: true
-    },
-    "abw": {
-        name: "application/x-abiword",
-        binary: true
-    },
-    "arc": {
-        name: "application/x-freearc",
-        binary: true
-    },
-    "avi": {
-        name: "video/x-msvideo",
-        binary: true
-    },
-    "azw": {
-        name: "application/vnd.amazon.ebook",
-        binary: true
-    },
-    "bin": {
-        name: "application/octet-stream",
-        binary: true
-    }, "bmp": {
-        name: "image/bmp",
-        binary: true
-    }, "bz": {
-        name: "application/x-bzip",
-        binary: true
-    }, "bz2": {
-        name: "application/x-bzip2",
-        binary: true
-    }, "csh": {
-        name: "application/x-csh",
-        binary: false
-    }, "css": {
-        name: "text/css",
-        binary: false
-    }, "csv": {
-        name: "text/csv",
-        binary: false
-    }, "doc": {
-        name: "application/msword",
-        binary: true
-    }, "docx": {
-        name: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        binary: true
-    }, "eot": {
-        name: "application/vnd.ms-fontobject",
-        binary: true
-    }, "epub": {
-        name: "application/epub+zip",
-        binary: true
-    }, "gz": {
-        name: "application/gzip",
-        binary: true
-    }, "gif": {
-        name: "image/gif",
-        binary: true
-    }, "htm": {
-        name: "text/html",
-        binary: false
-    }, "html": {
-        name: "text/html",
-        binary: false
-    }, "ico": {
-        name: "image/vnd.microsoft.icon",
-        binary: true
-    }, "ics": {
-        name: "text/calendar",
-        binary: false
-    }, "jpeg": {
-        name: "image/jpeg",
-        binary: true
-    }, "jpg": {
-        name: "image/jpeg",
-        binary: true
-    }, "js": {
-        name: "text/javascript",
-        binary: false
-    }, "json": {
-        name: "application/json",
-        binary: false
-    }, "jsonld": {
-        name: "application/ld+json",
-        binary: false
-    }, "mid": {
-        name: "audio/midi",
-        binary: true
-    }, "midi": {
-        name: "audio/midi",
-        binary: true
-    }, "mjs": {
-        name: "text/javascript",
-        binary: false
-    }, "mp3": {
-        name: "audio/mpeg",
-        binary: true
-    }, "mpeg": {
-        name: "video/mpeg",
-        binary: true
-    }, "mpkg": {
-        name: "application/vnd.apple.installer+xm",
-        binary: true
-    }, "odp": {
-        name: "application/vnd.oasis.opendocument.presentation",
-        binary: true
-    }, "ods": {
-        name: "application/vnd.oasis.opendocument.spreadsheet",
-        binary: true
-    }, "odt": {
-        name: "application/vnd.oasis.opendocument.text",
-        binary: true
-    }, "oga": {
-        name: "audio/ogg",
-        binary: true
-    },
-    "ogv": {
-        name: "video/ogg",
-        binary: true
-    },
-    "ogx": {
-        name: "application/ogg",
-        binary: true
-    },
-    "opus": {
-        name: "audio/opus",
-        binary: true
-    },
-    "otf": {
-        name: "font/otf",
-        binary: true
-    },
-    "png": {
-        name: "image/png",
-        binary: true
-    },
-    "pdf": {
-        name: "application/pdf",
-        binary: true
-    },
-    "php": {
-        name: "application/php",
-        binary: false
-    },
-    "ppt": {
-        name: "application/vnd.ms-powerpoint",
-        binary: true
-    },
-    "pptx": {
-        name: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-        binary: true
-    },
-    "rtf": {
-        name: "application/rtf",
-        binary: true
-    },
-    "sh": {
-        name: "application/x-sh",
-        binary: false
-    },
-    "svg": {
-        name: "image/svg+xml",
-        binary: false
-    },
-    "swf": {
-        name: "application/x-shockwave-flash",
-        binary: true
-    },
-    "tar": {
-        name: "application/x-tar",
-        binary: true
-    },
-    "tif": {
-        name: "image/tiff",
-        binary: true
-    },
-    "tiff": {
-        name: "image/tiff",
-        binary: true
-    },
-    "ts": {
-        name: "video/mp2t",
-        binary: true
-    },
-    "ttf": {
-        name: "font/ttf",
-        binary: true
-    },
-    "txt": {
-        name: "text/plain",
-        binary: false
-    },
-    "vsd": {
-        name: "application/vnd.visio",
-        binary: true
-    },
-    "wav": {
-        name: "audio/wav",
-        binary: true
-    },
-    "weba": {
-        name: "audio/webm",
-        binary: true
-    },
-    "webm": {
-        name: "video/webm",
-        binary: true
-    },
-    "webp": {
-        name: "image/webp",
-        binary: true
-    },
-    "woff": {
-        name: "font/woff",
-        binary: true
-    },
-    "woff2": {
-        name: "font/woff2",
-        binary: true
-    },
-    "xhtml": {
-        name: "application/xhtml+xml",
-        binary: false
-    },
-    "xls": {
-        name: "application/vnd.ms-excel",
-        binary: true
-    },
-    "xlsx": {
-        name: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        binary: true
-    },
-    "xml": {
-        name: "text/xml",
-        binary: false
-    },
-    "xul": {
-        name: "application/vnd.mozilla.xul+xml",
-        binary: true
-    },
-    "zip": {
-        name: "application/zip",
-        binary: true
-    },
-    "3gp": {
-        name: "video/3gpp",
-        binary: true
-    },
-    "3g2": {
-        name: "video/3gpp2",
-        binary: true
-    },
-    "7z": {
-        name: "application/x-7z-compressed",
-        binary: true
-    }
-};
-
-const defaultMimeType = {
-    name: "text/plain",
-    binary: false
-};
-module.exports = function (extension) {
-    if (typeof extensionsMimeTypes[extension] !== "undefined") {
-        return extensionsMimeTypes[extension];
-    }
-    return defaultMimeType;
-};
-},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/request-utils.js":[function(require,module,exports){
-const logger = $$.getLogger("request-utils", "apihub/utils");
-
-function getCurrentApiHubUrl(server) {
-    const config = require("../config");
-    const currentApiHubUrl = `${server.protocol}://${config.getConfig("host")}:${config.getConfig("port")}`;
-    return currentApiHubUrl;
-}
-
-function getExcludedProvidersFromRequest(request) {
-    let excludedProviders = request.headers["excluded-providers"];
-    if (!excludedProviders) {
-        return [];
-    }
-
-    excludedProviders = excludedProviders
-        .split(",")
-        .map((provider) => provider.trim())
-        .filter((provider) => provider);
-    return excludedProviders;
-}
-
-function getHeadersWithExcludedProvidersIncludingSelf(request) {
-    let excludedProviders = request.headers["excluded-providers"] || "";
-    if (excludedProviders) {
-        excludedProviders += ",";
-    }
-    const currentApiHubUrl = getCurrentApiHubUrl(request.server);
-    excludedProviders = `${excludedProviders}${currentApiHubUrl}`;
-
-    return {
-        "Excluded-Providers": excludedProviders,
-    };
-}
-
-async function getLocalBdnsEntryListExcludingSelfAsync(request, domain, entryName) {
-    const {server} = request;
-    let entries;
-    const code = 0x401;
-    try {
-        // trying to get the entries via contract call
-        const entriesUrl = `/contracts/${domain}/bdns-entries/anchoringServices`;
-        entries = await server.makeLocalRequestAsync("GET", entriesUrl);
-    } catch (error) {
-        logger.info(code, `[${entryName}] Failed to call contract to get ${entryName}. Falling back to local bdns check`);
-
-        try {
-            const bdnsUrl = `/bdns`;
-            const bdns = await server.makeLocalRequestAsync("GET", bdnsUrl);
-            if (bdns && bdns[domain]) {
-                entries = bdns[domain][entryName];
-            }
-        } catch (error) {
-            logger.info(code, `[${entryName}] Failed to call BDNS to get ${entryName}`);
-        }
-    }
-
-    if (entries && Array.isArray(entries)) {
-        // remove self url from the list
-        const currentApiHubUrl = getCurrentApiHubUrl(server);
-        const {host} = require("./../config/default");
-        entries = entries.filter((url) => {
-            let result = false;
-            if (url) {
-                if (url.indexOf(currentApiHubUrl) === -1) {
-                    result = true;
-                }
-
-                if (url.indexOf(host) === -1) {
-                    result = true;
-                }
-            }
-            return result;
-        });
-
-        // remove providers specified in the Excluded-Providers headers in order to avoid cyclic calls
-        const excludedProviders = getExcludedProvidersFromRequest(request);
-        if (excludedProviders.length) {
-            entries = entries.filter(
-                (provider) => !excludedProviders.some((excludedProvider) => excludedProvider.indexOf(provider) !== -1)
-            );
-        }
-    }
-
-    return entries;
-}
-
-module.exports = {
-    getLocalBdnsEntryListExcludingSelfAsync,
-    getHeadersWithExcludedProvidersIncludingSelf,
-};
-
-},{"../config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","./../config/default":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/default.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/requests.js":[function(require,module,exports){
-const http = require("http");
-const https = require("https");
-
-function makeRequest(url, method = 'GET', requestData, requestOptions = {}) {
-    return new Promise((resolve, reject) => {
-        const myURL = new URL(url);
-
-        const options = {
-            hostname: myURL.hostname,
-            path: myURL.pathname,
-            protocol: myURL.protocol,
-            port: myURL.port,
-            method: method,
-            headers: getHeaders(requestData, requestOptions.headers)
-        };
-
-        const request = (options.protocol === 'https:' ? https : http).request(options, (response) => {
-            let data = [];
-
-            response.on('data', (chunk) => {
-                data.push(chunk);
-            });
-
-            response.on('end', () => {
-                const stringData = $$.Buffer.concat(data).toString();
-
-                return resolve({
-                    statusCode: response.statusCode,
-                    body: isJSON(stringData) ? JSON.parse(stringData) : stringData
-                });
-            });
-        }).on("error", (err) => {
-            return reject({
-                statusCode: err.statusCode,
-                body: err.message || 'Internal error'
-            });
-        });
-
-        if ((method === 'POST' || method === 'PUT') && requestData) {
-            request.write(typeof requestData === 'object' ? JSON.stringify(requestData) : requestData);
-        }
-
-        request.end();
-    })
-}
-
-function isJSON(data) {
-    try {
-        JSON.parse(data)
-    } catch (err) {
-        return false;
-    }
-
-    return true;
-}
-
-function getHeaders(data, headers) {
-    const dataString = data ? JSON.stringify(data) : null;
-    return Object.assign({}, {'Content-Type': 'application/json'}, dataString ? {'Content-Length': dataString.length} : null, headers);
-}
-
-module.exports = makeRequest;
-
-},{"http":false,"https":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/responseWrapper.js":[function(require,module,exports){
-function responseWrapper(body) {
-    if (typeof body === 'string') {
-        return JSON.stringify({message: body});
-    }
-
-    return JSON.stringify(body);
-}
-
-module.exports = responseWrapper;
-
-},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/utils/streams.js":[function(require,module,exports){
-function readStringFromStream(stream, callback) {
-    let data = "";
-    stream.on("data", (messagePart) => {
-        data += messagePart;
-    });
-
-    stream.on("end", () => {
-        callback(null, data);
-    });
-
-    stream.on("error", (err) => {
-        callback(err);
-    });
-}
-
-function readMessageBufferFromHTTPStream(reqORres, callback) {
-    const contentType = reqORres.headers['content-type'];
-
-    if (contentType === 'application/octet-stream') {
-        const contentLength = Number.parseInt(reqORres.headers['content-length'], 10);
-
-        if (Number.isNaN(contentLength)) {
-            return callback(new Error("Wrong content length header received!"));
-        }
-
-        streamToBuffer(reqORres, contentLength, (err, bodyAsBuffer) => {
-            if (err) {
-                return OpenDSUSafeCallback(callback)(createOpenDSUErrorWrapper(`Failed to convert stream to buffer`, err));
-            }
-            callback(undefined, bodyAsBuffer);
-        });
-    } else {
-        callback(new Error("Wrong message format received!"));
-    }
-
-    function streamToBuffer(stream, bufferSize, callback) {
-        const buffer = $$.Buffer.alloc(bufferSize);
-        let currentOffset = 0;
-
-        stream.on('data', function (chunk) {
-            const chunkSize = chunk.length;
-            const nextOffset = chunkSize + currentOffset;
-
-            if (currentOffset > bufferSize - 1) {
-                stream.close();
-                return callback(new Error('Stream is bigger than reported size'));
-            }
-
-            write2Buffer(buffer, chunk, currentOffset);
-            currentOffset = nextOffset;
-
-
-        });
-        stream.on('end', function () {
-            callback(undefined, buffer);
-        });
-        stream.on('error', callback);
-    }
-
-    function write2Buffer(buffer, dataToAppend, offset) {
-        const dataSize = dataToAppend.length;
-
-        for (let i = 0; i < dataSize; i++) {
-            buffer[offset++] = dataToAppend[i];
-        }
-    }
-}
-
-module.exports = {
-    readStringFromStream,
-    readMessageBufferFromHTTPStream
-}
-
 },{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/bar-fs-adapter/lib/FsAdapter.js":[function(require,module,exports){
 function FsAdapter() {
     const fsModule = "fs";
@@ -77889,7 +77889,7 @@ process.on('SIGTERM', (signal) => {
     logger.info('Received signal:', signal, ". Activating the gracefulTerminationWatcher.");
 });
 
-const httpWrapper = require('./libs/http-wrapper');
+const httpWrapper = require('./http-wrapper');
 const Server = httpWrapper.Server;
 
 const CHECK_FOR_RESTART_COMMAND_FILE_INTERVAL = 500;
@@ -77924,7 +77924,7 @@ function HttpServer({listeningPort, rootFolder, sslConfig, dynamicPort, restartI
         restartIntervalCheck = CHECK_FOR_RESTART_COMMAND_FILE_INTERVAL;
     }
     let port = listeningPort || 8080;
-    const conf = require('./config').getConfig();
+    const conf = require('./http-wrapper/config').getConfig();
     const server = new Server(sslConfig);
     server.config = conf;
     server.rootFolder = rootFolder;
@@ -78327,18 +78327,18 @@ module.exports.start = function (options, callback) {
 }
 
 module.exports.getHttpWrapper = function () {
-    return require('./libs/http-wrapper');
+    return require('./http-wrapper');
 };
 
 module.exports.getServerConfig = function () {
     logger.debug(`apihub.getServerConfig() method is deprecated, please use server.config to retrieve necessary info.`);
-    const config = require('./config');
+    const config = require('./http-wrapper/config');
     return config.getConfig();
 };
 
 module.exports.getDomainConfig = function (domain, ...configKeys) {
     logger.debug(`apihub.getServerConfig() method is deprecated, please use server.config.getDomainConfig(...) to retrieve necessary info.`);
-    const config = require('./config');
+    const config = require('./http-wrapper/config');
     return config.getDomainConfig(domain, ...configKeys);
 };
 
@@ -78350,8 +78350,8 @@ module.exports.getSecretsServiceInstanceAsync = require("./components/secrets/Se
 
 module.exports.anchoringStrategies = require("./components/anchoring/strategies");
 
-module.exports.TokenBucket = require("./libs/TokenBucket");
-},{"./components/activeComponents":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/activeComponents/index.js","./components/admin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/admin/index.js","./components/anchoring":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/index.js","./components/anchoring/strategies":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/index.js","./components/bdns":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bdns/index.js","./components/bricking":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/index.js","./components/cloudWallet":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/cloudWallet/index.js","./components/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/config/index.js","./components/debugLogger":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/debugLogger/index.js","./components/installation-details":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/installation-details/index.js","./components/keySsiNotifications":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/keySsiNotifications/index.js","./components/lightDBEnclave":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/lightDBEnclave/index.js","./components/mainDSU":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mainDSU/index.js","./components/mqHub":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/index.js","./components/requestForwarder":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/requestForwarder/index.js","./components/secrets":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/index.js","./components/secrets/SecretsService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/SecretsService.js","./components/staticServer":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/staticServer/index.js","./components/stream":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/stream/index.js","./components/versionlessDSU":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/versionlessDSU/index.js","./config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/config/index.js","./libs/TokenBucket":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/TokenBucket.js","./libs/http-wrapper":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/libs/http-wrapper/src/index.js","./middlewares/SimpleLock":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/SimpleLock/index.js","./middlewares/apiKeyAuth":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/apiKeyAuth/index.js","./middlewares/authorisation":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/authorisation/index.js","./middlewares/clientCredentialsOauth":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/clientCredentialsOauth/index.js","./middlewares/fixedUrls":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/fixedUrls/index.js","./middlewares/genericErrorMiddleware":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/genericErrorMiddleware/index.js","./middlewares/logger":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/logger/index.js","./middlewares/oauth":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/index.js","./middlewares/readOnly":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/readOnly/index.js","./middlewares/requestEnhancements":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/requestEnhancements/index.js","./middlewares/responseHeader":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/responseHeader/index.js","./middlewares/simpleAuth":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/simpleAuth/index.js","./middlewares/throttler":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/throttler/index.js","swarmutils":"swarmutils"}],"bar-fs-adapter":[function(require,module,exports){
+module.exports.TokenBucket = require("./http-wrapper/src/TokenBucket");
+},{"./components/activeComponents":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/activeComponents/index.js","./components/admin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/admin/index.js","./components/anchoring":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/index.js","./components/anchoring/strategies":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/index.js","./components/bdns":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bdns/index.js","./components/bricking":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/bricking/index.js","./components/cloudWallet":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/cloudWallet/index.js","./components/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/config/index.js","./components/debugLogger":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/debugLogger/index.js","./components/installation-details":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/installation-details/index.js","./components/keySsiNotifications":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/keySsiNotifications/index.js","./components/lightDBEnclave":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/lightDBEnclave/index.js","./components/mainDSU":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mainDSU/index.js","./components/mqHub":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/index.js","./components/requestForwarder":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/requestForwarder/index.js","./components/secrets":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/index.js","./components/secrets/SecretsService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/SecretsService.js","./components/staticServer":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/staticServer/index.js","./components/stream":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/stream/index.js","./components/versionlessDSU":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/versionlessDSU/index.js","./http-wrapper":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/index.js","./http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","./http-wrapper/src/TokenBucket":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/TokenBucket.js","./middlewares/SimpleLock":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/SimpleLock/index.js","./middlewares/apiKeyAuth":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/apiKeyAuth/index.js","./middlewares/authorisation":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/authorisation/index.js","./middlewares/clientCredentialsOauth":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/clientCredentialsOauth/index.js","./middlewares/fixedUrls":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/fixedUrls/index.js","./middlewares/genericErrorMiddleware":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/genericErrorMiddleware/index.js","./middlewares/logger":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/logger/index.js","./middlewares/oauth":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/index.js","./middlewares/readOnly":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/readOnly/index.js","./middlewares/requestEnhancements":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/requestEnhancements/index.js","./middlewares/responseHeader":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/responseHeader/index.js","./middlewares/simpleAuth":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/simpleAuth/index.js","./middlewares/throttler":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/throttler/index.js","swarmutils":"swarmutils"}],"bar-fs-adapter":[function(require,module,exports){
 module.exports.createFsAdapter = () => {
     const FsAdapter = require("./lib/FsAdapter");
     return new FsAdapter();

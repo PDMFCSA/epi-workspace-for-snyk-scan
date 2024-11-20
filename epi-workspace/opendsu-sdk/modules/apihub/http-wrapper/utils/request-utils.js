@@ -57,7 +57,7 @@ async function getLocalBdnsEntryListExcludingSelfAsync(request, domain, entryNam
     if (entries && Array.isArray(entries)) {
         // remove self url from the list
         const currentApiHubUrl = getCurrentApiHubUrl(server);
-        const {host} = require("./../config/default");
+        const {host} = require("../config/default");
         entries = entries.filter((url) => {
             let result = false;
             if (url) {
