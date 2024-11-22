@@ -120,7 +120,8 @@ const defaultConfig = {
     ],
     "oauthConfig":{
         "whitelist":[]
-    }
+    },
+    cacheDurations:[]
 };
 
 module.exports = Object.freeze(defaultConfig);
