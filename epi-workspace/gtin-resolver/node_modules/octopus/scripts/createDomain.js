@@ -185,13 +185,21 @@ let config = parse_arguments(args);
 
 const fs = require("fs");
 
-fs.access(config.dsuTypeSSI, fs.F_OK, (err) => {
+let dsuTypeSSIFile = config.dsuTypeSSI;
+try{
+    const utils = require("./utils.js");
+    dsuTypeSSIFile = utils.validatePath(dsuTypeSSIFile);
+}catch(err){
+    return octopus.handleError("Path traversal detected", err);
+}
+
+fs.access(dsuTypeSSIFile, fs.F_OK, (err) => {
     if (err) {
-        console.error(`DSU Type SSI file not found at ${config.dsuTypeSSI}`);
+        console.error(`DSU Type SSI file not found at ${dsuTypeSSIFile}`);
         return createDomainFinishedCallback(err);
     }
 
-    fs.readFile(config.dsuTypeSSI, (err, data) => {
+    fs.readFile(dsuTypeSSIFile, (err, data) => {
         if (err) octopus.handleError("Configuration file exists, but could not be read", err);
 
         let dsuTypeSSI = data.toString();
