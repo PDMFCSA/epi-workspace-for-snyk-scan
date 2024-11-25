@@ -17667,6 +17667,19 @@ module.exports = {
 const path = require("path");
 const MimeType = require("../browser/util/MimeType");
 
+function validatePath (user_input) {
+    if (user_input.indexOf('\0') !== -1) {
+        throw 'Access denied';
+    }
+    if (!/^[a-z0-9]+$/.test(user_input)) {
+        throw 'Access denied';
+    }
+    let path = require('path');
+    let safe_input = path.normalize(user_input).replace(/^(\.\.(\/|\\|$))+/, '');
+
+    return safe_input;
+}
+
 const handle = (dsu, res, requestedPath) => {
     function extractPath() {
         let pathSegments = requestedPath.split("/").slice(2); // remove the "/delete" or "/download" part
@@ -17684,9 +17697,16 @@ const handle = (dsu, res, requestedPath) => {
 
     const basePath = "/";
     const requestedFullPath = path.join(basePath, ...pathSegments);
-    const normalizedPath = path.normalize(requestedFullPath);
+    let normalizedPath = path.normalize(requestedFullPath);
 
     if (!normalizedPath.startsWith(basePath)) {
+        res.statusCode = 403;
+        return res.end("Access forbidden");
+    }
+
+    try{
+        normalizedPath = validatePath(normalizedPath);
+    }catch(err){
         res.statusCode = 403;
         return res.end("Access forbidden");
     }
