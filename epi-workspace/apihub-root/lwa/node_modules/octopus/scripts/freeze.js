@@ -38,6 +38,13 @@ function freezeConfig(config) {
         console.log(`Trying to locate target ${targetFolder} in order to save it's state.`);
         basicProcOptions = {cwd: targetFolder};
 
+        try{
+            const utils = require("./utils.js");
+            targetFolder = utils.validatePath(targetFolder);
+        }catch(err){
+            return octopus.handleError("Path traversal detected", err);
+        }
+        
         if (fs.existsSync(targetFolder) && fs.readdirSync(targetFolder).length > 0) {
             //Get commit number
             try {

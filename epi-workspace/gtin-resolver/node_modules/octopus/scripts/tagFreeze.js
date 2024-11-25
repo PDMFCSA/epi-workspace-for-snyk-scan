@@ -52,6 +52,13 @@ function freezeConfig(config) {
 			console.log(`Trying to determine the state of target ${targetFolder}.`);
 			basicProcOptions = {cwd: targetFolder};
 
+			try{
+				const utils = require("./utils.js");
+				targetFolder = utils.validatePath(targetFolder);
+			}catch(err){
+				return octopus.handleError("Path traversal detected", err);
+			}
+			
 			if (fs.existsSync(targetFolder) && fs.readdirSync(targetFolder).length > 0) {
 				let packageVersion;
 				//read current version for package.json
