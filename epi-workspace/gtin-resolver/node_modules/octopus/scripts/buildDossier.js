@@ -82,6 +82,14 @@ const buildDossier = function(cfg, commands, callback){
     }
 
     let openDSU_bundle = path.join(process.cwd(), cfg.bundles, "openDSU.js");
+
+    try{
+        const utils = require("./utils.js");
+        openDSU_bundle = utils.validatePath(openDSU_bundle);
+    }catch(err){
+        return octopus.handleError("Path traversal detected", err);
+    }
+
     require(openDSU_bundle);
 
     let dossier_builder = require('opendsu').loadApi('dt').getDossierBuilder();
@@ -101,13 +109,21 @@ let config = parse_arguments(args);
 
 const fs = require("fs");
 
-fs.access(config.config, fs.F_OK, err => {
+let configFile = config.config;
+try{
+    const utils = require("./utils.js");
+    configFile = utils.validatePath(configFile);
+}catch(err){
+    return octopus.handleError("Path traversal detected", err);
+}
+
+fs.access(configFile, fs.F_OK, err => {
     if (err) {
-        console.log(`Configuration file not found at ${config.config} - proceeding with dossier building...`);
+        console.log(`Configuration file not found at ${configFile} - proceeding with dossier building...`);
         return buildDossier(config, buildCallback);
     }
 
-    fs.readFile(config.config, (err, data) => {
+    fs.readFile(configFile, (err, data) => {
         if (err)
             octopus.handleError("Configuration file exists, but could not be read", err);
 
