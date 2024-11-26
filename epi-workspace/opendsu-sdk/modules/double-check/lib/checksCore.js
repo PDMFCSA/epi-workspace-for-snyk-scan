@@ -196,12 +196,18 @@ function ensureFilesExist(folders, files, text, callback) {
 
 function computeFileHash(filePath, baseDirectory, callback) {
     // Resolve both the file path and the base directory to absolute paths
-    const resolvedFilePath = path.resolve(filePath);
+    let resolvedFilePath = path.resolve(filePath);
     const resolvedBaseDirectory = path.resolve(baseDirectory);
 
     // Prevent path traversal by ensuring the resolved file path is inside the base directory
     if (!resolvedFilePath.startsWith(resolvedBaseDirectory)) {
         return callback(new Error("Path traversal attempt detected"), null);
+    }
+
+    try {
+        resolvedFilePath = require("swarmutils").validatePath(resolvedFilePath);
+    }catch (err){
+        return callback(err);
     }
 
     // Continue with file reading and hashing
