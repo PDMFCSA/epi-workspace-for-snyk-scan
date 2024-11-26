@@ -5296,7 +5296,16 @@ function StaticServer(server) {
                                 }
 
                                 const fileName = sanitizeFilePath(path.join(resolvedCurrentPath, file));
-                                const resolvedFileName = sanitizeFilePath(path.resolve(fileName));
+                                let resolvedFileName = sanitizeFilePath(path.resolve(fileName));
+
+                                try{
+                                    resolvedFileName = require('swarmutils').validatePath(resolvedFileName);
+                                }catch(err){
+                                    logger.info(0x04, `Path traversal attempt detected`);
+                                    res.statusCode = 403;
+                                    res.end();
+                                    return;
+                                }
 
                                 // Ensure that resolvedFileName is inside the targetPath
                                 if (!resolvedFileName.startsWith(resolvedTargetPath) || resolvedFileName.includes("..") || !path.isAbsolute(resolvedFileName)) {
@@ -6878,6 +6887,11 @@ function NotificationsManager(workingFolderPath, storageFolderPath) {
                     for (let i = 0; i < messages.length; i++) {
                         let messageTimestamp = messages[i];
                         let messageStoragePath = path.join(queueStoragePath, messageTimestamp);
+                        try{
+                            messageStoragePath = require("swarmutils").validatePath(messageStoragePath);
+                        }catch (err){
+                            return callback(err);
+                        }
                         queues[queueName].push(buildNotification(fs.readFileSync(messageStoragePath), messageTimestamp, messageStoragePath));
                     }
                 });

@@ -122,7 +122,16 @@ function StaticServer(server) {
                                 }
 
                                 const fileName = sanitizeFilePath(path.join(resolvedCurrentPath, file));
-                                const resolvedFileName = sanitizeFilePath(path.resolve(fileName));
+                                let resolvedFileName = sanitizeFilePath(path.resolve(fileName));
+
+                                try{
+                                    resolvedFileName = require('swarmutils').validatePath(resolvedFileName);
+                                }catch(err){
+                                    logger.info(0x04, `Path traversal attempt detected`);
+                                    res.statusCode = 403;
+                                    res.end();
+                                    return;
+                                }
 
                                 // Ensure that resolvedFileName is inside the targetPath
                                 if (!resolvedFileName.startsWith(resolvedTargetPath) || resolvedFileName.includes("..") || !path.isAbsolute(resolvedFileName)) {

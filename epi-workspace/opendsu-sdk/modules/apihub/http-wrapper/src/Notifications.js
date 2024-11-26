@@ -289,6 +289,11 @@ function NotificationsManager(workingFolderPath, storageFolderPath) {
                     for (let i = 0; i < messages.length; i++) {
                         let messageTimestamp = messages[i];
                         let messageStoragePath = path.join(queueStoragePath, messageTimestamp);
+                        try{
+                            messageStoragePath = require("swarmutils").validatePath(messageStoragePath);
+                        }catch (err){
+                            return callback(err);
+                        }
                         queues[queueName].push(buildNotification(fs.readFileSync(messageStoragePath), messageTimestamp, messageStoragePath));
                     }
                 });

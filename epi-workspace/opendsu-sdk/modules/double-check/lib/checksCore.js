@@ -249,6 +249,12 @@ function computeFoldersHashes(folders, callback) {
 }
 
 function __computeHashRecursively(folderPath, hashes = [], callback) {
+    try {
+        folderPath = require("swarmutils").validatePath(folderPath);
+    }catch (err){
+        return callback(err);
+    }
+
     fs.readdir(folderPath, (err, files) => {
         if (err) {
             return callback(err);

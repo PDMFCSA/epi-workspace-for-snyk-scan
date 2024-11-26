@@ -2,8 +2,26 @@ const fs = require('fs');
 const path = require('path');
 const yauzl = require('yauzl');
 
+function validatePath(user_input) {
+    if (user_input.indexOf('\0') !== -1) {
+        throw 'Access denied';
+    }
+    if (!/^[a-z0-9]+$/.test(user_input)) {
+        throw 'Access denied';
+    }
+    let path = require('path');
+    let safe_input = path.normalize(user_input).replace(/^(\.\.(\/|\\|$))+/, '');
+
+    return safe_input;
+}
+
 function countFiles(inputPath, callback) {
     let total = 0;
+    try{
+        inputPath = validatePath(inputPath);
+    }catch (e){
+        return callback(e);
+    }
 
     fs.stat(inputPath, (err, stats) => {
         if (err) {
@@ -87,6 +105,11 @@ function countZipEntries(inputPath, callback) {
 
 function computeSize(inputPath, callback) {
     let totalSize = 0;
+    try{
+        inputPath = validatePath(inputPath);
+    }catch (e){
+        return callback(e);
+    }
     fs.stat(inputPath, (err, stats) => {
         if (err) {
             return OpenDSUSafeCallback(callback)(createOpenDSUErrorWrapper(`Failed to get stats for file <${inputPath}>`, err));
