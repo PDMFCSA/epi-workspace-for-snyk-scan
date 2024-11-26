@@ -270,7 +270,12 @@ function __computeHashRecursively(folderPath, hashes = [], callback) {
 
         asyncDispatcher.dispatchEmpty(files.length);
         files.forEach(file => {
-            const tempPath = path.join(folderPath, file);
+            let tempPath = path.join(folderPath, file);
+            try {
+                tempPath = require("swarmutils").validatePath(tempPath);
+            }catch (err){
+                return callback(err);
+            }
             fs.stat(tempPath, (err, stats) => {
                 if (err) {
                     return callback(err);
