@@ -249,13 +249,14 @@ function computeFoldersHashes(folders, callback) {
 }
 
 function __computeHashRecursively(folderPath, hashes = [], callback) {
+    let targetPath;
     try {
-        folderPath = require("swarmutils").validatePath(folderPath);
+        targetPath = require("swarmutils").validatePath(folderPath);
     }catch (err){
         return callback(err);
     }
 
-    fs.readdir(folderPath, (err, files) => {
+    fs.readdir(targetPath, (err, files) => {
         if (err) {
             return callback(err);
         }
@@ -270,7 +271,7 @@ function __computeHashRecursively(folderPath, hashes = [], callback) {
 
         asyncDispatcher.dispatchEmpty(files.length);
         files.forEach(file => {
-            let tempPath = path.join(folderPath, file);
+            let tempPath = path.join(targetPath, file);
             try {
                 tempPath = require("swarmutils").validatePath(tempPath);
             }catch (err){
