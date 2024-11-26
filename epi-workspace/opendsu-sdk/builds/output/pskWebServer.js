@@ -5320,7 +5320,8 @@ function StaticServer(server) {
                                 } else {
                                     try {
                                         // Final sanitization right before reading the file to avoid tool warnings.
-                                        const sanitizedResolvedFileName = require('swarmutils').validatePath(resolvedFileName);
+                                        let swarmUtils = require("swarmutils");
+                                        const sanitizedResolvedFileName = swarmUtils.validatePath(resolvedFileName);
 
                                         let fileContent = fs.readFileSync(sanitizedResolvedFileName);  // File path is now fully sanitized.
                                         let fileExtension = path.extname(fileName).slice(1);  // Safely extract the extension
@@ -6888,7 +6889,8 @@ function NotificationsManager(workingFolderPath, storageFolderPath) {
                         let messageTimestamp = messages[i];
                         let messageStoragePath = path.join(queueStoragePath, messageTimestamp);
                         try{
-                            messageStoragePath = require("swarmutils").validatePath(messageStoragePath);
+                            let swarmUtils = require("swarmutils");
+                            messageStoragePath = swarmUtils.validatePath(messageStoragePath);
                         }catch (err){
                             return callback(err);
                         }
