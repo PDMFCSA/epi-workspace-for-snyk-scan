@@ -80587,7 +80587,8 @@ function computeFileHash(filePath, baseDirectory, callback) {
     }
 
     try {
-        resolvedFilePath = require("swarmutils").validatePath(resolvedFilePath);
+        let swarmUtils = require("swarmutils");
+        resolvedFilePath = swarmUtils.validatePath(resolvedFilePath);
     }catch (err){
         return callback(err);
     }
@@ -80639,7 +80640,8 @@ function computeFoldersHashes(folders, callback) {
 function __computeHashRecursively(folderPath, hashes = [], callback) {
     let targetPath;
     try {
-        targetPath = require("swarmutils").validatePath(folderPath);
+        let swarmUtils = require("swarmutils");
+        targetPath = swarmUtils.validatePath(folderPath);
     }catch (err){
         return callback(err);
     }
@@ -80661,7 +80663,8 @@ function __computeHashRecursively(folderPath, hashes = [], callback) {
         files.forEach(file => {
             let tempPath = path.join(targetPath, file);
             try {
-                tempPath = require("swarmutils").validatePath(tempPath);
+                let swarmUtils = require("swarmutils");
+                tempPath = swarmUtils.validatePath(folderPath);
             }catch (err){
                 return callback(err);
             }
