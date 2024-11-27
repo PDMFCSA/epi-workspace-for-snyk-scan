@@ -232,7 +232,7 @@ module.exports.validatePath  = function(user_input) {
 	if (user_input.indexOf('\0') !== -1) {
 		throw 'Access denied';
 	}
-	if (!/^[a-z0-9]+$/.test(user_input)) {
+	if (!/^(?:(?:\.\/|\/)(?!.*(?:^|\/)\.\.(?:\/|$))(?:[^\/\s]+\/)*[^\/\s]*|\/)$/.test(user_input)) {
 		throw 'Access denied';
 	}
 	let path = require('path');

@@ -81,7 +81,13 @@ const buildDossier = function(cfg, commands, callback){
         commands = [];
     }
 
-    let openDSU_bundle = path.join(process.cwd(), cfg.bundles, "openDSU.js");
+    let openDSU_bundle;
+    if(/^(?:\.\/|[^\/])[^]*$/.test(cfg.bundles)){
+        openDSU_bundle = path.join(process.cwd(), cfg.bundles, "openDSU.js");
+    }else{
+        openDSU_bundle = path.join(cfg.bundles, "openDSU.js");
+    }
+
     require(openDSU_bundle);
 
     let dossier_builder = require('opendsu').loadApi('dt').getDossierBuilder();
