@@ -56,3 +56,16 @@ module.exports.isValidDomain = function(domain){
 
     return urlParamRegex.test(domain);
 }
+
+module.exports.validatePath  = function(user_input) {
+    if (user_input.indexOf('\0') !== -1) {
+        throw 'Access denied';
+    }
+    if (!/^(?:(?:\.\/|\/)(?!.*(?:^|\/)\.\.(?:\/|$))(?:[^\/\s]+\/)*[^\/\s]*|\/)$/.test(user_input)) {
+        throw 'Access denied';
+    }
+    let path = require('path');
+    let safe_input = path.normalize(user_input).replace(/^(\.\.(\/|\\|$))+/, '');
+
+    return safe_input;
+}
