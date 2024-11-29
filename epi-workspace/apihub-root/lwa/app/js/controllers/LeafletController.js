@@ -63,6 +63,10 @@ function LeafletController() {
             if (result.resultStatus === "no_xml_for_lang") {
                 showAvailableLanguages(result)
             }
+            let recalled = false; // to replace with flag from product data. set to true in order to test product recall
+            if (recalled) {
+                showRecalledMessage(result);
+            }
         }).catch(err => {
             goToErrorPage(err.errorCode, err)
         })
@@ -177,6 +181,26 @@ function LeafletController() {
             goToErrorPage(constants.errorCodes.no_uploaded_epi, new Error(`Product found but no associated leaflet`));
             /*      document.querySelector(".proceed-button.has-leaflets").setAttribute('style', 'display:none');
                   document.querySelector(".text-section.has-leaflets").setAttribute('style', 'display:none');*/
+        }
+    }
+
+    let showRecalledMessage = function (result) {
+        const recalled = false; // set to true to display recalled popup
+        if (recalled) {
+            let recalledContainer = document.querySelector("#recalled-modal");
+            recalledContainer.classList.remove("hiddenElement");
+            let recalledMessageContainer = document.querySelector(".recalled-message-container");
+            let productData = document.createElement("p");
+            productData.innerText = "Product Name: " + result.productData.nameMedicinalProduct;
+            recalledMessageContainer.appendChild(productData);
+            let batchRecalled = false; // set to true to display batch number
+            if (batchRecalled) {
+                document.querySelector("#recalled-title").setAttribute("translate", "recalled_batch_title");
+                document.querySelector(".recalled-message-container").setAttribute("translate", "recalled_batch_message");
+                let batchData = document.createElement("p");
+                batchData.innerText = "Batch Number: " + result.productData.batchData.batch;
+                recalledMessageContainer.appendChild(batchData);
+            }
         }
     }
 
