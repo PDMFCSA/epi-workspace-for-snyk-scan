@@ -47,7 +47,7 @@ module.exports = function (server) {
     const serverRootFolder = server.rootFolder;
     const secretsFilePath = path.join(serverRootFolder, '.htpassword.secret');
     const htpPwdSecrets = readSecretsFile(secretsFilePath);
-    const skipUrls = ['/simpleAuth', '/simpleAuth?wrongCredentials=true', '/favicon.ico', '/redirect', GET_SECRETS_URL_PATH, PUT_SECRETS_URL_PATH]
+    const skipUrls = ['/simpleAuth', '/simpleAuth?wrongCredentials=true', '/favicon.ico', '/redirect', GET_SECRETS_URL_PATH, PUT_SECRETS_URL_PATH, "/logout"];
     const util = require("../oauth/lib/util.js");
     const urlsToSkip = [...util.getUrlsToSkip(), ...skipUrls];
     let secretsService;
@@ -192,6 +192,9 @@ module.exports = function (server) {
             res.setHeader('Set-Cookie', [`SimpleAuthorisation=${formResult.username}:${apiKey}; HttpOnly`, `ssoId=${ssoId}; HttpOnly`, `apiKey=${apiKey}; HttpOnly`]);
             res.writeHead(302, {'Location': '/redirect'});
             return res.end();
+        }else{
+            res.writeHead(302, {'Location': '/simpleAuth?wrongCredentials=true'});
+            return res.end();
         }
     };
 
@@ -209,4 +212,10 @@ module.exports = function (server) {
 
     server.put('/simpleAuth', httpUtils.bodyParser);
     server.put('/simpleAuth', simpleAuthHandler);
+
+    server.get('/logout', (req, res) => {
+        res.setHeader('Set-Cookie', [`SimpleAuthorisation=; HttpOnly`]);
+        res.writeHead(302, {'Location': '/'});
+        return res.end();
+    });
 }

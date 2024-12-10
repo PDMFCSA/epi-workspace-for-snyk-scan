@@ -72127,7 +72127,7 @@ module.exports = function callBindBasic(args) {
 'use strict';
 
 /** @type {import('./reflectApply')} */
-module.exports = typeof Reflect === 'function' && Reflect.apply;
+module.exports = typeof Reflect !== 'undefined' && Reflect && Reflect.apply;
 
 },{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bind/callBound.js":[function(require,module,exports){
 'use strict';

@@ -11243,7 +11243,7 @@ module.exports = function (server) {
     const serverRootFolder = server.rootFolder;
     const secretsFilePath = path.join(serverRootFolder, '.htpassword.secret');
     const htpPwdSecrets = readSecretsFile(secretsFilePath);
-    const skipUrls = ['/simpleAuth', '/simpleAuth?wrongCredentials=true', '/favicon.ico', '/redirect', GET_SECRETS_URL_PATH, PUT_SECRETS_URL_PATH]
+    const skipUrls = ['/simpleAuth', '/simpleAuth?wrongCredentials=true', '/favicon.ico', '/redirect', GET_SECRETS_URL_PATH, PUT_SECRETS_URL_PATH, "/logout"];
     const util = require("../oauth/lib/util.js");
     const urlsToSkip = [...util.getUrlsToSkip(), ...skipUrls];
     let secretsService;
@@ -11388,6 +11388,9 @@ module.exports = function (server) {
             res.setHeader('Set-Cookie', [`SimpleAuthorisation=${formResult.username}:${apiKey}; HttpOnly`, `ssoId=${ssoId}; HttpOnly`, `apiKey=${apiKey}; HttpOnly`]);
             res.writeHead(302, {'Location': '/redirect'});
             return res.end();
+        }else{
+            res.writeHead(302, {'Location': '/simpleAuth?wrongCredentials=true'});
+            return res.end();
         }
     };
 
@@ -11405,6 +11408,12 @@ module.exports = function (server) {
 
     server.put('/simpleAuth', httpUtils.bodyParser);
     server.put('/simpleAuth', simpleAuthHandler);
+
+    server.get('/logout', (req, res) => {
+        res.setHeader('Set-Cookie', [`SimpleAuthorisation=; HttpOnly`]);
+        res.writeHead(302, {'Location': '/'});
+        return res.end();
+    });
 }
 
 },{"../../components/secrets/SecretsService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/SecretsService.js","../../http-wrapper/src/httpUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/httpUtils.js","../../http-wrapper/utils/cookie-utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/cookie-utils.js","../oauth/lib/util.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/util.js","fs":false,"opendsu":"opendsu","path":false,"querystring":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/throttler/index.js":[function(require,module,exports){
