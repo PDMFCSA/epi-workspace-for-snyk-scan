@@ -72486,7 +72486,27 @@ if ($defineProperty) {
 	module.exports.apply = applyBind;
 }
 
-},{"call-bind-apply-helpers":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bind-apply-helpers/index.js","call-bind-apply-helpers/applyBind":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bind-apply-helpers/applyBind.js","es-define-property":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-define-property/index.js","set-function-length":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/set-function-length/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/cipher-base/index.js":[function(require,module,exports){
+},{"call-bind-apply-helpers":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bind-apply-helpers/index.js","call-bind-apply-helpers/applyBind":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bind-apply-helpers/applyBind.js","es-define-property":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-define-property/index.js","set-function-length":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/set-function-length/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bound/index.js":[function(require,module,exports){
+'use strict';
+
+var GetIntrinsic = require('get-intrinsic');
+
+var callBind = require('call-bind');
+
+// eslint-disable-next-line no-extra-parens
+var $indexOf = callBind(/** @type {typeof String.prototype.indexOf} */ (GetIntrinsic('String.prototype.indexOf')));
+
+/** @type {import('.')} */
+module.exports = function callBoundIntrinsic(name, allowMissing) {
+	// eslint-disable-next-line no-extra-parens
+	var intrinsic = /** @type {Parameters<typeof callBind>[0]} */ (GetIntrinsic(name, !!allowMissing));
+	if (typeof intrinsic === 'function' && $indexOf(name, '.prototype.') > -1) {
+		return callBind(intrinsic);
+	}
+	return intrinsic;
+};
+
+},{"call-bind":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bind/index.js","get-intrinsic":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/get-intrinsic/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/cipher-base/index.js":[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
@@ -78346,6 +78366,12 @@ module.exports = TypeError;
 /** @type {import('./uri')} */
 module.exports = URIError;
 
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-object-atoms/index.js":[function(require,module,exports){
+'use strict';
+
+/** @type {import('.')} */
+module.exports = Object;
+
 },{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/events/events.js":[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -79054,6 +79080,8 @@ module.exports = Function.prototype.bind || implementation;
 
 var undefined;
 
+var $Object = require('es-object-atoms');
+
 var $Error = require('es-errors');
 var $EvalError = require('es-errors/eval');
 var $RangeError = require('es-errors/range');
@@ -79061,6 +79089,12 @@ var $ReferenceError = require('es-errors/ref');
 var $SyntaxError = require('es-errors/syntax');
 var $TypeError = require('es-errors/type');
 var $URIError = require('es-errors/uri');
+
+var abs = require('math-intrinsics/abs');
+var floor = require('math-intrinsics/floor');
+var max = require('math-intrinsics/max');
+var min = require('math-intrinsics/min');
+var pow = require('math-intrinsics/pow');
 
 var $Function = Function;
 
@@ -79098,7 +79132,7 @@ var hasSymbols = require('has-symbols')();
 var getDunderProto = require('dunder-proto/get');
 
 var getProto = (typeof Reflect === 'function' && Reflect.getPrototypeOf)
-	|| Object.getPrototypeOf
+	|| $Object.getPrototypeOf
 	|| getDunderProto;
 
 var $apply = require('call-bind-apply-helpers/functionApply');
@@ -79149,7 +79183,7 @@ var INTRINSICS = {
 	'%MapIteratorPrototype%': typeof Map === 'undefined' || !hasSymbols || !getProto ? undefined : getProto(new Map()[Symbol.iterator]()),
 	'%Math%': Math,
 	'%Number%': Number,
-	'%Object%': Object,
+	'%Object%': $Object,
 	'%Object.getOwnPropertyDescriptor%': $gOPD,
 	'%parseFloat%': parseFloat,
 	'%parseInt%': parseInt,
@@ -79180,7 +79214,12 @@ var INTRINSICS = {
 
 	'%Function.prototype.call%': $call,
 	'%Function.prototype.apply%': $apply,
-	'%Object.defineProperty%': $defineProperty
+	'%Object.defineProperty%': $defineProperty,
+	'%Math.abs%': abs,
+	'%Math.floor%': floor,
+	'%Math.max%': max,
+	'%Math.min%': min,
+	'%Math.pow%': pow
 };
 
 if (getProto) {
@@ -79410,7 +79449,7 @@ module.exports = function GetIntrinsic(name, allowMissing) {
 	return value;
 };
 
-},{"call-bind-apply-helpers/functionApply":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bind-apply-helpers/functionApply.js","call-bind-apply-helpers/functionCall":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bind-apply-helpers/functionCall.js","dunder-proto/get":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/dunder-proto/get.js","es-define-property":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-define-property/index.js","es-errors":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/index.js","es-errors/eval":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/eval.js","es-errors/range":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/range.js","es-errors/ref":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/ref.js","es-errors/syntax":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/syntax.js","es-errors/type":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/type.js","es-errors/uri":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/uri.js","function-bind":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/function-bind/index.js","gopd":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/gopd/index.js","has-symbols":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/has-symbols/index.js","hasown":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/hasown/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/gopd/gOPD.js":[function(require,module,exports){
+},{"call-bind-apply-helpers/functionApply":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bind-apply-helpers/functionApply.js","call-bind-apply-helpers/functionCall":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bind-apply-helpers/functionCall.js","dunder-proto/get":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/dunder-proto/get.js","es-define-property":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-define-property/index.js","es-errors":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/index.js","es-errors/eval":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/eval.js","es-errors/range":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/range.js","es-errors/ref":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/ref.js","es-errors/syntax":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/syntax.js","es-errors/type":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/type.js","es-errors/uri":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/uri.js","es-object-atoms":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-object-atoms/index.js","function-bind":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/function-bind/index.js","gopd":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/gopd/index.js","has-symbols":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/has-symbols/index.js","hasown":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/hasown/index.js","math-intrinsics/abs":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/abs.js","math-intrinsics/floor":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/floor.js","math-intrinsics/max":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/max.js","math-intrinsics/min":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/min.js","math-intrinsics/pow":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/pow.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/gopd/gOPD.js":[function(require,module,exports){
 'use strict';
 
 /** @type {import('./gOPD')} */
@@ -81393,6 +81432,36 @@ var toString = {}.toString;
 module.exports = Array.isArray || function (arr) {
   return toString.call(arr) == '[object Array]';
 };
+
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/abs.js":[function(require,module,exports){
+'use strict';
+
+/** @type {import('./abs')} */
+module.exports = Math.abs;
+
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/floor.js":[function(require,module,exports){
+'use strict';
+
+/** @type {import('./abs')} */
+module.exports = Math.floor;
+
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/max.js":[function(require,module,exports){
+'use strict';
+
+/** @type {import('./max')} */
+module.exports = Math.max;
+
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/min.js":[function(require,module,exports){
+'use strict';
+
+/** @type {import('./min')} */
+module.exports = Math.min;
+
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/pow.js":[function(require,module,exports){
+'use strict';
+
+/** @type {import('./pow')} */
+module.exports = Math.pow;
 
 },{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/md5.js/index.js":[function(require,module,exports){
 'use strict'
@@ -95447,138 +95516,323 @@ Sha512.prototype._hash = function () {
 
 module.exports = Sha512
 
-},{"./hash":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/sha.js/hash.js","inherits":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/inherits/inherits_browser.js","safe-buffer":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/safe-buffer/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/side-channel/index.js":[function(require,module,exports){
+},{"./hash":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/sha.js/hash.js","inherits":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/inherits/inherits_browser.js","safe-buffer":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/safe-buffer/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/side-channel-list/index.js":[function(require,module,exports){
 'use strict';
 
-var GetIntrinsic = require('get-intrinsic');
-var callBound = require('call-bind/callBound');
 var inspect = require('object-inspect');
 
 var $TypeError = require('es-errors/type');
-var $WeakMap = GetIntrinsic('%WeakMap%', true);
-var $Map = GetIntrinsic('%Map%', true);
-
-var $weakMapGet = callBound('WeakMap.prototype.get', true);
-var $weakMapSet = callBound('WeakMap.prototype.set', true);
-var $weakMapHas = callBound('WeakMap.prototype.has', true);
-var $mapGet = callBound('Map.prototype.get', true);
-var $mapSet = callBound('Map.prototype.set', true);
-var $mapHas = callBound('Map.prototype.has', true);
 
 /*
 * This function traverses the list returning the node corresponding to the given key.
 *
-* That node is also moved to the head of the list, so that if it's accessed again we don't need to traverse the whole list. By doing so, all the recently used nodes can be accessed relatively quickly.
+* That node is also moved to the head of the list, so that if it's accessed again we don't need to traverse the whole list.
+* By doing so, all the recently used nodes can be accessed relatively quickly.
 */
-/** @type {import('.').listGetNode} */
-var listGetNode = function (list, key) { // eslint-disable-line consistent-return
+/** @type {import('./list.d.ts').listGetNode} */
+// eslint-disable-next-line consistent-return
+var listGetNode = function (list, key, isDelete) {
 	/** @type {typeof list | NonNullable<(typeof list)['next']>} */
 	var prev = list;
 	/** @type {(typeof list)['next']} */
 	var curr;
-	for (; (curr = prev.next) !== null; prev = curr) {
+	// eslint-disable-next-line eqeqeq
+	for (; (curr = prev.next) != null; prev = curr) {
 		if (curr.key === key) {
 			prev.next = curr.next;
-			// eslint-disable-next-line no-extra-parens
-			curr.next = /** @type {NonNullable<typeof list.next>} */ (list.next);
-			list.next = curr; // eslint-disable-line no-param-reassign
+			if (!isDelete) {
+				// eslint-disable-next-line no-extra-parens
+				curr.next = /** @type {NonNullable<typeof list.next>} */ (list.next);
+				list.next = curr; // eslint-disable-line no-param-reassign
+			}
 			return curr;
 		}
 	}
 };
 
-/** @type {import('.').listGet} */
+/** @type {import('./list.d.ts').listGet} */
 var listGet = function (objects, key) {
+	if (!objects) {
+		return void undefined;
+	}
 	var node = listGetNode(objects, key);
 	return node && node.value;
 };
-/** @type {import('.').listSet} */
+/** @type {import('./list.d.ts').listSet} */
 var listSet = function (objects, key, value) {
 	var node = listGetNode(objects, key);
 	if (node) {
 		node.value = value;
 	} else {
 		// Prepend the new node to the beginning of the list
-		objects.next = /** @type {import('.').ListNode<typeof value>} */ ({ // eslint-disable-line no-param-reassign, no-extra-parens
+		objects.next = /** @type {import('./list.d.ts').ListNode<typeof value, typeof key>} */ ({ // eslint-disable-line no-param-reassign, no-extra-parens
 			key: key,
 			next: objects.next,
 			value: value
 		});
 	}
 };
-/** @type {import('.').listHas} */
+/** @type {import('./list.d.ts').listHas} */
 var listHas = function (objects, key) {
+	if (!objects) {
+		return false;
+	}
 	return !!listGetNode(objects, key);
+};
+/** @type {import('./list.d.ts').listDelete} */
+// eslint-disable-next-line consistent-return
+var listDelete = function (objects, key) {
+	if (objects) {
+		return listGetNode(objects, key, true);
+	}
 };
 
 /** @type {import('.')} */
-module.exports = function getSideChannel() {
-	/** @type {WeakMap<object, unknown>} */ var $wm;
-	/** @type {Map<object, unknown>} */ var $m;
-	/** @type {import('.').RootNode<unknown>} */ var $o;
+module.exports = function getSideChannelList() {
+	/** @typedef {ReturnType<typeof getSideChannelList>} Channel */
+	/** @typedef {Parameters<Channel['get']>[0]} K */
+	/** @typedef {Parameters<Channel['set']>[1]} V */
 
-	/** @type {import('.').Channel} */
+	/** @type {import('./list.d.ts').RootNode<V, K> | undefined} */ var $o;
+
+	/** @type {Channel} */
 	var channel = {
 		assert: function (key) {
 			if (!channel.has(key)) {
 				throw new $TypeError('Side channel does not contain ' + inspect(key));
 			}
 		},
+		'delete': function (key) {
+			var root = $o && $o.next;
+			var deletedNode = listDelete($o, key);
+			if (deletedNode && root && root === deletedNode) {
+				$o = void undefined;
+			}
+			return !!deletedNode;
+		},
+		get: function (key) {
+			return listGet($o, key);
+		},
+		has: function (key) {
+			return listHas($o, key);
+		},
+		set: function (key, value) {
+			if (!$o) {
+				// Initialize the linked list as an empty node, so that we don't have to special-case handling of the first node: we can always refer to it as (previous node).next, instead of something like (list).head
+				$o = {
+					next: void undefined
+				};
+			}
+			// eslint-disable-next-line no-extra-parens
+			listSet(/** @type {NonNullable<typeof $o>} */ ($o), key, value);
+		}
+	};
+	// @ts-expect-error TODO: figure out why this is erroring
+	return channel;
+};
+
+},{"es-errors/type":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/type.js","object-inspect":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/object-inspect/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/side-channel-map/index.js":[function(require,module,exports){
+'use strict';
+
+var GetIntrinsic = require('get-intrinsic');
+var callBound = require('call-bound');
+var inspect = require('object-inspect');
+
+var $TypeError = require('es-errors/type');
+var $Map = GetIntrinsic('%Map%', true);
+
+/** @type {<K, V>(thisArg: Map<K, V>, key: K) => V} */
+var $mapGet = callBound('Map.prototype.get', true);
+/** @type {<K, V>(thisArg: Map<K, V>, key: K, value: V) => void} */
+var $mapSet = callBound('Map.prototype.set', true);
+/** @type {<K, V>(thisArg: Map<K, V>, key: K) => boolean} */
+var $mapHas = callBound('Map.prototype.has', true);
+/** @type {<K, V>(thisArg: Map<K, V>, key: K) => boolean} */
+var $mapDelete = callBound('Map.prototype.delete', true);
+/** @type {<K, V>(thisArg: Map<K, V>) => number} */
+var $mapSize = callBound('Map.prototype.size', true);
+
+/** @type {import('.')} */
+module.exports = !!$Map && /** @type {Exclude<import('.'), false>} */ function getSideChannelMap() {
+	/** @typedef {ReturnType<typeof getSideChannelMap>} Channel */
+	/** @typedef {Parameters<Channel['get']>[0]} K */
+	/** @typedef {Parameters<Channel['set']>[1]} V */
+
+	/** @type {Map<K, V> | undefined} */ var $m;
+
+	/** @type {Channel} */
+	var channel = {
+		assert: function (key) {
+			if (!channel.has(key)) {
+				throw new $TypeError('Side channel does not contain ' + inspect(key));
+			}
+		},
+		'delete': function (key) {
+			if ($m) {
+				var result = $mapDelete($m, key);
+				if ($mapSize($m) === 0) {
+					$m = void undefined;
+				}
+				return result;
+			}
+			return false;
+		},
 		get: function (key) { // eslint-disable-line consistent-return
-			if ($WeakMap && key && (typeof key === 'object' || typeof key === 'function')) {
-				if ($wm) {
-					return $weakMapGet($wm, key);
-				}
-			} else if ($Map) {
-				if ($m) {
-					return $mapGet($m, key);
-				}
-			} else {
-				if ($o) { // eslint-disable-line no-lonely-if
-					return listGet($o, key);
-				}
+			if ($m) {
+				return $mapGet($m, key);
 			}
 		},
 		has: function (key) {
-			if ($WeakMap && key && (typeof key === 'object' || typeof key === 'function')) {
-				if ($wm) {
-					return $weakMapHas($wm, key);
-				}
-			} else if ($Map) {
-				if ($m) {
-					return $mapHas($m, key);
-				}
-			} else {
-				if ($o) { // eslint-disable-line no-lonely-if
-					return listHas($o, key);
-				}
+			if ($m) {
+				return $mapHas($m, key);
 			}
 			return false;
 		},
 		set: function (key, value) {
-			if ($WeakMap && key && (typeof key === 'object' || typeof key === 'function')) {
-				if (!$wm) {
-					$wm = new $WeakMap();
-				}
-				$weakMapSet($wm, key, value);
-			} else if ($Map) {
-				if (!$m) {
-					$m = new $Map();
-				}
-				$mapSet($m, key, value);
-			} else {
-				if (!$o) {
-					// Initialize the linked list as an empty node, so that we don't have to special-case handling of the first node: we can always refer to it as (previous node).next, instead of something like (list).head
-					$o = { key: {}, next: null };
-				}
-				listSet($o, key, value);
+			if (!$m) {
+				// @ts-expect-error TS can't handle narrowing a variable inside a closure
+				$m = new $Map();
 			}
+			$mapSet($m, key, value);
 		}
 	};
+
+	// @ts-expect-error TODO: figure out why TS is erroring here
 	return channel;
 };
 
-},{"call-bind/callBound":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bind/callBound.js","es-errors/type":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/type.js","get-intrinsic":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/get-intrinsic/index.js","object-inspect":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/object-inspect/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/stream-browserify/index.js":[function(require,module,exports){
+},{"call-bound":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bound/index.js","es-errors/type":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/type.js","get-intrinsic":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/get-intrinsic/index.js","object-inspect":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/object-inspect/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/side-channel-weakmap/index.js":[function(require,module,exports){
+'use strict';
+
+var GetIntrinsic = require('get-intrinsic');
+var callBound = require('call-bound');
+var inspect = require('object-inspect');
+var getSideChannelMap = require('side-channel-map');
+
+var $TypeError = require('es-errors/type');
+var $WeakMap = GetIntrinsic('%WeakMap%', true);
+
+/** @type {<K extends object, V>(thisArg: WeakMap<K, V>, key: K) => V} */
+var $weakMapGet = callBound('WeakMap.prototype.get', true);
+/** @type {<K extends object, V>(thisArg: WeakMap<K, V>, key: K, value: V) => void} */
+var $weakMapSet = callBound('WeakMap.prototype.set', true);
+/** @type {<K extends object, V>(thisArg: WeakMap<K, V>, key: K) => boolean} */
+var $weakMapHas = callBound('WeakMap.prototype.has', true);
+/** @type {<K extends object, V>(thisArg: WeakMap<K, V>, key: K) => boolean} */
+var $weakMapDelete = callBound('WeakMap.prototype.delete', true);
+
+/** @type {import('.')} */
+module.exports = $WeakMap
+	? /** @type {Exclude<import('.'), false>} */ function getSideChannelWeakMap() {
+		/** @typedef {ReturnType<typeof getSideChannelWeakMap>} Channel */
+		/** @typedef {Parameters<Channel['get']>[0]} K */
+		/** @typedef {Parameters<Channel['set']>[1]} V */
+
+		/** @type {WeakMap<K & object, V> | undefined} */ var $wm;
+		/** @type {Channel | undefined} */ var $m;
+
+		/** @type {Channel} */
+		var channel = {
+			assert: function (key) {
+				if (!channel.has(key)) {
+					throw new $TypeError('Side channel does not contain ' + inspect(key));
+				}
+			},
+			'delete': function (key) {
+				if ($WeakMap && key && (typeof key === 'object' || typeof key === 'function')) {
+					if ($wm) {
+						return $weakMapDelete($wm, key);
+					}
+				} else if (getSideChannelMap) {
+					if ($m) {
+						return $m['delete'](key);
+					}
+				}
+				return false;
+			},
+			get: function (key) {
+				if ($WeakMap && key && (typeof key === 'object' || typeof key === 'function')) {
+					if ($wm) {
+						return $weakMapGet($wm, key);
+					}
+				}
+				return $m && $m.get(key);
+			},
+			has: function (key) {
+				if ($WeakMap && key && (typeof key === 'object' || typeof key === 'function')) {
+					if ($wm) {
+						return $weakMapHas($wm, key);
+					}
+				}
+				return !!$m && $m.has(key);
+			},
+			set: function (key, value) {
+				if ($WeakMap && key && (typeof key === 'object' || typeof key === 'function')) {
+					if (!$wm) {
+						$wm = new $WeakMap();
+					}
+					$weakMapSet($wm, key, value);
+				} else if (getSideChannelMap) {
+					if (!$m) {
+						$m = getSideChannelMap();
+					}
+					// eslint-disable-next-line no-extra-parens
+					/** @type {NonNullable<typeof $m>} */ ($m).set(key, value);
+				}
+			}
+		};
+
+		// @ts-expect-error TODO: figure out why this is erroring
+		return channel;
+	}
+	: getSideChannelMap;
+
+},{"call-bound":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bound/index.js","es-errors/type":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/type.js","get-intrinsic":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/get-intrinsic/index.js","object-inspect":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/object-inspect/index.js","side-channel-map":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/side-channel-map/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/side-channel/index.js":[function(require,module,exports){
+'use strict';
+
+var $TypeError = require('es-errors/type');
+var inspect = require('object-inspect');
+var getSideChannelList = require('side-channel-list');
+var getSideChannelMap = require('side-channel-map');
+var getSideChannelWeakMap = require('side-channel-weakmap');
+
+var makeChannel = getSideChannelWeakMap || getSideChannelMap || getSideChannelList;
+
+/** @type {import('.')} */
+module.exports = function getSideChannel() {
+	/** @typedef {ReturnType<typeof getSideChannel>} Channel */
+
+	/** @type {Channel | undefined} */ var $channelData;
+
+	/** @type {Channel} */
+	var channel = {
+		assert: function (key) {
+			if (!channel.has(key)) {
+				throw new $TypeError('Side channel does not contain ' + inspect(key));
+			}
+		},
+		'delete': function (key) {
+			return !!$channelData && $channelData['delete'](key);
+		},
+		get: function (key) {
+			return $channelData && $channelData.get(key);
+		},
+		has: function (key) {
+			return !!$channelData && $channelData.has(key);
+		},
+		set: function (key, value) {
+			if (!$channelData) {
+				$channelData = makeChannel();
+			}
+
+			$channelData.set(key, value);
+		}
+	};
+	// @ts-expect-error TODO: figure out why this is erroring
+	return channel;
+};
+
+},{"es-errors/type":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/type.js","object-inspect":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/object-inspect/index.js","side-channel-list":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/side-channel-list/index.js","side-channel-map":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/side-channel-map/index.js","side-channel-weakmap":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/side-channel-weakmap/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/stream-browserify/index.js":[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
