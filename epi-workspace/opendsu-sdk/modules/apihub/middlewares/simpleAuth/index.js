@@ -9,6 +9,7 @@ const SecretsService = require("../../components/secrets/SecretsService");
 const appName = 'simpleAuth'
 const PUT_SECRETS_URL_PATH = "/putSSOSecret/simpleAuth";
 const GET_SECRETS_URL_PATH = "/getSSOSecret/simpleAuth";
+const API_KEY_CONTAINER_NAME = "apiKeys";
 
 // Utility function to read .htpassword.secrets file
 function readSecretsFile(filePath) {
@@ -47,7 +48,7 @@ module.exports = function (server) {
     const serverRootFolder = server.rootFolder;
     const secretsFilePath = path.join(serverRootFolder, '.htpassword.secret');
     const htpPwdSecrets = readSecretsFile(secretsFilePath);
-    const skipUrls = ['/simpleAuth', '/simpleAuth?wrongCredentials=true', '/favicon.ico', '/redirect', GET_SECRETS_URL_PATH, PUT_SECRETS_URL_PATH, "/logout"];
+    const skipUrls = ['/simpleAuth', '/simpleAuth?wrongCredentials=true', '/favicon.ico', '/redirect', GET_SECRETS_URL_PATH, PUT_SECRETS_URL_PATH, "/logout", "/customSimpleAuth", "/bdns"];
     const util = require("../oauth/lib/util.js");
     const urlsToSkip = [...util.getUrlsToSkip(), ...skipUrls];
     let secretsService;
@@ -88,6 +89,9 @@ module.exports = function (server) {
         let {SimpleAuthorisation} = cookieUtils.parseCookies(req.headers.cookie);
 
         if (!SimpleAuthorisation) {
+            if (req.skipSSO) {
+                return next();
+            }
             res.setHeader('Set-Cookie', `originalUrl=${req.url}; HttpOnly`);
             return res.writeHead(302, {'Location': '/simpleAuth'}).end();
         }
@@ -157,14 +161,14 @@ module.exports = function (server) {
         </html>
 `
         let customizedHtmlExists = false;
-        try{
+        try {
             let path = require("path");
-            const file = wrongCredentials ? "error.html":"index.html";
+            const file = wrongCredentials ? "error.html" : "index.html";
             customizedHtmlExists = fs.readFileSync(path.join(server.rootFolder, 'customSimpleAuth', file));
-        }catch(err){
+        } catch (err) {
             //we ignore the error on purpose
         }
-        if(customizedHtmlExists){
+        if (customizedHtmlExists) {
             return res.end(customizedHtmlExists);
         }
         return res.end(returnHtml);
@@ -197,8 +201,18 @@ module.exports = function (server) {
             }
             let apiKey;
             try {
-                apiKey = await secretsService.generateAPIKeyAsync(formResult.username, false);
-                await secretsService.putSecretAsync(appName, formResult.username, apiKey);
+                let apiKeyObj = secretsService.getSecretSync(API_KEY_CONTAINER_NAME, formResult.username);
+                if (apiKeyObj) {
+                    apiKey = apiKeyObj.secret;
+                }
+            } catch (e) {
+                console.error(e);
+            }
+            try {
+                if (!apiKey) {
+                    apiKey = await secretsService.generateAPIKeyAsync(formResult.username, false);
+                    await secretsService.putSecretAsync(appName, formResult.username, apiKey);
+                }
             } catch (e) {
                 console.error(e);
                 res.statusCode = 500;
@@ -207,7 +221,7 @@ module.exports = function (server) {
             res.setHeader('Set-Cookie', [`SimpleAuthorisation=${formResult.username}:${apiKey}; HttpOnly`, `ssoId=${ssoId}; HttpOnly`, `apiKey=${apiKey}; HttpOnly`]);
             res.writeHead(302, {'Location': '/redirect'});
             return res.end();
-        }else{
+        } else {
             res.writeHead(302, {'Location': '/simpleAuth?wrongCredentials=true'});
             return res.end();
         }
@@ -233,4 +247,15 @@ module.exports = function (server) {
         res.writeHead(302, {'Location': '/'});
         return res.end();
     });
+
+    server.whitelistUrlForSessionTimeout = (url) => {
+    };
+
+    server.whitelistUrl = (url) => {
+        if (url.startsWith("/")) {
+            urlsToSkip.push(url);
+        } else {
+            throw new Error(`Whitelisting invalid URL: ${url}. It should start with /`);
+        }
+    };
 }

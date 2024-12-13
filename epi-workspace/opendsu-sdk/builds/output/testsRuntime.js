@@ -4734,7 +4734,7 @@ function secrets(server) {
         let appName = request.params.appName;
         if (!containerIsWhitelisted(appName) && !secretIsWhitelisted(userId)) {
             response.statusCode = 403;
-            response.end("Forbidden");
+            response.end("Forbidden getSSOSecret");
             return;
         }
         let secret;
@@ -4831,7 +4831,7 @@ function secrets(server) {
         let {did, name} = req.params;
         if (!containerIsWhitelisted(did) && !secretIsWhitelisted(name)) {
             res.statusCode = 403;
-            res.end("Forbidden");
+            res.end("Forbidden getDIDSecret");
             return;
         }
         let secret;
@@ -4890,7 +4890,7 @@ function secrets(server) {
     server.post("/apiKey/:keyId/:isAdmin", async (req, res) => {
         if (!senderIsAdmin(req)) {
             res.statusCode = 403;
-            res.end("Forbidden");
+            res.end("Forbidden isAdmin");
             return;
         }
         let {keyId, isAdmin} = req.params;
@@ -4918,7 +4918,7 @@ function secrets(server) {
     server.delete("/apiKey/:keyId", async (req, res) => {
         if (!senderIsAdmin(req)) {
             res.statusCode = 403;
-            res.end("Forbidden");
+            res.end("Forbidden deleteAPIKey");
             return;
         }
         let {keyId} = req.params;
@@ -4963,7 +4963,7 @@ function secrets(server) {
             }
 
             res.statusCode = 403;
-            res.end("Forbidden");
+            res.end("Forbidden becomeSysAdmin");
         } catch (error) {
             console.error(error);
             res.statusCode = 500;
@@ -4986,7 +4986,7 @@ function secrets(server) {
 
             if (!sysadminAPIKey) {
                 res.statusCode = 403;
-                res.end("Forbidden");
+                res.end("Forbidden makeSysAdmin");
                 return;
             }
 
@@ -5013,7 +5013,7 @@ function secrets(server) {
 
             if (!sysadminAPIKey) {
                 res.statusCode = 403;
-                res.end("Forbidden");
+                res.end("Forbidden deleteAdmin");
                 return;
             }
 
@@ -8719,7 +8719,7 @@ function APIKeyAuth(server) {
         }
 
         res.statusCode = 403;
-        res.end("Forbidden");
+        res.end("Forbidden Api Key Auth");
     });
 
 }
@@ -11205,6 +11205,7 @@ const SecretsService = require("../../components/secrets/SecretsService");
 const appName = 'simpleAuth'
 const PUT_SECRETS_URL_PATH = "/putSSOSecret/simpleAuth";
 const GET_SECRETS_URL_PATH = "/getSSOSecret/simpleAuth";
+const API_KEY_CONTAINER_NAME = "apiKeys";
 
 // Utility function to read .htpassword.secrets file
 function readSecretsFile(filePath) {
@@ -11243,7 +11244,7 @@ module.exports = function (server) {
     const serverRootFolder = server.rootFolder;
     const secretsFilePath = path.join(serverRootFolder, '.htpassword.secret');
     const htpPwdSecrets = readSecretsFile(secretsFilePath);
-    const skipUrls = ['/simpleAuth', '/simpleAuth?wrongCredentials=true', '/favicon.ico', '/redirect', GET_SECRETS_URL_PATH, PUT_SECRETS_URL_PATH, "/logout"];
+    const skipUrls = ['/simpleAuth', '/simpleAuth?wrongCredentials=true', '/favicon.ico', '/redirect', GET_SECRETS_URL_PATH, PUT_SECRETS_URL_PATH, "/logout", "/customSimpleAuth", "/bdns"];
     const util = require("../oauth/lib/util.js");
     const urlsToSkip = [...util.getUrlsToSkip(), ...skipUrls];
     let secretsService;
@@ -11284,6 +11285,9 @@ module.exports = function (server) {
         let {SimpleAuthorisation} = cookieUtils.parseCookies(req.headers.cookie);
 
         if (!SimpleAuthorisation) {
+            if (req.skipSSO) {
+                return next();
+            }
             res.setHeader('Set-Cookie', `originalUrl=${req.url}; HttpOnly`);
             return res.writeHead(302, {'Location': '/simpleAuth'}).end();
         }
@@ -11353,14 +11357,14 @@ module.exports = function (server) {
         </html>
 `
         let customizedHtmlExists = false;
-        try{
+        try {
             let path = require("path");
-            const file = wrongCredentials ? "error.html":"index.html";
+            const file = wrongCredentials ? "error.html" : "index.html";
             customizedHtmlExists = fs.readFileSync(path.join(server.rootFolder, 'customSimpleAuth', file));
-        }catch(err){
+        } catch (err) {
             //we ignore the error on purpose
         }
-        if(customizedHtmlExists){
+        if (customizedHtmlExists) {
             return res.end(customizedHtmlExists);
         }
         return res.end(returnHtml);
@@ -11393,8 +11397,18 @@ module.exports = function (server) {
             }
             let apiKey;
             try {
-                apiKey = await secretsService.generateAPIKeyAsync(formResult.username, false);
-                await secretsService.putSecretAsync(appName, formResult.username, apiKey);
+                let apiKeyObj = secretsService.getSecretSync(API_KEY_CONTAINER_NAME, formResult.username);
+                if (apiKeyObj) {
+                    apiKey = apiKeyObj.secret;
+                }
+            } catch (e) {
+                console.error(e);
+            }
+            try {
+                if (!apiKey) {
+                    apiKey = await secretsService.generateAPIKeyAsync(formResult.username, false);
+                    await secretsService.putSecretAsync(appName, formResult.username, apiKey);
+                }
             } catch (e) {
                 console.error(e);
                 res.statusCode = 500;
@@ -11403,7 +11417,7 @@ module.exports = function (server) {
             res.setHeader('Set-Cookie', [`SimpleAuthorisation=${formResult.username}:${apiKey}; HttpOnly`, `ssoId=${ssoId}; HttpOnly`, `apiKey=${apiKey}; HttpOnly`]);
             res.writeHead(302, {'Location': '/redirect'});
             return res.end();
-        }else{
+        } else {
             res.writeHead(302, {'Location': '/simpleAuth?wrongCredentials=true'});
             return res.end();
         }
@@ -11429,6 +11443,17 @@ module.exports = function (server) {
         res.writeHead(302, {'Location': '/'});
         return res.end();
     });
+
+    server.whitelistUrlForSessionTimeout = (url) => {
+    };
+
+    server.whitelistUrl = (url) => {
+        if (url.startsWith("/")) {
+            urlsToSkip.push(url);
+        } else {
+            throw new Error(`Whitelisting invalid URL: ${url}. It should start with /`);
+        }
+    };
 }
 
 },{"../../components/secrets/SecretsService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/SecretsService.js","../../http-wrapper/src/httpUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/httpUtils.js","../../http-wrapper/utils/cookie-utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/cookie-utils.js","../oauth/lib/util.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/oauth/lib/util.js","fs":false,"opendsu":"opendsu","path":false,"querystring":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/throttler/index.js":[function(require,module,exports){
