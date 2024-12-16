@@ -72491,22 +72491,22 @@ if ($defineProperty) {
 
 var GetIntrinsic = require('get-intrinsic');
 
-var callBind = require('call-bind');
+var callBindBasic = require('call-bind-apply-helpers');
 
-// eslint-disable-next-line no-extra-parens
-var $indexOf = callBind(/** @type {typeof String.prototype.indexOf} */ (GetIntrinsic('String.prototype.indexOf')));
+/** @type {(thisArg: string, searchString: string, position?: number) => number} */
+var $indexOf = callBindBasic([GetIntrinsic('%String.prototype.indexOf%')]);
 
 /** @type {import('.')} */
 module.exports = function callBoundIntrinsic(name, allowMissing) {
 	// eslint-disable-next-line no-extra-parens
-	var intrinsic = /** @type {Parameters<typeof callBind>[0]} */ (GetIntrinsic(name, !!allowMissing));
+	var intrinsic = /** @type {Parameters<typeof callBindBasic>[0][0]} */ (GetIntrinsic(name, !!allowMissing));
 	if (typeof intrinsic === 'function' && $indexOf(name, '.prototype.') > -1) {
-		return callBind(intrinsic);
+		return callBindBasic([intrinsic]);
 	}
 	return intrinsic;
 };
 
-},{"call-bind":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bind/index.js","get-intrinsic":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/get-intrinsic/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/cipher-base/index.js":[function(require,module,exports){
+},{"call-bind-apply-helpers":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bind-apply-helpers/index.js","get-intrinsic":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/get-intrinsic/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/cipher-base/index.js":[function(require,module,exports){
 'use strict';
 
 var Buffer = require('safe-buffer').Buffer;
