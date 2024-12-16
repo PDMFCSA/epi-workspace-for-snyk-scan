@@ -27956,13 +27956,13 @@ process.on('SIGTERM', (signal) => {
 });
 
 function LightDBServer(config, callback) {
-    let {lightDBStorage, lightDBPort, lightDBDynamicPort, host} = config;
+    let {lightDBStorage, lightDBPort, lightDBDynamicPort, host, sqlConfig} = config;
     const apihubModule = require("apihub");
-    const LokiEnclaveFacade = require("./LokiEnclaveFacade");
+    const LokiEnclaveFacade = require("./index");
     const httpWrapper = apihubModule.getHttpWrapper();
     const Server = httpWrapper.Server;
     const CHECK_FOR_RESTART_COMMAND_FILE_INTERVAL = 500;
-    //in read only mode if the time from the last refresh is bigger than this timeout then a refresh will be executed
+    //in read-only mode, if the time from the last refresh is bigger than this timeout, then a refresh will be executed
     const LAST_REFRESH_TIMEOUT = 30000;
     const lastRefreshes = {};
 
@@ -27985,8 +27985,21 @@ function LightDBServer(config, callback) {
             if (entry.isDirectory()) {
                 let enclaveName = entry.name;
                 logger.info(`Loading database ${enclaveName}`);
-                enclaves[enclaveName] = new LokiEnclaveFacade(path.join(lightDBStorage, enclaveName, DATABASE));
-                clonedEnclaves[enclaveName] = new LokiEnclaveFacade(path.join(lightDBStorage, enclaveName, DATABASE));
+                if (sqlConfig) {
+                    const SQLAdapter = require("lightDB-sql-adapter");
+                    enclaves[enclaveName] = SQLAdapter.createSQLAdapterInstance({
+                        ...sqlConfig,
+                        database: enclaveName  // Use the enclave name as the database name
+                    });
+                    clonedEnclaves[enclaveName] = SQLAdapter.createSQLAdapterInstance({
+                        ...sqlConfig,
+                        database: enclaveName
+                    });
+                } else {
+                    // For LokiDB, use the original filesystem-based approach
+                    enclaves[enclaveName] = LokiEnclaveFacade.createLokiEnclaveFacadeInstance(path.join(lightDBStorage, enclaveName, DATABASE));
+                    clonedEnclaves[enclaveName] = LokiEnclaveFacade.createLokiEnclaveFacadeInstance(path.join(lightDBStorage, enclaveName, DATABASE));
+                }
             }
         }
     } catch (err) {
@@ -28253,7 +28266,7 @@ function LightDBServer(config, callback) {
                     res.write("Already exists");
                     return res.end();
                 }
-                enclaves[dbName] = new LokiEnclaveFacade(path.join(storage, DATABASE));
+                enclaves[dbName] = LokiEnclaveFacade.createLokiEnclaveFacadeInstance(path.join(storage, DATABASE));
                 res.statusCode = 201;
                 res.end();
             })
@@ -28262,7 +28275,7 @@ function LightDBServer(config, callback) {
 }
 
 module.exports = LightDBServer;
-},{"./LokiEnclaveFacade":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LokiEnclaveFacade.js","apihub":"apihub","fs":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LokiDb.js":[function(require,module,exports){
+},{"./index":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/index.js","apihub":"apihub","fs":false,"lightDB-sql-adapter":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LokiDb.js":[function(require,module,exports){
 (function (Buffer){(function (){
 const Adapters = require("./adapters.js");
 const loki = require("./lib/lokijs/src/lokijs.js");
@@ -29126,7 +29139,7 @@ function LokiEnclaveFacade(rootFolder, autosaveInterval, adaptorConstructorFunct
         this.storageDB.getOneRecord(tableName, callback);
     }
 
-    this.count = (tableName, callback) => {
+    this.count = (forDID, tableName, callback) => {
         this.storageDB.count(tableName, callback);
     }
 
@@ -80066,6 +80079,6 @@ module.exports = {
 
 },{"./lib/Pool-Isolates":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/syndicate/lib/Pool-Isolates.js","./lib/Pool-Threads":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/syndicate/lib/Pool-Threads.js","./lib/Pool-Web-Workers":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/syndicate/lib/Pool-Web-Workers.js","./lib/PoolConfig":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/syndicate/lib/PoolConfig.js","./lib/WorkerPool":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/syndicate/lib/WorkerPool.js","./lib/WorkerStrategies":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/syndicate/lib/WorkerStrategies.js"}]},{},["/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/builds/tmp/pskWebServer.js"])
                     ;(function(global) {
-                        global.bundlePaths = {"pskWebServer":"builds/output/pskWebServer.js","openDSU":"builds/output/openDSU.js","nodeBoot":"builds/output/nodeBoot.js","loaderBoot":"builds/output/loaderBoot.js","testsRuntime":"builds/output/testsRuntime.js","bindableModel":"builds/output/bindableModel.js","iframeBoot":"builds/output/iframeBoot.js","versionLessBoot":"builds/output/versionLessBoot.js","testRunnerBoot":"builds/output/testRunnerBoot.js"};
+                        global.bundlePaths = {"pskWebServer":"builds/output/pskWebServer.js","openDSU":"builds/output/openDSU.js","loaderBoot":"builds/output/loaderBoot.js","testsRuntime":"builds/output/testsRuntime.js","bindableModel":"builds/output/bindableModel.js","versionLessBoot":"builds/output/versionLessBoot.js","testRunnerBoot":"builds/output/testRunnerBoot.js"};
                     })(typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {});
                 

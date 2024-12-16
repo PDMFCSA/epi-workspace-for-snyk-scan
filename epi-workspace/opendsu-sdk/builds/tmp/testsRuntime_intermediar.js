@@ -8,6 +8,10 @@ global.testsRuntimeLoadModules = function(){
 		$$.__runtimeModules["opendsu"] = require("opendsu");
 	}
 
+	if(typeof $$.__runtimeModules["lightDB-sql-adapter"] === "undefined"){
+		$$.__runtimeModules["lightDB-sql-adapter"] = require("lightDB-sql-adapter");
+	}
+
 	if(typeof $$.__runtimeModules["acl-magic"] === "undefined"){
 		$$.__runtimeModules["acl-magic"] = require("acl-magic");
 	}

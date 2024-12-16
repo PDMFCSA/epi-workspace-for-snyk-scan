@@ -16,6 +16,10 @@ global.testsRuntimeLoadModules = function(){
 		$$.__runtimeModules["opendsu"] = require("opendsu");
 	}
 
+	if(typeof $$.__runtimeModules["lightDB-sql-adapter"] === "undefined"){
+		$$.__runtimeModules["lightDB-sql-adapter"] = require("lightDB-sql-adapter");
+	}
+
 	if(typeof $$.__runtimeModules["acl-magic"] === "undefined"){
 		$$.__runtimeModules["acl-magic"] = require("acl-magic");
 	}
@@ -90,7 +94,7 @@ if (typeof $$ !== "undefined") {
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"acl-magic":"acl-magic","apihub":"apihub","bar":"bar","bar-fs-adapter":"bar-fs-adapter","buffer-crc32":"buffer-crc32","cloud-enclave":"cloud-enclave","double-check":"double-check","fast-svd":"fast-svd","key-ssi-resolver":"key-ssi-resolver","loki-enclave-facade":"loki-enclave-facade","opendsu":"opendsu","overwrite-require":"overwrite-require","psk-cache":"psk-cache","pskcrypto":"pskcrypto","queue":"queue","soundpubsub":"soundpubsub","swarmutils":"swarmutils","syndicate":"syndicate"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/acl-magic/lib/cache.js":[function(require,module,exports){
+},{"acl-magic":"acl-magic","apihub":"apihub","bar":"bar","bar-fs-adapter":"bar-fs-adapter","buffer-crc32":"buffer-crc32","cloud-enclave":"cloud-enclave","double-check":"double-check","fast-svd":"fast-svd","key-ssi-resolver":"key-ssi-resolver","lightDB-sql-adapter":"lightDB-sql-adapter","loki-enclave-facade":"loki-enclave-facade","opendsu":"opendsu","overwrite-require":"overwrite-require","psk-cache":"psk-cache","pskcrypto":"pskcrypto","queue":"queue","soundpubsub":"soundpubsub","swarmutils":"swarmutils","syndicate":"syndicate"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/acl-magic/lib/cache.js":[function(require,module,exports){
 /*
     A simple cache implementation that periodically removes everything from cache.
     We purge everything to avoid consuming too much memory in large systems. This should be enough for normal usages.
@@ -29694,7 +29698,256 @@ function RaceConditionPreventer() {
 }
 
 module.exports = RaceConditionPreventer;
-},{"../DSUFactoryRegistry/factories/BarFactory":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/DSUFactoryRegistry/factories/BarFactory.js","opendsu":"opendsu","swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LightDBServer.js":[function(require,module,exports){
+},{"../DSUFactoryRegistry/factories/BarFactory":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/DSUFactoryRegistry/factories/BarFactory.js","opendsu":"opendsu","swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/lightDB-sql-adapter/sqlAdapter.js":[function(require,module,exports){
+(function (Buffer,__dirname){(function (){
+// sqlAdapter.js
+const syndicate = require('syndicate');
+const path = require('path');
+
+class SQLAdapter {
+    READ_WRITE_KEY_TABLE;
+    debug;
+    workerPool;
+    config;
+
+    constructor(config) {
+        this.READ_WRITE_KEY_TABLE = "KeyValueTable";
+        this.debug = process.env.DEBUG === 'false';
+        this.config = config;
+
+        this.workerPool = syndicate.createWorkerPool({
+            bootScript: path.join(__dirname, "./workerScript.js"),
+            maximumNumberOfWorkers: 4,
+            workerOptions: {
+                workerData: {
+                    config
+                }
+            }
+        });
+        console.log("creating new sqlAdapter instance.");
+    }
+
+    close = async () => {
+        try {
+            if (this.workerPool && typeof this.workerPool.drain === 'function') {
+                await this.workerPool.drain();
+            }
+            if (this.workerPool && typeof this.workerPool.clear === 'function') {
+                await this.workerPool.clear();
+            }
+            if (this.workerPool && typeof this.workerPool.terminate === 'function') {
+                await this.workerPool.terminate();
+            }
+        } catch (error) {
+            console.error('Error closing worker pool:', error);
+            throw error;
+        }
+    }
+
+    _executeTask = (taskName, args) => {
+        return new Promise((resolve, reject) => {
+            try {
+                // Sanitize args to ensure they're serializable
+                const safeArgs = args.map(arg => {
+                    if (arg === null || arg === undefined) return arg;
+                    if (typeof arg === 'function') return null;
+                    if (Buffer.isBuffer(arg)) return arg.toString('base64');
+                    if (typeof arg === 'object') {
+                        return JSON.parse(JSON.stringify(arg));
+                    }
+                    return arg;
+                });
+
+                // Include workerData in the message
+                this.workerPool.addTask({
+                    taskName,
+                    args: safeArgs,
+                    workerData: {
+                        config: this.config,
+                    }
+                }, (err, result) => {
+                    if (err) {
+                        const error = new Error(err.message || 'Unknown error');
+                        if (err.code) error.code = err.code;
+                        if (err.type) error.type = err.type;
+                        reject(error);
+                    } else {
+                        if (!result.success) {
+                            const error = new Error(result.error?.message || 'Unknown error');
+                            if (result.error?.code) error.code = result.error.code;
+                            if (result.error?.type) error.type = result.error.type;
+                            reject(error);
+                        } else {
+                            resolve(result.result);
+                        }
+                    }
+                });
+            } catch (err) {
+                reject(new Error('Task execution failed: ' + (err.message || 'Unknown error')));
+            }
+        });
+    }
+
+    _executeWithCallback = (taskName, args, callback) => {
+        this._executeTask(taskName, args)
+            .then(result => callback(null, result))
+            .catch(error => {
+                // Ensure error is properly formatted
+                if (!(error instanceof Error)) {
+                    error = new Error(error.message || 'Unknown error');
+                }
+                callback(error);
+            });
+    }
+
+    // Database operations with callbacks
+    refresh = (forDID, callback) => {
+        this._executeWithCallback('refresh', [], callback);
+    }
+
+    saveDatabase = (forDID, callback) => {
+        this._executeWithCallback('saveDatabase', [], callback);
+    }
+
+    getCollections = (forDID, callback) => {
+        this._executeWithCallback('getCollections', [], callback);
+    }
+
+    createCollection = (forDID, tableName, indicesList, callback) => {
+        this._executeWithCallback('createCollection', [tableName, indicesList], callback);
+    }
+
+    removeCollection = (forDID, tableName, callback) => {
+        this._executeWithCallback('removeCollection', [tableName], callback);
+    }
+
+    addIndex = (forDID, tableName, property, callback) => {
+        this._executeWithCallback('addIndex', [tableName, property], callback);
+    }
+
+    getOneRecord = (forDID, tableName, callback) => {
+        this._executeWithCallback('getOneRecord', [tableName], callback);
+    }
+
+    getAllRecords = (forDID, tableName, callback) => {
+        this._executeWithCallback('getAllRecords', [tableName], callback);
+    }
+
+    insertRecord = (forDID, tableName, pk, record, callback) => {
+        this._executeWithCallback('insertRecord', [tableName, pk, record], callback);
+    }
+
+    updateRecord = (forDID, tableName, pk, record, callback) => {
+        this._executeWithCallback('updateRecord', [tableName, pk, record], callback);
+    }
+
+    deleteRecord = (forDID, tableName, pk, callback) => {
+        this._executeWithCallback('deleteRecord', [tableName, pk], callback);
+    }
+
+    getRecord = (forDID, tableName, pk, callback) => {
+        this._executeWithCallback('getRecord', [tableName, pk], callback);
+    }
+
+    filter = (forDID, tableName, filterConditions = [], sort = 'asc', max = null, callback) => {
+
+        // Handle when filterConditions is the callback
+        if (typeof filterConditions === 'function') {
+            callback = filterConditions;
+            filterConditions = [];
+            sort = 'asc';
+            max = null;
+        }
+        // Handle when sort is the callback
+        else if (typeof sort === 'function') {
+            callback = sort;
+            sort = 'asc';
+            max = null;
+        }
+        // Handle when max is the callback
+        else if (typeof max === 'function') {
+            callback = max;
+            max = null;
+        }
+        this._executeWithCallback('filter', [tableName, filterConditions, sort, max], callback);
+    }
+
+    addInQueue = (forDID, queueName, object, ensureUniqueness = false, callback) => {
+        this._executeWithCallback('addInQueue', [queueName, object, ensureUniqueness], callback);
+    }
+
+    queueSize = (forDID, queueName, callback) => {
+        this._executeWithCallback('queueSize', [queueName], callback);
+    }
+
+    listQueue = (forDID, queueName, sortAfterInsertTime = 'asc', onlyFirstN = null, callback) => {
+        this._executeWithCallback('listQueue', [queueName, sortAfterInsertTime, onlyFirstN], callback);
+    }
+
+    getObjectFromQueue = (forDID, queueName, hash, callback) => {
+        this._executeWithCallback('getObjectFromQueue', [queueName, hash], callback);
+    }
+
+    deleteObjectFromQueue = (forDID, queueName, hash, callback) => {
+        this._executeWithCallback('deleteObjectFromQueue', [queueName, hash], callback);
+    }
+
+    writeKey = (forDID, key, value, callback) => {
+        const valueObject = this._processValueForStorage(value);
+        this._executeWithCallback('writeKey', [key, valueObject], callback);
+    }
+
+    readKey = (forDID, key, callback) => {
+        this._executeWithCallback('readKey', [key], (error, result) => {
+            if (error) return callback(error);
+            if (!result) return callback(null, null);
+            callback(null, typeof result === 'string' ? JSON.parse(result) : result);
+        });
+    }
+
+    // Async versions of operations
+    refreshAsync = async () => {
+        return this._executeTask('refresh', []);
+    }
+
+    removeCollectionAsync = async (forDID, tableName) => {
+        return this._executeTask('removeCollectionAsync', [tableName]);
+    }
+
+    count = async (forDID, tableName, callback) => {
+        return this._executeWithCallback('count', [tableName], callback);
+    }
+
+    saveDatabaseAsync = async (forDID) => {
+        await this._executeTask('saveDatabase', []);
+        return {message: "Database saved"};
+    }
+
+    // Helper methods
+    _processValueForStorage = (value) => {
+        if (Buffer.isBuffer(value)) {
+            return {
+                type: "buffer",
+                value: value.toString()
+            };
+        }
+        if (value !== null && typeof value === "object") {
+            return {
+                type: "object",
+                value: JSON.stringify(value)
+            };
+        }
+        return {
+            type: typeof value,
+            value: value
+        };
+    }
+}
+
+module.exports = SQLAdapter;
+}).call(this)}).call(this,{"isBuffer":require("../../node_modules/is-buffer/index.js")},"/modules/lightDB-sql-adapter")
+
+},{"../../node_modules/is-buffer/index.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/is-buffer/index.js","path":false,"syndicate":"syndicate"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LightDBServer.js":[function(require,module,exports){
 const logger = $$.getLogger("LightDBServer", "LokiEnclaveFacade");
 const DATABASE = "database";
 process.on('uncaughtException', err => {
@@ -29707,13 +29960,13 @@ process.on('SIGTERM', (signal) => {
 });
 
 function LightDBServer(config, callback) {
-    let {lightDBStorage, lightDBPort, lightDBDynamicPort, host} = config;
+    let {lightDBStorage, lightDBPort, lightDBDynamicPort, host, sqlConfig} = config;
     const apihubModule = require("apihub");
-    const LokiEnclaveFacade = require("./LokiEnclaveFacade");
+    const LokiEnclaveFacade = require("./index");
     const httpWrapper = apihubModule.getHttpWrapper();
     const Server = httpWrapper.Server;
     const CHECK_FOR_RESTART_COMMAND_FILE_INTERVAL = 500;
-    //in read only mode if the time from the last refresh is bigger than this timeout then a refresh will be executed
+    //in read-only mode, if the time from the last refresh is bigger than this timeout, then a refresh will be executed
     const LAST_REFRESH_TIMEOUT = 30000;
     const lastRefreshes = {};
 
@@ -29736,8 +29989,21 @@ function LightDBServer(config, callback) {
             if (entry.isDirectory()) {
                 let enclaveName = entry.name;
                 logger.info(`Loading database ${enclaveName}`);
-                enclaves[enclaveName] = new LokiEnclaveFacade(path.join(lightDBStorage, enclaveName, DATABASE));
-                clonedEnclaves[enclaveName] = new LokiEnclaveFacade(path.join(lightDBStorage, enclaveName, DATABASE));
+                if (sqlConfig) {
+                    const SQLAdapter = require("lightDB-sql-adapter");
+                    enclaves[enclaveName] = SQLAdapter.createSQLAdapterInstance({
+                        ...sqlConfig,
+                        database: enclaveName  // Use the enclave name as the database name
+                    });
+                    clonedEnclaves[enclaveName] = SQLAdapter.createSQLAdapterInstance({
+                        ...sqlConfig,
+                        database: enclaveName
+                    });
+                } else {
+                    // For LokiDB, use the original filesystem-based approach
+                    enclaves[enclaveName] = LokiEnclaveFacade.createLokiEnclaveFacadeInstance(path.join(lightDBStorage, enclaveName, DATABASE));
+                    clonedEnclaves[enclaveName] = LokiEnclaveFacade.createLokiEnclaveFacadeInstance(path.join(lightDBStorage, enclaveName, DATABASE));
+                }
             }
         }
     } catch (err) {
@@ -30004,7 +30270,7 @@ function LightDBServer(config, callback) {
                     res.write("Already exists");
                     return res.end();
                 }
-                enclaves[dbName] = new LokiEnclaveFacade(path.join(storage, DATABASE));
+                enclaves[dbName] = LokiEnclaveFacade.createLokiEnclaveFacadeInstance(path.join(storage, DATABASE));
                 res.statusCode = 201;
                 res.end();
             })
@@ -30013,7 +30279,7 @@ function LightDBServer(config, callback) {
 }
 
 module.exports = LightDBServer;
-},{"./LokiEnclaveFacade":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LokiEnclaveFacade.js","apihub":"apihub","fs":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LokiDb.js":[function(require,module,exports){
+},{"./index":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/index.js","apihub":"apihub","fs":false,"lightDB-sql-adapter":"lightDB-sql-adapter","opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LokiDb.js":[function(require,module,exports){
 (function (Buffer){(function (){
 const Adapters = require("./adapters.js");
 const loki = require("./lib/lokijs/src/lokijs.js");
@@ -30877,7 +31143,7 @@ function LokiEnclaveFacade(rootFolder, autosaveInterval, adaptorConstructorFunct
         this.storageDB.getOneRecord(tableName, callback);
     }
 
-    this.count = (tableName, callback) => {
+    this.count = (forDID, tableName, callback) => {
         this.storageDB.count(tableName, callback);
     }
 
@@ -80842,7 +81108,18 @@ module.exports = {
     CryptoAlgorithmsMixin: require('./lib/CryptoAlgorithms/CryptoAlgorithmsMixin')
 };
 
-},{"./lib/CryptoAlgorithms/CryptoAlgorithmsMixin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/CryptoAlgorithms/CryptoAlgorithmsMixin.js","./lib/CryptoAlgorithms/CryptoAlgorithmsRegistry":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/CryptoAlgorithms/CryptoAlgorithmsRegistry.js","./lib/CryptoAlgorithms/CryptoFunctionTypes":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/CryptoAlgorithms/CryptoFunctionTypes.js","./lib/DSUFactoryRegistry":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/DSUFactoryRegistry/index.js","./lib/DSUFactoryRegistry/DSUTypes":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/DSUFactoryRegistry/DSUTypes.js","./lib/KeySSIResolver":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/KeySSIResolver.js","./lib/KeySSIs/KeySSIFactory":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/KeySSIs/KeySSIFactory.js","./lib/KeySSIs/KeySSIMixin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/KeySSIs/KeySSIMixin.js","./lib/KeySSIs/SSIFamilies":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/KeySSIs/SSIFamilies.js","./lib/KeySSIs/SSITypes":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/KeySSIs/SSITypes.js","bar":"bar"}],"loki-enclave-facade":[function(require,module,exports){
+},{"./lib/CryptoAlgorithms/CryptoAlgorithmsMixin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/CryptoAlgorithms/CryptoAlgorithmsMixin.js","./lib/CryptoAlgorithms/CryptoAlgorithmsRegistry":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/CryptoAlgorithms/CryptoAlgorithmsRegistry.js","./lib/CryptoAlgorithms/CryptoFunctionTypes":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/CryptoAlgorithms/CryptoFunctionTypes.js","./lib/DSUFactoryRegistry":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/DSUFactoryRegistry/index.js","./lib/DSUFactoryRegistry/DSUTypes":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/DSUFactoryRegistry/DSUTypes.js","./lib/KeySSIResolver":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/KeySSIResolver.js","./lib/KeySSIs/KeySSIFactory":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/KeySSIs/KeySSIFactory.js","./lib/KeySSIs/KeySSIMixin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/KeySSIs/KeySSIMixin.js","./lib/KeySSIs/SSIFamilies":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/KeySSIs/SSIFamilies.js","./lib/KeySSIs/SSITypes":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/KeySSIs/SSITypes.js","bar":"bar"}],"lightDB-sql-adapter":[function(require,module,exports){
+const SqlAdapter = require("./sqlAdapter");
+
+const createSQLAdapterInstance = (config, type) => {
+    return new SqlAdapter(config, type);
+}
+
+module.exports = {
+    createSQLAdapterInstance,
+}
+
+},{"./sqlAdapter":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/lightDB-sql-adapter/sqlAdapter.js"}],"loki-enclave-facade":[function(require,module,exports){
 const LightDBServer = require("./LightDBServer");
 const LokiEnclaveFacade = require("./LokiEnclaveFacade");
 
@@ -81808,6 +82085,6 @@ module.exports = {
 
 },{"./lib/Pool-Isolates":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/syndicate/lib/Pool-Isolates.js","./lib/Pool-Threads":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/syndicate/lib/Pool-Threads.js","./lib/Pool-Web-Workers":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/syndicate/lib/Pool-Web-Workers.js","./lib/PoolConfig":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/syndicate/lib/PoolConfig.js","./lib/WorkerPool":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/syndicate/lib/WorkerPool.js","./lib/WorkerStrategies":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/syndicate/lib/WorkerStrategies.js"}]},{},["/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/builds/tmp/testsRuntime.js"])
                     ;(function(global) {
-                        global.bundlePaths = {"pskWebServer":"builds/output/pskWebServer.js","openDSU":"builds/output/openDSU.js","nodeBoot":"builds/output/nodeBoot.js","loaderBoot":"builds/output/loaderBoot.js","testsRuntime":"builds/output/testsRuntime.js","bindableModel":"builds/output/bindableModel.js","iframeBoot":"builds/output/iframeBoot.js","versionLessBoot":"builds/output/versionLessBoot.js","testRunnerBoot":"builds/output/testRunnerBoot.js"};
+                        global.bundlePaths = {"pskWebServer":"builds/output/pskWebServer.js","openDSU":"builds/output/openDSU.js","loaderBoot":"builds/output/loaderBoot.js","testsRuntime":"builds/output/testsRuntime.js","bindableModel":"builds/output/bindableModel.js","versionLessBoot":"builds/output/versionLessBoot.js","testRunnerBoot":"builds/output/testRunnerBoot.js"};
                     })(typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {});
                 
