@@ -27603,7 +27603,7 @@ process.on('SIGTERM', (signal) => {
 function LightDBServer(config, callback) {
     let {lightDBStorage, lightDBPort, lightDBDynamicPort, host, sqlConfig} = config;
     const apihubModule = require("apihub");
-    const LokiEnclaveFacade = require("./index");
+    const LokiEnclaveFacade = require("loki-enclave-facade");
     const httpWrapper = apihubModule.getHttpWrapper();
     const Server = httpWrapper.Server;
     const CHECK_FOR_RESTART_COMMAND_FILE_INTERVAL = 500;
@@ -27920,7 +27920,7 @@ function LightDBServer(config, callback) {
 }
 
 module.exports = LightDBServer;
-},{"./index":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/index.js","apihub":"apihub","fs":false,"lightDB-sql-adapter":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LokiDb.js":[function(require,module,exports){
+},{"apihub":"apihub","fs":false,"lightDB-sql-adapter":false,"loki-enclave-facade":"loki-enclave-facade","opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LokiDb.js":[function(require,module,exports){
 (function (Buffer){(function (){
 const Adapters = require("./adapters.js");
 const loki = require("./lib/lokijs/src/lokijs.js");
