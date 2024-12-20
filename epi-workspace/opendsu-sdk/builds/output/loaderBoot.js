@@ -81443,7 +81443,7 @@ module.exports = Math.abs;
 },{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/floor.js":[function(require,module,exports){
 'use strict';
 
-/** @type {import('./abs')} */
+/** @type {import('./floor')} */
 module.exports = Math.floor;
 
 },{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/max.js":[function(require,module,exports){
