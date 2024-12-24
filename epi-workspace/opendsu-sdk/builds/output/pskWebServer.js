@@ -7824,6 +7824,10 @@ const extensionsMimeTypes = {
         name: "audio/webm",
         binary: true
     },
+    "mp4": {
+        name: "video/mp4",
+        binary: true
+    },
     "webm": {
         name: "video/webm",
         binary: true
@@ -7888,6 +7892,7 @@ module.exports = function (extension) {
     }
     return defaultMimeType;
 };
+
 },{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/request-utils.js":[function(require,module,exports){
 const logger = $$.getLogger("request-utils", "apihub/utils");
 

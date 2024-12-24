@@ -204,6 +204,10 @@ const extensionsMimeTypes = {
         name: "audio/webm",
         binary: true
     },
+    "mp4": {
+        name: "video/mp4",
+        binary: true
+    },
     "webm": {
         name: "video/webm",
         binary: true
