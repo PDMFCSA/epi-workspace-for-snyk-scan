@@ -79085,6 +79085,8 @@ var floor = require('math-intrinsics/floor');
 var max = require('math-intrinsics/max');
 var min = require('math-intrinsics/min');
 var pow = require('math-intrinsics/pow');
+var round = require('math-intrinsics/round');
+var sign = require('math-intrinsics/sign');
 
 var $Function = Function;
 
@@ -79119,11 +79121,10 @@ var ThrowTypeError = $gOPD
 	: throwTypeError;
 
 var hasSymbols = require('has-symbols')();
-var getDunderProto = require('dunder-proto/get');
 
-var getProto = (typeof Reflect === 'function' && Reflect.getPrototypeOf)
-	|| $Object.getPrototypeOf
-	|| getDunderProto;
+var getProto = require('get-proto');
+var $ObjectGPO = require('get-proto/Object.getPrototypeOf');
+var $ReflectGPO = require('get-proto/Reflect.getPrototypeOf');
 
 var $apply = require('call-bind-apply-helpers/functionApply');
 var $call = require('call-bind-apply-helpers/functionCall');
@@ -79205,11 +79206,15 @@ var INTRINSICS = {
 	'%Function.prototype.call%': $call,
 	'%Function.prototype.apply%': $apply,
 	'%Object.defineProperty%': $defineProperty,
+	'%Object.getPrototypeOf%': $ObjectGPO,
 	'%Math.abs%': abs,
 	'%Math.floor%': floor,
 	'%Math.max%': max,
 	'%Math.min%': min,
-	'%Math.pow%': pow
+	'%Math.pow%': pow,
+	'%Math.round%': round,
+	'%Math.sign%': sign,
+	'%Reflect.getPrototypeOf%': $ReflectGPO
 };
 
 if (getProto) {
@@ -79439,7 +79444,50 @@ module.exports = function GetIntrinsic(name, allowMissing) {
 	return value;
 };
 
-},{"call-bind-apply-helpers/functionApply":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bind-apply-helpers/functionApply.js","call-bind-apply-helpers/functionCall":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bind-apply-helpers/functionCall.js","dunder-proto/get":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/dunder-proto/get.js","es-define-property":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-define-property/index.js","es-errors":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/index.js","es-errors/eval":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/eval.js","es-errors/range":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/range.js","es-errors/ref":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/ref.js","es-errors/syntax":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/syntax.js","es-errors/type":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/type.js","es-errors/uri":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/uri.js","es-object-atoms":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-object-atoms/index.js","function-bind":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/function-bind/index.js","gopd":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/gopd/index.js","has-symbols":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/has-symbols/index.js","hasown":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/hasown/index.js","math-intrinsics/abs":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/abs.js","math-intrinsics/floor":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/floor.js","math-intrinsics/max":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/max.js","math-intrinsics/min":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/min.js","math-intrinsics/pow":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/pow.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/gopd/gOPD.js":[function(require,module,exports){
+},{"call-bind-apply-helpers/functionApply":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bind-apply-helpers/functionApply.js","call-bind-apply-helpers/functionCall":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bind-apply-helpers/functionCall.js","es-define-property":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-define-property/index.js","es-errors":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/index.js","es-errors/eval":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/eval.js","es-errors/range":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/range.js","es-errors/ref":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/ref.js","es-errors/syntax":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/syntax.js","es-errors/type":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/type.js","es-errors/uri":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/uri.js","es-object-atoms":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-object-atoms/index.js","function-bind":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/function-bind/index.js","get-proto":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/get-proto/index.js","get-proto/Object.getPrototypeOf":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/get-proto/Object.getPrototypeOf.js","get-proto/Reflect.getPrototypeOf":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/get-proto/Reflect.getPrototypeOf.js","gopd":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/gopd/index.js","has-symbols":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/has-symbols/index.js","hasown":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/hasown/index.js","math-intrinsics/abs":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/abs.js","math-intrinsics/floor":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/floor.js","math-intrinsics/max":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/max.js","math-intrinsics/min":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/min.js","math-intrinsics/pow":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/pow.js","math-intrinsics/round":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/round.js","math-intrinsics/sign":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/sign.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/get-proto/Object.getPrototypeOf.js":[function(require,module,exports){
+'use strict';
+
+var $Object = require('es-object-atoms');
+
+/** @type {import('./Object.getPrototypeOf')} */
+module.exports = $Object.getPrototypeOf || null;
+
+},{"es-object-atoms":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-object-atoms/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/get-proto/Reflect.getPrototypeOf.js":[function(require,module,exports){
+'use strict';
+
+/** @type {import('./Reflect.getPrototypeOf')} */
+module.exports = (typeof Reflect !== 'undefined' && Reflect.getPrototypeOf) || null;
+
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/get-proto/index.js":[function(require,module,exports){
+'use strict';
+
+var reflectGetProto = require('./Reflect.getPrototypeOf');
+var originalGetProto = require('./Object.getPrototypeOf');
+
+var getDunderProto = require('dunder-proto/get');
+
+/** @type {import('.')} */
+module.exports = reflectGetProto
+	? function getProto(O) {
+		// @ts-expect-error TS can't narrow inside a closure, for some reason
+		return reflectGetProto(O);
+	}
+	: originalGetProto
+		? function getProto(O) {
+			if (!O || (typeof O !== 'object' && typeof O !== 'function')) {
+				throw new TypeError('getProto: not an object');
+			}
+			// @ts-expect-error TS can't narrow inside a closure, for some reason
+			return originalGetProto(O);
+		}
+		: getDunderProto
+			? function getProto(O) {
+				// @ts-expect-error TS can't narrow inside a closure, for some reason
+				return getDunderProto(O);
+			}
+			: null;
+
+},{"./Object.getPrototypeOf":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/get-proto/Object.getPrototypeOf.js","./Reflect.getPrototypeOf":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/get-proto/Reflect.getPrototypeOf.js","dunder-proto/get":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/dunder-proto/get.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/gopd/gOPD.js":[function(require,module,exports){
 'use strict';
 
 /** @type {import('./gOPD')} */
@@ -81380,11 +81428,15 @@ module.exports = reflectApply
 },{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/is-generator-function/index.js":[function(require,module,exports){
 'use strict';
 
-var toStr = Object.prototype.toString;
-var fnToStr = Function.prototype.toString;
-var isFnRegex = /^\s*(?:function)?\*/;
+var callBound = require('call-bound');
+var safeRegexTest = require('safe-regex-test');
+var isFnRegex = safeRegexTest(/^\s*(?:function)?\*/);
 var hasToStringTag = require('has-tostringtag/shams')();
-var getProto = Object.getPrototypeOf;
+var getProto = require('get-proto');
+
+var toStr = callBound('Object.prototype.toString');
+var fnToStr = callBound('Function.prototype.toString');
+
 var getGeneratorFunc = function () { // eslint-disable-line consistent-return
 	if (!hasToStringTag) {
 		return false;
@@ -81394,17 +81446,19 @@ var getGeneratorFunc = function () { // eslint-disable-line consistent-return
 	} catch (e) {
 	}
 };
+/** @type {undefined | false | null | GeneratorFunctionConstructor} */
 var GeneratorFunction;
 
+/** @type {import('.')} */
 module.exports = function isGeneratorFunction(fn) {
 	if (typeof fn !== 'function') {
 		return false;
 	}
-	if (isFnRegex.test(fnToStr.call(fn))) {
+	if (isFnRegex(fnToStr(fn))) {
 		return true;
 	}
 	if (!hasToStringTag) {
-		var str = toStr.call(fn);
+		var str = toStr(fn);
 		return str === '[object GeneratorFunction]';
 	}
 	if (!getProto) {
@@ -81412,12 +81466,86 @@ module.exports = function isGeneratorFunction(fn) {
 	}
 	if (typeof GeneratorFunction === 'undefined') {
 		var generatorFunc = getGeneratorFunc();
-		GeneratorFunction = generatorFunc ? getProto(generatorFunc) : false;
+		GeneratorFunction = generatorFunc
+			// eslint-disable-next-line no-extra-parens
+			? /** @type {GeneratorFunctionConstructor} */ (getProto(generatorFunc))
+			: false;
 	}
 	return getProto(fn) === GeneratorFunction;
 };
 
-},{"has-tostringtag/shams":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/has-tostringtag/shams.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/is-typed-array/index.js":[function(require,module,exports){
+},{"call-bound":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bound/index.js","get-proto":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/get-proto/index.js","has-tostringtag/shams":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/has-tostringtag/shams.js","safe-regex-test":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/safe-regex-test/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/is-regex/index.js":[function(require,module,exports){
+'use strict';
+
+var callBound = require('call-bound');
+var hasToStringTag = require('has-tostringtag/shams')();
+var hasOwn = require('hasown');
+var gOPD = require('gopd');
+
+/** @type {import('.')} */
+var fn;
+
+if (hasToStringTag) {
+	/** @type {(receiver: ThisParameterType<typeof RegExp.prototype.exec>, ...args: Parameters<typeof RegExp.prototype.exec>) => ReturnType<typeof RegExp.prototype.exec>} */
+	var $exec = callBound('RegExp.prototype.exec');
+	/** @type {object} */
+	var isRegexMarker = {};
+
+	var throwRegexMarker = function () {
+		throw isRegexMarker;
+	};
+	/** @type {{ toString(): never, valueOf(): never, [Symbol.toPrimitive]?(): never }} */
+	var badStringifier = {
+		toString: throwRegexMarker,
+		valueOf: throwRegexMarker
+	};
+
+	if (typeof Symbol.toPrimitive === 'symbol') {
+		badStringifier[Symbol.toPrimitive] = throwRegexMarker;
+	}
+
+	/** @type {import('.')} */
+	// @ts-expect-error TS can't figure out that the $exec call always throws
+	// eslint-disable-next-line consistent-return
+	fn = function isRegex(value) {
+		if (!value || typeof value !== 'object') {
+			return false;
+		}
+
+		// eslint-disable-next-line no-extra-parens
+		var descriptor = /** @type {NonNullable<typeof gOPD>} */ (gOPD)(/** @type {{ lastIndex?: unknown }} */ (value), 'lastIndex');
+		var hasLastIndexDataProperty = descriptor && hasOwn(descriptor, 'value');
+		if (!hasLastIndexDataProperty) {
+			return false;
+		}
+
+		try {
+			// eslint-disable-next-line no-extra-parens
+			$exec(value, /** @type {string} */ (/** @type {unknown} */ (badStringifier)));
+		} catch (e) {
+			return e === isRegexMarker;
+		}
+	};
+} else {
+	/** @type {(receiver: ThisParameterType<typeof Object.prototype.toString>, ...args: Parameters<typeof Object.prototype.toString>) => ReturnType<typeof Object.prototype.toString>} */
+	var $toString = callBound('Object.prototype.toString');
+	/** @const @type {'[object RegExp]'} */
+	var regexClass = '[object RegExp]';
+
+	/** @type {import('.')} */
+	fn = function isRegex(value) {
+		// In older browsers, typeof regex incorrectly returns 'function'
+		if (!value || (typeof value !== 'object' && typeof value !== 'function')) {
+			return false;
+		}
+
+		return $toString(value) === regexClass;
+	};
+}
+
+module.exports = fn;
+
+},{"call-bound":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bound/index.js","gopd":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/gopd/index.js","has-tostringtag/shams":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/has-tostringtag/shams.js","hasown":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/hasown/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/is-typed-array/index.js":[function(require,module,exports){
 'use strict';
 
 var whichTypedArray = require('which-typed-array');
@@ -81446,6 +81574,14 @@ module.exports = Math.abs;
 /** @type {import('./floor')} */
 module.exports = Math.floor;
 
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/isNaN.js":[function(require,module,exports){
+'use strict';
+
+/** @type {import('./isNaN')} */
+module.exports = Number.isNaN || function isNaN(a) {
+	return a !== a;
+};
+
 },{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/max.js":[function(require,module,exports){
 'use strict';
 
@@ -81464,7 +81600,26 @@ module.exports = Math.min;
 /** @type {import('./pow')} */
 module.exports = Math.pow;
 
-},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/md5.js/index.js":[function(require,module,exports){
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/round.js":[function(require,module,exports){
+'use strict';
+
+/** @type {import('./round')} */
+module.exports = Math.round;
+
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/sign.js":[function(require,module,exports){
+'use strict';
+
+var $isNaN = require('./isNaN');
+
+/** @type {import('./sign')} */
+module.exports = function sign(number) {
+	if ($isNaN(number) || number === 0) {
+		return number;
+	}
+	return number < 0 ? -1 : +1;
+};
+
+},{"./isNaN":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/math-intrinsics/isNaN.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/md5.js/index.js":[function(require,module,exports){
 'use strict'
 var inherits = require('inherits')
 var HashBase = require('hash-base')
@@ -94663,7 +94818,26 @@ SafeBuffer.allocUnsafeSlow = function (size) {
   return buffer.SlowBuffer(size)
 }
 
-},{"buffer":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/buffer/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/set-function-length/index.js":[function(require,module,exports){
+},{"buffer":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/buffer/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/safe-regex-test/index.js":[function(require,module,exports){
+'use strict';
+
+var callBound = require('call-bound');
+var isRegex = require('is-regex');
+
+var $exec = callBound('RegExp.prototype.exec');
+var $TypeError = require('es-errors/type');
+
+/** @type {import('.')} */
+module.exports = function regexTester(regex) {
+	if (!isRegex(regex)) {
+		throw new $TypeError('`regex` must be a RegExp');
+	}
+	return function test(s) {
+		return $exec(regex, s) !== null;
+	};
+};
+
+},{"call-bound":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/call-bound/index.js","es-errors/type":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/es-errors/type.js","is-regex":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/is-regex/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/set-function-length/index.js":[function(require,module,exports){
 'use strict';
 
 var GetIntrinsic = require('get-intrinsic');
