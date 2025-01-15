@@ -28263,8 +28263,9 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
                 // Process LIKE condition, and allow complex regex patterns (no quotes required)
                 conditionObject[field] = {[lokiOperator]: new RegExp(value.trim(), 'i')}; // case-insensitive regex
             } else {
+
                 // Process other operators, handling numeric and string cases
-                const numericValue = parseFloat(value);
+                const numericValue = /^[0-9]+$/.test(value) ? parseFloat(value) : value;
                 conditionObject[field] = {
                     [lokiOperator]: isNaN(numericValue) ? value.replace(/['"]/g, '').trim() : numericValue
                 };
@@ -28670,6 +28671,7 @@ function initialized() {
 
 LokiDb.prototype.Adapters = Adapters;
 module.exports = LokiDb;
+
 }).call(this)}).call(this,{"isBuffer":require("../../node_modules/is-buffer/index.js")})
 
 },{"../../node_modules/is-buffer/index.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/is-buffer/index.js","./adapters.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/adapters.js","./lib/lokijs/src/lokijs.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/lib/lokijs/src/lokijs.js","acl-magic":"acl-magic","opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LokiEnclaveFacade.js":[function(require,module,exports){

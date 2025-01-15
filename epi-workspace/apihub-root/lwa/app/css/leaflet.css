@@ -143,3 +143,17 @@
     padding-left: 10%;
 }
 
+.leaflet-page .icon-title-container {
+    flex-direction: row !important;
+}
+
+.leaflet-page .icon-title-container > div:not(.print-icon-container) {
+    width: calc(100% - 80px);
+}
+
+.leaflet-page .icon-title-container #print-modal-button,
+.leaflet-page .icon-title-container .print-icon-container{
+    width: 80px;
+    text-align: center;
+    background-position: center top;
+}

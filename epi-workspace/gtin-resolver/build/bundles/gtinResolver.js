@@ -1037,7 +1037,13 @@ function APIClient() {
     };
 
     this.checkDatabases = async function (healthCheckId) {
-        return this.postEndpoint('/maintenance/checkDatabases', {healthCheckId, tables: []});
+        return this.postEndpoint('/maintenance/checkDatabases', {healthCheckId, tables: [
+                "audit",
+                "products",
+                "batches",
+                "user-access"
+            ]
+        });
     };
 
     this.checkProducts = async function (healthCheckId) {
@@ -1210,15 +1216,6 @@ const apiClient = require("../controllers/APIClient").getInstance();
 const HEALTH_CHECK_TABLE = constants.HEALTH_CHECK_TABLE;
 const Tasks = constants.HEALTH_CHECK_COMPONENTS;
 const Status = constants.HEALTH_CHECK_STATUSES;
-
-/* TODO Remove */
-function generateRandomName() {
-    const adjectives = ['red', 'big', 'fast', 'tiny', 'green', 'blue'];
-    const nouns = ['apple', 'car', 'house', 'book', 'tree', 'computer'];
-    const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
-    const noun = nouns[Math.floor(Math.random() * nouns.length)];
-    return `${adjective}_${noun}_${crypto.generateRandom(4).toString('hex')}`;
-}
 
 function getRandomResult() {
     const randomNum = Math.random();
@@ -1557,7 +1554,7 @@ function StatusController(server) {
                 const report = await checkAnchorsForDomain(domain);
                 reports[domain] = report || "";
             } catch (e) {
-                reports[domain] = JSON.stringify(e);
+                reports[domain] = e;
                 hasErrors = true;
             }
 
@@ -1637,9 +1634,8 @@ function StatusController(server) {
             try {
                 const report = await checkBrickingForDomain(domain);
                 reports[domain] = report || "";
-
             } catch (e) {
-                reports[domain] = JSON.stringify(e);
+                reports[domain] = e;
                 hasErrors = true;
             }
         }
@@ -1653,14 +1649,57 @@ function StatusController(server) {
         await markCheckCompletion(Tasks.BRICKING, checkId, result);
     }
 
-    this.checkDatabases = async (healthCheckId, args) => {
+    this.checkDatabases = async (req, res) => {
+        const checkId = req.body?.healthCheckId || Date.now().toString();
+        const tables = req.body?.tables || [];
+
+        await initiateCheck(Tasks.DATABASES, checkId);
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "text/plain");
+        res.end(checkId);
+
+        let status = undefined;
+        const reports = {};
+        if (!tables || !tables.length) {
+            status = Status.FAILED;
+            reports["no-tables"] = {
+                message: "No tables found.",
+            }
+        }
+
+        if (status !== Status.FAILED) {
+            const encodedQuery = encodeURIComponent("__timestamp > 0");
+            for (const table of Object.values(tables)) {
+                try {
+                    const r = await $$.promisify(lightDBEnclaveClient.filter)($$.SYSTEM_IDENTIFIER, table, undefined);
+                    reports[table] = {
+                        status: "OK",
+                        dataCount: r.length
+                    };
+                } catch (e) {
+                    status = Status.FAILED;
+                    reports[table] = e;
+                }
+            }
+        }
+
+        const result = {
+            status: status || Status.SUCCESS,
+            healthCheckId: checkId,
+            report: reports
+        };
+        await markCheckCompletion(Tasks.DATABASES, checkId, result);
     }
 
     this.checkProducts = async (req, res) => {
-        const checkId = await initiateCheck(Tasks.PRODUCTS);
+        console.log("Check Products headers=", req.headers)
+        const checkId = req.body?.healthCheckId || Date.now().toString();
+        await initiateCheck(Tasks.PRODUCTS, checkId);
+        const reports = {};
         try {
             // Step 1: Make an authorized request to list products URL
-            const getProductsURL = baseURL + '/integration/listProducts?query=__timestamp%20%3E%200';
+            const encodedQuery = encodeURIComponent("__timestamp > 0");
+            const getProductsURL = baseURL + `/integration/listProducts?query=${encodedQuery}`;
             const headers = {
                 'Authorization': req.headers.authorization,
                 'Content-Type': 'application/json'
@@ -1669,12 +1708,14 @@ function StatusController(server) {
             const responseProducts = await makeRequest(getProductsURL, 'GET', headers);
 
             const products = responseProducts.body;
+
             const urlParts = urlModule.parse(req.url, true);
             const {healthCheckRunId} = urlParts.query;
             let record = await $$.promisify(lightDBEnclaveClient.getRecord)($$.SYSTEM_IDENTIFIER, constants.HEALTH_CHECK_TABLE, healthCheckRunId);
 
             // Step 2: For each object, send a request to list languages URL
             const totalProducts = products.length;
+            reports["dataCount"] = totalProducts;
             for (let i = 0; i < totalProducts; i++) {
                 const product = products[i];
                 const getLanguagesURL = baseURL + `/integration/listProductLangs/${product.productCode}/leaflet`;
@@ -1692,20 +1733,30 @@ function StatusController(server) {
                 }
 
                 // Update progress
-                data.status = `In Progress: ${((i + 1) / totalProducts * 100).toFixed(0)}%`;
+                const data = {status: `In Progress: ${((i + 1) / totalProducts * 100).toFixed(0)}%`}
                 if (i === totalProducts - 1) {
                     data.status = constants.HEALTH_CHECK_STATUSES.SUCCESS;
                 }
-                await $$.promisify(lightDBEnclaveClient.updateRecord)($$.SYSTEM_IDENTIFIER, constants.HEALTH_CHECK_TABLE, healthCheckRunId, {data: data});
+                await $$.promisify(lightDBEnclaveClient.updateRecord)($$.SYSTEM_IDENTIFIER, constants.HEALTH_CHECK_TABLE, healthCheckRunId, {data});
             }
 
+            const result = {
+                status: Status.SUCCESS,
+                healthCheckId: checkId,
+                report: reports
+            };
+            await markCheckCompletion(Tasks.PRODUCTS, checkId, result);
             res.statusCode = 200;
             // If no errors occur, log success message
             res.end("Products check successful, no issues found");
-            // const checkData = { products: products, status: Status.COMPLETED, name: Task.CHECK_PRODUCTS };
-            // resolve(markCheckCompletion(Task.CHECK_PRODUCTS, healthCheckId, checkData));
         } catch (error) {
-            console.error(error);
+            const result = {
+                status: Status.FAILED,
+                healthCheckId: checkId,
+                report: error
+            };
+            await markCheckCompletion(Tasks.PRODUCTS, checkId, result);
+
             res.statusCode = 500;
             let message = "";
             // Handle errors by logging the appropriate message
@@ -1720,11 +1771,13 @@ function StatusController(server) {
     }
 
     this.checkBatches = async (req, res) => {
+        const checkId = req.body?.healthCheckId || Date.now().toString();
         try {
+            await initiateCheck(Tasks.BATCHES, checkId);
             // Step 1: Make an authorized request to list batches URL
             const getBatchesURL = baseURL + '/integration/listBatches?query=__timestamp%20%3E%200';
             const headers = {
-                'Authorization': req.headers.authorization,
+                // 'Authorization': req.headers.authorization,
                 'Content-Type': 'application/json'
             };
 
@@ -1760,6 +1813,12 @@ function StatusController(server) {
                 await $$.promisify(lightDBEnclaveClient.updateRecord)($$.SYSTEM_IDENTIFIER, constants.HEALTH_CHECK_TABLE, healthCheckRunId, {data: data});
             }
 
+            const result = {
+                status: Status.SUCCESS,
+                healthCheckId: checkId,
+                report: "OK"
+            };
+            await markCheckCompletion(Tasks.BATCHES, checkId, result);
 
             res.statusCode = 200;
             res.setHeader("Content-Type", "text/plain");
@@ -1768,7 +1827,13 @@ function StatusController(server) {
             // const checkData = { batches: batches, status: Status.COMPLETED, name: Task.CHECK_BATCHES };
             // resolve(markCheckCompletion(Task.CHECK_BATCHES, healthCheckId, checkData));
         } catch (error) {
-            console.error(error);
+            const result = {
+                status: Status.FAILED,
+                healthCheckId: checkId,
+                report: error
+            };
+            await markCheckCompletion(Tasks.BATCHES, checkId, result);
+
             res.statusCode = 500;
             let message = "";
             // Handle errors by logging the appropriate message
@@ -1857,13 +1922,10 @@ function StatusController(server) {
         await $$.promisify(lightDBEnclaveClient.insertRecord)($$.SYSTEM_IDENTIFIER, constants.HEALTH_CHECK_TABLE, pk, {data: objectData});
 
         const components = Object.values(constants.HEALTH_CHECK_COMPONENTS);
-        const promises = [];
-        for (let i = 0; i < components.length; i++) {
-            const component = components[i];
-            promises.push(startCheckForComponent(component, pk));
-        }
+        const promises = components.map((component) => startCheckForComponent(component, pk));
+
         try {
-            await Promise.all(promises);
+            await Promise.allSettled(promises);
         } catch (e) {
             objectData.status = constants.HEALTH_CHECK_STATUSES.FAILED;
             await $$.promisify(lightDBEnclaveClient.updateRecord)($$.SYSTEM_IDENTIFIER, constants.HEALTH_CHECK_TABLE, pk, {data: objectData});
@@ -2237,7 +2299,7 @@ module.exports = function healthCheckAPIs(server) {
     server.post('/maintenance/checkSecrets', statusController.checkSecrets);
     server.post('/maintenance/checkDatabases', statusController.checkDatabases);
     server.post('/maintenance/checkProducts', statusController.checkProducts);
-    server.post('/maintenance/checkBatches/', statusController.checkBatches);
+    server.post('/maintenance/checkBatches', statusController.checkBatches);
     server.post('/maintenance/startHealthCheck', statusController.startHealthCheck);
     server.delete('/maintenance/generateFailure', statusController.generateFailure);
 }
@@ -2245,6 +2307,9 @@ module.exports = function healthCheckAPIs(server) {
 },{"../middlewares/bodyReaderMiddleware":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/middlewares/bodyReaderMiddleware.js","./constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/healthCheckAPIs/constants.js","./controllers/APIClient.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/healthCheckAPIs/controllers/APIClient.js","./controllers/StatusController.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/healthCheckAPIs/controllers/StatusController.js","./utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/healthCheckAPIs/utils.js","opendsu":false,"url":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/healthCheckAPIs/utils.js":[function(require,module,exports){
 const openDSU = require('opendsu');
 const crypto = openDSU.loadAPI('crypto');
+const http = require('http');
+const https = require('https');
+
 const makeRequest = (url, method = 'GET', headers = {}) => {
     return new Promise((resolve, reject) => {
         const options = {
@@ -2252,7 +2317,8 @@ const makeRequest = (url, method = 'GET', headers = {}) => {
             headers
         };
 
-        const req = https.request(new URL(url), options, (res) => {
+        const httpHandler = url.startsWith("https://") ? https : http;
+        const req = httpHandler.request(new URL(url), options, (res) => {
             let data = '';
 
             res.on('data', chunk => {
@@ -2286,7 +2352,7 @@ module.exports = {
     generatePk
 };
 
-},{"opendsu":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/integrationAPIs/clients/EpiSORIntegrationClient.js":[function(require,module,exports){
+},{"http":false,"https":false,"opendsu":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/integrationAPIs/clients/EpiSORIntegrationClient.js":[function(require,module,exports){
 const constants = require("./../../constants/constants.js");
 const instances = {};
 

@@ -29349,12 +29349,250 @@ function RaceConditionPreventer() {
 
 module.exports = RaceConditionPreventer;
 },{"../DSUFactoryRegistry/factories/BarFactory":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/DSUFactoryRegistry/factories/BarFactory.js","opendsu":"opendsu","swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/lightDB-sql-adapter/sqlAdapter.js":[function(require,module,exports){
+function SQLAdapter(config) {
+    const logger = $$.getLogger("SQLAdapter", "SQLAdapter.js");
+    const SQLDecorator = require("./sqlDecorator");
+    const openDSU = require("opendsu");
+    const aclAPI = require("acl-magic");
+    const utils = openDSU.loadAPI("utils");
+    logger.info("Creating SQLAdapter instance");
+    const EnclaveMixin = openDSU.loadAPI("enclave").EnclaveMixin;
+    EnclaveMixin(this);
+
+    let refreshInProgress = false;
+
+    this.close = async () => {
+        return await this.storageDB.close();
+    }
+
+    this.refreshInProgress = (forDID) => {
+        return refreshInProgress;
+    }
+
+    this.refresh = (forDID, callback) => {
+        refreshInProgress = true;
+        this.storageDB.refresh((err) => {
+            refreshInProgress = false;
+            callback(err);
+        });
+    }
+
+    this.saveDatabase = (forDID, callback) => {
+        this.storageDB.saveDatabase(callback);
+    }
+
+    this.createDatabase = (forDID, callback) => {
+        this.storageDB.createDatabase(callback);
+    }
+
+    this.cleanupDatabase = (forDID, callback) => {
+        this.storageDB.cleanupDatabase(callback);
+    }
+
+    this.removeCollection = (forDID, tableName, callback) => {
+        this.storageDB.removeCollection(tableName, callback);
+    }
+
+    this.removeCollectionAsync = (forDID, tableName) => {
+        return new Promise((resolve, reject) => {
+            this.storageDB.removeCollection(tableName, (err) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve();
+            });
+        });
+    }
+
+    this.refreshAsync = () => {
+        let self = this;
+        return new Promise((resolve, reject) => {
+            self.storageDB.refresh((err) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve();
+            });
+        });
+    }
+
+    const WRITE_ACCESS = "write";
+    const READ_ACCESS = "read";
+    const WILDCARD = "*";
+    const persistence = aclAPI.createEnclavePersistence(this);
+
+    this.grantWriteAccess = (forDID, callback) => {
+        persistence.grant(WRITE_ACCESS, WILDCARD, forDID, (err) => {
+            if (err) {
+                return callback(err);
+            }
+
+            this.grantReadAccess(forDID, callback);
+        });
+    }
+
+    this.hasWriteAccess = (forDID, callback) => {
+        persistence.loadResourceDirectGrants(WRITE_ACCESS, forDID, (err, usersWithAccess) => {
+            if (err) {
+                return callback(err);
+            }
+
+            callback(undefined, usersWithAccess.indexOf(WILDCARD) !== -1);
+        });
+    }
+
+    this.revokeWriteAccess = (forDID, callback) => {
+        persistence.ungrant(WRITE_ACCESS, WILDCARD, forDID, callback);
+    }
+
+    this.grantReadAccess = (forDID, callback) => {
+        persistence.grant(READ_ACCESS, WILDCARD, forDID, callback);
+    }
+
+    this.hasReadAccess = (forDID, callback) => {
+        persistence.loadResourceDirectGrants(READ_ACCESS, forDID, (err, usersWithAccess) => {
+            if (err) {
+                return callback(err);
+            }
+
+            callback(undefined, usersWithAccess.indexOf(WILDCARD) !== -1);
+        });
+    }
+
+    this.revokeReadAccess = (forDID, callback) => {
+        persistence.ungrant(READ_ACCESS, WILDCARD, forDID, err => {
+            if (err) {
+                return callback(err);
+            }
+
+            this.revokeWriteAccess(forDID, callback);
+        });
+    }
+
+    this.getOneRecord = (forDID, tableName, callback) => {
+        this.storageDB.getOneRecord(tableName, callback);
+    }
+
+    this.count = (forDID, tableName, callback) => {
+        this.storageDB.count(tableName, callback);
+    }
+
+    this.addInQueue = (forDID, queueName, encryptedObject, ensureUniqueness, callback) => {
+        this.storageDB.addInQueue(queueName, encryptedObject, ensureUniqueness, callback);
+    }
+
+    this.queueSize = (forDID, queueName, callback) => {
+        this.count(queueName, callback);
+    }
+
+    this.listQueue = (forDID, queueName, sortAfterInsertTime, onlyFirstN, callback) => {
+        this.storageDB.listQueue(queueName, sortAfterInsertTime, onlyFirstN, callback);
+    }
+
+    this.getObjectFromQueue = (forDID, queueName, hash, callback) => {
+        return this.getRecord(forDID, queueName, hash, callback)
+    }
+
+    this.deleteObjectFromQueue = (forDID, queueName, hash, callback) => {
+        return this.deleteRecord(forDID, queueName, hash, callback)
+    }
+
+    this.getCollections = (forDID, callback) => {
+        this.storageDB.getCollections(callback);
+    }
+
+    this.createCollection = (forDID, tableName, indicesList, callback) => {
+        if (typeof indicesList === "function") {
+            callback = indicesList;
+            indicesList = undefined;
+        }
+        this.storageDB.createCollection(tableName, indicesList, callback);
+    }
+
+    this.getAllRecords = (forDID, tableName, callback) => {
+        this.storageDB.getAllRecords(tableName, callback);
+    }
+
+    this.insertRecord = (forDID, tableName, pk, record, callback) => {
+        this.storageDB.insertRecord(tableName, pk, record, callback);
+    }
+
+    this.updateRecord = (forDID, tableName, pk, record, callback) => {
+        this.storageDB.updateRecord(tableName, pk, record, callback);
+    }
+
+    this.deleteRecord = (forDID, tableName, pk, callback) => {
+        this.storageDB.deleteRecord(tableName, pk, callback);
+    }
+
+    this.getRecord = (forDID, tableName, pk, callback) => {
+        this.storageDB.getRecord(tableName, pk, callback);
+    }
+
+    this.filter = (forDID, tableName, filterConditions, sort = 'asc', max = null, callback) => {
+        if (typeof filterConditions === "function") {
+            callback = filterConditions;
+            filterConditions = [];
+            sort = 'asc';
+            max = null;
+        } else if (typeof sort === "function") {
+            callback = sort;
+            sort = 'asc';
+            max = null;
+        } else if (typeof max === "function") {
+            callback = max;
+            max = null;
+        }
+        this.storageDB.filter(tableName, filterConditions, sort, max, callback);
+    }
+
+    this.writeKey = (forDID, key, value, callback) => {
+        this.storageDB.writeKey(key, value, callback);
+    }
+
+    this.readKey = (forDID, key, callback) => {
+        this.storageDB.readKey(key, callback);
+    }
+
+    this.allowedInReadOnlyMode = function (functionName) {
+        let readOnlyFunctions = ["getCollections",
+            "listQueue",
+            "queueSize",
+            "count",
+            "hasReadAccess",
+            "getPrivateInfoForDID",
+            "getCapableOfSigningKeySSI",
+            "getPathKeyMapping",
+            "getDID",
+            "getPrivateKeyForSlot",
+            "getIndexedFields",
+            "getRecord",
+            "getAllTableNames",
+            "filter",
+            "readKey",
+            "getAllRecords",
+            "getReadForKeySSI",
+            "verifyForDID",
+            "encryptMessage",
+            "decryptMessage"];
+
+        return readOnlyFunctions.indexOf(functionName) !== -1;
+    }
+
+    utils.bindAutoPendingFunctions(this, ["on", "off", "dispatchEvent", "beginBatch", "isInitialised", "getEnclaveType", "getDID", "getUniqueIdAsync"]);
+
+    this.storageDB = new SQLDecorator(config);
+    this.finishInitialisation();
+}
+
+module.exports = SQLAdapter;
+},{"./sqlDecorator":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/lightDB-sql-adapter/sqlDecorator.js","acl-magic":"acl-magic","opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/lightDB-sql-adapter/sqlDecorator.js":[function(require,module,exports){
 (function (Buffer,__dirname){(function (){
-// sqlAdapter.js
+// sqlDecorator.js
 const syndicate = require('syndicate');
 const path = require('path');
 
-class SQLAdapter {
+class SQLDecorator {
     READ_WRITE_KEY_TABLE;
     debug;
     workerPool;
@@ -29375,20 +29613,12 @@ class SQLAdapter {
                 }
             }
         });
-        console.log("creating new sqlAdapter instance.");
+        console.log("creating new sqlDecorator instance");
     }
 
     close = async () => {
         try {
-            if (this.workerPool && typeof this.workerPool.drain === 'function') {
-                await this.workerPool.drain();
-            }
-            if (this.workerPool && typeof this.workerPool.clear === 'function') {
-                await this.workerPool.clear();
-            }
-            if (this.workerPool && typeof this.workerPool.terminate === 'function') {
-                await this.workerPool.terminate();
-            }
+            await this._executeTask('close', []);
         } catch (error) {
             console.error('Error closing worker pool:', error);
             throw error;
@@ -29398,7 +29628,6 @@ class SQLAdapter {
     _executeTask = (taskName, args) => {
         return new Promise((resolve, reject) => {
             try {
-                // Sanitize args to ensure they're serializable
                 const safeArgs = args.map(arg => {
                     if (arg === null || arg === undefined) return arg;
                     if (typeof arg === 'function') return null;
@@ -29409,7 +29638,6 @@ class SQLAdapter {
                     return arg;
                 });
 
-                // Include workerData in the message
                 this.workerPool.addTask({
                     taskName,
                     args: safeArgs,
@@ -29443,7 +29671,6 @@ class SQLAdapter {
         this._executeTask(taskName, args)
             .then(result => callback(null, result))
             .catch(error => {
-                // Ensure error is properly formatted
                 if (!(error instanceof Error)) {
                     error = new Error(error.message || 'Unknown error');
                 }
@@ -29451,108 +29678,105 @@ class SQLAdapter {
             });
     }
 
-    createDatabase = (forDID, callback) => {
+    createDatabase = (callback) => {
         this._executeWithCallback('createDatabase', [], callback);
     }
 
-    // Database operations with callbacks
-    refresh = (forDID, callback) => {
+    cleanupDatabase = (callback) => {
+        this._executeWithCallback('cleanupDatabase', [], callback);
+    }
+
+    refresh = (callback) => {
         this._executeWithCallback('refresh', [], callback);
     }
 
-    saveDatabase = (forDID, callback) => {
+    saveDatabase = (callback) => {
         this._executeWithCallback('saveDatabase', [], callback);
     }
 
-    getCollections = (forDID, callback) => {
+    getCollections = (callback) => {
         this._executeWithCallback('getCollections', [], callback);
     }
 
-    createCollection = (forDID, tableName, indicesList, callback) => {
+    createCollection = (tableName, indicesList, callback) => {
         this._executeWithCallback('createCollection', [tableName, indicesList], callback);
     }
 
-    removeCollection = (forDID, tableName, callback) => {
+    removeCollection = (tableName, callback) => {
         this._executeWithCallback('removeCollection', [tableName], callback);
     }
 
-    addIndex = (forDID, tableName, property, callback) => {
+    addIndex = (tableName, property, callback) => {
         this._executeWithCallback('addIndex', [tableName, property], callback);
     }
 
-    getOneRecord = (forDID, tableName, callback) => {
+    getOneRecord = (tableName, callback) => {
         this._executeWithCallback('getOneRecord', [tableName], callback);
     }
 
-    getAllRecords = (forDID, tableName, callback) => {
+    getAllRecords = (tableName, callback) => {
         this._executeWithCallback('getAllRecords', [tableName], callback);
     }
 
-    insertRecord = (forDID, tableName, pk, record, callback) => {
+    insertRecord = (tableName, pk, record, callback) => {
         this._executeWithCallback('insertRecord', [tableName, pk, record], callback);
     }
 
-    updateRecord = (forDID, tableName, pk, record, callback) => {
+    updateRecord = (tableName, pk, record, callback) => {
         this._executeWithCallback('updateRecord', [tableName, pk, record], callback);
     }
 
-    deleteRecord = (forDID, tableName, pk, callback) => {
+    deleteRecord = (tableName, pk, callback) => {
         this._executeWithCallback('deleteRecord', [tableName, pk], callback);
     }
 
-    getRecord = (forDID, tableName, pk, callback) => {
+    getRecord = (tableName, pk, callback) => {
         this._executeWithCallback('getRecord', [tableName, pk], callback);
     }
 
-    filter = (forDID, tableName, filterConditions = [], sort = 'asc', max = null, callback) => {
-
-        // Handle when filterConditions is the callback
+    filter = (tableName, filterConditions = [], sort = 'asc', max = null, callback) => {
         if (typeof filterConditions === 'function') {
             callback = filterConditions;
             filterConditions = [];
             sort = 'asc';
             max = null;
-        }
-        // Handle when sort is the callback
-        else if (typeof sort === 'function') {
+        } else if (typeof sort === 'function') {
             callback = sort;
             sort = 'asc';
             max = null;
-        }
-        // Handle when max is the callback
-        else if (typeof max === 'function') {
+        } else if (typeof max === 'function') {
             callback = max;
             max = null;
         }
         this._executeWithCallback('filter', [tableName, filterConditions, sort, max], callback);
     }
 
-    addInQueue = (forDID, queueName, object, ensureUniqueness = false, callback) => {
+    addInQueue = (queueName, object, ensureUniqueness = false, callback) => {
         this._executeWithCallback('addInQueue', [queueName, object, ensureUniqueness], callback);
     }
 
-    queueSize = (forDID, queueName, callback) => {
+    queueSize = (queueName, callback) => {
         this._executeWithCallback('queueSize', [queueName], callback);
     }
 
-    listQueue = (forDID, queueName, sortAfterInsertTime = 'asc', onlyFirstN = null, callback) => {
+    listQueue = (queueName, sortAfterInsertTime = 'asc', onlyFirstN = null, callback) => {
         this._executeWithCallback('listQueue', [queueName, sortAfterInsertTime, onlyFirstN], callback);
     }
 
-    getObjectFromQueue = (forDID, queueName, hash, callback) => {
+    getObjectFromQueue = (queueName, hash, callback) => {
         this._executeWithCallback('getObjectFromQueue', [queueName, hash], callback);
     }
 
-    deleteObjectFromQueue = (forDID, queueName, hash, callback) => {
+    deleteObjectFromQueue = (queueName, hash, callback) => {
         this._executeWithCallback('deleteObjectFromQueue', [queueName, hash], callback);
     }
 
-    writeKey = (forDID, key, value, callback) => {
+    writeKey = (key, value, callback) => {
         const valueObject = this._processValueForStorage(value);
         this._executeWithCallback('writeKey', [key, valueObject], callback);
     }
 
-    readKey = (forDID, key, callback) => {
+    readKey = (key, callback) => {
         this._executeWithCallback('readKey', [key], (error, result) => {
             if (error) return callback(error);
             if (!result) return callback(null, null);
@@ -29560,25 +29784,23 @@ class SQLAdapter {
         });
     }
 
-    // Async versions of operations
     refreshAsync = async () => {
         return this._executeTask('refresh', []);
     }
 
-    removeCollectionAsync = async (forDID, tableName) => {
+    removeCollectionAsync = async (tableName) => {
         return this._executeTask('removeCollectionAsync', [tableName]);
     }
 
-    count = async (forDID, tableName, callback) => {
+    count = (tableName, callback) => {
         return this._executeWithCallback('count', [tableName], callback);
     }
 
-    saveDatabaseAsync = async (forDID) => {
+    saveDatabaseAsync = async () => {
         await this._executeTask('saveDatabase', []);
         return {message: "Database saved"};
     }
 
-    // Helper methods
     _processValueForStorage = (value) => {
         if (Buffer.isBuffer(value)) {
             return {
@@ -29599,7 +29821,7 @@ class SQLAdapter {
     }
 }
 
-module.exports = SQLAdapter;
+module.exports = SQLDecorator;
 }).call(this)}).call(this,{"isBuffer":require("../../node_modules/is-buffer/index.js")},"/modules/lightDB-sql-adapter")
 
 },{"../../node_modules/is-buffer/index.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/is-buffer/index.js","path":false,"syndicate":"syndicate"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LightDBServer.js":[function(require,module,exports){
@@ -30272,8 +30494,9 @@ function LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction) {
                 // Process LIKE condition, and allow complex regex patterns (no quotes required)
                 conditionObject[field] = {[lokiOperator]: new RegExp(value.trim(), 'i')}; // case-insensitive regex
             } else {
+
                 // Process other operators, handling numeric and string cases
-                const numericValue = parseFloat(value);
+                const numericValue = /^[0-9]+$/.test(value) ? parseFloat(value) : value;
                 conditionObject[field] = {
                     [lokiOperator]: isNaN(numericValue) ? value.replace(/['"]/g, '').trim() : numericValue
                 };
@@ -30679,6 +30902,7 @@ function initialized() {
 
 LokiDb.prototype.Adapters = Adapters;
 module.exports = LokiDb;
+
 }).call(this)}).call(this,{"isBuffer":require("../../node_modules/is-buffer/index.js")})
 
 },{"../../node_modules/is-buffer/index.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/is-buffer/index.js","./adapters.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/adapters.js","./lib/lokijs/src/lokijs.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/lib/lokijs/src/lokijs.js","acl-magic":"acl-magic","opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LokiEnclaveFacade.js":[function(require,module,exports){
