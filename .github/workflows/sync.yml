@@ -14,14 +14,14 @@ jobs:
       - name: 'Check out epi-workspace repo'
         uses: actions/checkout@v4.1.3
         with:
-          repository: axiologic-pla/epi-workspace
+          repository: pdmfcsa/epi-workspace
           path: "./epi-workspace"
           ref: master
           
       - name: 'Run dev install for epi-workspace'
         run: cd epi-workspace && npm run dev-install
         env:
-          GITHUB_ORGANIZATION: 'axiologic-pla'
+          GITHUB_ORGANIZATION: 'pdmfcsa'
 
       - name: 'Commit files'
         run: |
