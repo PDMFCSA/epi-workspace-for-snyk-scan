@@ -12,3 +12,5 @@ exclude:
         - epi-workspace/opendsu-sdk/modules/apihub/tests/**
         - epi-workspace/gtin-resolver/tests/**
         - epi-workspace/opendsu-sdk/node_modules/**
+        - epi-workspace/gtin-resolver/build/**
+        - epi-workspace/opendsu-sdk/builds/**
