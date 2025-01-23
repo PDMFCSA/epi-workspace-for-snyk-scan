@@ -7401,7 +7401,10 @@ function ExpiringFileLock(folderLock, timeout) {
             }
 
             try {
-                await fsPromises.mkdir(folderLock, {recursive: true});
+                let fpath = await fsPromises.mkdir(folderLock, {recursive: true});
+                if(typeof fpath === "undefined"){
+                    throw Error("Folder already exists");
+                }
                 return;
             } catch (e) {
                 console.log("Retrying to acquire lock", folderLock, "after 100ms");
@@ -7424,6 +7427,7 @@ module.exports = {
         return new ExpiringFileLock(folderLock, timeout);
     }
 };
+
 },{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/backupUtils.js":[function(require,module,exports){
 const fs = require('fs');
 const path = require('path');
@@ -8243,7 +8247,7 @@ module.exports = function (server) {
                 return callback(undefined, false);
             }
 
-            fs.mkdir(getLockFolderPath(id), {recursive: true}, (err) => {
+            fs.mkdir(getLockFolderPath(id), (err) => {
                 if (err) {
                     logger.error("Failed to write lock", err);
                     return callback(err);
@@ -8325,6 +8329,7 @@ module.exports = function (server) {
         });
     });
 }
+
 },{"opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/apiKeyAuth/index.js":[function(require,module,exports){
 function APIKeyAuth(server) {
     const SecretsService = require("../../components/secrets/SecretsService");
@@ -77981,7 +77986,7 @@ function HttpServer({listeningPort, rootFolder, sslConfig, dynamicPort, restartI
             }
             requestEnhancements(server);
             Throttler(server);
-            FixedUrls(server);
+            //FixedUrls(server);
             SimpleLock(server);
 
             if (conf.enableJWTAuthorisation) {

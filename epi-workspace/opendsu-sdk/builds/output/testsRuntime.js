@@ -7402,7 +7402,10 @@ function ExpiringFileLock(folderLock, timeout) {
             }
 
             try {
-                await fsPromises.mkdir(folderLock, {recursive: true});
+                let fpath = await fsPromises.mkdir(folderLock, {recursive: true});
+                if(typeof fpath === "undefined"){
+                    throw Error("Folder already exists");
+                }
                 return;
             } catch (e) {
                 console.log("Retrying to acquire lock", folderLock, "after 100ms");
@@ -7425,6 +7428,7 @@ module.exports = {
         return new ExpiringFileLock(folderLock, timeout);
     }
 };
+
 },{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/backupUtils.js":[function(require,module,exports){
 const fs = require('fs');
 const path = require('path');
@@ -8244,7 +8248,7 @@ module.exports = function (server) {
                 return callback(undefined, false);
             }
 
-            fs.mkdir(getLockFolderPath(id), {recursive: true}, (err) => {
+            fs.mkdir(getLockFolderPath(id), (err) => {
                 if (err) {
                     logger.error("Failed to write lock", err);
                     return callback(err);
@@ -8326,6 +8330,7 @@ module.exports = function (server) {
         });
     });
 }
+
 },{"opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/apiKeyAuth/index.js":[function(require,module,exports){
 function APIKeyAuth(server) {
     const SecretsService = require("../../components/secrets/SecretsService");
@@ -29587,10 +29592,11 @@ function SQLAdapter(config) {
 
 module.exports = SQLAdapter;
 },{"./sqlDecorator":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/lightDB-sql-adapter/sqlDecorator.js","acl-magic":"acl-magic","opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/lightDB-sql-adapter/sqlDecorator.js":[function(require,module,exports){
-(function (Buffer,__dirname){(function (){
+(function (Buffer){(function (){
 // sqlDecorator.js
 const syndicate = require('syndicate');
 const path = require('path');
+const workerScriptPath = require.resolve('./workerScript.js');
 
 class SQLDecorator {
     READ_WRITE_KEY_TABLE;
@@ -29605,7 +29611,7 @@ class SQLDecorator {
         this.config = config;
 
         this.workerPool = syndicate.createWorkerPool({
-            bootScript: path.join(__dirname, "./workerScript.js"),
+            bootScript: workerScriptPath,
             maximumNumberOfWorkers: 4,
             workerOptions: {
                 workerData: {
@@ -29822,7 +29828,7 @@ class SQLDecorator {
 }
 
 module.exports = SQLDecorator;
-}).call(this)}).call(this,{"isBuffer":require("../../node_modules/is-buffer/index.js")},"/modules/lightDB-sql-adapter")
+}).call(this)}).call(this,{"isBuffer":require("../../node_modules/is-buffer/index.js")})
 
 },{"../../node_modules/is-buffer/index.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/is-buffer/index.js","path":false,"syndicate":"syndicate"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LightDBServer.js":[function(require,module,exports){
 const logger = $$.getLogger("LightDBServer", "LokiEnclaveFacade");

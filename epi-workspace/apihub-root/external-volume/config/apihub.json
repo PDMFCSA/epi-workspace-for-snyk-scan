@@ -6,6 +6,7 @@
     "bdns",
     "bricking",
     "anchoring",
+    "get-fixed-url",
     "epi-mapping-engine",
     "epi-mapping-engine-results",
     "get-gtin-owner",
@@ -35,6 +36,10 @@
       "module": "./../../gtin-resolver",
       "function": "getGTINOwner"
     },
+    "get-fixed-url": {
+      "module": "./../../gtin-resolver",
+      "function": "getFixedUrl"
+    },
     "integration-api": {
       "module": "./../../gtin-resolver",
       "function": "getIntegrationAPIs",
@@ -44,8 +49,8 @@
       }
     },
     "health-check-api": {
-      "module": "./../../gtin-resolver",
-      "function": "getHealthCheckAPIs"
+          "module": "./../../gtin-resolver",
+          "function": "getHealthCheckAPIs"
     },
     "versionlessDSU": {
       "module": "./components/versionlessDSU"
@@ -64,11 +69,11 @@
   },
   "enableRequestLogger": true,
   "enableJWTAuthorisation": false,
-  "enableSimpleAuth": true,
-  "enableOAuth": true,
-  "enableClientCredentialsOauth": true,
-  "oauthJWKSEndpoint": "https://login.microsoftonline.com/cbfd70ab-7873-4375-bf63-334828046900/discovery/v2.0/keys",
-  "enableLocalhostAuthorization": true,
+  "enableOAuth": ${enable_oauth},
+  "enableAPIKeyAuth": ${enable_oauth},
+  "enableClientCredentialsOauth": ${enable_oauth},
+  "oauthJWKSEndpoint": "${oauth_jwks_endpoint}",
+  "enableLocalhostAuthorization": false,
   "skipOAuth": [
     "/assets",
     "/bdns",
@@ -77,24 +82,24 @@
     "/leaflets/"
   ],
   "oauthConfig": {
-    "whitelist": ["https://login.microsoftonline.com"],
+    "whitelist": ["${whitelist}"],
     "issuer": {
-      "issuer": "https://login.microsoftonline.com/cbfd70ab-7873-4375-bf63-334828046900/oauth2/v2.0/",
-      "authorizationEndpoint": "https://login.microsoftonline.com/cbfd70ab-7873-4375-bf63-334828046900/oauth2/v2.0/authorize",
-      "tokenEndpoint": "https://login.microsoftonline.com/cbfd70ab-7873-4375-bf63-334828046900/oauth2/v2.0/token",
+      "issuer": "${issuer}",
+      "authorizationEndpoint": "${authorization_endpoint}",
+      "tokenEndpoint": "${token_endpoint}",
       "userInfoEndpoint": "https://graph.microsoft.com/oidc/userinfo"
     },
     "client": {
-      "clientId": "e65a2002-324f-48f2-b32f-a40b76d5f821",
-      "scope": "email user.read offline_access openid api://e65a2002-324f-48f2-b32f-a40b76d5f821/custom_scope",
-      "redirectPath": "http://localhost:8080/?root=true",
-      "clientSecret": "",
-      "logoutUrl": "https://login.microsoftonline.com/cbfd70ab-7873-4375-bf63-334828046900/oauth2/logout",
-      "postLogoutRedirectUrl": "http://localhost:8080/?logout=true"
+      "clientId": "${client_id}",
+      "scope": "email user.read offline_access openid api://${client_id}/access_as_user",
+      "redirectPath": "https://${dns_name}/?root=true",
+      "clientSecret": "${client_secret}",
+      "logoutUrl": "${logout_url}",
+      "postLogoutRedirectUrl": "https://${dns_name}/?logout=true"
     },
     "sessionTimeout": 1800000,
     "keyTTL": 3600000,
     "debugLogEnabled": false
   },
-  "serverAuthentication": true
+  "serverAuthentication": ${server_authentication}
 }
