@@ -12,6 +12,8 @@ exclude:
         - epi-workspace/gtin-resolver/tests/**
         - epi-workspace/opendsu-sdk/node_modules/**
         - epi-workspace/gtin-resolver/build/**
+        - epi-workspace/trust-loader-config/**
+        - epi-workspace/webcardinal/**
         - epi-workspace/opendsu-sdk/builds/tmp/**
         - epi-workspace/opendsu-sdk/psknode/**
         - epi-workspace/opendsu-sdk/tests/**
