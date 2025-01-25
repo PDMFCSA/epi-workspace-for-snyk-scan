@@ -117,14 +117,14 @@ function goToPage(pageName) {
 }
 
 function goToErrorPage(errorCode, error) {
+    console.error(error);
+
     let errCode = errorCode || "010";
     if (!error) {
         error = new Error("goToErrorPage called with partial args!")
     }
-
-    error = JSON.stringify(error, Object.getOwnPropertyNames(error));
-    console.log(error);
-    localStorage.setItem(constants.LAST_ERROR, error);
+    const parseError = JSON.stringify(error, Object.getOwnPropertyNames(error));
+    localStorage.setItem(constants.LAST_ERROR, parseError);
     window.history.pushState({}, "", "index.html");
     goToPage(`/error.html?errorCode=${errCode}`)
 }

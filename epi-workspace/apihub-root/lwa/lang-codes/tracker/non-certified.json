@@ -16,5 +16,11 @@
   "leaflet_print_description": 62,
   "leaflet_print_description2": 63,
   "leaflet_print_button": 64,
-  "leaflet_print_button_back": 65
+  "leaflet_print_button_back": 65,
+  "document_modal_title": 66,
+  "document_modal_message": 67,
+  "document_patient_info": 68,
+  "document_product_info": 69,
+  "document_lang_select_message": 70,
+  "document_lang_select_title": 71
 }

@@ -10,7 +10,7 @@
         page-break-before: always !important;
     }
 
-    body
+    body 
     {
         margin: 0px;  /* the margin on the content before printing */
         height: unset;
@@ -40,6 +40,7 @@
     button {
         display: none !important;
     }
+    /* */
     .page-container:not(.print) {
         display: none !important;
     }

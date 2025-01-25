@@ -19,13 +19,13 @@ const data = {
   "leaflet_incorrect_date_title": "Incorrect date",
   "leaflet_incorrect_date_subtitle": "Scanned date is incorrect",
   "leaflet_incorrect_date_message": "<b> This product's date is incorrect</b>.",
-  "leaflet_recalled_product": "Product is recalled!", 
+  "leaflet_recalled_product": "Product is recalled!",
   "leaflet_recalled_batch": "Batch is recalled!",
   "recalled_product_title": "Recalled Product",
   "recalled_product_message": "This Product {0} was recalled, please return the medicine pack to your drugstore/pharmacy or get in touch to our customer service – check the phone number on product packaging.",
-  "recalled_product_name": "Product: {0}", 
-  "recalled_batch_title": "Recalled Batch", 
-  "recalled_batch_name": "Batch Name: {0}", 
+  "recalled_product_name": "Product: {0}",
+  "recalled_batch_title": "Recalled Batch",
+  "recalled_batch_name": "Batch Name: {0}",
   "recalled_batch_message": "Batch {0} was recalled, please return the medicine pack to your drugstore/pharmacy or get in touch to our customer service – check the phone number on product packaging.",
   "select_lang_title": "Language Unavailable",
   "scan_error_title": "Scan Error",
@@ -57,7 +57,13 @@ const data = {
   "leaflet_print_description": "The current selected information will be printed as PDF.",
   "leaflet_print_description2": "Do you want to proceed?",
   "leaflet_print_button": "Proceed",
-  "leaflet_print_button_back": "Go back"
+  "leaflet_print_button_back": "Go back",
+  "document_modal_title": "Please Choose",
+  "document_modal_message": "Please select which document to display",
+  "document_patient_info": "Patient Information",
+  "document_product_info": "Product Information for Patients",
+  "document_lang_select_message": "Product information are only available in English",
+  "document_lang_select_title": "Notice"
 }
 
 export default data;

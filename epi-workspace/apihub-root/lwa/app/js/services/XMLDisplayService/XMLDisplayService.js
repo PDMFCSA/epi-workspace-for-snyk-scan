@@ -19,6 +19,27 @@ class XMLDisplayService {
     }
   }
 
+  parseXmlstring(xmlString){
+    let parser = new DOMParser();
+    return parser.parseFromString(xmlString, 'application/xml');
+  }
+
+  getElementsWithClass(xmlDoc, className){
+    const itemsWithClass = Array.from(xmlDoc.querySelectorAll('[class]'));
+
+    return itemsWithClass.reduce((acc, el) => {
+      const clazz = el.getAttribute('class');
+
+      if(!clazz)
+        return acc;
+
+      if(clazz.toLowerCase() === className)
+        acc.push(el);
+
+      return acc;
+    }, []);
+  }
+
   getHTMLFromXML = function (xmlContent) {
     let xsltProcessor = new XSLTProcessor();
     xsltProcessor.setParameter(null, "resources_path", "");

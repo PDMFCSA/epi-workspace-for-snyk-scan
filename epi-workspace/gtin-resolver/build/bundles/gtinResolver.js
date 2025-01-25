@@ -5964,6 +5964,14 @@ function Batch(enclave, domain, subdomain, gtin, batchNumber, version) {
         instance.productCode = instance.productCode || instance.gtin;
         instance.expiryDate = instance.expiryDate || instance.expiry;
         instance.batchRecall = instance.batchRecall || "";
+        instance.importLicenseNumber = instance.importLicenseNumber || "";
+        instance.dateOfManufacturing = instance.dateOfManufacturing || "";
+        instance.manufacturerName = instance.manufacturerName || "";
+        instance.manufacturerAddress1 = instance.manufacturerAddress1 || "";
+        instance.manufacturerAddress2 = instance.manufacturerAddress2 || "";
+        instance.manufacturerAddress3 = instance.manufacturerAddress3 || "";
+        instance.manufacturerAddress4 = instance.manufacturerAddress4 || "";
+        instance.manufacturerAddress5 = instance.manufacturerAddress5 || "";
     }
 
     return instance;
@@ -6543,6 +6551,7 @@ function Product(enclave, domain, subdomain, gtin, version) {
         instance.inventedName = instance.inventedName || instance.name;
         instance.nameMedicinalProduct = instance.nameMedicinalProduct || instance.description;
         instance.productRecall = instance.productRecall || "";
+        instance.genericName = instance.genericName || "";
     }
     return instance;
 }
@@ -8238,14 +8247,13 @@ function getWebLeaflet(server) {
             logger.info(0x100, "Successfully returned content from redirect to gtin only url");
             if(typeof content === "string")
                 content = JSON.parse(content);
-            if(content.resultStatus === 'xml_found') {
-                if(!content.productData?.batchData)
-                    content.productData.batchData = await leafletInfo.getBatchClientModel();
-            }    
-            return sendResponse(response, 200, JSON.stringify(content));
+            if(content?.productData && !content.productData?.batchData) 
+                content.productData.batchData = await leafletInfo.getBatchClientModel();
+           
+            return sendResponse(response, 200, JSON.stringify(content));  
         }
       }
-
+ 
       leafletXmlService.readXmlFile(lang, async (err, xmlContent, pathBase, leafletImagesObj) => {
         if (err) {
           if (err.statusCode === 504) {
@@ -8256,23 +8264,28 @@ function getWebLeaflet(server) {
           if (batchNumber) {
             errMessage = `${errMessage} batchNumber id=${batchNumber}`;
           }
-
-          utils.getAvailableLanguagesForType(leafletInfo.gtinSSI, gtin, leaflet_type, (langerr, availableLanguages) => {
+          
+          utils.getAvailableLanguagesForType(leafletInfo.gtinSSI, gtin, leaflet_type, async (langerr, availableLanguages) => {
             if (langerr) {
               logger.error(langerr);
               logger.info(0x103, errMessage);
               return sendResponse(response, 529, "System busy; please try again later");
             }
-
+            
+            let productData = await leafletInfo.getProductClientModel();   
+          
             if(!availableLanguages || !availableLanguages.length){
-              logger.info(0x100, "No leaflet uploaded");
-              return sendResponse(response, 404, JSON.stringify({code:"011"}));
+             
+              return sendResponse(response, 200, JSON.stringify({
+                resultStatus: "has_no_leaflet",
+                productData
+              }));
             }
-
             logger.info(0x100, "Sending alternative languages");
             return sendResponse(response, 200, JSON.stringify({
               resultStatus: "no_xml_for_lang",
-              availableLanguages: availableLanguages
+              availableLanguages: availableLanguages,
+              productData
             }));
           });
         } else {
@@ -8284,7 +8297,7 @@ function getWebLeaflet(server) {
             // gtin only case
             productData.batchData = null;
           }
-          logger.audit(0x101, `Successful serving url ${response.req.url}`);
+          // logger.audit(0x101, `Successful serving url ${response.req.url}`);
           return sendResponse(response, 200, JSON.stringify({
             resultStatus: "xml_found",
             xmlContent,
@@ -8687,6 +8700,14 @@ let batchSchema = {
             "type": "string", "required": true, regex: /^[a-zA-Z0-9/-]{1,20}$/
           },
           "expiryDate": {"type": "batchDate", "required": true},
+          "importLicenseNumber" : {"type": "string", "required": false},
+          "dateOfManufacturing": {"type": "Date", "required": false},
+          "manufacturerName": {"type": "string", "required": false},
+          "manufacturerAddress1": {"type": "string", "required": false},
+          "manufacturerAddress2": {"type": "string", "required": false},
+          "manufacturerAddress3": {"type": "string", "required": false},
+          "manufacturerAddress4": {"type": "string", "required": false},
+          "manufacturerAddress5": {"type": "string", "required": false},
           "batchRecall": {"type": "boolean"},
           "packagingSiteName": {"type": "string"},
           "epiLeafletVersion": {"type": "number"},
@@ -9747,6 +9768,7 @@ let productSchema = {
                     "inventedName": {"type": "string", "required": true},
                     "nameMedicinalProduct": {"type": "string", "required": true},
                     "productRecall": {"type": "boolean"},
+                    "genericName" : {"type": "string", "required": false},
                     "flagEnableAdverseEventReporting": {"type": "boolean"},
                     "adverseEventReportingURL": {"type": "string"},
                     "flagEnableACFProductCheck": {"type": "boolean"},
@@ -9775,7 +9797,7 @@ let productSchema = {
                                     regex: /^(AF|AX|AL|DZ|AS|AD|AO|AI|AQ|AG|AR|AM|AW|AU|AT|AZ|BS|BH|BD|BB|BY|BE|BZ|BJ|BM|BT|BO|BA|BW|BV|BR|IO|BN|BG|BF|BI|KH|CM|CA|CV|KY|CF|TD|CL|CN|CX|CC|CO|KM|CG|CD|CK|CR|CI|HR|CU|CY|CZ|DK|DJ|DM|DO|EC|EG|SV|GQ|ER|EE|ET|FK|FO|FJ|FI|FR|GF|PF|TF|GA|GM|GE|DE|GH|GI|GR|GL|GD|GP|GU|GT|GG|GN|GW|GY|HT|HM|VA|HN|HK|HU|IS|IN|ID|IR|IQ|IE|IM|IL|IT|JM|JP|JE|JO|KZ|KE|KI|KP|KR|KW|KG|LA|LV|LB|LS|LR|LY|LI|LT|LU|MO|MK|MG|MW|MY|MV|ML|MT|MH|MQ|MR|MU|YT|MX|FM|MD|MC|MN|MS|MA|MZ|MM|NA|NR|NP|NL|AN|NC|NZ|NI|NE|NG|NU|NF|MP|NO|OM|PK|PW|PS|PA|PG|PY|PE|PH|PN|PL|PT|PR|QA|RE|RO|RU|RW|SH|KN|LC|PM|VC|WS|SM|ST|SA|SN|CS|SC|SL|SG|SK|SI|SB|SO|ZA|GS|ES|LK|SD|SR|SJ|SZ|SE|CH|SY|TW|TJ|TZ|TH|TL|TG|TK|TO|TT|TN|TR|TM|TC|TV|UG|UA|AE|GB|US|UM|UY|UZ|VU|VE|VN|VG|VI|WF|EH|YE|ZM|ZW)$/
                                 },
                                 "nationalCode": {"type": "string", "required": false},
-                                "mahName": {"type": "string", "required": true},
+                                "mahName": {"type": "string", "required": false},
                                 "legalEntityName": {"type": "string"},
                                 "mahAddress": {"type": "string"},
                             }
@@ -15073,6 +15095,19 @@ const itemValidator = function (messageValue, schemaObj, schemaKey) {
 
         return;
     }
+    
+    if(schemaObj.type.toLowerCase().trim() === "date") {
+        function isValidDate(date) {
+            return date instanceof Date && !isNaN(date);
+        }
+        if(!isValidDate(new Date(messageValue))) {
+            invalidFields.push({
+                field: schemaKey,
+                message: `Wrong date or date format`
+            });
+        }  
+        return;
+    } 
 
     if (schemaObj.type === "batchDate") {
         let resultDate;

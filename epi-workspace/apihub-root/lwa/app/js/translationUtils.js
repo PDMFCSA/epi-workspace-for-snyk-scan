@@ -110,7 +110,7 @@ function parseResult(key, ...args) {
 };
 
 export function stringFormat(text, ...args) {
-    return text.replace(/{(\d+)}/g, function(match, number) {
+    return (text || "").replace(/{(\d+)}/g, function(match, number) {
         return typeof args[number] !== 'undefined'
             ? args[number]
             : match;

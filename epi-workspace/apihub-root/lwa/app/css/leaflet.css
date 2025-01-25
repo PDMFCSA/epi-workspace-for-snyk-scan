@@ -1,8 +1,10 @@
 @import "prerequisites.css";
 
+[class*="-button"],
 button:not([disabled]) {
     cursor: pointer !important;
 }
+
 
 .product-name {
     font-size: var(--font-size--XL);
@@ -193,6 +195,71 @@ button:not([disabled]) {
 #print-content {
     display: none;
 }
+
+.data-wrapper {
+    margin-bottom: 1.5rem !important;
+}
+.data-wrapper h2, .data-wrapper h3 {
+    margin-top: 0px !important;
+}
+.data-wrapper div.row {
+    display: flex;
+}
+.data-wrapper div.row > div {
+    width: 50% !important;
+}
+.data-wrapper div.row > div:nth-child(1) {
+    font-weight: bold;
+}
+
+#list-of-excipients {
+    margin-top: -10px !important;
+    /* margin-left: 1rem; */
+}
+
+#list-of-excipients b {
+    font-size: 16px !important;
+}
+
+#manufacturer-data {
+    /* margin-left: 1rem; */
+}
+#manufacturer-data > div:nth-child(1) {
+    margin: 5px 0 !important;
+}
+
+
+
+
+/* .modal-container:not(#print-modal).hiddenElement > div,
+.page-container.hiddenElement > div{
+    animation: fadeOut .2s forwards;
+}
+
+.modal-container:not(#print-modal):not(.hiddenElement) > div,
+.page-container:not(.hiddenElement) > div{
+    animation: fadeIn .4s forwards;
+}
+
+
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: .25;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: .25;
+    }
+    to {
+        opacity: 1;
+    }
+} */
 
 /* #recalled-modal.warning-modal .modal-header .modal-icon {
     background: url(./../images/modal-info-icon.svg) no-repeat center;
