@@ -45,7 +45,10 @@ const data = {
   "document_patient_info": "Potilastieto",
   "document_product_info": "Tuotetiedot potilaille",
   "document_lang_select_message": "Tuotetiedot ovat saatavana vain englanniksi",
-  "document_lang_select_title": "Huomautus"
+  "document_lang_select_title": "Huomautus",
+  "document_prescribing_info": "Tietojen määrääminen terveydenhuollon ammattilaisille",
+  "epi_markets_modal_title": "Valitse markkinat",
+  "epi_markets_modal_message": "Valitse markkinat"
 }
 
 export default data;

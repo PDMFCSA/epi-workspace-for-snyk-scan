@@ -45,7 +45,10 @@ const data = {
   "document_patient_info": "Informații despre pacient",
   "document_product_info": "Informații despre produs pentru pacienți",
   "document_lang_select_message": "Informațiile despre produs sunt disponibile numai în engleză",
-  "document_lang_select_title": "Observa"
+  "document_lang_select_title": "Observa",
+  "document_prescribing_info": "Prescrierea informațiilor pentru profesioniștii din domeniul sănătății",
+  "epi_markets_modal_title": "Selectați piața",
+  "epi_markets_modal_message": "Vă rugăm să selectați piața dvs."
 }
 
 export default data;

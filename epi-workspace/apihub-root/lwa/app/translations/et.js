@@ -45,7 +45,10 @@ const data = {
   "document_patient_info": "Patsientide teave",
   "document_product_info": "Tooteteave patsientidele",
   "document_lang_select_message": "Tooteteave on saadaval ainult inglise keeles",
-  "document_lang_select_title": "Teade"
+  "document_lang_select_title": "Teade",
+  "document_prescribing_info": "Tervishoiutöötajatele mõeldud teabe väljakirjutamine",
+  "epi_markets_modal_title": "Valitud turg",
+  "epi_markets_modal_message": "Valige oma turg"
 }
 
 export default data;

@@ -22,5 +22,8 @@
   "document_patient_info": 68,
   "document_product_info": 69,
   "document_lang_select_message": 70,
-  "document_lang_select_title": 71
+  "document_lang_select_title": 71,
+  "document_prescribing_info": 72,
+  "epi_markets_modal_title": 73,
+  "epi_markets_modal_message": 74
 }

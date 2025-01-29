@@ -166,7 +166,7 @@ const renderProductInformation = function (result, hasLeaflet = true) {
     modal.querySelector(".product-name").innerText = result.productData.inventedName || result.productData.name;
     modal.querySelector(".product-description").innerText = result.productData.nameMedicinalProduct || result.productData.description;
      /* document.querySelector(".leaflet-title-icon").classList.remove("hiddenElement");*/
-   
+
      let list = undefined;
      let genericName = undefined;
      if(result.xmlContent) {
@@ -178,16 +178,16 @@ const renderProductInformation = function (result, hasLeaflet = true) {
         genericName = xmlService.getElementsWithClass(resultXml, CLASSES.GENERIC_NAME);
 
         if(!!list && Array.isArray(list) && list.length > 0)
-          list = list[0]; 
+          list = list[0];
 
         if(!!genericName && Array.isArray(genericName) && genericName.length > 0)
           genericName = genericName[0];
 
         if(!genericName || !genericName?.textContent?.length)
-          genericName = getGenericName(resultDocument);
+          genericName = xmlService.getItemFromParsedHtml(resultDocument, TITLES.GENERIC_NAME);
 
-        if(!list || !list?.length)
-          list = getListOfExcipients(resultDocument);
+        if(!list || !list?.textContent?.length)
+          list = xmlService.getItemFromParsedHtml(resultDocument, TITLES.LIST_OF_EXCIPIENTS);
      }
 
     const container = modal.querySelector('.product-information-wrapper');
@@ -202,17 +202,17 @@ const renderProductInformation = function (result, hasLeaflet = true) {
     const {batchData} = productData;
 
     excipientsContainer.closest('.data-wrapper').hidden = false;
-    
+
     if(list)  {
         excipientsContainer.innerHTML = list?.innerHTML;
     } else {
         excipientsContainer.innerHTML = `<br />`;
     }
-    
+
     genericNameContainer.hidden = false;
-    if(genericName) 
+    if(genericName)
         genericNameContainer.textContent = genericName?.textContent;
-    
+
     function parseDate(dateString, type) {
         if(!dateString)
             return "";
@@ -236,34 +236,9 @@ const renderProductInformation = function (result, hasLeaflet = true) {
         element.innerHTML = value || "";
     })
     modal.querySelector('.product-information-wrapper').hidden = false;
-   
+
     document.querySelector(".loader-container").setAttribute('style', 'display:none');
     focusModalHeader();
-}
-
-const getContentFromTitle = function(xmlContent, text){
-  const sections = xmlContent.querySelectorAll(".leaflet-accordion-item");
-  for(let section of sections) {
-      const title = section.querySelector('h2')?.textContent;
-      if(title) {
-          const titleString = title.trimEnd().replace(/\s+/g, ' ').replace(/\s/g, '_').toLowerCase();
-          if(titleString.includes(text)) {
-              const list = section.querySelector('.leaflet-accordion-item-content');
-              if(list?.innerHTML) {
-                  return list;
-                  break;
-              }
-          } 
-      }
-  }
-}
-
-const getListOfExcipients = function(xmlContent) {
-  return getContentFromTitle(xmlContent, TITLES.LIST_OF_EXCIPIENTS);
-}
-
-const getGenericName = function(xmlContent) {
-  return getContentFromTitle(xmlContent, TITLES.GENERIC_NAME);
 }
 
 async function getFileContent(file, methodName = "readAsText") {

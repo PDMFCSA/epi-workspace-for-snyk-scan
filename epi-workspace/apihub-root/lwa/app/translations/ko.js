@@ -49,7 +49,10 @@ const data = {
   "document_patient_info": "환자 정보",
   "document_product_info": "환자를위한 제품 정보",
   "document_lang_select_message": "제품 정보는 영어로만 제공됩니다",
-  "document_lang_select_title": "알아채다"
+  "document_lang_select_title": "알아채다",
+  "document_prescribing_info": "의료 전문가를위한 처방 정보",
+  "epi_markets_modal_title": "시장 선택",
+  "epi_markets_modal_message": "시장을 선택하십시오"
 }
 
 export default data;
