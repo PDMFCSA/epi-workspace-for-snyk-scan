@@ -160,7 +160,7 @@ let renderLeaflet = function (leafletData) {
 };
 
 
-const renderProductInformation = function (result, hasLeaflet = true) {
+const renderProductInformation = function (result) {
     const modal = document.querySelector('#product-modal');
 
     modal.querySelector(".product-name").innerText = result.productData.inventedName || result.productData.name;

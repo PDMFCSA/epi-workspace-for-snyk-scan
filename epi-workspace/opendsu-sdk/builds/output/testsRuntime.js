@@ -7317,6 +7317,7 @@ function Server(sslOptions) {
 
 module.exports = Server;
 },{"./MiddlewareRegistry":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/classes/MiddlewareRegistry.js","http":false,"https":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/httpUtils.js":[function(require,module,exports){
+(function (Buffer){(function (){
 const logger = $$.getLogger("http-wrapper", "apihub/libs");
 
 function setDataHandler(request, callback) {
@@ -7351,14 +7352,14 @@ function sendErrorResponse(error, response, statusCode) {
 }
 
 function bodyParser(req, res, next) {
-    let bodyContent = '';
+    let bodyContent = [];
 
     req.on('data', function (dataChunk) {
-        bodyContent += dataChunk;
+        bodyContent.push(dataChunk);
     });
 
     req.on('end', function () {
-        req.body = bodyContent;
+        req.body = Buffer.concat(bodyContent).toString();
         next();
     });
 
@@ -7369,7 +7370,9 @@ function bodyParser(req, res, next) {
 
 module.exports = {setDataHandler, setDataHandlerMiddleware, sendErrorResponse, bodyParser};
 
-},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/index.js":[function(require,module,exports){
+}).call(this)}).call(this,require("buffer").Buffer)
+
+},{"buffer":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/index.js":[function(require,module,exports){
 const Client = require('./classes/Client');
 const Server = require('./classes/Server');
 const httpUtils = require('./httpUtils');

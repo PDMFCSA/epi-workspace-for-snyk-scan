@@ -15,7 +15,7 @@ const DocumentsTypes = {
 };
 
 const parseEpiMarketValue = (epiMarket) => {
-    return epiMarket === "default" ? "" : epiMarket;
+    return epiMarket === "unspecified" ? "" : epiMarket;
 }
 
 enableConsolePersistence();
@@ -34,6 +34,11 @@ const sanitationRegex = /(<iframe>([\s\S]*)<\/iframe>)|(<script>([\s\S]*)<\/scri
 
 function LeafletController() {
 
+    const urlParams = new URLSearchParams(window.location.search);
+    this.gtin = urlParams.get("gtin");
+    this.batch = urlParams.get("batch");
+    this.expiry = urlParams.get("expiry");
+
     this.loader = document.querySelector(".loader-container");
     this.documents;
     this.activeModal;
@@ -43,6 +48,7 @@ function LeafletController() {
     this.selectedEpiMarket;
     this.lastModal;
     this.lastResponse;
+    this.metadata = undefined;
 
     function generateFileName(){
         const queryString = window.location.search;
@@ -100,6 +106,7 @@ function LeafletController() {
     }
 
     const getLeaflet = (lang) => {
+        console.log("$$$", this.gtin, this.batch, this.expiry)
 
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
@@ -118,69 +125,119 @@ function LeafletController() {
 
         this.showLoader(true);
 
-        if (this.selectedDocument && this.selectedDocument !== DocumentsTypes.INFO)
+        if (this.selectedDocument)
             leafletService.leafletType = this.selectedDocument;
 
-        leafletService.getLeafletUsingCache(timePerCall, totalWaitTime, gto_TimePerCall, gto_TotalWaitTime).then((result) => {
-            //check for injections in result
-            let tmp = JSON.stringify(result);
-            if (!tmp || sanitationRegex.test(tmp)) {
-                goToErrorPage(constants.errorCodes.unsupported_response, new Error("Response unsupported format or contains forbidden content"));
-                return;
-            }
 
-            this.lastResponse = Object.assign(this.lastResponse || {}, result);
-            result = this.lastResponse;
-
-            // first await user select document type
-            if(!this.documents) {
-                this.documents = showAvailableDocuments(result);
-                return;
-            }
-
-            if (Object.keys(result?.availableEpiMarkets || {}).length > 0 && !this.selectedEpiMarket) {
-                const language = this.selectedLanguage || this.defaultLanguage;
-                // let languages = [];
-
-                let availableEpiMarkets = Object.keys(result?.availableEpiMarkets);
-                if (result?.availableLanguages?.length > 0) {
-                    availableEpiMarkets = ["", ...availableEpiMarkets]
-                }
-
-                if (availableEpiMarkets.length === 1) {
-                    return this.setSelectEpiMarket(availableEpiMarkets[0]);
-                }
-                // this.lastResponse = Object.assign(this.lastResponse, { parsedMarkets });
-                return showAvailableMarkets(language, availableEpiMarkets);
-            }
-
-
-            if(result.resultStatus === "xml_found" || result.resultStatus.trim() === "has_no_leaflet") {
-                try {
-                    showDocumentModal(result, result.resultStatus === "xml_found");
-                    if (isExpired(expiry) && this.selectedDocument === DocumentsTypes.LEAFLET)
-                        showExpired();
-                    /* removed for  MVP1
-                    if (!getExpiryTime(expiry)) {
-                      showIncorrectDate();
-                    }*/
-                } catch (e) {
-                    console.error(e);
-                    goToErrorPage(e.errorCode, e)
-                }
-            }
-
-            if(result.resultStatus === "no_xml_for_lang")
-                return !this.selectedLanguage ? showAvailableLanguages(result) : showDocumentModal(result, false);
-
-            return showRecalledMessage(result);
-
-
+        return leafletService.getLeafletMetadata(timePerCall, totalWaitTime, gto_TimePerCall, gto_TotalWaitTime).then((data) => {
+            this.metadata = data;
+            console.log("$response metadata=", data);
+            showAvailableDocuments(data);
         }).catch(err => {
             console.error(err);
             goToErrorPage(err.errorCode, err)
         })
     };
+
+    const getLeafletXML = () => {
+        let lsEpiDomain = environment.enableEpiDomain ? localStorage.getItem(constants.EPI_DOMAIN) : environment.epiDomain;
+        lsEpiDomain = lsEpiDomain || environment.epiDomain;
+        let timePerCall = environment.timePerCall || 10000;
+        let totalWaitTime = environment.totalWaitTime || 60000;
+        let gto_TimePerCall = environment.gto_TimePerCall || 3000;
+        let gto_TotalWaitTime = environment.gto_TotalWaitTime || 15000;
+        const leafletService = new LeafletService(this.gtin, this.batch, this.expiry, this.selectedLanguage, lsEpiDomain, parseEpiMarketValue(this.selectedEpiMarket));
+        leafletService.leafletType = this.selectedDocument === DocumentsTypes.INFO ? DocumentsTypes.PRESCRIBING_INFO : this.selectedDocument;
+        leafletService.getLeafletUsingCache(timePerCall, totalWaitTime, gto_TimePerCall, gto_TotalWaitTime).then((result) => {
+            console.log("$ result=", result);
+            //check for injections in result
+            const tmp = JSON.stringify(result);
+            if (!tmp || sanitationRegex.test(tmp))
+                return goToErrorPage(constants.errorCodes.unsupported_response, new Error("Response unsupported format or contains forbidden content"));
+
+
+            try {
+                showDocumentModal(result);
+                if (isExpired(this.expiry) && this.selectedDocument === DocumentsTypes.LEAFLET)
+                    showExpired();
+            } catch (e) {
+                console.error(e);
+                goToErrorPage(e.errorCode, e)
+            }
+
+            showRecalledMessage(result);
+            //
+            //
+            // if(result.resultStatus === "xml_found" || result.resultStatus.trim() === "has_no_leaflet") {
+            //     try {
+            //         showDocumentModal(result, result.resultStatus === "xml_found");
+            //         if (isExpired(expiry) && this.selectedDocument === DocumentsTypes.LEAFLET)
+            //             showExpired();
+            //     } catch (e) {
+            //         console.error(e);
+            //         goToErrorPage(e.errorCode, e)
+            //     }
+            // }
+            //
+            // return console.error("No xml_found")
+            //
+            //
+            //
+            //
+            //
+            //
+            // this.lastResponse = Object.assign(this.lastResponse || {}, result);
+            // result = this.lastResponse;
+            //
+            // // first await user select document type
+            // if(!this.documents) {
+            //     this.documents = showAvailableDocuments(result);
+            //     return;
+            // }
+            //
+            // if (Object.keys(result?.availableEpiMarkets || {}).length > 0 && !this.selectedEpiMarket) {
+            //     const language = this.selectedLanguage || this.defaultLanguage;
+            //     // let languages = [];
+            //
+            //     let availableEpiMarkets = Object.keys(result?.availableEpiMarkets);
+            //     if (result?.availableLanguages?.length > 0) {
+            //         availableEpiMarkets = ["", ...availableEpiMarkets]
+            //     }
+            //
+            //     if (availableEpiMarkets.length === 1) {
+            //         return this.setSelectEpiMarket(availableEpiMarkets[0]);
+            //     }
+            //     // this.lastResponse = Object.assign(this.lastResponse, { parsedMarkets });
+            //     return showAvailableMarkets(language, availableEpiMarkets);
+            // }
+            //
+            //
+            // if(result.resultStatus === "xml_found" || result.resultStatus.trim() === "has_no_leaflet") {
+            //     try {
+            //         showDocumentModal(result, result.resultStatus === "xml_found");
+            //         if (isExpired(expiry) && this.selectedDocument === DocumentsTypes.LEAFLET)
+            //             showExpired();
+            //         /* removed for  MVP1
+            //         if (!getExpiryTime(expiry)) {
+            //           showIncorrectDate();
+            //         }*/
+            //     } catch (e) {
+            //         console.error(e);
+            //         goToErrorPage(e.errorCode, e)
+            //     }
+            // }
+            //
+            // if(result.resultStatus === "no_xml_for_lang")
+            //     return !this.selectedLanguage ? showAvailableLanguages(result) : showDocumentModal(result, false);
+            //
+            // return showRecalledMessage(result);
+
+
+        }).catch(err => {
+            console.error(err);
+            goToErrorPage(err.errorCode, err)
+        });
+    }
 
     this.scanAgainHandler = function () {
         goToPage("/scan.html")
@@ -199,7 +256,14 @@ function LeafletController() {
         // document.getElementById("settings-modal").classList.remove("hiddenElement");
     }
 
-    const showAvailableMarkets = (lang, availableMarkets) => {
+    /**
+     * @param {string[]} availableMarkets
+     * @returns void
+     */
+    const showAvailableMarkets = (availableMarkets) => {
+        if (availableMarkets.length === 1)
+            return this.setSelectEpiMarket(availableMarkets[0]);
+
         const modal = document.querySelector('#epi-markets-modal');
         const container = modal.querySelector("#content-container");
         container.innerHTML = "";
@@ -214,7 +278,7 @@ function LeafletController() {
             radioInput.defaultChecked = index === 0;
 
             // Create the div element for the label
-            const label = getCountry(item.toUpperCase());
+            const label = item !== "unspecified" ? getCountry(item, true) : getTranslation("epi_markets_modal_no_market");
 
             const labelDiv = document.createElement('div');
             labelDiv.classList.add("radio-label");
@@ -259,28 +323,32 @@ function LeafletController() {
             const value = modal.querySelector("input[name='epi-market']:checked")?.value;
             this.setSelectEpiMarket(value);
         });
-
-        return availableMarkets;
     };
 
-    this.setSelectEpiMarket = function (selectedMarket = null) {
+    /**
+     * @param {string} selectedMarket
+     */
+    this.setSelectEpiMarket = function (selectedMarket) {
         this.selectedEpiMarket = selectedMarket;
-        const availableLanguages = this.lastResponse.availableEpiMarkets?.[this.selectedEpiMarket];
-        if(!availableLanguages || !this.selectedEpiMarket) {
-            this.selectedEpiMarket = "default";
-            return showAvailableLanguages(this.lastResponse);
-        }
-        showAvailableLanguages({availableLanguages});
+        const availableLanguages = this.metadata.availableDocuments[this.selectedDocument][this.selectedEpiMarket];
+        showAvailableLanguages(availableLanguages);
+        // const availableLanguages = this.lastResponse.availableEpiMarkets?.[this.selectedEpiMarket];
+        // if(!availableLanguages || !this.selectedEpiMarket) {
+        //     this.selectedEpiMarket = "default";
+        //     return showAvailableLanguages(this.lastResponse);
+        // }
+        // showAvailableLanguages({availableLanguages});
     }
 
-    const showDocumentModal = (result, hasLeaflet = true) => {
+    const showDocumentModal = (result) => {
         try {
-            if(this.selectedDocument === DocumentsTypes.LEAFLET || this.selectedDocument === DocumentsTypes.PRESCRIBING_INFO) {
-                this.showModal("settings-modal");
-                return renderLeaflet(result);
+            if (this.selectedDocument === DocumentsTypes.INFO) {
+                this.showModal("product-modal");
+                renderProductInformation(result);
+                return;
             }
-            this.showModal("product-modal");
-            renderProductInformation(result, hasLeaflet);
+            this.showModal("settings-modal");
+            renderLeaflet(result);
         } catch (e) {
             console.error(e);
             goToErrorPage(constants.errorCodes.xml_parse_error, new Error("Unsupported format for XML file."))
@@ -289,18 +357,15 @@ function LeafletController() {
     };
 
     const showAvailableDocuments = (result) => {
-
-        let hasLeaflet = result.availableTypes?.length || result?.resultStatus === 'xml_found' || false;
-
-        if(result?.availableTypes?.length && !result?.availableTypes?.includes(DocumentsTypes.LEAFLET))
-            hasLeaflet = false;
-
-        const hasPrescribingInfo  = result?.availableTypes?.includes(DocumentsTypes.PRESCRIBING_INFO);
         let documents = [
             {text: 'document_product_info', value: DocumentsTypes.INFO},
             {text: 'document_patient_info', value: DocumentsTypes.LEAFLET},
             {text: 'document_prescribing_info', value: DocumentsTypes.PRESCRIBING_INFO},
         ];
+
+        const productDocuments = Object.keys(result?.availableDocuments || {});
+        const hasLeaflet = productDocuments.includes(DocumentsTypes.LEAFLET);
+        const hasPrescribingInfo = productDocuments.includes(DocumentsTypes.PRESCRIBING_INFO);
 
         if(!hasLeaflet)
             documents = documents.filter(doc => doc.value !== DocumentsTypes.LEAFLET);
@@ -381,58 +446,80 @@ function LeafletController() {
         return documents;
     };
 
-    this.setSelectedDocument = async function (selectedDocument = null) {
-
-        this.selectedDocument = selectedDocument ?
-            selectedDocument : document.querySelector("input[name='documents']:checked")?.value;
-
-        const browserLanguage = this.getLanguageFromBrowser();
-        if(this.selectedDocument === DocumentsTypes.INFO) {
-            this.selectedLanguage = this.defaultLanguage = browserLanguage;
-
-            if(!this.selectedLanguage.includes('en')) {
-                // force show product information in english
-                return showAvailableLanguages({availableLanguages: [{
-                        "label": "English",
-                        "value": "en",
-                        "nativeName": "English"
-                    }]})
-            }
+    /**
+     * @param selectedDocument
+     * @returns void
+     */
+    this.setSelectedDocument = function (selectedDocument = null) {
+        this.selectedDocument = selectedDocument ? selectedDocument : document.querySelector("input[name='documents']:checked")?.value;
+        if (this.selectedDocument === DocumentsTypes.INFO) {
+            this.selectedEpiMarket = "";
+            showAvailableLanguages([{
+                                "label": "English",
+                                "value": "en",
+                                "nativeName": "English"
+                            }]);
+            return;
         }
 
-        getLeaflet(this.defaultLanguage);
+        const availableMarketsFromDocument = Object.keys(this.metadata.availableDocuments[this.selectedDocument]);
+        return showAvailableMarkets(availableMarketsFromDocument);
+
+        // const browserLanguage = this.getLanguageFromBrowser();
+        // if(this.selectedDocument === DocumentsTypes.INFO) {
+        //     this.selectedLanguage = this.defaultLanguage = browserLanguage;
+        //
+        //     if(!this.selectedLanguage.includes('en')) {
+        //         // force show product information in english
+        //         return showAvailableLanguages({availableLanguages: [{
+        //                 "label": "English",
+        //                 "value": "en",
+        //                 "nativeName": "English"
+        //             }]})
+        //     }
+        // }
+
+        // showAvailableMarkets(this.defaultLanguage);
 
     };
 
+
+    /**
+     * Retrieves the browser's language in a standardized format.
+     *
+     * @returns {string} The detected language, formatted as a lowercase ISO 639-1 code.
+     */
     this.getLanguageFromBrowser = function(){
         let browserLang = navigator.language.toLowerCase().replace("_", "-");
         switch (browserLang) {
             case "en-us":
                 browserLang = "en";
                 break;
-
         }
         return browserLang;
     }
 
-    const showLeafletForLang = (lang) => {
+    /**
+     * @param {string} lang
+     */
+    const setSelectedLanguage = (lang) => {
         this.defaultLanguage = lang;
         this.leafletLang = lang;
         this.selectedLanguage = lang;
-        this.getLangLeaflet(lang)
+        getLeafletXML();
+        // this.getLangLeaflet(lang)
     }
 
     /**
      *
-     * @param {{resultStatus: string, xmlContent: string, leafletImages: {}, productData: {}, availableLanguages: {label: string, value: string, nativeName: string}[]}} result
+     * @param {{label: string, value: string, nativeName: string}[]} languages
      */
-    const showAvailableLanguages = (result) => {
-
+    const showAvailableLanguages = (languages) => {
         this.showLoader(false);
-        const browserLang = this.getLanguageFromBrowser()
-        if (result.availableLanguages.length >= 1) {
-            if (result.availableLanguages.map(r => r.value.toLowerCase()).includes(browserLang)) {
-                return showLeafletForLang(browserLang)
+        const browserLang = this.getLanguageFromBrowser();
+        if (languages.length >= 1) {
+            if (languages.map(r => r.value.toLowerCase()).includes(browserLang)) {
+                return setSelectedLanguage(browserLang);
             }
 
             const modal = this.showModal('leaflet-lang-select');
@@ -443,7 +530,7 @@ function LeafletController() {
 
             modal.querySelector("#proceed-button").addEventListener("click", () => {
                 let lang = document.querySelector("input[name='languages']:checked").value;
-                showLeafletForLang(lang)
+                setSelectedLanguage(lang);
             })
 
             // modal.querySelector("#go-back-button").addEventListener("click", () => {
@@ -453,11 +540,9 @@ function LeafletController() {
             modal.querySelector(".proceed-button.no-leaflet").classList.add("hiddenElement");
             //  document.querySelector(".text-section.no-leaflet").setAttribute('style', 'display:none');
             let languagesContainer = document.querySelector(".languages-container");
-            /*
-              site for flags https://flagpedia.net/download
-            */
+            /* site for flags https://flagpedia.net/download */
             let selectedItem = null;
-            result.availableLanguages.forEach((lang, index) => {
+            languages.forEach((lang, index) => {
 
                 // Create the radio input element
                 let radioInput = document.createElement('input');
@@ -608,6 +693,8 @@ function LeafletController() {
     //     productData: [],
     //     availableTypes: ["leaflet", "prescribingInfo"]
     // };
+
+
     getLeaflet(this.defaultLanguage);
 
 }
