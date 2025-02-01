@@ -12,8 +12,15 @@ button:not([disabled]) {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    -ms-text-overflow:ellipsis;
     margin: 0;
 }
+
+[dir="RTL"] .product-name {
+    direction: rtl !important;    
+}
+
+
 
 /*.product-description {
     font-size: var(--font-size--L);

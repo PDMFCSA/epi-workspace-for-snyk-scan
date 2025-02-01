@@ -6124,8 +6124,8 @@ function Batch(enclave, domain, subdomain, gtin, batchNumber, version) {
 
         try{
             //we don't wait for the request to be finalized because of the delays between fixedUrl and lightDB
-            $$.promisify(require("../../mappings/utils").activateGtinOwnerFixedUrl)(undefined, domain, gtin, batchNumber);
-            $$.promisify(require("../../mappings/utils").activateLeafletFixedUrl)(undefined, domain, gtin, batchNumber);
+            $$.promisify(require("../../mappings/utils").activateGtinOwnerFixedUrl)(undefined, domain, gtin);
+            $$.promisify(require("../../mappings/utils").activateLeafletFixedUrl)(undefined, domain, gtin);
         }catch(err){
             //ignore them for now...
         }
@@ -6748,7 +6748,6 @@ function Product(enclave, domain, subdomain, gtin, version) {
         instance.inventedName = instance.inventedName || instance.name;
         instance.nameMedicinalProduct = instance.nameMedicinalProduct || instance.description;
         instance.productRecall = instance.productRecall || "";
-        instance.genericName = instance.genericName || "";
     }
     return instance;
 }
@@ -10126,7 +10125,6 @@ let productSchema = {
                     "inventedName": {"type": "string", "required": true},
                     "nameMedicinalProduct": {"type": "string", "required": true},
                     "productRecall": {"type": "boolean"},
-                    "genericName" : {"type": "string", "required": false},
                     "flagEnableAdverseEventReporting": {"type": "boolean"},
                     "adverseEventReportingURL": {"type": "string"},
                     "flagEnableACFProductCheck": {"type": "boolean"},
@@ -10528,7 +10526,7 @@ function registerLeafletFixedUrlByDomain(domain, subdomain,  leaflet_type, gtin,
 }
 
 function getActivateRelatedFixedURLHandler(getReplicasFnc){
-  return function activateRelatedFixedUrl(dsu, domain, gtin, batchNumber, callback){
+  return function activateRelatedFixedUrl(dsu, domain, gtin, callback){
     if(typeof callback === "undefined"){
       callback = (err)=>{
         if(err){
@@ -10550,7 +10548,7 @@ function getActivateRelatedFixedURLHandler(getReplicasFnc){
           targets.push(replica.concatWith("/activateFixedURL"));
         }
 
-        call(targets, `url like (batch=${batchNumber}&gtin=${gtin})`, callback);
+        call(targets, `url like (${gtin})`, callback);
       });
     }
 

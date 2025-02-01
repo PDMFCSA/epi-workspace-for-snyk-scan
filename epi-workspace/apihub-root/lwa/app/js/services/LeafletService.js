@@ -63,21 +63,24 @@ class LeafletService {
     this.epiMarket = epiMarket;
     this.leafletType = "prescribingInfo";
 
+    this.bdnsCache = undefined;
+    this.gtinOwnerCache = new Map();
+
     let gtinValidationResult = validateGTIN(this.gtin);
     if (!gtinValidationResult.isValid) {
       goToErrorPage(gtinValidationResult.errorCode, new Error(gtinValidationResult.message));
     }
   }
 
-  setLeafletLanguage(lang) {
-    this.leafletLang = lang;
-  }
+  async getBDNS(skipCache) {
+    if (this.bdnsCache && !skipCache)
+      return this.bdnsCache;
 
-  async getBDNS() {
     return await new Promise((resolve, reject) => {
       fetch(environment.bdnsUrl)
         .then(respond => {
           respond.json().then((result) => {
+            this.bdnsCache = Object.freeze(result);
             resolve(result)
           }).catch(e => {
             console.log(sanitizeLogMessage(e));
@@ -117,6 +120,9 @@ class LeafletService {
   }
 
   async detectGTINOwner(GTIN, bdnsResult, timePerCall, totalWaitTime) {
+    if (this.gtinOwnerCache.has(`${GTIN}`))
+      return this.gtinOwnerCache.get(`${GTIN}`);
+
     let anchoringServices = this.getAnchoringServices(bdnsResult, this.epiDomain);
     let validateResponse = function (response) {
       return new Promise((resolve) => {
@@ -139,7 +145,8 @@ class LeafletService {
         let gtinOwnerResponse = await requestWizard.fetchMeAResponse(this.prepareUrlsForGtinOwnerCall(anchoringServices, this.epiDomain, GTIN), validateResponse);
         if (gtinOwnerResponse) {
           gtinOwnerResponse.json().then(result => {
-            let gtinOwnerDomain = result.domain;
+            const gtinOwnerDomain = result.domain;
+            this.gtinOwnerCache.set(`${GTIN}`, gtinOwnerDomain);
             resolve(gtinOwnerDomain);
           }).catch((err) => {
               console.log(sanitizeLogMessage(err));
@@ -193,12 +200,9 @@ class LeafletService {
     if(subDomain){
       urlPart += `/${subDomain}`;
     }
-    smartUrl = smartUrl.concatWith(`${urlPart}?leaflet_type=${this.leafletType}&lang=${this.leafletLang}&gtin=${this.gtin}`);
+    smartUrl = smartUrl.concatWith(`${urlPart}?gtin=${this.gtin}`);
     if (this.batch)
       smartUrl = smartUrl.concatWith(`&batch=${this.batch}`);
-
-    if (this.epiMarket)
-      smartUrl = smartUrl.concatWith(`&epiMarket=${this.epiMarket}`);
 
     const header = {"epiProtocolVersion": environment.epiProtocolVersion || "1"};
     return smartUrl.getRequest({
@@ -452,7 +456,6 @@ class LeafletService {
     }
 
     let targetEndpoints = [environment.cacheUrl];
-    console.log("$$$$$$$$$$$$$$$$$$ targetEndpoints=", targetEndpoints)
     const TAG_IDENTIFIER = "tag=KKKK";
     let identifyGtinOwner = (epiDomain, gtin) => {
       return new Promise(async (resolve, reject) => {

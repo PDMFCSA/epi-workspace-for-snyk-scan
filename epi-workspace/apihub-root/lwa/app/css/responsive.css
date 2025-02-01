@@ -715,6 +715,11 @@ b {
 
 /*RTL rules*/
 
+[dir="RTL"] .radio-item-container:has(input[type='radio']) {
+    padding-left: 1rem !important;
+    padding-right: 1rem;
+}
+
 body[dir="RTL"] .loader {
     right: calc(50% - 51px);
 }

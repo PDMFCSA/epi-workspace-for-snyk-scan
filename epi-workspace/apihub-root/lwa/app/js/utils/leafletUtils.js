@@ -1,5 +1,7 @@
 import XMLDisplayService from "../services/XMLDisplayService/XMLDisplayService.js";
 import constants from "../../../constants.js";
+import {setTextDirectionForLanguage} from "../../../utils.js";
+
 
 const TITLES = {
   LIST_OF_EXCIPIENTS: 'list_of_excipients',
@@ -123,6 +125,7 @@ let validateLeafletFiles = function (htmlContent, leafletImages, uploadedImages)
 }
 
 let renderLeaflet = function (leafletData) {
+    
   document.querySelector(".product-name").innerText = leafletData.productData.inventedName || leafletData.productData.name;
   document.querySelector(".product-description").innerText = leafletData.productData.nameMedicinalProduct || leafletData.productData.description;
    /* document.querySelector(".leaflet-title-icon").classList.remove("hiddenElement");*/
