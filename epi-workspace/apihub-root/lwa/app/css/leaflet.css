@@ -16,12 +16,6 @@ button:not([disabled]) {
     margin: 0;
 }
 
-[dir="RTL"] .product-name {
-    direction: rtl !important;    
-}
-
-
-
 /*.product-description {
     font-size: var(--font-size--L);
 }*/
@@ -139,7 +133,16 @@ button:not([disabled]) {
     height: 100%;
 }
 
-*[dir="RTL"] .leaflet-page .page-content {
+.settings-modal[dir="RTL"] .icon-title-container {
+    direction: rtl !important;  
+}
+
+.settings-modal[dir="RTL"] .product-description,
+.settings-modal[dir="RTL"] .product-name {
+    direction: rtl !important;    
+}
+
+.settings-modal[dir="RTL"] .leaflet-page .page-content {
     text-align: right;
 }
 
@@ -155,6 +158,7 @@ button:not([disabled]) {
     margin-block-start: unset;
     padding-left: 10%;
 }
+
 
 .leaflet-page .icon-title-container {
     flex-direction: row !important;

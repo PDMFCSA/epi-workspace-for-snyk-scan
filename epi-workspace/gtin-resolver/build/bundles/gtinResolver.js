@@ -10739,7 +10739,7 @@ function getMetadata(server){
             let leafletInfo = await LeafletInfoService.init({gtin, batchNumber}, epiDomain);
             const productData = await leafletInfo.getProductClientModel();
 
-            const model = {product: {gtin}, networkName: epiDomain};
+            const model = {product: {gtin}, batch: batchNumber, networkName: epiDomain};
             const documentsMetadata = {};
             for (let epiType of Object.values(EPI_TYPES)) {
                 const constSSI = GTIN_SSI.createGTIN_SSI(epiDomain, undefined, gtin);
@@ -14055,7 +14055,10 @@ class XmlDisplayService {
     }
 
     getAvailableLanguagesForBatch(callback) {
-        this.getAvailableLanguagesFromPath(this.gtinSSI, this.getBatchPathToXmlType(), (err, langs) => {
+        let gtinSSi = this.gtinSSI;
+        if(this.model?.batch && this.model?.networkName) 
+            gtinSSi = createGTIN_SSI(this.model?.networkName, undefined, this.model.product?.gtin, this.model?.batch);
+        this.getAvailableLanguagesFromPath(gtinSSi, this.getBatchPathToXmlType(), (err, langs) => {
             if (err) {
                 langs = [];
                 langs.isError = err;

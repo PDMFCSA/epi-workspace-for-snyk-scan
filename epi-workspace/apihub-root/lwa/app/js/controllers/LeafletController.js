@@ -171,7 +171,14 @@ function LeafletController() {
         container.innerHTML = "";
         let selectedItem = null;
         const radionParent = document.createElement('div');
-        availableMarkets.forEach((item, index) => {
+        availableMarkets.slice().sort((a, b) => { 
+            if(a === "unspecified")
+                return a;
+            if(b === "unspecified")
+                return b;
+
+            return a.localeCompare(b);
+        }).forEach((item, index) => {
             const radioInput = document.createElement('input');
             radioInput.setAttribute("type", "radio");
             radioInput.setAttribute("name", "epi-market");
@@ -540,6 +547,8 @@ function LeafletController() {
         const content =  document.querySelector(`#${modal} .content-to-print`);
         const printContent =  document.querySelector('#print-content');
         window.onbeforeprint = (evt) => {
+            if(!evt.target.document)
+                evt.target.document = {title: ""};
             evt.target.document.title = generateFileName();
             // removing html attributes to make table not responsive
             content.querySelectorAll('[style], [nowrap]').forEach(element => {
@@ -552,6 +561,8 @@ function LeafletController() {
         }
         window.print();
         window.onafterprint = (evt) => {
+            if(!evt.target.document)
+                evt.target.document = {title: ""};
             evt.target.document.title = windowName;
             printContent.innerHTML = "";
         }
