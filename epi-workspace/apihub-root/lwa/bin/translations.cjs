@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const root = process.cwd();
 const {translate} = require("google-translate-api-x");
+const {mdToPdf} = require("md-to-pdf");
 
 const [command, ...args] = process.argv.slice(2);
 
@@ -223,11 +224,24 @@ function saveCodeFile(json, lang, format){
 }
 
 /**
+ * @description converts a lang report to pdf
+ * @param {string} lang
+ * @returns {Promise<void>}
+ */
+async function saveToPdf(lang){
+  const p = path.join(root, "lang-codes", "reports", `${lang.toLowerCase()}.md`);
+  const pdf = await mdToPdf({path: p})
+  if (!pdf)
+    throw new Error(`Failed to output lang report ${lang} to pdf`);
+  fs.writeFileSync(p.replace(/\.md$/gm, ".pdf"), pdf.content);
+}
+
+/**
  *
  * @param {string[]} [langs]
- * @param {"json" | "text"} [format]
+ * @param {"json" | "text" | "pdf"} [format]
  */
-function generateCodeSheet(langs, format = "json"){
+async function generateCodeSheet(langs, format = "json"){
   langs = langs && langs.length ? langs : getAvailableLanguages()
   const certified = getCertified();
   const nonCertified = getCertified(false);
@@ -236,17 +250,21 @@ function generateCodeSheet(langs, format = "json"){
     result.sort((a, b) => {
       return a.code - b.code
     })
-    saveCodeFile(result, lang, format);
+    saveCodeFile(result, lang, format === "pdf" ? "text" : format);
     updateCertificationTracker(nonCertified,  false);
+    if (format === "pdf")
+      await saveToPdf(lang);
   }
 }
 
 switch (command) {
   case "codes":
     const format = args.shift()
-    if (!["json", "md"].includes(format))
-      throw new Error(`Invalid format provided. expects 'json' or 'md'`)
-    generateCodeSheet(args, format)
+    if (!["json", "md", "pdf"].includes(format))
+      throw new Error(`Invalid format provided. expects 'json', 'md' or 'pdf'`)
+    generateCodeSheet(args, format).then(() => {
+      console.log("finished")
+    })
     break
   // TODO: handle html
   case 'key':

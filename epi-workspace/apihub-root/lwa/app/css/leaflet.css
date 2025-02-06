@@ -197,8 +197,8 @@ button:not([disabled]) {
 
 .leaflet-page #recalled-bar p {
     font-size: 3rem;
-    line-height: 0px;
     font-weight: 500;
+    line-height: 125% !important;
     color: white;
     text-align: center;  
 }

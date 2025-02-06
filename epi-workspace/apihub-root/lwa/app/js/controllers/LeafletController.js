@@ -104,11 +104,16 @@ function LeafletController() {
                 return goToErrorPage(constants.errorCodes.unsupported_response, new Error("Response unsupported format or contains forbidden content"));
 
             this.metadata = data;
+            if(typeof data.availableDocuments === 'string' && data.availableDocuments === "xml_found") {
+                this.selectedLanguage = this.getLanguageFromBrowser();
+                console.log(this.selectedLanguage);
+                return showDocumentModal(data);
+            }
             showAvailableDocuments(data);
         }).catch(err => {
             console.error(err);
             goToErrorPage(err.errorCode, err)
-        }).finally(() =>  this.showLoader(false))
+        }).finally(() =>  this.showLoader(false)) 
     };
 
     const getLeafletXML = () => {
@@ -171,14 +176,21 @@ function LeafletController() {
         container.innerHTML = "";
         let selectedItem = null;
         const radionParent = document.createElement('div');
-        availableMarkets.slice().sort((a, b) => { 
-            if(a === "unspecified")
-                return a;
-            if(b === "unspecified")
-                return b;
 
-            return a.localeCompare(b);
-        }).forEach((item, index) => {
+        availableMarkets.map(
+            item => {
+               const name = item !== "unspecified" ? getCountry(item, true) : 'unspecified';
+               return {item, name};
+            }
+        ).sort((a, b) => { 
+            if(a.item === "unspecified")
+                return a;
+            if(b.item === "unspecified")
+                return b.item;
+            return a.item.localeCompare(b.item, this.defaultLanguage, { sensitivity: 'base' });
+        }).forEach((pair, index) => {
+            const {item, name} = pair;
+
             const radioInput = document.createElement('input');
             radioInput.setAttribute("type", "radio");
             radioInput.setAttribute("name", "epi-market");
@@ -187,7 +199,7 @@ function LeafletController() {
             radioInput.defaultChecked = index === 0;
 
             // Create the div element for the label
-            const label = item !== "unspecified" ? getCountry(item, true) : getTranslation("epi_markets_modal_no_market");
+            const label = item !== "unspecified" ? name : getTranslation("epi_markets_modal_no_market");
 
             const labelDiv = document.createElement('div');
             labelDiv.classList.add("radio-label");
@@ -284,7 +296,7 @@ function LeafletController() {
         if(!hasPrescribingInfo)
             documents = documents.filter(doc => doc.value !== DocumentsTypes.PRESCRIBING_INFO);
 
-        const {markets} = result?.productData;
+        const {markets} = result?.productData || {};
 
         if(!markets || markets.length < 1 || !markets.some(market => constants.MARKETS_WITH_PRODUCT_INFORMATION.includes(market.marketId)))
             documents = documents.filter(doc => doc.value !== DocumentsTypes.INFO);
@@ -511,14 +523,11 @@ function LeafletController() {
             if (batchRecalled) {
                 recalledContainer.querySelector("#recalled-title").textContent = getTranslation('recalled_batch_title');
                 recalledMessageContainer.innerHTML = getTranslation("recalled_batch_message",  `<strong>${batchData?.batch || batchData.batchNumber}</strong><br />`);
-                // recallInformation.innerHTML += getTranslation('recalled_batch_name',  `<strong>${batchData?.batch || batchData.batchNumber}</strong><br />`);
                 recalledBar.querySelector('#recalled-bar-content').textContent =  getTranslation('leaflet_recalled_batch');
                 recalledMessageContainer.innerHTML += "<br /><br />"+getTranslation('recalled_product_name', `<strong>${result.productData.nameMedicinalProduct}</strong>`);
             } else {
                 recalledMessageContainer.innerHTML += getTranslation('recalled_product_message',  `<strong>${result.productData.nameMedicinalProduct}</strong>`);
             }
-
-            // recalledMessageContainer.appendChild(recallInformation);
 
             recalledContainer.querySelector(".close-modal").onclick = function() {
                 recalledContainer.classList.add("hiddenElement");

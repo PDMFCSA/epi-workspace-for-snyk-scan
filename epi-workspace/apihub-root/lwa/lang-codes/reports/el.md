@@ -46,3 +46,256 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | product_not_loaded | Δυστυχώς, δεν έχει φορτωθεί καμία πληροφορία για το προϊόν. | ok | 45 |
 | err_code | Σφάλμα κωδικού | ok | 46 |
 | system_busy | Το σύστημα είναι απασχολημένο (δεν μπορεί να σας εξυπηρετήσει), δοκιμάστε ξανά αργότερα. | ok | 47 |
+| document_modal_title | Επιλέξτε |  | 66 |
+| document_modal_message | Επιλέξτε ποιο έγγραφο θα εμφανιστεί |  | 67 |
+| document_patient_info | Πληροφορίες ασθενούς |  | 68 |
+| document_product_info | Πληροφορίες προϊόντος για ασθενείς |  | 69 |
+| document_lang_select_message | Οι πληροφορίες προϊόντων είναι διαθέσιμα μόνο στα Αγγλικά |  | 70 |
+| document_lang_select_title | Ανακοίνωση |  | 71 |
+| document_prescribing_info | ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ ΠΛΗΡΟΦΟΡΙΕΣ ΓΙΑ ΤΗΝ ΥΠΟΔΟΤΗΤΑΣ |  | 72 |
+| epi_markets_modal_title | Επιλεγμένη χώρα |  | 73 |
+| epi_markets_modal_message | Επιλέξτε τη χώρα σας |  | 74 |
+| epi_markets_modal_no_market | Χωρίς χώρα |  | 75 |
+| country_af | Αφγανιστάν |  | 76 |
+| country_ax | Νησιά Åland |  | 77 |
+| country_al | Αλβανία |  | 78 |
+| country_dz | Αλγερία |  | 79 |
+| country_as | Αμερικανική Σαμόα |  | 80 |
+| country_ad | Ανδόρα |  | 81 |
+| country_ao | Αγκόλα |  | 82 |
+| country_ai | Αγγεία |  | 83 |
+| country_aq | Ανταρκτική |  | 84 |
+| country_ag | Αντίγκουα και Μπαρμπούντα |  | 85 |
+| country_ar | Αργεντίνη |  | 86 |
+| country_am | Αρμενία |  | 87 |
+| country_aw | Αρούμπα |  | 88 |
+| country_au | Αυστραλία |  | 89 |
+| country_at | Αυστρία |  | 90 |
+| country_az | Αζερμπαϊτζάν |  | 91 |
+| country_bs | Μπαχάμες |  | 92 |
+| country_bh | Μπαχρέιν |  | 93 |
+| country_bd | Μπαγκλαντές |  | 94 |
+| country_bb | Μπαρμπάντος |  | 95 |
+| country_by | Λευκορωσία |  | 96 |
+| country_be | Βέλγιο |  | 97 |
+| country_bz | Μπελίζ |  | 98 |
+| country_bj | Μπενίν |  | 99 |
+| country_bm | Βερμούδα |  | 100 |
+| country_bt | Μπουτάν |  | 101 |
+| country_bo | Βολιβία |  | 102 |
+| country_ba | Βοσνία και Ερζεγοβίνη |  | 103 |
+| country_bw | Αρμονία |  | 104 |
+| country_bv | Ανθοδέσμη νησιού |  | 105 |
+| country_br | Βραζιλία |  | 106 |
+| country_io | Βρετανική περιοχή του Ινδικού Ωκεανού |  | 107 |
+| country_bn | Μπρουνέι Νταρουσαλάμ |  | 108 |
+| country_bg | Βουλγαρία |  | 109 |
+| country_bf | Μπουρκίνα Φάσο |  | 110 |
+| country_bi | Μπουρούντι |  | 111 |
+| country_kh | Καμπότζη |  | 112 |
+| country_cm | Καμερούν |  | 113 |
+| country_ca | Καναδάς |  | 114 |
+| country_cv | Ακρωτήριο |  | 115 |
+| country_ky | Νησιά Κέιμαν |  | 116 |
+| country_cf | Κεντροαφρικανική Δημοκρατία |  | 117 |
+| country_td | Τσαντ |  | 118 |
+| country_cl | χιλή |  | 119 |
+| country_cn | Κίνα |  | 120 |
+| country_cx | Χριστουγεννιάτικο νησί |  | 121 |
+| country_cc | Νησιά Cocos (Keeling) |  | 122 |
+| country_co | Κολομβία |  | 123 |
+| country_km | Κομπόριο |  | 124 |
+| country_cg | Κογκό |  | 125 |
+| country_cd | Κονγκό, Η Λαϊκή Δημοκρατία του |  | 126 |
+| country_ck | Νησιά μαγειρικής |  | 127 |
+| country_cr | Κόστα Ρίκα |  | 128 |
+| country_ci | Cote d'Voire |  | 129 |
+| country_hr | Κροατία |  | 130 |
+| country_cu | Κούβα |  | 131 |
+| country_cy | Κύπρος |  | 132 |
+| country_cz | Τσεχική Δημοκρατία |  | 133 |
+| country_dk | Δανία |  | 134 |
+| country_dj | Βιβλία |  | 135 |
+| country_dm | Δομινίκα |  | 136 |
+| country_do | Δομινικανή Δημοκρατία |  | 137 |
+| country_ec | Εκουαδόρ |  | 138 |
+| country_eg | Αίγυπτος |  | 139 |
+| country_sv | Ελ Σαλβαδόρ |  | 140 |
+| country_gq | Ισημερινή Γουινέα |  | 141 |
+| country_er | Ερυθραία |  | 142 |
+| country_ee | Εσθονία |  | 143 |
+| country_et | Αιθιοπία |  | 144 |
+| country_fk | Νήσοι Φώκλαντ (Μαλβίνια) |  | 145 |
+| country_fo | Νήσοι Φερόε |  | 146 |
+| country_fj | Φίτζι |  | 147 |
+| country_fi | Φινλανδία |  | 148 |
+| country_fr | Γαλλία |  | 149 |
+| country_gf | Γαλλική Γουιάνα |  | 150 |
+| country_pf | Γαλλική Πολυνησία |  | 151 |
+| country_tf | Γαλλικά νότια εδάφη |  | 152 |
+| country_ga | Γκαμπόν |  | 153 |
+| country_gm | Γκάμπια |  | 154 |
+| country_ge | Γεωργία |  | 155 |
+| country_de | Γερμανία |  | 156 |
+| country_gh | Γκάνα |  | 157 |
+| country_gi | Γιβραλτάρ |  | 158 |
+| country_gr | Ελλάδα |  | 159 |
+| country_gl | Γροιλανδία |  | 160 |
+| country_gd | Γρενοδά |  | 161 |
+| country_gp | Γουαδελούπη |  | 162 |
+| country_gu | Γκουάμ |  | 163 |
+| country_gt | Γουατεμάλα |  | 164 |
+| country_gg | Γκαζιού |  | 165 |
+| country_gn | Γκινέα |  | 166 |
+| country_gw | Γουινέα-Μπίσαου |  | 167 |
+| country_gy | Γουιάνα |  | 168 |
+| country_ht | Αΐτη |  | 169 |
+| country_hm | Ακούστηκαν νησιά και νησιά McDonald |  | 170 |
+| country_va | Ιερά βλέμμα (κράτος της πόλης του Βατικανού) |  | 171 |
+| country_hn | Ονδούρα |  | 172 |
+| country_hk | Χονγκ Κονγκ |  | 173 |
+| country_hu | Ουγγαρία |  | 174 |
+| country_is | Ισλανδία |  | 175 |
+| country_in | Ινδία |  | 176 |
+| country_id | Ινδονησία |  | 177 |
+| country_ir | Ιράν, Ισλαμική Δημοκρατία του |  | 178 |
+| country_iq | Ιράκ |  | 179 |
+| country_ie | Ιρλανδία |  | 180 |
+| country_im | Νήσος του ανθρώπου |  | 181 |
+| country_il | Ισραήλ |  | 182 |
+| country_it | Ιταλία |  | 183 |
+| country_jm | Ιαμαϊκή |  | 184 |
+| country_jp | Ιαπωνία |  | 185 |
+| country_je | Φανέλα |  | 186 |
+| country_jo | Ιορδανία |  | 187 |
+| country_kz | Καζακστάν |  | 188 |
+| country_ke | Κενύα |  | 189 |
+| country_ki | Κιριμπάτι |  | 190 |
+| COUNTRY_KP | Κορέα, Δημοκρατική Λαϊκή Δημοκρατία του |  | 191 |
+| COUNTRY_KR | Κορέα, Δημοκρατία της |  | 192 |
+| country_kw | Κουβέιτ |  | 193 |
+| country_kg | Κιργιζία |  | 194 |
+| COUNTRY_LA | Λαϊκή Λαϊκή Δημοκρατία |  | 195 |
+| COUNTRY_LV | Λατβία |  | 196 |
+| country_lb | Λίβανος |  | 197 |
+| country_ls | Λεσόθο |  | 198 |
+| country_lr | Λιβερία |  | 199 |
+| country_ly | Λιβυκός Αραβικός Jamahiriya |  | 200 |
+| country_li | Λιχτενστάιν |  | 201 |
+| country_lt | Λιθουανία |  | 202 |
+| country_lu | Λουξεμβούργο |  | 203 |
+| country_mo | Μακάο |  | 204 |
+| country_mk | Η Μακεδονία, η πρώην Γιουγκοσλαβική Δημοκρατία της |  | 205 |
+| country_mg | Μαδαγασκάρη |  | 206 |
+| country_mw | Μαλάουι |  | 207 |
+| country_my | Μαλαισία |  | 208 |
+| country_mv | Μαλδίβες |  | 209 |
+| country_ml | Μάλι |  | 210 |
+| country_mt | Μάλτα |  | 211 |
+| country_mh | Νησιά Μάρσαλ |  | 212 |
+| country_mq | Μαρτυρία |  | 213 |
+| country_mr | Μαυριτανία |  | 214 |
+| country_mu | Μαυρίκιος |  | 215 |
+| country_yt | Μαγιόττα |  | 216 |
+| country_mx | Μεξικό |  | 217 |
+| country_fm | Micronesia, ομοσπονδιακά κράτη του |  | 218 |
+| country_md | Μολδαβία, Δημοκρατία της |  | 219 |
+| country_mc | Μονακό |  | 220 |
+| country_mn | Μογγολία |  | 221 |
+| country_ms | Μοντσέρρατ |  | 222 |
+| country_ma | Μαρόκο |  | 223 |
+| country_mz | Μοζαμβίκη |  | 224 |
+| country_mm | Μυανμάρ |  | 225 |
+| country_na | Ναμίμπια |  | 226 |
+| country_nr | Ναυρό |  | 227 |
+| country_np | Νεπάλ |  | 228 |
+| country_nl | Ολλανδία |  | 229 |
+| country_an | Ολλανδία Αντίλλες |  | 230 |
+| country_nc | Νέα Καληδονία |  | 231 |
+| country_nz | Νέα Ζηλανδία |  | 232 |
+| country_ni | Νικαράγουα |  | 233 |
+| country_ne | Νίγηρας |  | 234 |
+| country_ng | Νιγηρία |  | 235 |
+| country_nu | Νιφάδα |  | 236 |
+| country_nf | Νησί Νόρφολκ |  | 237 |
+| country_mp | Νησιά της Βόρειας Μαρίας |  | 238 |
+| country_no | Νορβηγία |  | 239 |
+| country_om | Οθμάν |  | 240 |
+| country_pk | Πακιστάν |  | 241 |
+| country_pw | Παλάμης |  | 242 |
+| country_ps | Παλαιστινιακό έδαφος, κατεχόμενο |  | 243 |
+| country_pa | Παναμάς |  | 244 |
+| country_pg | Παπούα Νέα Γουινέα |  | 245 |
+| country_py | Παραγουάη |  | 246 |
+| country_pe | Περού |  | 247 |
+| country_ph | Φιλιππίνες |  | 248 |
+| country_pn | Κηλίδα |  | 249 |
+| country_pl | Πολωνία |  | 250 |
+| country_pt | Πορτογαλία |  | 251 |
+| country_pr | Πορτορικό |  | 252 |
+| country_qa | Κατάρ |  | 253 |
+| country_re | Ξανασμίξιμο |  | 254 |
+| country_ro | Ρουμανία |  | 255 |
+| country_ru | Ρωσική Ομοσπονδία |  | 256 |
+| country_rw | Ρουάντα |  | 257 |
+| country_sh | Άγιος Ελένη |  | 258 |
+| country_kn | Άγιος Kitts και Nevis |  | 259 |
+| country_lc | Άγιος Λουκία |  | 260 |
+| country_pm | Άγιος Pierre και Miquelon |  | 261 |
+| country_vc | Άγιος Βικέντιος και Γρεναδίνες |  | 262 |
+| country_ws | Σαμόα |  | 263 |
+| country_sm | Σαν Μαρίνο |  | 264 |
+| country_st | Sao Tome και Principe |  | 265 |
+| country_sa | Σαουδική Αραβία |  | 266 |
+| country_sn | Σενεγάλη |  | 267 |
+| country_cs | Σερβία και Μαυροβούνιο |  | 268 |
+| country_sc | Σεϋχέλλες |  | 269 |
+| country_sl | Σιέρα Λεόνε |  | 270 |
+| country_sg | Σιγκαπούρη |  | 271 |
+| country_sk | Σλοβακία |  | 272 |
+| country_si | Σλοβενία |  | 273 |
+| country_sb | Νησιά Σολομώντος |  | 274 |
+| country_so | Σομαλία |  | 275 |
+| country_za | Νότια Αφρική |  | 276 |
+| country_gs | Νότια Γεωργία και τα νησιά του Νότιου Σάντουιτς |  | 277 |
+| country_es | Ισπανία |  | 278 |
+| country_lk | Σρι Λάνκα |  | 279 |
+| country_sd | Σουδάν |  | 280 |
+| country_sr | Σουρινό |  | 281 |
+| country_sj | Svalbard και Jan Mayen |  | 282 |
+| country_sz | Σουαζιλάνδη |  | 283 |
+| country_se | Σουηδία |  | 284 |
+| country_ch | Ελβετία |  | 285 |
+| country_sy | Συριακή Αραβική Δημοκρατία |  | 286 |
+| country_tw | Ταϊβάν, επαρχία της Κίνας |  | 287 |
+| country_tj | Τατζικιστάν |  | 288 |
+| country_tz | Τανζανία, Ηνωμένη Δημοκρατία της |  | 289 |
+| country_th | Σιάμ |  | 290 |
+| country_tl | Τιμόρ-Λέστερ |  | 291 |
+| country_tg | Τόγκο |  | 292 |
+| country_tk | Τακέλαου |  | 293 |
+| country_to | Τόνγκα |  | 294 |
+| country_tt | Τρινιντάντ και Τομπάγκο |  | 295 |
+| country_tn | Τυνησία |  | 296 |
+| country_tr | Τουρκία |  | 297 |
+| country_tm | Τουρκμενιστάν |  | 298 |
+| country_tc | Τούρκοι και Νήσοι του Καΐου |  | 299 |
+| country_tv | Τούβαλου |  | 300 |
+| country_ug | Ουγκάντα |  | 301 |
+| country_ua | Ουκρανία |  | 302 |
+| country_ae | Ηνωμένα Αραβικά Εμιράτα |  | 303 |
+| country_gb | Ηνωμένο Βασίλειο |  | 304 |
+| country_us | Ηνωμένες Πολιτείες |  | 305 |
+| country_um | Μικρές απομακρυσμένες νησί των Ηνωμένων Πολιτειών |  | 306 |
+| country_uy | Ουρουγουάη |  | 307 |
+| country_uz | Ουζμπεκιστάν |  | 308 |
+| country_vu | Βανουάτου |  | 309 |
+| country_ve | Βενεζουέλα |  | 310 |
+| country_vn | Βιετνάμ |  | 311 |
+| country_vg | Παρθένοι Νήσοι, Βρετανοί |  | 312 |
+| country_vi | Παρθένοι Νήσοι, Η.Π.Α. |  | 313 |
+| country_wf | Wallis και Futuna |  | 314 |
+| country_eh | Δυτική Σαχάρα |  | 315 |
+| country_ye | Γέμενη |  | 316 |
+| country_zm | Ζάμπια |  | 317 |
+| country_zw | Ζιμπάμπουε |  | 318 |

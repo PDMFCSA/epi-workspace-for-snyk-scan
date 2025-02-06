@@ -50,3 +50,256 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_incorrect_date_title | Incorrect date |  | 50 |
 | leaflet_incorrect_date_subtitle | Scanned date is incorrect |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; This product's date is incorrect&lt;/b&gt;. |  | 52 |
+| document_modal_title | Prosim izberite |  | 66 |
+| document_modal_message | Izberite, kateri dokument za prikaz |  | 67 |
+| document_patient_info | Podatki o bolniku |  | 68 |
+| document_product_info | Informacije o izdelku za bolnike |  | 69 |
+| document_lang_select_message | Informacije o izdelku so na voljo samo v angleščini |  | 70 |
+| document_lang_select_title | Obvestilo |  | 71 |
+| document_prescribing_info | Predpisovanje informacij za zdravstvene delavce |  | 72 |
+| epi_markets_modal_title | Izberi državo |  | 73 |
+| epi_markets_modal_message | Izberite svojo državo |  | 74 |
+| epi_markets_modal_no_market | Nobena država |  | 75 |
+| country_af | Afganistan |  | 76 |
+| country_ax | Ålandski otoki |  | 77 |
+| country_al | Albanija |  | 78 |
+| country_dz | Alžirija |  | 79 |
+| country_as | Ameriška Samoa |  | 80 |
+| country_ad | Andorra |  | 81 |
+| country_ao | Angola |  | 82 |
+| country_ai | Anguilla |  | 83 |
+| country_aq | Antarktika |  | 84 |
+| country_ag | Antigva in Barbuda |  | 85 |
+| country_ar | Argentina |  | 86 |
+| country_am | Armenija |  | 87 |
+| country_aw | Aruba |  | 88 |
+| country_au | Avstralija |  | 89 |
+| country_at | Avstrija |  | 90 |
+| country_az | Azerbajdžan |  | 91 |
+| country_bs | Bahami |  | 92 |
+| country_bh | Bahrajn |  | 93 |
+| country_bd | Bangladeš |  | 94 |
+| country_bb | Barbados |  | 95 |
+| country_by | Belorusija |  | 96 |
+| country_be | Belgija |  | 97 |
+| country_bz | Belize |  | 98 |
+| country_bj | Benin |  | 99 |
+| country_bm | Bermuda |  | 100 |
+| country_bt | Butan |  | 101 |
+| country_bo | Bolivija |  | 102 |
+| country_ba | Bosna in Hercegovina |  | 103 |
+| country_bw | Bocvana |  | 104 |
+| country_bv | Otok Bouvet |  | 105 |
+| country_br | Brazilija |  | 106 |
+| country_io | Ozemlje britanskega Indijskega oceana |  | 107 |
+| country_bn | Brunei Darussalam |  | 108 |
+| country_bg | Bolgarija |  | 109 |
+| country_bf | Burkina Faso |  | 110 |
+| country_bi | Burundi |  | 111 |
+| country_kh | Kambodža |  | 112 |
+| country_cm | Kamerun |  | 113 |
+| country_ca | Kanada |  | 114 |
+| country_cv | Cape Verde |  | 115 |
+| country_ky | Kajmanski otoki |  | 116 |
+| country_cf | Srednjeafriška republika |  | 117 |
+| country_td | Chad |  | 118 |
+| country_cl | Čile |  | 119 |
+| country_cn | Kitajska |  | 120 |
+| country_cx | Božični otok |  | 121 |
+| country_cc | Cocos (Keeling) otoki |  | 122 |
+| country_co | Kolumbija |  | 123 |
+| country_km | Komoros |  | 124 |
+| country_cg | Kongo |  | 125 |
+| country_cd | Kongo, Demokratična republika |  | 126 |
+| country_ck | Kuharski otoki |  | 127 |
+| country_cr | Kostarika |  | 128 |
+| country_ci | Cote d'Ivoire |  | 129 |
+| country_hr | Hrvaška |  | 130 |
+| country_cu | Kuba |  | 131 |
+| country_cy | Ciper |  | 132 |
+| country_cz | Češka |  | 133 |
+| country_dk | Danska |  | 134 |
+| country_dj | Džibuti |  | 135 |
+| country_dm | Dominica |  | 136 |
+| country_do | Dominikanska republika |  | 137 |
+| country_ec | Ekvador |  | 138 |
+| country_eg | Egipt |  | 139 |
+| country_sv | El Salvador |  | 140 |
+| country_gq | Ekvatorialna Gvineja |  | 141 |
+| country_er | Eritreja |  | 142 |
+| country_ee | Estonija |  | 143 |
+| country_et | Etiopija |  | 144 |
+| country_fk | Falklandski otoki (Malvinas) |  | 145 |
+| country_fo | Ferski otoki |  | 146 |
+| country_fj | Fidži |  | 147 |
+| country_fi | Finska |  | 148 |
+| country_fr | Francija |  | 149 |
+| country_gf | Francoska Gvajana |  | 150 |
+| country_pf | Francoska Polinezija |  | 151 |
+| country_tf | Francoska južna ozemlja |  | 152 |
+| country_ga | Gabon |  | 153 |
+| country_gm | Gambija |  | 154 |
+| country_ge | Gruzija |  | 155 |
+| country_de | Nemčija |  | 156 |
+| country_gh | Gana |  | 157 |
+| country_gi | Gibraltar |  | 158 |
+| country_gr | Grčija |  | 159 |
+| country_gl | Grenlandija |  | 160 |
+| country_gd | GRENADA |  | 161 |
+| country_gp | Guadelaupe |  | 162 |
+| country_gu | Guam |  | 163 |
+| country_gt | Gvatemala |  | 164 |
+| country_gg | Guernsey |  | 165 |
+| country_gn | Gvineja |  | 166 |
+| country_gw | Gvineja-Bissau |  | 167 |
+| country_gy | Gvajana |  | 168 |
+| country_ht | Haiti |  | 169 |
+| country_hm | Heard Island in McDonald Islands |  | 170 |
+| country_va | SVETI SEE (Vatikanska država) |  | 171 |
+| country_hn | Honduras |  | 172 |
+| country_hk | Hong Kong |  | 173 |
+| country_hu | Madžarska |  | 174 |
+| country_is | Islandija |  | 175 |
+| country_in | Indija |  | 176 |
+| country_id | Indonezija |  | 177 |
+| country_ir | Iran, Islamska republika |  | 178 |
+| country_iq | Irak |  | 179 |
+| country_ie | Irska |  | 180 |
+| country_im | Otok človeka |  | 181 |
+| country_il | Izrael |  | 182 |
+| country_it | Italija |  | 183 |
+| country_jm | Jamajka |  | 184 |
+| country_jp | Japonska |  | 185 |
+| country_je | Jersey |  | 186 |
+| country_jo | Jordan |  | 187 |
+| country_kz | Kazahstan |  | 188 |
+| country_ke | Kenija |  | 189 |
+| country_ki | Kiribati |  | 190 |
+| COUNTRY_KP | Koreja, demokratična ljudska republika |  | 191 |
+| COUNTRY_KR | Koreja, republika |  | 192 |
+| country_kw | Kuvajt |  | 193 |
+| country_kg | Kirgizistan |  | 194 |
+| COUNTRY_LA | Demokratična republika Laosa |  | 195 |
+| COUNTRY_LV | Latvija |  | 196 |
+| country_lb | Libanon |  | 197 |
+| country_ls | Lesoto |  | 198 |
+| country_lr | Liberija |  | 199 |
+| country_ly | Libijska arabska jamahiriya |  | 200 |
+| country_li | Lihtenštain |  | 201 |
+| country_lt | Litva |  | 202 |
+| country_lu | Luksemburg |  | 203 |
+| country_mo | Makao |  | 204 |
+| country_mk | Makedonija, nekdanja Jugoslovanska republika |  | 205 |
+| country_mg | Madagaskar |  | 206 |
+| country_mw | Malavi |  | 207 |
+| country_my | Malezija |  | 208 |
+| country_mv | Maldivi |  | 209 |
+| country_ml | Mali |  | 210 |
+| country_mt | Malta |  | 211 |
+| country_mh | Marshall otoki |  | 212 |
+| country_mq | Martinique |  | 213 |
+| country_mr | Mavretanija |  | 214 |
+| country_mu | Mauritius |  | 215 |
+| country_yt | Mačka |  | 216 |
+| country_mx | Mehika |  | 217 |
+| country_fm | Mikronezija, zvezne države |  | 218 |
+| country_md | Moldavija, republika |  | 219 |
+| country_mc | Monako |  | 220 |
+| country_mn | Mongolija |  | 221 |
+| country_ms | Montserrat |  | 222 |
+| country_ma | Maroko |  | 223 |
+| country_mz | Mozambik |  | 224 |
+| country_mm | Mjanmar |  | 225 |
+| country_na | Namibija |  | 226 |
+| country_nr | Nauru |  | 227 |
+| country_np | Nepal |  | 228 |
+| country_nl | Nizozemska |  | 229 |
+| country_an | Nizozemska Antile |  | 230 |
+| country_nc | Nova Kaledonija |  | 231 |
+| country_nz | Nova Zelandija |  | 232 |
+| country_ni | Nikaragva |  | 233 |
+| country_ne | Niger |  | 234 |
+| country_ng | Nigerija |  | 235 |
+| country_nu | Niue |  | 236 |
+| country_nf | Otok Norfolk |  | 237 |
+| country_mp | Otoki Severne Mariane |  | 238 |
+| country_no | Norveška |  | 239 |
+| country_om | Oman |  | 240 |
+| country_pk | Pakistan |  | 241 |
+| country_pw | Palau |  | 242 |
+| country_ps | Palestinsko ozemlje, zasedeno |  | 243 |
+| country_pa | Panama |  | 244 |
+| country_pg | Papua Nova Gvineja |  | 245 |
+| country_py | Paragvaj |  | 246 |
+| country_pe | Peru |  | 247 |
+| country_ph | Filipini |  | 248 |
+| country_pn | Pitcairn |  | 249 |
+| country_pl | Poljska |  | 250 |
+| country_pt | Portugalska |  | 251 |
+| country_pr | Portoriko |  | 252 |
+| country_qa | Katar |  | 253 |
+| country_re | Reunion |  | 254 |
+| country_ro | Romunija |  | 255 |
+| country_ru | Ruska federacija |  | 256 |
+| country_rw | Ruanda |  | 257 |
+| country_sh | Sveta Helena |  | 258 |
+| country_kn | Saint Kitts in Nevis |  | 259 |
+| country_lc | Sveta Lucia |  | 260 |
+| country_pm | Saint Pierre in Miquelon |  | 261 |
+| country_vc | Saint Vincent in Grenadine |  | 262 |
+| country_ws | Samoa |  | 263 |
+| country_sm | San Marino |  | 264 |
+| country_st | Sao tome in principe |  | 265 |
+| country_sa | Savdska Arabija |  | 266 |
+| country_sn | Senegal |  | 267 |
+| country_cs | Srbija in Črna gora |  | 268 |
+| country_sc | Sejšeli |  | 269 |
+| country_sl | Sierra Leone |  | 270 |
+| country_sg | Singapur |  | 271 |
+| country_sk | Slovaška |  | 272 |
+| country_si | Slovenija |  | 273 |
+| country_sb | Salomonovi otoki |  | 274 |
+| country_so | Somalija |  | 275 |
+| country_za | Južna Afrika |  | 276 |
+| country_gs | Južna Gruzija in južni sendvič otoki |  | 277 |
+| country_es | Španija |  | 278 |
+| country_lk | Šrilanka |  | 279 |
+| country_sd | Sudan |  | 280 |
+| country_sr | Suriname |  | 281 |
+| country_sj | Svalbard in Jan Mayen |  | 282 |
+| country_sz | Swaziland |  | 283 |
+| country_se | Švedska |  | 284 |
+| country_ch | Švica |  | 285 |
+| country_sy | Sirska arabska republika |  | 286 |
+| country_tw | Tajvan, provinca Kitajske |  | 287 |
+| country_tj | Tadžikistan |  | 288 |
+| country_tz | Tanzanija, Združena republika |  | 289 |
+| country_th | Tajska |  | 290 |
+| country_tl | Timor-leste |  | 291 |
+| country_tg | Togo |  | 292 |
+| country_tk | Tokelau |  | 293 |
+| country_to | Tonga |  | 294 |
+| country_tt | Trinidad in Tobago |  | 295 |
+| country_tn | Tunizija |  | 296 |
+| country_tr | Turčija |  | 297 |
+| country_tm | Turkmenistan |  | 298 |
+| country_tc | Otoki Turki in Caicos |  | 299 |
+| country_tv | Tuvalu |  | 300 |
+| country_ug | Uganda |  | 301 |
+| country_ua | Ukrajina |  | 302 |
+| country_ae | Združeni arabski emirati |  | 303 |
+| country_gb | Združeno kraljestvo |  | 304 |
+| country_us | ZDA |  | 305 |
+| country_um | Združenih držav Manjši obrobni otoki |  | 306 |
+| country_uy | Urugvaj |  | 307 |
+| country_uz | Uzbekistan |  | 308 |
+| country_vu | Vanuatu |  | 309 |
+| country_ve | Venezuela |  | 310 |
+| country_vn | Vietnam |  | 311 |
+| country_vg | Deviški otoki, Britanci |  | 312 |
+| country_vi | Deviški otoki, ZDA |  | 313 |
+| country_wf | Wallis in Futuna |  | 314 |
+| country_eh | Zahodna Sahara |  | 315 |
+| country_ye | Jemen |  | 316 |
+| country_zm | Zambija |  | 317 |
+| country_zw | Zimbabve |  | 318 |

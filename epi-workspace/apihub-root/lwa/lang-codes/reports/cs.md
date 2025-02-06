@@ -46,3 +46,256 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | product_not_loaded | Bohužel nebyly načteny žádné informace o přípravku. | ok | 45 |
 | err_code | Chybný kód | ok | 46 |
 | system_busy | Systém je zatížený, zkuste to, prosím, později. | ok | 47 |
+| document_modal_title | Vyberte |  | 66 |
+| document_modal_message | Vyberte prosím, který dokument se má zobrazit |  | 67 |
+| document_patient_info | Informace o pacientu |  | 68 |
+| document_product_info | Informace o produktu pro pacienty |  | 69 |
+| document_lang_select_message | Informace o produktu jsou k dispozici pouze v angličtině |  | 70 |
+| document_lang_select_title | Oznámení |  | 71 |
+| document_prescribing_info | Předepisování informací pro zdravotnické pracovníky |  | 72 |
+| epi_markets_modal_title | Vyberte zemi |  | 73 |
+| epi_markets_modal_message | Vyberte prosím svou zemi |  | 74 |
+| epi_markets_modal_no_market | Žádná země |  | 75 |
+| country_af | Afghánistán |  | 76 |
+| country_ax | Ålandské ostrovy |  | 77 |
+| country_al | Albánie |  | 78 |
+| country_dz | Alžírsko |  | 79 |
+| country_as | Americká Samoa |  | 80 |
+| country_ad | Andorra |  | 81 |
+| country_ao | Angola |  | 82 |
+| country_ai | Anguilla |  | 83 |
+| country_aq | Antarktida |  | 84 |
+| country_ag | Antigua a Barbuda |  | 85 |
+| country_ar | Argentina |  | 86 |
+| country_am | Arménie |  | 87 |
+| country_aw | Aruba |  | 88 |
+| country_au | Austrálie |  | 89 |
+| country_at | Rakousko |  | 90 |
+| country_az | Ázerbajdžán |  | 91 |
+| country_bs | Bahamy |  | 92 |
+| country_bh | Bahrajn |  | 93 |
+| country_bd | Bangladéš |  | 94 |
+| country_bb | Barbados |  | 95 |
+| country_by | Bělorusko |  | 96 |
+| country_be | Belgie |  | 97 |
+| country_bz | Belize |  | 98 |
+| country_bj | Benin |  | 99 |
+| country_bm | Bermudy |  | 100 |
+| country_bt | Bhútan |  | 101 |
+| country_bo | Bolívie |  | 102 |
+| country_ba | Bosna a Hercegovina |  | 103 |
+| country_bw | Botswana |  | 104 |
+| country_bv | Ostrov Bouvet |  | 105 |
+| country_br | Brazílie |  | 106 |
+| country_io | Území britského indického oceánu |  | 107 |
+| country_bn | Brunei Darussalam |  | 108 |
+| country_bg | Bulharsko |  | 109 |
+| country_bf | Burkina Faso |  | 110 |
+| country_bi | Burundi |  | 111 |
+| country_kh | Kambodža |  | 112 |
+| country_cm | Kamerun |  | 113 |
+| country_ca | Kanada |  | 114 |
+| country_cv | Kap Verde |  | 115 |
+| country_ky | Kajmanské ostrovy |  | 116 |
+| country_cf | Střední Africká republika |  | 117 |
+| country_td | Čad |  | 118 |
+| country_cl | Chile |  | 119 |
+| country_cn | Čína |  | 120 |
+| country_cx | Vánoční ostrov |  | 121 |
+| country_cc | Ostrovy Cocos (kýling) |  | 122 |
+| country_co | Kolumbie |  | 123 |
+| country_km | Comoros |  | 124 |
+| country_cg | Kongo |  | 125 |
+| country_cd | Kongo, Demokratická republika |  | 126 |
+| country_ck | Cookovy ostrovy |  | 127 |
+| country_cr | Kostarika |  | 128 |
+| country_ci | Cote d'ivoire |  | 129 |
+| country_hr | Chorvatsko |  | 130 |
+| country_cu | Kuba |  | 131 |
+| country_cy | Kypr |  | 132 |
+| country_cz | Česká republika |  | 133 |
+| country_dk | Dánsko |  | 134 |
+| country_dj | Džibutské |  | 135 |
+| country_dm | Dominika |  | 136 |
+| country_do | Dominikánská republika |  | 137 |
+| country_ec | Ekvádor |  | 138 |
+| country_eg | Egypt |  | 139 |
+| country_sv | Salvador |  | 140 |
+| country_gq | Rovníková Guinea |  | 141 |
+| country_er | Eritrea |  | 142 |
+| country_ee | Estonsko |  | 143 |
+| country_et | Etiopie |  | 144 |
+| country_fk | Falklandské ostrovy (Malvinas) |  | 145 |
+| country_fo | Faorské ostrovy |  | 146 |
+| country_fj | Fidži |  | 147 |
+| country_fi | Finsko |  | 148 |
+| country_fr | Francie |  | 149 |
+| country_gf | Francouzská Guiana |  | 150 |
+| country_pf | Francouzská Polynésie |  | 151 |
+| country_tf | Francouzská jižní území |  | 152 |
+| country_ga | Gabon |  | 153 |
+| country_gm | Gambie |  | 154 |
+| country_ge | Gruzie |  | 155 |
+| country_de | Německo |  | 156 |
+| country_gh | Ghana |  | 157 |
+| country_gi | Gibraltar |  | 158 |
+| country_gr | Řecko |  | 159 |
+| country_gl | Grónsko |  | 160 |
+| country_gd | Grenada |  | 161 |
+| country_gp | Guadeloupe |  | 162 |
+| country_gu | Guam |  | 163 |
+| country_gt | Guatemala |  | 164 |
+| country_gg | Guernsey |  | 165 |
+| country_gn | Guinea |  | 166 |
+| country_gw | Guinea-Bissau |  | 167 |
+| country_gy | Guyana |  | 168 |
+| country_ht | Haiti |  | 169 |
+| country_hm | Slyšeli ostrova a ostrovy McDonald |  | 170 |
+| country_va | Holy SEK (Vatikánský městský stát) |  | 171 |
+| country_hn | Honduras |  | 172 |
+| country_hk | Hongkong |  | 173 |
+| country_hu | Maďarsko |  | 174 |
+| country_is | Island |  | 175 |
+| country_in | Indie |  | 176 |
+| country_id | Indonésie |  | 177 |
+| country_ir | Írán, Islámská republika |  | 178 |
+| country_iq | Irák |  | 179 |
+| country_ie | Irsko |  | 180 |
+| country_im | Isle of Man |  | 181 |
+| country_il | Izrael |  | 182 |
+| country_it | Itálie |  | 183 |
+| country_jm | Jamaica |  | 184 |
+| country_jp | Japonsko |  | 185 |
+| country_je | Trikot |  | 186 |
+| country_jo | Jordán |  | 187 |
+| country_kz | Kazachstán |  | 188 |
+| country_ke | Keňa |  | 189 |
+| country_ki | Kiribati |  | 190 |
+| COUNTRY_KP | Korea, Demokratická lidová republika |  | 191 |
+| COUNTRY_KR | Korea, republika |  | 192 |
+| country_kw | Kuvajt |  | 193 |
+| country_kg | Kyrgyzstán |  | 194 |
+| COUNTRY_LA | Lao lidová demokratická republika |  | 195 |
+| COUNTRY_LV | Lotyšsko |  | 196 |
+| country_lb | Libanon |  | 197 |
+| country_ls | Lesotho |  | 198 |
+| country_lr | Libérie |  | 199 |
+| country_ly | Libyjská arabská Jamahiriya |  | 200 |
+| country_li | Lichtenstein |  | 201 |
+| country_lt | Litva |  | 202 |
+| country_lu | Lucembursko |  | 203 |
+| country_mo | Macao |  | 204 |
+| country_mk | Makedonie, bývalá jugoslávská republika |  | 205 |
+| country_mg | Madagaskar |  | 206 |
+| country_mw | Malawi |  | 207 |
+| country_my | Malajsie |  | 208 |
+| country_mv | Maledivy |  | 209 |
+| country_ml | Mali |  | 210 |
+| country_mt | Malta |  | 211 |
+| country_mh | Marshallovy ostrovy |  | 212 |
+| country_mq | Martinika |  | 213 |
+| country_mr | Mauritánie |  | 214 |
+| country_mu | Mauricius |  | 215 |
+| country_yt | Mayotte |  | 216 |
+| country_mx | Mexiko |  | 217 |
+| country_fm | Mikronésie, federované státy |  | 218 |
+| country_md | Moldavsko, republika |  | 219 |
+| country_mc | Monako |  | 220 |
+| country_mn | Mongolsko |  | 221 |
+| country_ms | Montserrat |  | 222 |
+| country_ma | Maroko |  | 223 |
+| country_mz | Mozambik |  | 224 |
+| country_mm | Myanmar |  | 225 |
+| country_na | Namibie |  | 226 |
+| country_nr | Nauru |  | 227 |
+| country_np | Nepál |  | 228 |
+| country_nl | Nizozemí |  | 229 |
+| country_an | Nizozemsko Antilly |  | 230 |
+| country_nc | Nová Kaledonie |  | 231 |
+| country_nz | Nový Zéland |  | 232 |
+| country_ni | Nikaragua |  | 233 |
+| country_ne | Niger |  | 234 |
+| country_ng | Nigérie |  | 235 |
+| country_nu | Niue |  | 236 |
+| country_nf | Norfolk Island |  | 237 |
+| country_mp | Severní ostrovy Mariana |  | 238 |
+| country_no | Norsko |  | 239 |
+| country_om | Omán |  | 240 |
+| country_pk | Pákistán |  | 241 |
+| country_pw | Palau |  | 242 |
+| country_ps | Palestinské území, obsazené |  | 243 |
+| country_pa | Panama |  | 244 |
+| country_pg | Papua -Nová Guinea |  | 245 |
+| country_py | Paraguay |  | 246 |
+| country_pe | Peru |  | 247 |
+| country_ph | Filipíny |  | 248 |
+| country_pn | Pitcairn |  | 249 |
+| country_pl | Polsko |  | 250 |
+| country_pt | Portugalsko |  | 251 |
+| country_pr | Portoriko |  | 252 |
+| country_qa | Katar |  | 253 |
+| country_re | Shledání |  | 254 |
+| country_ro | Rumunsko |  | 255 |
+| country_ru | Ruská federace |  | 256 |
+| country_rw | Rwanda |  | 257 |
+| country_sh | Svatá Helena |  | 258 |
+| country_kn | Saint Kitts a Nevis |  | 259 |
+| country_lc | Svatá Lucia |  | 260 |
+| country_pm | Svatý Pierre a Miquelon |  | 261 |
+| country_vc | Svatý Vincent a Grenadiny |  | 262 |
+| country_ws | Samoa |  | 263 |
+| country_sm | San Marino |  | 264 |
+| country_st | Sao Tome a Principe |  | 265 |
+| country_sa | Saúdská Arábie |  | 266 |
+| country_sn | Senegal |  | 267 |
+| country_cs | Srbsko a Černá Hora |  | 268 |
+| country_sc | Seychely |  | 269 |
+| country_sl | Sierra Leone |  | 270 |
+| country_sg | Singapur |  | 271 |
+| country_sk | Slovensko |  | 272 |
+| country_si | Slovinsko |  | 273 |
+| country_sb | Šalamounovy ostrovy |  | 274 |
+| country_so | Somálsko |  | 275 |
+| country_za | Jižní Afrika |  | 276 |
+| country_gs | Jižní Gruzie a jižní sendvičové ostrovy |  | 277 |
+| country_es | Španělsko |  | 278 |
+| country_lk | Srí Lanka |  | 279 |
+| country_sd | Súdán |  | 280 |
+| country_sr | Surinam |  | 281 |
+| country_sj | Svalbard a Jan Mayen |  | 282 |
+| country_sz | Svazijsko |  | 283 |
+| country_se | Švédsko |  | 284 |
+| country_ch | Švýcarsko |  | 285 |
+| country_sy | Sýrská arabská republika |  | 286 |
+| country_tw | Tchaj -wan, provincie Čína |  | 287 |
+| country_tj | Tádžikistán |  | 288 |
+| country_tz | Tanzanie, United Republic of |  | 289 |
+| country_th | Thajsko |  | 290 |
+| country_tl | Timor-Leste |  | 291 |
+| country_tg | Togo |  | 292 |
+| country_tk | Tokelau |  | 293 |
+| country_to | Tonga |  | 294 |
+| country_tt | Trinidad a Tobago |  | 295 |
+| country_tn | Tunisko |  | 296 |
+| country_tr | Turecko |  | 297 |
+| country_tm | Turkmenistán |  | 298 |
+| country_tc | Ostrovy Turků a Caicos |  | 299 |
+| country_tv | Tuvalu |  | 300 |
+| country_ug | Uganda |  | 301 |
+| country_ua | Ukrajina |  | 302 |
+| country_ae | Spojené arabské emiráty |  | 303 |
+| country_gb | Spojené království |  | 304 |
+| country_us | Spojené státy |  | 305 |
+| country_um | Milé odlehlé ostrovy Spojených států Spojené státy |  | 306 |
+| country_uy | Uruguay |  | 307 |
+| country_uz | Uzbekistán |  | 308 |
+| country_vu | Vanuatu |  | 309 |
+| country_ve | Venezuela |  | 310 |
+| country_vn | Vietnam |  | 311 |
+| country_vg | Panenské ostrovy, Britové |  | 312 |
+| country_vi | Panenské ostrovy, USA |  | 313 |
+| country_wf | Wallis a Futuna |  | 314 |
+| country_eh | Western Sahara |  | 315 |
+| country_ye | Jemen |  | 316 |
+| country_zm | Zambie |  | 317 |
+| country_zw | Zimbabwe |  | 318 |

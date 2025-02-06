@@ -1,5 +1,5 @@
 @media print {
-
+               
     @page
     {
         size: portrait;
@@ -53,14 +53,14 @@
     }
 
     #print-content {
-        display: block;
+        display: block !important;
     }
 
     table {
         page-break-inside: auto;
         border: 2px solid black !important;
         width: 100%;
-        border-collapse: collapse;
+        border-collapse: collapse;  
     }
     thead { 
         display: table-header-group; 
@@ -79,6 +79,12 @@
         page-break-inside: avoid;
     }
 
+    a {
+        word-break: break-all;
+        color: inherit !important;
+        text-decoration: none !important;
+      }
+
     img {
         max-width: 80% !important;
         max-height: 80% !important;
@@ -91,4 +97,3 @@
         display: none;
     }
 }
-
