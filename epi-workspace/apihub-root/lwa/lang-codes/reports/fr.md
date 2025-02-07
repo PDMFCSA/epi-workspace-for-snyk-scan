@@ -50,6 +50,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_incorrect_date_title |  |  | 50 |
 | leaflet_incorrect_date_subtitle |  |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; &lt;/b&gt;. |  | 52 |
+| leaflet_print_title | Imprimer des informations |  | 61 |
+| leaflet_print_description | Les informations sélectionnées actuelles seront imprimées sous forme de PDF. |  | 62 |
+| leaflet_print_description2 | Voulez-vous continuer? |  | 63 |
+| leaflet_print_button | Procéder |  | 64 |
+| leaflet_print_button_back | Remonter |  | 65 |
 | document_modal_title | Veuillez choisir |  | 66 |
 | document_modal_message | Veuillez sélectionner le document à afficher |  | 67 |
 | document_patient_info | Informations sur les patients |  | 68 |

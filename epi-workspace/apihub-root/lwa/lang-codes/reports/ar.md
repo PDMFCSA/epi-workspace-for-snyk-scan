@@ -50,6 +50,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_incorrect_date_title | تاريخ خاطئ |  | 50 |
 | leaflet_incorrect_date_subtitle | تاريخ المسح غير صحيح |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; تاريخ هذا المنتج غير صحيح&lt;/b&gt;. |  | 52 |
+| leaflet_print_title | معلومات الطباعة |  | 61 |
+| leaflet_print_description | سيتم طباعة المعلومات المحددة الحالية على أنها PDF. |  | 62 |
+| leaflet_print_description2 | هل تريد المتابعة؟ |  | 63 |
+| leaflet_print_button | يتابع |  | 64 |
+| leaflet_print_button_back | عُد |  | 65 |
 | document_modal_title | الرجاء الاختيار |  | 66 |
 | document_modal_message | الرجاء تحديد أي مستند لعرضه |  | 67 |
 | document_patient_info | معلومات المريض |  | 68 |

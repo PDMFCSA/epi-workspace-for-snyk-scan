@@ -292,7 +292,12 @@ const data = {
   "country_eh": "Sahara occidentale",
   "country_ye": "Yemen",
   "country_zm": "Zambia",
-  "country_zw": "Zimbabwe"
+  "country_zw": "Zimbabwe",
+  "leaflet_print_title": "Informazioni di stampa",
+  "leaflet_print_description": "Le attuali informazioni selezionate verranno stampate come PDF.",
+  "leaflet_print_description2": "Vuoi procedere?",
+  "leaflet_print_button": "Procedere",
+  "leaflet_print_button_back": "Torna indietro"
 }
 
 export default data;

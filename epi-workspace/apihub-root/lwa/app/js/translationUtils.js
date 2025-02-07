@@ -11,7 +11,7 @@ function getLangSubtypesMap(languageCodesMap) {
     return result
 }
 
-const supportedLanguageCodesMap = {
+export const supportedLanguageCodesMap = {
     'ar': ["ar-ae", "ar-bh", "ar-dz", "ar-eg", "ar-iq", "ar-jo", "ar-kw", "ar-lb", "ar-ly", "ar-ma", "ar-om", "ar-qa", "ar-sa", "ar-sy", "ar-tn", "ar-ye"],
     'bg': ["bg-bg"],
     'cs': ["cs-cz"],
@@ -44,10 +44,10 @@ const supportedLanguageCodesMap = {
     // 'zh': ["zh-cn", "zh-hans", "zh-hant", "zh-hk"]
 }
 
-const langSubtypesMap = getLangSubtypesMap(supportedLanguageCodesMap);
+export const langSubtypesMap = getLangSubtypesMap(supportedLanguageCodesMap);
 
 
-function transformToISOStandardLangCode(code) {
+export function transformToISOStandardLangCode(code) {
     //language codes on phones have "_" instead of "-" and for base languages ends with "_"
     let replaceValue = "-";
     if (code.slice(-1) === "_") {

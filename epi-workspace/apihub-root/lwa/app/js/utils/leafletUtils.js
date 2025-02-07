@@ -219,12 +219,12 @@ const renderProductInformation = function (result) {
     function parseDate(dateString, type) {
         if(!dateString)
             return "";
-        if(type === 'expiryDate') {
+        if(type === 'expiryDate' || type === 'dateOfManufacturing') {
             const d = dateString.substring(4, 6);
             const m = dateString.substring(2, 4);
             const y = dateString.substring(0, 2);
             if(Number(d) === 0)
-                return `${m}/20${y}`;
+                return `${m}.20${y}`;
             return `${d}.${m}.20${y}`;
         }
         return new Date(dateString).toLocaleString('pt', {dateStyle: 'short'}).replace(/\//g, '.');

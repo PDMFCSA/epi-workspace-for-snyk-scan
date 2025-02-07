@@ -46,6 +46,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | product_not_loaded | Din păcate, nu au fost încărcate informații despre produs. | ok | 45 |
 | err_code | Cod de eroare | ok | 46 |
 | system_busy | Sistemul este ocupat, vă rugăm să încercați din nou mai târziu. | ok | 47 |
+| leaflet_print_title | Informații tipărite |  | 61 |
+| leaflet_print_description | Informațiile selectate curente vor fi tipărite ca PDF. |  | 62 |
+| leaflet_print_description2 | Doriți să continuați? |  | 63 |
+| leaflet_print_button | Procedează |  | 64 |
+| leaflet_print_button_back | Întoarce-te |  | 65 |
 | document_modal_title | Vă rugăm să alegeți |  | 66 |
 | document_modal_message | Vă rugăm să selectați ce document este de afișat |  | 67 |
 | document_patient_info | Informații despre pacient |  | 68 |

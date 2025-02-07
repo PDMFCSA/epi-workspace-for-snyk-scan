@@ -230,6 +230,11 @@ button:not([disabled]) {
     font-weight: bold;
 }
 
+.data-wrapper .row [data-attr] {
+    display: flex;
+   align-items: flex-end;
+}
+
 #list-of-excipients > p {
     margin-top: 0px !important;
     /* margin-left: 1rem; */

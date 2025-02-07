@@ -46,6 +46,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | product_not_loaded | Δυστυχώς, δεν έχει φορτωθεί καμία πληροφορία για το προϊόν. | ok | 45 |
 | err_code | Σφάλμα κωδικού | ok | 46 |
 | system_busy | Το σύστημα είναι απασχολημένο (δεν μπορεί να σας εξυπηρετήσει), δοκιμάστε ξανά αργότερα. | ok | 47 |
+| leaflet_print_title | Πληροφορίες εκτύπωσης |  | 61 |
+| leaflet_print_description | Οι τρέχουσες επιλεγμένες πληροφορίες θα εκτυπωθούν ως PDF. |  | 62 |
+| leaflet_print_description2 | Θέλετε να προχωρήσετε; |  | 63 |
+| leaflet_print_button | Προχωρώ |  | 64 |
+| leaflet_print_button_back | Πάω πίσω |  | 65 |
 | document_modal_title | Επιλέξτε |  | 66 |
 | document_modal_message | Επιλέξτε ποιο έγγραφο θα εμφανιστεί |  | 67 |
 | document_patient_info | Πληροφορίες ασθενούς |  | 68 |

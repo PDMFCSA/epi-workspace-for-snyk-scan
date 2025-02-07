@@ -50,6 +50,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_incorrect_date_title | Incorrect date |  | 50 |
 | leaflet_incorrect_date_subtitle | Scanned date is incorrect |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; This product's date is incorrect&lt;/b&gt;. |  | 52 |
+| leaflet_print_title | Print Information |  | 61 |
+| leaflet_print_description | The current selected information will be printed as PDF. |  | 62 |
+| leaflet_print_description2 | Do you want to proceed? |  | 63 |
+| leaflet_print_button | Proceed |  | 64 |
+| leaflet_print_button_back | Go back |  | 65 |
 | document_modal_title | Please Choose |  | 66 |
 | document_modal_message | Please select which document to display |  | 67 |
 | document_patient_info | Patient Information |  | 68 |

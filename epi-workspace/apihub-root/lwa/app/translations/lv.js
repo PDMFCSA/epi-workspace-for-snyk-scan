@@ -292,7 +292,12 @@ const data = {
   "country_eh": "Rietumu Sahara",
   "country_ye": "Jemena",
   "country_zm": "Zambija",
-  "country_zw": "Zimbabve"
+  "country_zw": "Zimbabve",
+  "leaflet_print_title": "Drukas informācija",
+  "leaflet_print_description": "Pašreizējā atlasītā informācija tiks izdrukāta kā PDF.",
+  "leaflet_print_description2": "Vai vēlaties turpināt?",
+  "leaflet_print_button": "Turpināt",
+  "leaflet_print_button_back": "Atgriezties"
 }
 
 export default data;

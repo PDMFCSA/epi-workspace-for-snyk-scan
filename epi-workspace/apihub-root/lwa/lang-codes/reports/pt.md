@@ -49,6 +49,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_incorrect_date_title | Incorrect date |  | 50 |
 | leaflet_incorrect_date_subtitle | Scanned date is incorrect |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; This product's date is incorrect&lt;/b&gt;. |  | 52 |
+| leaflet_print_title | Informações de impressão |  | 61 |
+| leaflet_print_description | As informações selecionadas atuais serão impressas como PDF. |  | 62 |
+| leaflet_print_description2 | Você quer prosseguir? |  | 63 |
+| leaflet_print_button | Prosseguir |  | 64 |
+| leaflet_print_button_back | Volte |  | 65 |
 | document_modal_title | Por favor, escolha |  | 66 |
 | document_modal_message | Selecione qual documento exibir |  | 67 |
 | document_patient_info | Informação do paciente |  | 68 |

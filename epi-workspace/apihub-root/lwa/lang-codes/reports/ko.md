@@ -50,6 +50,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_incorrect_date_title | 잘못된 날짜 |  | 50 |
 | leaflet_incorrect_date_subtitle | 스캔한 날짜가 잘못되었습니다 |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt;이 제품의 날짜가 잘못되었습니다&lt;/b&gt;. |  | 52 |
+| leaflet_print_title | 인쇄 정보 |  | 61 |
+| leaflet_print_description | 현재 선택된 정보는 PDF로 인쇄됩니다. |  | 62 |
+| leaflet_print_description2 | 진행 하시겠습니까? |  | 63 |
+| leaflet_print_button | 진행하다 |  | 64 |
+| leaflet_print_button_back | 돌아 가라 |  | 65 |
 | document_modal_title | 선택하십시오 |  | 66 |
 | document_modal_message | 표시 할 문서를 선택하십시오 |  | 67 |
 | document_patient_info | 환자 정보 |  | 68 |

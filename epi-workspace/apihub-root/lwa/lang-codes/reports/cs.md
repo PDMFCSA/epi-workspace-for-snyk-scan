@@ -46,6 +46,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | product_not_loaded | Bohužel nebyly načteny žádné informace o přípravku. | ok | 45 |
 | err_code | Chybný kód | ok | 46 |
 | system_busy | Systém je zatížený, zkuste to, prosím, později. | ok | 47 |
+| leaflet_print_title | Informace o tisku |  | 61 |
+| leaflet_print_description | Aktuální vybrané informace budou vytištěny jako PDF. |  | 62 |
+| leaflet_print_description2 | Chcete pokračovat? |  | 63 |
+| leaflet_print_button | Pokračovat |  | 64 |
+| leaflet_print_button_back | Vraťte se |  | 65 |
 | document_modal_title | Vyberte |  | 66 |
 | document_modal_message | Vyberte prosím, který dokument se má zobrazit |  | 67 |
 | document_patient_info | Informace o pacientu |  | 68 |

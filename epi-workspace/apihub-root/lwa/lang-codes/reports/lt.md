@@ -50,6 +50,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_incorrect_date_title | Incorrect date |  | 50 |
 | leaflet_incorrect_date_subtitle | Scanned date is incorrect |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; This product's date is incorrect&lt;/b&gt;. |  | 52 |
+| leaflet_print_title | Spausdinti informaciją |  | 61 |
+| leaflet_print_description | Dabartinė pasirinkta informacija bus atspausdinta kaip PDF. |  | 62 |
+| leaflet_print_description2 | Ar norite tęsti? |  | 63 |
+| leaflet_print_button | Tęsk |  | 64 |
+| leaflet_print_button_back | Grįžk atgal |  | 65 |
 | document_modal_title | Prašau pasirinkti |  | 66 |
 | document_modal_message | Pasirinkite, kurį dokumentą rodyti |  | 67 |
 | document_patient_info | Informacija apie pacientą |  | 68 |

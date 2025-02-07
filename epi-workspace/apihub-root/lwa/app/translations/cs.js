@@ -292,7 +292,12 @@ const data = {
   "country_eh": "Western Sahara",
   "country_ye": "Jemen",
   "country_zm": "Zambie",
-  "country_zw": "Zimbabwe"
+  "country_zw": "Zimbabwe",
+  "leaflet_print_title": "Informace o tisku",
+  "leaflet_print_description": "Aktuální vybrané informace budou vytištěny jako PDF.",
+  "leaflet_print_description2": "Chcete pokračovat?",
+  "leaflet_print_button": "Pokračovat",
+  "leaflet_print_button_back": "Vraťte se"
 }
 
 export default data;

@@ -46,6 +46,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | product_not_loaded | За съжаление не е заредена информация за продукта. | ok | 45 |
 | err_code | Код за грешка | ok | 46 |
 | system_busy | Системата е претоварена, моля, опитайте отново по-късно. | ok | 47 |
+| leaflet_print_title | Информация за отпечатване |  | 61 |
+| leaflet_print_description | Текущата избрана информация ще бъде отпечатана като PDF. |  | 62 |
+| leaflet_print_description2 | Искате ли да продължите? |  | 63 |
+| leaflet_print_button | Продължете |  | 64 |
+| leaflet_print_button_back | Върнете се |  | 65 |
 | document_modal_title | Моля, изберете |  | 66 |
 | document_modal_message | Моля, изберете кой документ да се покаже |  | 67 |
 | document_patient_info | Информация за пациента |  | 68 |

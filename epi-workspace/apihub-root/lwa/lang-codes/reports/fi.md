@@ -46,6 +46,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | product_not_loaded | Valitettavasti tuotetietoja ei ole ladattu. | ok | 45 |
 | err_code | Virhekoodi | ok | 46 |
 | system_busy | Järjestelmä on kiireinen, yritä myöhemmin uudelleen. | ok | 47 |
+| leaflet_print_title | Tulostustiedot |  | 61 |
+| leaflet_print_description | Nykyiset valitut tiedot tulostetaan PDF: ksi. |  | 62 |
+| leaflet_print_description2 | Haluatko edetä? |  | 63 |
+| leaflet_print_button | Edetä |  | 64 |
+| leaflet_print_button_back | Palata |  | 65 |
 | document_modal_title | Valitse |  | 66 |
 | document_modal_message | Valitse näytettävä asiakirja |  | 67 |
 | document_patient_info | Potilastieto |  | 68 |

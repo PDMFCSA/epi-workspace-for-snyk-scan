@@ -50,13 +50,18 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_incorrect_date_title |  |  | 50 |
 | leaflet_incorrect_date_subtitle |  |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; &lt;/b&gt;. |  | 52 |
+| leaflet_print_title | Informationen drucken |  | 61 |
+| leaflet_print_description | Die aktuellen ausgewählten Informationen werden als PDF gedruckt. |  | 62 |
+| leaflet_print_description2 | Möchten Sie fortfahren? |  | 63 |
+| leaflet_print_button | Fortfahren |  | 64 |
+| leaflet_print_button_back | Geh zurück |  | 65 |
 | document_modal_title | Bitte wählen Sie |  | 66 |
 | document_modal_message | Bitte wählen Sie aus, welches Dokument angezeigt werden soll |  | 67 |
 | document_patient_info | Patienteninformationen |  | 68 |
 | document_product_info | Produktinformationen für Patienten |  | 69 |
 | document_lang_select_message | Produktinformationen sind nur in Englisch verfügbar |  | 70 |
 | document_lang_select_title | Beachten |  | 71 |
-| document_prescribing_info | Verschreibung von Informationen für Angehörige der Gesundheitsberufe |  | 72 |
+| document_prescribing_info | Information für medizinisches Fachpersonal |  | 72 |
 | epi_markets_modal_title | Wählen Sie Land aus |  | 73 |
 | epi_markets_modal_message | Bitte wählen Sie Ihr Land aus |  | 74 |
 | epi_markets_modal_no_market | Kein Land |  | 75 |

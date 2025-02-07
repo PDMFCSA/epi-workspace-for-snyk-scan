@@ -296,7 +296,12 @@ const data = {
   "country_eh": "Western Sahara",
   "country_ye": "Yemen",
   "country_zm": "Zambia",
-  "country_zw": "Zimbabwe"
+  "country_zw": "Zimbabwe",
+  "leaflet_print_title": "Print Information",
+  "leaflet_print_description": "The current selected information will be printed as PDF.",
+  "leaflet_print_description2": "Do you want to proceed?",
+  "leaflet_print_button": "Proceed",
+  "leaflet_print_button_back": "Go back"
 }
 
 export default data;

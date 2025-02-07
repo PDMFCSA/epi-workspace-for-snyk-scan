@@ -296,7 +296,12 @@ const data = {
   "country_eh": "Zahodna Sahara",
   "country_ye": "Jemen",
   "country_zm": "Zambija",
-  "country_zw": "Zimbabve"
+  "country_zw": "Zimbabve",
+  "leaflet_print_title": "Informacije o tiskanju",
+  "leaflet_print_description": "Trenutni izbrani podatki bodo natisnjeni kot PDF.",
+  "leaflet_print_description2": "Ali želite nadaljevati?",
+  "leaflet_print_button": "Nadaljevati",
+  "leaflet_print_button_back": "Pojdi nazaj"
 }
 
 export default data;

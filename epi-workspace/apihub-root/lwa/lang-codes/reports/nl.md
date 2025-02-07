@@ -50,6 +50,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_incorrect_date_title |  |  | 50 |
 | leaflet_incorrect_date_subtitle |  |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; &lt;/b&gt;. |  | 52 |
+| leaflet_print_title | Informatie afdrukken |  | 61 |
+| leaflet_print_description | De huidige geselecteerde informatie wordt afgedrukt als PDF. |  | 62 |
+| leaflet_print_description2 | Wil je doorgaan? |  | 63 |
+| leaflet_print_button | Doorgaan |  | 64 |
+| leaflet_print_button_back | Teruggaan |  | 65 |
 | document_modal_title | Kies alstublieft |  | 66 |
 | document_modal_message | Selecteer welk document moet worden weergegeven |  | 67 |
 | document_patient_info | Patiëntinformatie |  | 68 |

@@ -50,7 +50,7 @@ const data = {
   "document_product_info": "Produktinformationen für Patienten",
   "document_lang_select_message": "Produktinformationen sind nur in Englisch verfügbar",
   "document_lang_select_title": "Beachten",
-  "document_prescribing_info": "Verschreibung von Informationen für Angehörige der Gesundheitsberufe",
+  "document_prescribing_info": "Information für medizinisches Fachpersonal",
   "epi_markets_modal_title": "Wählen Sie Land aus",
   "epi_markets_modal_message": "Bitte wählen Sie Ihr Land aus",
   "epi_markets_modal_no_market": "Kein Land",
@@ -296,7 +296,12 @@ const data = {
   "country_eh": "Westsahara",
   "country_ye": "Jemen",
   "country_zm": "Sambia",
-  "country_zw": "Simbabwe"
+  "country_zw": "Simbabwe",
+  "leaflet_print_title": "Informationen drucken",
+  "leaflet_print_description": "Die aktuellen ausgewählten Informationen werden als PDF gedruckt.",
+  "leaflet_print_description2": "Möchten Sie fortfahren?",
+  "leaflet_print_button": "Fortfahren",
+  "leaflet_print_button_back": "Geh zurück"
 }
 
 export default data;

@@ -292,7 +292,12 @@ const data = {
   "country_eh": "Länsi -Sahara",
   "country_ye": "Jemenit",
   "country_zm": "Sambia",
-  "country_zw": "Zimbabwe"
+  "country_zw": "Zimbabwe",
+  "leaflet_print_title": "Tulostustiedot",
+  "leaflet_print_description": "Nykyiset valitut tiedot tulostetaan PDF: ksi.",
+  "leaflet_print_description2": "Haluatko edetä?",
+  "leaflet_print_button": "Edetä",
+  "leaflet_print_button_back": "Palata"
 }
 
 export default data;

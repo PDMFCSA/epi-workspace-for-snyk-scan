@@ -292,7 +292,12 @@ const data = {
   "country_eh": "Западна Сахара",
   "country_ye": "Йемен",
   "country_zm": "Замбия",
-  "country_zw": "Зимбабве"
+  "country_zw": "Зимбабве",
+  "leaflet_print_title": "Информация за отпечатване",
+  "leaflet_print_description": "Текущата избрана информация ще бъде отпечатана като PDF.",
+  "leaflet_print_description2": "Искате ли да продължите?",
+  "leaflet_print_button": "Продължете",
+  "leaflet_print_button_back": "Върнете се"
 }
 
 export default data;

@@ -46,6 +46,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | product_not_loaded | Desværre er der ikke indlæst nogen produktinformation. | ok | 45 |
 | err_code | Fejlkode | ok | 46 |
 | system_busy | Systemet er optaget, prøv venligst igen senere. | ok | 47 |
+| leaflet_print_title | Udskriv information |  | 61 |
+| leaflet_print_description | De aktuelle valgte oplysninger udskrives som PDF. |  | 62 |
+| leaflet_print_description2 | Vil du fortsætte? |  | 63 |
+| leaflet_print_button | Fortsætte |  | 64 |
+| leaflet_print_button_back | Gå tilbage |  | 65 |
 | document_modal_title | Vælg venligst |  | 66 |
 | document_modal_message | Vælg hvilket dokument der skal vises |  | 67 |
 | document_patient_info | Patientinformation |  | 68 |

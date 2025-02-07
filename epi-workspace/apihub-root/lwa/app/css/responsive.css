@@ -636,7 +636,10 @@ b {
 
 .modal-content .radio-item-container .radio-label {
     flex-grow: 1;
-    word-break: keep-all;
+    /* 
+        word-break: keep-all;
+        removed by sonja request 
+    */
     text-align: left;
 }
 

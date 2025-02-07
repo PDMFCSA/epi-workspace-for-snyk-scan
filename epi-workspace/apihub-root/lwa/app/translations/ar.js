@@ -296,7 +296,12 @@ const data = {
   "country_eh": "الصحراء الغربية",
   "country_ye": "اليمن",
   "country_zm": "زامبيا",
-  "country_zw": "زيمبابوي"
+  "country_zw": "زيمبابوي",
+  "leaflet_print_title": "معلومات الطباعة",
+  "leaflet_print_description": "سيتم طباعة المعلومات المحددة الحالية على أنها PDF.",
+  "leaflet_print_description2": "هل تريد المتابعة؟",
+  "leaflet_print_button": "يتابع",
+  "leaflet_print_button_back": "عُد"
 }
 
 export default data;

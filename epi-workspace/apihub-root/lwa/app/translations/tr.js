@@ -292,7 +292,12 @@ const data = {
   "country_eh": "Batı Sahra",
   "country_ye": "Yemen",
   "country_zm": "Zambiya",
-  "country_zw": "Zimbabve"
+  "country_zw": "Zimbabve",
+  "leaflet_print_title": "Baskı Bilgileri",
+  "leaflet_print_description": "Mevcut seçilen bilgiler PDF olarak yazdırılacaktır.",
+  "leaflet_print_description2": "Devam etmek ister misin?",
+  "leaflet_print_button": "İlerlemek",
+  "leaflet_print_button_back": "Geri gitmek"
 }
 
 export default data;

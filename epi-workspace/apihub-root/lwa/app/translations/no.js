@@ -292,7 +292,12 @@ const data = {
   "country_eh": "Vestlige Sahara",
   "country_ye": "Jemen",
   "country_zm": "Zambia",
-  "country_zw": "Zimbabwe"
+  "country_zw": "Zimbabwe",
+  "leaflet_print_title": "Skriv ut informasjon",
+  "leaflet_print_description": "Den gjeldende valgte informasjonen vil bli skrevet ut som PDF.",
+  "leaflet_print_description2": "Vil du fortsette?",
+  "leaflet_print_button": "Fortsette",
+  "leaflet_print_button_back": "Gå tilbake"
 }
 
 export default data;

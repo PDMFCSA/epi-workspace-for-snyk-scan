@@ -296,7 +296,12 @@ const data = {
   "country_eh": "Nyugat -Szahara",
   "country_ye": "Jemen",
   "country_zm": "Zambia",
-  "country_zw": "Zimbabwé"
+  "country_zw": "Zimbabwé",
+  "leaflet_print_title": "Nyomtatási információk",
+  "leaflet_print_description": "Az aktuális kiválasztott információt PDF -ként nyomtatják ki.",
+  "leaflet_print_description2": "Szeretne folytatni?",
+  "leaflet_print_button": "Folytatódik",
+  "leaflet_print_button_back": "Visszamegy"
 }
 
 export default data;

@@ -296,7 +296,12 @@ const data = {
   "country_eh": "Vakarų Sachara",
   "country_ye": "Jemenas",
   "country_zm": "Zambija",
-  "country_zw": "Zimbabvė"
+  "country_zw": "Zimbabvė",
+  "leaflet_print_title": "Spausdinti informaciją",
+  "leaflet_print_description": "Dabartinė pasirinkta informacija bus atspausdinta kaip PDF.",
+  "leaflet_print_description2": "Ar norite tęsti?",
+  "leaflet_print_button": "Tęsk",
+  "leaflet_print_button_back": "Grįžk atgal"
 }
 
 export default data;

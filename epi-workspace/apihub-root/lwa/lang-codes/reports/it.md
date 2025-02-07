@@ -46,6 +46,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | product_not_loaded | Purtroppo nessuna informazione è stata caricata per questo prodotto. | ok | 45 |
 | err_code | Codice di errore. | ok | 46 |
 | system_busy | Il Sistema è occupato, prova di nuovo più tardi. | ok | 47 |
+| leaflet_print_title | Informazioni di stampa |  | 61 |
+| leaflet_print_description | Le attuali informazioni selezionate verranno stampate come PDF. |  | 62 |
+| leaflet_print_description2 | Vuoi procedere? |  | 63 |
+| leaflet_print_button | Procedere |  | 64 |
+| leaflet_print_button_back | Torna indietro |  | 65 |
 | document_modal_title | Si prega di scegliere |  | 66 |
 | document_modal_message | Seleziona quale documento da visualizzare |  | 67 |
 | document_patient_info | Informazioni sul paziente |  | 68 |

@@ -50,6 +50,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_incorrect_date_title | Incorrect date |  | 50 |
 | leaflet_incorrect_date_subtitle | Scanned date is incorrect |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; This product's date is incorrect&lt;/b&gt;. |  | 52 |
+| leaflet_print_title | Nyomtatási információk |  | 61 |
+| leaflet_print_description | Az aktuális kiválasztott információt PDF -ként nyomtatják ki. |  | 62 |
+| leaflet_print_description2 | Szeretne folytatni? |  | 63 |
+| leaflet_print_button | Folytatódik |  | 64 |
+| leaflet_print_button_back | Visszamegy |  | 65 |
 | document_modal_title | Kérjük, válasszon |  | 66 |
 | document_modal_message | Kérjük, válassza ki, hogy melyik dokumentumot jelenítse meg |  | 67 |
 | document_patient_info | Beteginformációk |  | 68 |

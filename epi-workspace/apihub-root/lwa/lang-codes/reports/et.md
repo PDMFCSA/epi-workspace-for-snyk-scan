@@ -46,6 +46,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | product_not_loaded | Kahjuks pole laaditud ühtegi tooteinfot. | ok | 45 |
 | err_code | Viga kood | ok | 46 |
 | system_busy | Süsteem on hõivatud, palun proovige hiljem uuesti. | ok | 47 |
+| leaflet_print_title | Trükiteave |  | 61 |
+| leaflet_print_description | Praegune valitud teave trükitakse PDF -na. |  | 62 |
+| leaflet_print_description2 | Kas soovite jätkata? |  | 63 |
+| leaflet_print_button | Harima |  | 64 |
+| leaflet_print_button_back | Tagasi minema |  | 65 |
 | document_modal_title | Palun valige |  | 66 |
 | document_modal_message | Palun valige, millist dokumenti kuvada |  | 67 |
 | document_patient_info | Patsientide teave |  | 68 |
