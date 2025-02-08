@@ -89523,6 +89523,7 @@ module.exports = function (thing, encoding, name) {
 
 /** @type {import('.')} */
 module.exports = [
+	'Float16Array',
 	'Float32Array',
 	'Float64Array',
 	'Int8Array',

@@ -122,7 +122,17 @@ class XMLDisplayService {
     xsltProcessor.importStylesheet(xslDoc);
     const ownerDocument = document.implementation.createDocument("", "epi", null);
     let resultDocument = xsltProcessor.transformToFragment(xmlDoc, ownerDocument);
-    return resultDocument;
+
+    return resultDocument ? 
+        this.fixHtmlTables(resultDocument) : resultDocument;
+  }
+
+  fixHtmlTables(htmlContent) {
+    const tables = htmlContent.querySelectorAll('table');
+    if(tables) 
+        tables.forEach(table => table.outerHTML = `<div class="table-container">${table.outerHTML}</div>`)
+  
+    return htmlContent
   }
 
   searchInHtml = function (searchQuery) {

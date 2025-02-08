@@ -314,7 +314,16 @@ class LeafletService {
 
         let requestWizard = new RequestWizard(timePerCall, totalWaitTime);
         try {
-          let leafletResponse = await requestWizard.fetchMeAResponse(targets, validateResponse);
+          let leafletResponse;
+          try {
+            leafletResponse = await requestWizard.fetchMeAResponse(targets, validateResponse);
+          } catch (error) {
+            if (!legacyMode) {
+              console.warn("Metadata not found. Retrying with legacy mode...");
+              return this.getLeafletMetadata(timePerCall, totalWaitTime, gto_TimePerCall, gto_TotalWaitTime, true).then(resolve).catch(reject);
+            }
+          }
+          
           if (!leafletResponse) {
             return reject({errorCode: constants.errorCodes.unknown_error});
           }

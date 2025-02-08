@@ -1,40 +1,136 @@
 @media print {
-               
     @page
     {
         size: portrait;
-        /* Changing the margin to show the page numbers works mostly perfect,
-        but on chrome it causes truncation for some reason...*/
-        /* margin: 50px 20px;  */
-        margin: 0.3in 1in 0.3in 1in !important;
+
         page-break-before: always !important;
+        margin-top: .3in;
+        margin-bottom: .3in; 
+        
+        @bottom-right {
+            content: counter(page) " / " counter(pages);
+            margin-bottom: .25in !important;
+        }
     }
 
-    body 
-    {
-        margin: 0px;  /* the margin on the content before printing */
-        height: unset;
-        color: black !important;
+    html, body {
+        margin: 0px !important;
+        padding: 0px !important;
     }
+    
+    body 
+    {     
+      margin: 0 !important;
+      height: unset;
+      color: black !important;
+      font-size: 12pt;
+    }
+
+    /*  body::after {
+        counter-reset: page;
+        content: counter(page) " / " counter(pages);
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        margin-right: 0.25in;
+
+    } */
     * {
-        -ms-overflow-style: none;  /* Internet Explorer 10+ */
-        scrollbar-width: none;  /* Firefox */
+        -ms-overflow-style: none;  
+        scrollbar-width: none; 
     }
     div, p, span {
         color: black !important;
     }
 
+    h1,h2 {
+        font-size: 14pt;
+    }
+
+    h3,h4 {
+        font-size: 13pt;
+    }
+
+    h3 + p {
+        margin-top: 0px;
+    }
+
+    table {
+        display: table !important;
+        page-break-inside: auto !important;
+        border: 1.5px solid black !important;
+        width: 100%;
+        border-collapse: collapse !important;  
+        font-size: 11pt;
+    }
+
+    caption {
+        font-size: 12pt;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    thead { 
+        display: table-header-group; 
+        width: 100%;
+    }
+
+    tbody {
+        display: table-row-group;
+        width: 100%;
+    }
+    tfooter {
+        display: table-footer-group;
+        width: 100%;
+    }
+    th {
+        font-weight: bold;
+        border: 1px solid black;
+        padding: 4px 8px;
+        font-size: 11pt;
+    }
+     colgroup col {
+        width: auto; 
+    } 
+
+    td {
+        border: 1px solid black;
+        padding: 4px 8px;
+        font-size: 11pt;
+    }
+
+    tr {
+        page-break-inside: avoid;
+    }
+
+    a {
+        word-break: break-all;
+        color: inherit !important;
+        text-decoration: none !important;
+      }
+
+    img {
+        max-width: 80% !important;
+        max-height: 80% !important;
+        display: block;
+        margin: 0 auto;
+    }
+
+    
     .container::-webkit-scrollbar {
         display: none;  /* Safari and Chrome */
     }
 
+    
+    .leaflet-accordion-item {
+        border: none !important;
+        padding: 0px !important;
+        box-sizing: border-box !important;
+    }
+
     .leaflet-accordion-item-content {
-        height: fit-content;
         display: block;
-        position: relative;
-        font-style: normal;
-        font-weight: 400;
-        overflow-x: auto;
+        border: none !important;
     }
 
     button {
@@ -53,45 +149,9 @@
     }
 
     #print-content {
+         unset: all;
         display: block !important;
     }
-
-    table {
-        page-break-inside: auto;
-        border: 2px solid black !important;
-        width: 100%;
-        border-collapse: collapse;  
-    }
-    thead { 
-        display: table-header-group; 
-    }
-    th {
-        font-weight: bold;
-        font-size: 12px;
-        padding: 8px;
-    }
-    td {
-        font-size: 12px;
-        border: 1px solid black;
-        padding: 8px;
-    }
-    tr {
-        page-break-inside: avoid;
-    }
-
-    a {
-        word-break: break-all;
-        color: inherit !important;
-        text-decoration: none !important;
-      }
-
-    img {
-        max-width: 80% !important;
-        max-height: 80% !important;
-        display: block;
-        margin: 0 auto;
-    }
-
 
     #recalled-bar {
         display: none;

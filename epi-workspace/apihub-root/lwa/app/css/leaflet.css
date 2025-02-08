@@ -51,9 +51,27 @@ button:not([disabled]) {
     width: 100%;
 }
 
-#leaflet-content table {
+#leaflet-content .table-container {
     display: block;
-    overflow-x: auto;
+    overflow-x: auto !important;
+    box-sizing: border-box;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+}
+
+#leaflet-content .table-container::-webkit-scrollbar {
+    width: 5px;
+}
+
+#leaflet-content table {
+    display: table;  
+    width: 100%;
+}
+
+@media(max-width: 768px) {
+    #leaflet-content table {
+        min-width: 768px !important;
+    } 
 }
 
 /* Force hidden content for images because xslt rule not working for safari < 16. */
@@ -89,6 +107,11 @@ button:not([disabled]) {
     display: none;
     margin-right: 5px;
     height: fit-content;
+    scrollbar-width: thin !important;
+}
+
+.leaflet-accordion-item-content::-webkit-scrollbar {
+    width: 5px !important;
 }
 
 .leaflet-accordion-item.active .leaflet-accordion-item-content {
@@ -131,6 +154,14 @@ button:not([disabled]) {
     padding: 5px;
     width: auto;
     height: 100%;
+}
+
+#settings-modal .modal-body {
+    scrollbar-width: thin !important;
+}
+
+#settings-modal .modal-body::-webkit-scrollbar {
+    width: 5px !important;
 }
 
 .settings-modal[dir="RTL"] .icon-title-container {
@@ -189,10 +220,16 @@ button:not([disabled]) {
     position: fixed;
     bottom: 10vh;
     width: 100%;
+
     box-sizing: border-box;
     left: 0;
     overflow-x: hidden;
     border: 3px solid #27494e;
+    /* to center 
+        left: 50%;
+        max-width: 768px;
+        transform: translate(-50%, -50%); 
+    */
 } 
 
 .leaflet-page #recalled-bar p {
