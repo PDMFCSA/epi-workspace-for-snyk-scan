@@ -106,7 +106,6 @@ function LeafletController() {
             this.metadata = data;
             if(typeof data.availableDocuments === 'string' && data.availableDocuments === "xml_found") {
                 this.selectedLanguage = this.getLanguageFromBrowser();
-                console.log(this.selectedLanguage);
                 return showDocumentModal(data);
             }
             showAvailableDocuments(data);
@@ -260,14 +259,17 @@ function LeafletController() {
             if (this.selectedDocument === DocumentsTypes.INFO) {
                 this.showModal("product-modal");
                 renderProductInformation(result);
+                this.loadPrintContent("product-modal");
                 return;
             }
             setTextDirectionForLanguage(this.selectedLanguage, "#settings-modal");
             this.showModal("settings-modal");
             renderLeaflet(result);
+            this.loadPrintContent("settings-modal");
             if (isExpired(this.expiry))
                 return showExpired(this.selectedLanguage);
             showRecalledMessage(result, this.selectedLanguage);
+            
         } catch (e) {
             console.error(e);
             goToErrorPage(constants.errorCodes.xml_parse_error, new Error("Unsupported format for XML file."))
@@ -397,7 +399,7 @@ function LeafletController() {
     this.getLanguageFromBrowser = function(){
         let browserLang = transformToISOStandardLangCode(navigator.language);
         browserLang = langSubtypesMap[browserLang.toLowerCase()] || browserLang;
-        return browserLang;
+        return browserLang.toLowerCase();
     }
 
     /**
@@ -548,29 +550,33 @@ function LeafletController() {
         document.querySelector(".proceed-button.no-leaflet").classList.add("hiddenElement");
     }
 
-    this.showPrintVersion = (modal = 'settings-modal') => {
-        const windowName = window.document.title;
+    this.loadPrintContent= (modal = 'settings-modal') => {
         const content =  document.querySelector(`#${modal} .content-to-print`);
         const printContent =  document.querySelector('#print-content');
+        content.querySelectorAll('[style], [nowrap]').forEach(element => {
+            element.removeAttribute('style');
+            element.removeAttribute('nowrap');
+            element.removeAttribute('xmlns');
+
+        });
+        printContent.innerHTML = "";
+        printContent.innerHTML = content.innerHTML;
+    }
+
+    this.showPrintVersion = (modal = 'settings-modal') => {
+        const windowName = window.document.title;
         window.onbeforeprint = (evt) => {
             if(!evt.target.document)
                 evt.target.document = {title: ""};
             evt.target.document.title = generateFileName();
             // removing html attributes to make table not responsive
-            content.querySelectorAll('[style], [nowrap]').forEach(element => {
-                element.removeAttribute('style');
-                element.removeAttribute('nowrap');
-                element.removeAttribute('xmlns');
-
-            });
-            printContent.innerHTML = content.innerHTML;
         }
         window.print();
         window.onafterprint = (evt) => {
             if(!evt.target.document)
                 evt.target.document = {title: ""};
             evt.target.document.title = windowName;
-            printContent.innerHTML = "";
+            // printContent.innerHTML = "";
         }
     };
 

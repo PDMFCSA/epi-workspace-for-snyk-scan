@@ -240,6 +240,23 @@ button:not([disabled]) {
     text-align: center;  
 }
 
+/* Zoom 200% */
+@media(max-width: 200px) {
+    .leaflet-page #recalled-bar p {
+        font-size: 2rem;       
+    }
+}
+
+/* Zoom at 250% */
+@media(max-width: 150px) {
+    .leaflet-page #recalled-bar {
+        bottom: 22.5vh;
+    } 
+    .leaflet-page #recalled-bar p {
+        font-size: 2rem;
+    }
+}
+
 #print-content {
     display: none;
 }
