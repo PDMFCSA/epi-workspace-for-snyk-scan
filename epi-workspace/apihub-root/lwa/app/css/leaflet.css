@@ -74,16 +74,23 @@ button:not([disabled]) {
     } 
 }
 
+#leaflet-content figure {
+    display: block;
+    margin: 0 auto;
+}
+
 /* Force hidden content for images because xslt rule not working for safari < 16. */
 #leaflet-content figure *:not(img) {
     display: none;
 }
 
 #leaflet-content img {
+    width: 100%;
+    height: auto !important;
     min-width: 100%;
-    min-width: -moz-available; /* WebKit-based browsers will ignore this. */
-    min-width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
-    min-width: fill-available;
+    min-width: -webkit-fill-available; /* For WebKit-based browsers (Chrome, Safari) */
+    min-width: -moz-available; /* For Mozilla-based browsers (Firefox) */
+    min-width: fill-available; /* For compatibility */
 }
 
 .leaflet-link {

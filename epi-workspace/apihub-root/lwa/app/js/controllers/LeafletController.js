@@ -136,7 +136,7 @@ function LeafletController() {
                 this.showLoader(false);
             }
 
-            showRecalledMessage(result);
+            // showRecalledMessage(result);
 
         }).catch(err => {
             console.error(err);
