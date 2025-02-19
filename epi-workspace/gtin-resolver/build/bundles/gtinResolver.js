@@ -6171,6 +6171,12 @@ function ModelBase(enclave, domain, subdomain, gtin) {
         return eventRecorder;
     }
 
+    this.refreshEventRecorder = () => {
+        eventRecorder = new EventRecorder(this.ensureDSUStructure);
+        return eventRecorder;
+    }
+
+
     this.getEnclave = () => {
         return enclave;
     }
@@ -6430,7 +6436,10 @@ function ModelBase(enclave, domain, subdomain, gtin) {
 
     this.persist = async (auditContext) => {
         if (eventRecorder) {
-            return await eventRecorder.execute(auditContext);
+            const result = await eventRecorder.execute(auditContext);
+
+            this.refreshEventRecorder();
+            return result;
             //at this point we should end batch on dsu...?!
         }
         throw new Error("Nothing to persist");
@@ -15470,6 +15479,8 @@ const lockApi = opendsu.loadApi("lock");
 const Lock = require("./Lock");
 const _lock = new Lock();
 
+let count = 0;
+
 async function acquireLock(resourceId, period) {
     const crypto = opendsu.loadApi("crypto");
     let secret = crypto.encodeBase58(crypto.generateRandom(32));
@@ -15490,6 +15501,8 @@ async function releaseLock(resourceId, secret) {
     try {
         await lockApi.unlockAsync(resourceId, secret);
     } catch (err) {
+        console.log('Release lock failed: ', err);
+        console.log('The lock will be released after the expiration period set at the beginning.');
         //if the unlock fails, the lock will be released after the expiration period set at the beginning.
     }
 }
