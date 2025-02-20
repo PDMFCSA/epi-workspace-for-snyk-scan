@@ -29,6 +29,11 @@ class XMLDisplayService {
     for(let section of sections) {
         const title = section.querySelector('h2')?.textContent;
         if(title) {
+
+            // fixing tab index
+            if(title.hasAttribute('tab-index')) {
+                console.log(title);
+            }
             const titleString = title.trimEnd().replace(/\s+/g, ' ').replace(/\s/g, '_').toLowerCase();
             if(titleString.includes(text)) {
                 const element = section.querySelector('.leaflet-accordion-item-content');
@@ -124,16 +129,58 @@ class XMLDisplayService {
     let resultDocument = xsltProcessor.transformToFragment(xmlDoc, ownerDocument);
 
     return resultDocument ? 
-        this.fixHtmlTables(resultDocument) : resultDocument;
+        this.fixHtml(resultDocument) : resultDocument;
   }
 
-  fixHtmlTables(htmlContent) {
+  /**
+   * Parsing html content
+   *
+   * @param {object} htmlContent
+   * @return {object} 
+   * @memberof XMLDisplayService
+   */
+  fixHtml(htmlContent) {
+    this.fixTables(htmlContent);
+    this.fixTitles(htmlContent);
+
+    return htmlContent
+  }
+
+  /**
+   * Fix tables containers 
+   *
+   * @param {object} htmlContent
+   * @return {void} 
+   * @memberof XMLDisplayService
+   */
+  fixTables(htmlContent) {
     const tables = htmlContent.querySelectorAll('table');
     if(tables) 
         tables.forEach(table => table.outerHTML = `<div class="table-container">${table.outerHTML}</div>`)
-  
-    return htmlContent
   }
+
+  
+  /**
+   * Fix tab index on section titles
+   *
+   * @param {object} xmlContent
+   * @return {void} 
+   * @memberof XMLDisplayService
+   */
+  fixTitles(htmlContent){
+        console.log(typeof htmlContent);
+        const sections = htmlContent.querySelectorAll(".leaflet-accordion-item");
+        for(let section of sections) {
+            const title = section.querySelector('h2');
+            if(title) {
+                // fixing tab index
+                if(title.hasAttribute('tabindex')) {
+                    title.removeAttribute('tabindex');
+                    section.setAttribute('tabindex', 0);
+                }
+            }     
+        }
+    }
 
   searchInHtml = function (searchQuery) {
     let domElement = document.querySelector(this.containerIdSelector);
