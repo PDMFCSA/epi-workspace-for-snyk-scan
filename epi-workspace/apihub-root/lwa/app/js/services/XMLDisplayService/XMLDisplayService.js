@@ -29,11 +29,6 @@ class XMLDisplayService {
     for(let section of sections) {
         const title = section.querySelector('h2')?.textContent;
         if(title) {
-
-            // fixing tab index
-            if(title.hasAttribute('tab-index')) {
-                console.log(title);
-            }
             const titleString = title.trimEnd().replace(/\s+/g, ' ').replace(/\s/g, '_').toLowerCase();
             if(titleString.includes(text)) {
                 const element = section.querySelector('.leaflet-accordion-item-content');
@@ -168,7 +163,6 @@ class XMLDisplayService {
    * @memberof XMLDisplayService
    */
   fixTitles(htmlContent){
-        console.log(typeof htmlContent);
         const sections = htmlContent.querySelectorAll(".leaflet-accordion-item");
         for(let section of sections) {
             const title = section.querySelector('h2');
