@@ -551,6 +551,9 @@ function LeafletController() {
     }
 
     this.loadPrintContent= (modal = 'settings-modal') => {
+        
+        setTextDirectionForLanguage(this.selectedLanguage, "#print-content");
+
         const content =  document.querySelector(`#${modal} .content-to-print`);
         const printContent =  document.querySelector('#print-content');
         content.querySelectorAll('[style], [nowrap]').forEach(element => {
