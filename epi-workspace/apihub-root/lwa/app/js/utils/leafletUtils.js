@@ -134,6 +134,10 @@ let renderLeaflet = function (leafletData) {
   let leafletImages = resultDocument.querySelectorAll("img");
   for (let image of leafletImages) {
     let imageSrc = image.getAttribute("src");
+
+    if(image.hasAttribute('alt'))
+        image.setAttribute('alt', (image.getAttribute('alt') || "").trim())
+
     let dataUrlRegex = new RegExp(/^\s*data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,[a-z0-9\!\$\&\'\,\(\)\*\+\,\;\=\-\.\_\~\:\@\/\?\%\s]*\s*$/i);
     if (!!imageSrc.match(dataUrlRegex) || imageSrc.startsWith("data:")) {
       //we don't alter already embedded images

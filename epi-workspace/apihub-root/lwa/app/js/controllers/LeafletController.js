@@ -266,9 +266,9 @@ function LeafletController() {
             this.showModal("settings-modal");
             renderLeaflet(result);
             this.loadPrintContent("settings-modal");
-            if (isExpired(this.expiry))
-                return showExpired(this.selectedLanguage);
             showRecalledMessage(result, this.selectedLanguage);
+            if (isExpired(this.expiry))
+                showExpired(this.selectedLanguage);  
             
         } catch (e) {
             console.error(e);
@@ -360,10 +360,6 @@ function LeafletController() {
         })
         container.appendChild(radionParent);
         this.showModal('documents-modal');
-        document.querySelector('#button-exit').addEventListener('click', () => {
-            const {protocol, host} = window.location; 
-            window.location.href = `${protocol}//${host}/${host.includes('localhost') ? 'lwa' : ''}`;
-        });
     };
 
     /**
@@ -554,12 +550,12 @@ function LeafletController() {
         
         setTextDirectionForLanguage(this.selectedLanguage, "#print-content");
 
-        const content =  document.querySelector(`#${modal} .content-to-print`);
+        const content =  document.querySelector(`#${modal} .content-to-print`).cloneNode(true);
         const printContent =  document.querySelector('#print-content');
         content.querySelectorAll('[style], [nowrap]').forEach(element => {
             element.removeAttribute('style');
             element.removeAttribute('nowrap');
-            element.removeAttribute('xmlns');
+            element.removeAttribute('xmlns');  
         });
         printContent.innerHTML = "";
         printContent.innerHTML = content.innerHTML;
@@ -594,8 +590,11 @@ function LeafletController() {
         });
         document.querySelector("#documents-modal #proceed-button").addEventListener("click", () => {
             this.setSelectedDocument();
-        })
-
+        });
+        document.querySelector('#product-modal #button-exit').addEventListener('click', () => {
+            const {protocol, host} = window.location; 
+            window.location.href = `${protocol}//${host}/${host.includes('localhost') ? 'lwa' : ''}`;
+        });
     }
 
     addEventListeners();
