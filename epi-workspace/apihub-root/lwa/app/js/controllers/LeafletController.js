@@ -312,7 +312,6 @@ function LeafletController() {
             return this.setSelectedDocument(documents[0].value);
 
         const modal = document.querySelector('#documents-modal');
-        console.log(modal);
         const container = modal.querySelector("#content-container");
         container.innerHTML = "";
         let selectedItem = null;
@@ -596,8 +595,7 @@ function LeafletController() {
             this.setSelectedDocument();
         });
         document.querySelector('#product-modal #button-exit').addEventListener('click', () => {
-            const {protocol, host} = window.location; 
-            window.location.href = `${protocol}//${host}/${host.includes('localhost') ? 'lwa' : ''}`;
+            goToPage("/scan.html")
         });
     }
 

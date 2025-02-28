@@ -33,7 +33,6 @@ const countries = [
     {"name": "Cameroon", "code": "CM"},
     {"name": "Canada", "code": "CA"},
     {"name": "Cape Verde", "code": "CV"},
-    // {"name": "Cayman Islands", "code": "KY"},
     {"name": "Central African Republic", "code": "CF"},
     {"name": "Chad", "code": "TD"},
     {"name": "Chile", "code": "CL"},
@@ -41,7 +40,7 @@ const countries = [
     {"name": "Colombia", "code": "CO"},
     {"name": "Comoros", "code": "KM"},
     {"name": "Congo, The Democratic Republic of the", "code": "CD"},
-    {"name": "Congo, Republic of the", "code": "CG"},  //* In 406, old value Congo
+    {"name": "Congo, Republic of the", "code": "CG"},  //* After 406, old value Congo
     {"name": "Costa Rica", "code": "CR"},
     {"name": "Croatia", "code": "HR"},
     {"name": "Cuba", "code": "CU"},
@@ -51,13 +50,14 @@ const countries = [
     {"name": "Djibouti", "code": "DJ"},
     {"name": "Dominica", "code": "DM"},
     {"name": "Dominican Republic", "code": "DO"},
-    {"name": "East Timor", "code": "TL"}, // In 406, old value Timor-leste
+    {"name": "East Timor", "code": "TL"}, // After 406, old value Timor-leste
     {"name": "Ecuador", "code": "EC"},
     {"name": "Egypt", "code": "EG"},
     {"name": "El Salvador", "code": "SV"},
     {"name": "Equatorial Guinea", "code": "GQ"},
     {"name": "Eritrea", "code": "ER"},
     {"name": "Estonia", "code": "EE"},
+    {"name": "Eswatini", "code": "SZ"}, // After 406, old value Swaziland
     {"name": "Ethiopia", "code": "ET"},
     {"name": "Fiji", "code": "FJ"},
     {"name": "Finland", "code": "FI"},
@@ -88,7 +88,7 @@ const countries = [
     {"name": "Ireland", "code": "IE"},
     {"name": "Israel", "code": "IL"},
     {"name": "Italy", "code": "IT"},
-    {"name": "Ivory Coast", "code": "CI"}, // In 406, old value Cote D'Ivoire 
+    {"name": "Ivory Coast", "code": "CI"}, // After 406, old value Cote D'Ivoire 
 
     {"name": "Jamaica", "code": "JM"},
     {"name": "Japan", "code": "JP"},
@@ -126,7 +126,7 @@ const countries = [
     {"name": "Moldova", "code": "MD"}, // After 406, old value Moldova, Republic of"
     {"name": "Monaco", "code": "MC"},
     {"name": "Mongolia", "code": "MN"},
-    {"name": "Montenegro", "code": "ME"},
+    {"name": "Montenegro", "code": "ME"}, // New 406
     {"name": "Morocco", "code": "MA"},
     {"name": "Mozambique", "code": "MZ"},
     {"name": "Myanmar", "code": "MM"},
@@ -168,7 +168,7 @@ const countries = [
     {"name": "Sao Tome and Principe", "code": "ST"},
     {"name": "Saudi Arabia", "code": "SA"},
     {"name": "Senegal", "code": "SN"},
-    {"name": "Serbia", "code": "RS"}, // After 406, Old value  Serbia and montenegro CS*
+    {"name": "Serbia", "code": "RS"}, // New 406 *
     {"name": "Seychelles", "code": "SC"},
     {"name": "Sierra Leone", "code": "SL"},
     {"name": "Singapore", "code": "SG"},
@@ -186,10 +186,10 @@ const countries = [
     {"name": "Sweden", "code": "SE"},
     {"name": "Switzerland", "code": "CH"},
     {"name": "Syria", "code": "SY"}, // After 406, old value is Syrian Arab Republic *
-    {"name": "Taiwan, Province of China", "code": "TW"}, // After 406, Old value is Taiwan, Province of China*
+    {"name": "Taiwan", "code": "TW"}, // After 406, Old value is Taiwan, Province of China*
 
     {"name": "Tajikistan", "code": "TJ"},
-    {"name": "Tanzania, United Republic of", "code": "TZ"}, // After 406, old value Tanzania, United Republic of *
+    {"name": "Tanzania", "code": "TZ"}, // After 406, old value Tanzania, United Republic of *
     {"name": "Thailand", "code": "TH"},
     {"name": "Togo", "code": "TG"},
     {"name": "Tonga", "code": "TO"},
@@ -215,53 +215,6 @@ const countries = [
     {"name": "Zimbabwe", "code": "ZW"}
 ];
 
-const epiCountries = [
-    {"name": "Bahrain", "code": "BH"},
-    {"name": "Belarus", "code": "BY"},
-    {"name": "Cambodia", "code": "KH"}, 
-    {"name": "Costa Rica", "code": "CR"},
-    {"name": "Ecuador", "code": "EC"},
-    {"name": "Egypt", "code": "EG"},
-    {"name": "Hong Kong", "code": "HK"},
-    {"name": "Indonesia", "code": "ID"},
-    {"name": "Iran, Islamic Republic Of", "code": "IR"},
-    {"name": "Jordan", "code": "JO"},
-    {"name": "Kuwait", "code": "KW"},
-    {"name": "Laos", "code": "LA"}, // After 406,  old value Lao People'S Democratic Republic*
-
-    {"name": "Malaysia", "code": "MY"},
-    {"name": "Myanmar", "code": "MM"},
-    {"name": "Nigeria", "code": "NG"},
-    {"name": "Oman", "code": "OM"},
-    {"name": "Pakistan", "code": "PK"},
-    {"name": "Panama", "code": "PA"},
-    {"name": "Qatar", "code": "QA"},
-    {"name": "Saudi Arabia", "code": "SA"},
-    {"name": "Singapore", "code": "SG"},
-    {"name": "South Sudan", "code": "SS"},
-    {"name": "Taiwan, Province of China", "code": "TW"},
-    {"name": "Turkey", "code": "TR"},
-    {"name": "Ukraine", "code": "UA"},
-    {"name": "United Arab Emirates", "code": "AE"},
-    {"name": "Yemen", "code": "YE"},
-];
-
-function getEpiList() {
-    return epiCountries;
-}
-
-function getEpiCountry() {
-    return epiCountries.find(country => country.code === code).name;
-}
-
-function getEpiAsVM() {
-    let result = [];
-    epiCountries.forEach(country => {
-        result.push({label: country.name, value: country.code});
-    });
-
-    return result;
-}
 
 function getList() {
     return countries;
@@ -282,8 +235,5 @@ function getCountry(code) {
 module.exports ={
     getList,
     getListAsVM,
-    getCountry,
-    getEpiList,
-    getEpiAsVM,
-    getEpiCountry
+    getCountry
 }

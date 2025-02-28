@@ -71,6 +71,7 @@ export default data;`;
 async function addKey(lang, key, str){
   const certified = getCertified();
   const certifiedKeys = Object.keys(certified);
+  key = key.toLowerCase();
   if (certifiedKeys.includes(key))
     throw new Error(`Trying to modify a certified translation ${key}`);
 
