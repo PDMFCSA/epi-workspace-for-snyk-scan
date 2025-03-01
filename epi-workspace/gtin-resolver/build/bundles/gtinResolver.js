@@ -3953,6 +3953,11 @@ function LeafletController(enclave, version) {
             return;
         }
 
+        if(batchNumber && epiType != "leaflet"){
+            res.send(400, `Invalid epi type: ${epiType}.`);
+            return;
+        }
+
         if (epiMarket) {
             try {
                 const country = getCountry(epiMarket);
@@ -6786,6 +6791,7 @@ let auditDemiurgeUserActionSchema = {
             "payload": {
                 "type": "object", "required": true,
                 "properties": {
+                    "action": {"type": "string", "required": true},
                     "userDID": {"type": "string", "required": true},
                     "userGroup": {"type": "string", "required": true}
                 }
@@ -6894,7 +6900,7 @@ function AuditService(enclave) {
         return enclave.getName();
     }
     this.auditBatch = async (auditId, batchPayload, context) => {
-        const pk = `${batchPayload.productCode}_${batchPayload.batch}`;
+        const pk = `${batchPayload.productCode}_${batchPayload.batchNumber}`;
         if (context && context.version) {
             //if we find a version in the context, that version is read from blockchain so we should keep it also into the database for UI reasons
             batchPayload.version = context.version;
