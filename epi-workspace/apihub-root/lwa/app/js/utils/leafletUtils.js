@@ -127,7 +127,9 @@ let validateLeafletFiles = function (htmlContent, leafletImages, uploadedImages)
 let renderLeaflet = function (leafletData) {
     
   document.querySelector(".product-name").innerText = leafletData.productData.inventedName || leafletData.productData.name;
-  document.querySelector(".product-description").innerText = leafletData.productData.nameMedicinalProduct || leafletData.productData.description;
+  let productDescriptionName = upperCaseProductDescriptionProductName(leafletData.productData.nameMedicinalProduct || leafletData.productData.description, leafletData.productData.inventedName || leafletData.productData.name);
+  document.querySelector(".product-description").innerText = productDescriptionName;
+
    /* document.querySelector(".leaflet-title-icon").classList.remove("hiddenElement");*/
   let xmlService = new XMLDisplayService("#leaflet-content");
   let resultDocument = xmlService.getHTMLFromXML(leafletData.xmlContent);
@@ -165,6 +167,11 @@ let renderLeaflet = function (leafletData) {
   document.querySelector(".loader-container").setAttribute('style', 'display:none');
   focusModalHeader();
 };
+
+const upperCaseProductDescriptionProductName = function (text , searchText) {
+  let regex = new RegExp(searchText, "gi");
+  return text.replace(regex, (match) => match.toUpperCase());
+}
 
 
 const renderProductInformation = function (result) {

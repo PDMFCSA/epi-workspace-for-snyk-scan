@@ -13,6 +13,7 @@ button:not([disabled]) {
     text-overflow: ellipsis;
     -ms-text-overflow:ellipsis;
     margin: 0;
+    text-transform: uppercase;
 }
 
 /*.product-description {
