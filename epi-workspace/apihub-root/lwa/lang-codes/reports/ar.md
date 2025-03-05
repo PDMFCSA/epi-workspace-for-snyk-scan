@@ -97,7 +97,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_bv | جزيرة بوفيت |  | 105 |
 | country_br | البرازيل |  | 106 |
 | country_io | أراضي المحيط الهندي البريطاني |  | 107 |
-| country_bn | بروناي داروسالام |  | 108 |
+| country_bn | بروناي |  | 108 |
 | country_bg | بلغاريا |  | 109 |
 | country_bf | بوركينا فاسو |  | 110 |
 | country_bi | بوروندي |  | 111 |
@@ -114,11 +114,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_cc | جزر كوكوس (كيلينغ) |  | 122 |
 | country_co | كولومبيا |  | 123 |
 | country_km | COMOROS |  | 124 |
-| country_cg | الكونغو |  | 125 |
+| country_cg | الكونغو ، جمهورية |  | 125 |
 | country_cd | الكونغو ، جمهورية الديمقراطية |  | 126 |
 | country_ck | كوك جزر |  | 127 |
 | country_cr | كوستاريكا |  | 128 |
-| country_ci | كوت ديفوار |  | 129 |
+| country_ci | ساحل العاج |  | 129 |
 | country_hr | كرواتيا |  | 130 |
 | country_cu | كوبا |  | 131 |
 | country_cy | قبرص |  | 132 |
@@ -180,21 +180,21 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_kz | كازاخستان |  | 188 |
 | country_ke | كينيا |  | 189 |
 | country_ki | كيريباتي |  | 190 |
-| COUNTRY_KP | كوريا ، جمهورية الشعب الديمقراطي |  | 191 |
-| COUNTRY_KR | كوريا ، جمهورية |  | 192 |
+| country_kp | كوريا الشمالية |  | 191 |
+| country_kr | كوريا الجنوبية |  | 192 |
 | country_kw | الكويت |  | 193 |
 | country_kg | قيرغيزستان |  | 194 |
-| COUNTRY_LA | جمهورية لاو الديمقراطية الشعبية |  | 195 |
-| COUNTRY_LV | لاتفيا |  | 196 |
+| country_la | لاوس |  | 195 |
+| country_lv | لاتفيا |  | 196 |
 | country_lb | لبنان |  | 197 |
 | country_ls | ليسوتو |  | 198 |
 | country_lr | ليبيريا |  | 199 |
-| country_ly | العربية الليبية Jamahiriya |  | 200 |
+| country_ly | ليبيا |  | 200 |
 | country_li | ليختنشتاين |  | 201 |
 | country_lt | ليتوانيا |  | 202 |
 | country_lu | لوكسمبورغ |  | 203 |
 | country_mo | ماكاو |  | 204 |
-| country_mk | مقدونيا ، جمهورية يوغسلاف السابقة |  | 205 |
+| country_mk | شمال مقدونيا |  | 205 |
 | country_mg | مدغشقر |  | 206 |
 | country_mw | ملاوي |  | 207 |
 | country_my | ماليزيا |  | 208 |
@@ -208,7 +208,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_yt | مايوت |  | 216 |
 | country_mx | المكسيك |  | 217 |
 | country_fm | ميكرونيزيا ، ولايات اتحادية |  | 218 |
-| country_md | مولدوفا ، جمهورية |  | 219 |
+| country_md | مولدوفا |  | 219 |
 | country_mc | موناكو |  | 220 |
 | country_mn | منغوليا |  | 221 |
 | country_ms | مونتسيرات |  | 222 |
@@ -245,7 +245,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_qa | قطر |  | 253 |
 | country_re | جمع شمل |  | 254 |
 | country_ro | رومانيا |  | 255 |
-| country_ru | الاتحاد الروسي |  | 256 |
+| country_ru | روسيا |  | 256 |
 | country_rw | رواندا |  | 257 |
 | country_sh | القديس هيلينا |  | 258 |
 | country_kn | سانت كيتس ونيفيس |  | 259 |
@@ -275,12 +275,12 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_sz | سوازيلاند |  | 283 |
 | country_se | السويد |  | 284 |
 | country_ch | سويسرا |  | 285 |
-| country_sy | الجمهورية العربية السورية |  | 286 |
-| country_tw | تايوان ، مقاطعة الصين |  | 287 |
+| country_sy | سوريا |  | 286 |
+| country_tw | تايوان |  | 287 |
 | country_tj | طاجيكستان |  | 288 |
-| country_tz | تنزانيا ، جمهورية موحدة |  | 289 |
+| country_tz | تنزانيا |  | 289 |
 | country_th | تايلاند |  | 290 |
-| country_tl | تيمور-ليشتي |  | 291 |
+| country_tl | تيمور الشرقية |  | 291 |
 | country_tg | توغو |  | 292 |
 | country_tk | توكيلاو |  | 293 |
 | country_to | تونغا |  | 294 |
@@ -308,3 +308,6 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_ye | اليمن |  | 316 |
 | country_zm | زامبيا |  | 317 |
 | country_zw | زيمبابوي |  | 318 |
+| country_me | الجبل الأسود |  | 319 |
+| country_rs | صربيا |  | 321 |
+| country_xk | كوسوفو |  | 322 |

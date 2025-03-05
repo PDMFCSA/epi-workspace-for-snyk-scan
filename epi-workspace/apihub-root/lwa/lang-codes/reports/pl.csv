@@ -88,7 +88,7 @@ papierowej ulotki dla pacjenta z informacjami o produkcie, którą zwykle można
 105,Wyspa Bouvet,,country_bv
 106,Brazylia,,country_br
 107,Terytorium Brytyjskiego Oceanu Indyjskiego,,country_io
-108,Brunei Darussalam,,country_bn
+108,Brunei,,country_bn
 109,Bułgaria,,country_bg
 110,Burkina Faso,,country_bf
 111,Burundi,,country_bi
@@ -105,11 +105,11 @@ papierowej ulotki dla pacjenta z informacjami o produkcie, którą zwykle można
 122,Wyspy Cocos (Keeling),,country_cc
 123,Kolumbia,,country_co
 124,Comoros,,country_km
-125,Kongo,,country_cg
+125,"Kongo, Republika",,country_cg
 126,"Kongo, demokratyczna Republika",,country_cd
 127,Wyspy kucharza,,country_ck
 128,Kostaryka,,country_cr
-129,Cote d'Ovoire,,country_ci
+129,Wybrzeże Kości Słoniowej,,country_ci
 130,Chorwacja,,country_hr
 131,Kuba,,country_cu
 132,Cypr,,country_cy
@@ -171,21 +171,21 @@ papierowej ulotki dla pacjenta z informacjami o produkcie, którą zwykle można
 188,Kazachstan,,country_kz
 189,Kenia,,country_ke
 190,Kiribati,,country_ki
-191,"Korea, demokratyczna Republika Ludowa",,COUNTRY_KP
-192,"Korea, Republika",,COUNTRY_KR
+191,Korea Północna,,country_kp
+192,Korea Południowa,,country_kr
 193,Kuwejt,,country_kw
 194,Kirgistan,,country_kg
-195,Demokratyczna Republika Lao People,,COUNTRY_LA
-196,Łotwa,,COUNTRY_LV
+195,Laos,,country_la
+196,Łotwa,,country_lv
 197,Liban,,country_lb
 198,Lesotho,,country_ls
 199,Liberia,,country_lr
-200,Libian Arab Jamahiriya,,country_ly
+200,Libia,,country_ly
 201,Liechtenstein,,country_li
 202,Litwa,,country_lt
 203,Luksemburg,,country_lu
 204,Makao,,country_mo
-205,"Macedonia, była Jugosłowiańska Republika",,country_mk
+205,Północna Macedonia,,country_mk
 206,Madagaskar,,country_mg
 207,Malawi,,country_mw
 208,Malezja,,country_my
@@ -199,7 +199,7 @@ papierowej ulotki dla pacjenta z informacjami o produkcie, którą zwykle można
 216,Mayotte,,country_yt
 217,Meksyk,,country_mx
 218,"Mikronezja, stany federacyjne",,country_fm
-219,"Mołdawia, Republika",,country_md
+219,Moldova,,country_md
 220,Monako,,country_mc
 221,Mongolia,,country_mn
 222,Montserrat,,country_ms
@@ -236,7 +236,7 @@ papierowej ulotki dla pacjenta z informacjami o produkcie, którą zwykle można
 253,Katar,,country_qa
 254,Zjazd,,country_re
 255,Rumunia,,country_ro
-256,Federacja Rosyjska,,country_ru
+256,Rosja,,country_ru
 257,Rwanda,,country_rw
 258,Saint Helena,,country_sh
 259,Saint Kitts i Nevis,,country_kn
@@ -266,12 +266,12 @@ papierowej ulotki dla pacjenta z informacjami o produkcie, którą zwykle można
 283,Suaziland,,country_sz
 284,Szwecja,,country_se
 285,Szwajcaria,,country_ch
-286,Syryjska Republika Arabska,,country_sy
-287,"Tajwan, prowincja Chin",,country_tw
+286,Syria,,country_sy
+287,Tajwan,,country_tw
 288,Tadżykistan,,country_tj
-289,"Tanzania, United Republic of",,country_tz
+289,Tanzania,,country_tz
 290,Tajlandia,,country_th
-291,TIMOR-WIELKA,,country_tl
+291,Timor wschodni,,country_tl
 292,Togo,,country_tg
 293,Tokelau,,country_tk
 294,Tonga,,country_to
@@ -299,3 +299,6 @@ papierowej ulotki dla pacjenta z informacjami o produkcie, którą zwykle można
 316,Jemen,,country_ye
 317,Zambia,,country_zm
 318,Zimbabwe,,country_zw
+319,Czarnogóra,,country_me
+321,Serbia,,country_rs
+322,Kosovo,,country_xk

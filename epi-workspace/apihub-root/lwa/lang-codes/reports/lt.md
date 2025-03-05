@@ -97,7 +97,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_bv | Bouveto sala |  | 105 |
 | country_br | Brazilija |  | 106 |
 | country_io | Britanijos Indijos vandenyno teritorija |  | 107 |
-| country_bn | Brunei Darussalam |  | 108 |
+| country_bn | Brunei |  | 108 |
 | country_bg | Bulgarija |  | 109 |
 | country_bf | Burkina Faso |  | 110 |
 | country_bi | Burundis |  | 111 |
@@ -114,11 +114,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_cc | Cocos (Keeling) salos |  | 122 |
 | country_co | Kolumbija |  | 123 |
 | country_km | Komoros |  | 124 |
-| country_cg | Kongo |  | 125 |
+| country_cg | Kongo Respublika |  | 125 |
 | country_cd | Kongo, Demokratinė Respublika |  | 126 |
 | country_ck | Kuko salos |  | 127 |
 | country_cr | Kosta Rika |  | 128 |
-| country_ci | Cote d'Voire |  | 129 |
+| country_ci | Dramblio Kaulo Krantas |  | 129 |
 | country_hr | Kroatija |  | 130 |
 | country_cu | Kuba |  | 131 |
 | country_cy | Kipras |  | 132 |
@@ -180,21 +180,21 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_kz | Kazachstanas |  | 188 |
 | country_ke | Kenija |  | 189 |
 | country_ki | Kiribati |  | 190 |
-| COUNTRY_KP | Korėja, Demokratinės liaudies Respublika |  | 191 |
-| COUNTRY_KR | Korėja, Respublika |  | 192 |
+| country_kp | Šiaurės Korėja |  | 191 |
+| country_kr | Pietų Korėja |  | 192 |
 | country_kw | Kuveitas |  | 193 |
 | country_kg | Kirgizija |  | 194 |
-| COUNTRY_LA | Laoso liaudies demokratinė respublika |  | 195 |
-| COUNTRY_LV | Latvija |  | 196 |
+| country_la | Laosas |  | 195 |
+| country_lv | Latvija |  | 196 |
 | country_lb | Libanas |  | 197 |
 | country_ls | Lesotas |  | 198 |
 | country_lr | Liberija |  | 199 |
-| country_ly | Libijos arabų Jamahiriya |  | 200 |
+| country_ly | Libija |  | 200 |
 | country_li | Lichtenšteinas |  | 201 |
 | country_lt | Lietuva |  | 202 |
 | country_lu | Liuksemburgas |  | 203 |
 | country_mo | Makao |  | 204 |
-| country_mk | Makedonija, buvusi Jugoslavijos Respublika |  | 205 |
+| country_mk | Šiaurės Makedonija |  | 205 |
 | country_mg | Madagaskaras |  | 206 |
 | country_mw | Malavis |  | 207 |
 | country_my | Malaizija |  | 208 |
@@ -208,7 +208,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_yt | Mayotte |  | 216 |
 | country_mx | Meksika |  | 217 |
 | country_fm | Mikronezija, federalinės valstybės |  | 218 |
-| country_md | Moldova, Respublika |  | 219 |
+| country_md | Moldova |  | 219 |
 | country_mc | Monakas |  | 220 |
 | country_mn | Mongolija |  | 221 |
 | country_ms | Montserratas |  | 222 |
@@ -245,7 +245,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_qa | Kataras |  | 253 |
 | country_re | Susivienijimas |  | 254 |
 | country_ro | Rumunija |  | 255 |
-| country_ru | Rusijos federacija |  | 256 |
+| country_ru | Rusija |  | 256 |
 | country_rw | Ruanda |  | 257 |
 | country_sh | Saint Helena |  | 258 |
 | country_kn | Saint Kitts ir Nevis |  | 259 |
@@ -275,12 +275,12 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_sz | Svazilandas |  | 283 |
 | country_se | Švedija |  | 284 |
 | country_ch | Šveicarija |  | 285 |
-| country_sy | Sirijos Arabų Respublika |  | 286 |
-| country_tw | Taivanas, Kinijos provincija |  | 287 |
+| country_sy | Sirija |  | 286 |
+| country_tw | Taivanas |  | 287 |
 | country_tj | Tadžikistanas |  | 288 |
-| country_tz | Tanzanija, Jungtinė Respublika |  | 289 |
+| country_tz | Tanzanija |  | 289 |
 | country_th | Tailandas |  | 290 |
-| country_tl | Timor-Leste |  | 291 |
+| country_tl | Rytų Timoras |  | 291 |
 | country_tg | Togo |  | 292 |
 | country_tk | Tokelau |  | 293 |
 | country_to | Tonga |  | 294 |
@@ -308,3 +308,6 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_ye | Jemenas |  | 316 |
 | country_zm | Zambija |  | 317 |
 | country_zw | Zimbabvė |  | 318 |
+| country_me | Juodkalnija |  | 319 |
+| country_rs | Serbija |  | 321 |
+| country_xk | Kosovas |  | 322 |

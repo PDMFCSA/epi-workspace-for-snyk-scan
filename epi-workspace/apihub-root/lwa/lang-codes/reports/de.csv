@@ -44,21 +44,21 @@ code,text,status,key
 50,,,leaflet_incorrect_date_title
 51,,,leaflet_incorrect_date_subtitle
 52,<b> </b>.,,leaflet_incorrect_date_message
-61,Informationen drucken,,leaflet_print_title
-62,Die aktuellen ausgewählten Informationen werden als PDF gedruckt.,,leaflet_print_description
+61,Dokument Drucken,,leaflet_print_title
+62,Das aktuelle Dokument wird als PDF gedruckt.,,leaflet_print_description
 63,Möchten Sie fortfahren?,,leaflet_print_description2
 64,Fortfahren,,leaflet_print_button
-65,Geh zurück,,leaflet_print_button_back
+65,Zurück,,leaflet_print_button_back
 66,Bitte wählen Sie,,document_modal_title
 67,"Bitte wählen Sie aus, welches Dokument angezeigt werden soll",,document_modal_message
 68,Patienteninformationen,,document_patient_info
 69,Produktinformationen für Patienten,,document_product_info
-70,Produktinformationen sind nur in Englisch verfügbar,,document_lang_select_message
-71,Beachten,,document_lang_select_title
+70,Produktinformationen sind nur in englischer Sprache verfügbar,,document_lang_select_message
+71,Hinweis,,document_lang_select_title
 72,Information für medizinisches Fachpersonal,,document_prescribing_info
 73,Wählen Sie Land aus,,epi_markets_modal_title
 74,Bitte wählen Sie Ihr Land aus,,epi_markets_modal_message
-75,Kein Land,,epi_markets_modal_no_market
+75,Keines dieser Länder,,epi_markets_modal_no_market
 76,Afghanistan,,country_af
 77,Ålandinseln,,country_ax
 78,Albanien,,country_al
@@ -91,7 +91,7 @@ code,text,status,key
 105,Bouvet Island,,country_bv
 106,Brasilien,,country_br
 107,Gebiet des britischen Indischen Ozeans,,country_io
-108,Brunei Darussalam,,country_bn
+108,Brunei,,country_bn
 109,Bulgarien,,country_bg
 110,Burkina Faso,,country_bf
 111,Burundi,,country_bi
@@ -108,11 +108,11 @@ code,text,status,key
 122,Cocos (Keeling) Inseln,,country_cc
 123,Kolumbien,,country_co
 124,Komoros,,country_km
-125,Kongo,,country_cg
+125,"Kongo, Republik der",,country_cg
 126,"Kongo, die Demokratische Republik der",,country_cd
 127,Kochinseln,,country_ck
 128,Costa Rica,,country_cr
-129,Cote d'Ivoire,,country_ci
+129,Elfenbeinküste,,country_ci
 130,Kroatien,,country_hr
 131,Kuba,,country_cu
 132,Zypern,,country_cy
@@ -174,21 +174,21 @@ code,text,status,key
 188,Kasachstan,,country_kz
 189,Kenia,,country_ke
 190,Kiribati,,country_ki
-191,"Korea, demokratische Volksrepublik von",,COUNTRY_KP
-192,"Korea, Republik von",,COUNTRY_KR
+191,Nordkorea,,country_kp
+192,Südkorea,,country_kr
 193,Kuwait,,country_kw
 194,Kirgisistan,,country_kg
-195,Lao Volks demokratische Republik,,COUNTRY_LA
-196,Lettland,,COUNTRY_LV
+195,Laos,,country_la
+196,Lettland,,country_lv
 197,Libanon,,country_lb
 198,Lesotho,,country_ls
 199,Liberia,,country_lr
-200,Libyan arabischer Jamahiriya,,country_ly
+200,Libyen,,country_ly
 201,Liechtenstein,,country_li
 202,Litauen,,country_lt
 203,Luxemburg,,country_lu
 204,Macao,,country_mo
-205,"Mazedonien, die ehemalige jugoslawische Republik von",,country_mk
+205,Nord -Mazedonien,,country_mk
 206,Madagaskar,,country_mg
 207,Malawi,,country_mw
 208,Malaysia,,country_my
@@ -202,7 +202,7 @@ code,text,status,key
 216,Mayotte,,country_yt
 217,Mexiko,,country_mx
 218,"Mikronesien, Föderierte Zustände von",,country_fm
-219,"Moldawien, Republik von",,country_md
+219,Moldawien,,country_md
 220,Monaco,,country_mc
 221,Mongolei,,country_mn
 222,Montserrat,,country_ms
@@ -239,7 +239,7 @@ code,text,status,key
 253,Katar,,country_qa
 254,Wiedervereinigung,,country_re
 255,Rumänien,,country_ro
-256,Russische Föderation,,country_ru
+256,Russland,,country_ru
 257,Ruanda,,country_rw
 258,Saint Helena,,country_sh
 259,Saint Kitts und Nevis,,country_kn
@@ -269,12 +269,12 @@ code,text,status,key
 283,Swasiland,,country_sz
 284,Schweden,,country_se
 285,Schweiz,,country_ch
-286,Syrische arabische Republik,,country_sy
-287,"Taiwan, Provinz China",,country_tw
+286,Syrien,,country_sy
+287,Taiwan,,country_tw
 288,Tadschikistan,,country_tj
-289,"Tansania, Vereinigte Republik von",,country_tz
+289,Tansania,,country_tz
 290,Thailand,,country_th
-291,Timor-Leste,,country_tl
+291,Osttimor,,country_tl
 292,Togo,,country_tg
 293,ToKelau,,country_tk
 294,Tonga,,country_to
@@ -302,3 +302,6 @@ code,text,status,key
 316,Jemen,,country_ye
 317,Sambia,,country_zm
 318,Simbabwe,,country_zw
+319,Montenegro,,country_me
+321,Serbien,,country_rs
+322,Kosovo,,country_xk

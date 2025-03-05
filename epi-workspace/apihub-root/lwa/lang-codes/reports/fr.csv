@@ -91,7 +91,7 @@ code,text,status,key
 105,Île Bouvet,,country_bv
 106,Brésil,,country_br
 107,Territoire britannique de l'océan Indien,,country_io
-108,Brunei Darussalam,,country_bn
+108,Brunei,,country_bn
 109,Bulgarie,,country_bg
 110,Burkina Faso,,country_bf
 111,Burundi,,country_bi
@@ -108,11 +108,11 @@ code,text,status,key
 122,Îles Cocos (Keeling),,country_cc
 123,Colombie,,country_co
 124,Comores,,country_km
-125,Congo,,country_cg
+125,"Congo, République du",,country_cg
 126,"Congo, la République démocratique du",,country_cd
 127,Îles cuisinées,,country_ck
 128,Costa Rica,,country_cr
-129,Coté d'ivoire,,country_ci
+129,Côte d'Ivoire,,country_ci
 130,Croatie,,country_hr
 131,Cuba,,country_cu
 132,Chypre,,country_cy
@@ -174,21 +174,21 @@ code,text,status,key
 188,Kazakhstan,,country_kz
 189,Kenya,,country_ke
 190,Kiribati,,country_ki
-191,"Corée, République populaire démocrate de",,COUNTRY_KP
-192,"Corée, République de",,COUNTRY_KR
+191,Corée du Nord,,country_kp
+192,Corée du Sud,,country_kr
 193,Koweit,,country_kw
 194,Kirghizistan,,country_kg
-195,République démocratique du peuple lao,,COUNTRY_LA
-196,Lettonie,,COUNTRY_LV
+195,Laos,,country_la
+196,Lettonie,,country_lv
 197,Liban,,country_lb
 198,Lesotho,,country_ls
 199,Libéria,,country_lr
-200,Jamahiriya arabe libyen,,country_ly
+200,Libye,,country_ly
 201,Liechtenstein,,country_li
 202,Lituanie,,country_lt
 203,Luxembourg,,country_lu
 204,Macao,,country_mo
-205,"Macédoine, ancienne République yougoslave",,country_mk
+205,Macédoine du Nord,,country_mk
 206,Madagascar,,country_mg
 207,Malawi,,country_mw
 208,Malaisie,,country_my
@@ -202,7 +202,7 @@ code,text,status,key
 216,Mayotte,,country_yt
 217,Mexique,,country_mx
 218,"Micronésie, états fédérés de",,country_fm
-219,"Moldavie, République de",,country_md
+219,Moldavie,,country_md
 220,Monaco,,country_mc
 221,Mongolie,,country_mn
 222,Montserrat,,country_ms
@@ -239,7 +239,7 @@ code,text,status,key
 253,Qatar,,country_qa
 254,Réunion,,country_re
 255,Roumanie,,country_ro
-256,Fédération de Russie,,country_ru
+256,Russie,,country_ru
 257,Rwanda,,country_rw
 258,Saint Helena,,country_sh
 259,Saint Kitts et Nevis,,country_kn
@@ -269,12 +269,12 @@ code,text,status,key
 283,Swaziland,,country_sz
 284,Suède,,country_se
 285,Suisse,,country_ch
-286,République arabe syrienne,,country_sy
-287,"Taïwan, province de Chine",,country_tw
+286,Syrie,,country_sy
+287,Taïwan,,country_tw
 288,Tadjikistan,,country_tj
-289,"Tanzanie, République unie de",,country_tz
+289,Tanzanie,,country_tz
 290,Thaïlande,,country_th
-291,Timor-Leste,,country_tl
+291,Timor oriental,,country_tl
 292,Aller,,country_tg
 293,Tokelau,,country_tk
 294,Tonga,,country_to
@@ -302,3 +302,6 @@ code,text,status,key
 316,Yémen,,country_ye
 317,Zambie,,country_zm
 318,Zimbabwe,,country_zw
+319,Monténégro,,country_me
+321,Serbie,,country_rs
+322,Kosovo,,country_xk

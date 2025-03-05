@@ -98,7 +98,7 @@ code,text,status,key
 105,Bouvet Island,,country_bv
 106,브라질,,country_br
 107,영국 인도양 영토,,country_io
-108,브루나이 다 루살람,,country_bn
+108,브루나이,,country_bn
 109,불가리아,,country_bg
 110,부르 키나 파소,,country_bf
 111,부룬디,,country_bi
@@ -115,11 +115,11 @@ code,text,status,key
 122,코코 (킬링) 섬,,country_cc
 123,콜롬비아,,country_co
 124,코 모로,,country_km
-125,콩고,,country_cg
+125,"콩고, 공화국",,country_cg
 126,"콩고, 민주 공화국",,country_cd
 127,쿡 제도,,country_ck
 128,코스타리카,,country_cr
-129,코트 디부 아르,,country_ci
+129,상아 해안,,country_ci
 130,크로아티아,,country_hr
 131,쿠바,,country_cu
 132,키프로스,,country_cy
@@ -181,21 +181,21 @@ code,text,status,key
 188,카자흐스탄,,country_kz
 189,케냐,,country_ke
 190,키리 바티,,country_ki
-191,"한국, 민주당 인민 공화국",,COUNTRY_KP
-192,"한국, 공화국",,COUNTRY_KR
+191,북한,,country_kp
+192,대한민국,,country_kr
 193,쿠웨이트,,country_kw
 194,키르기스스탄,,country_kg
-195,라오스 민주 공화국,,COUNTRY_LA
-196,라트비아,,COUNTRY_LV
+195,라오스,,country_la
+196,라트비아,,country_lv
 197,레바논,,country_lb
 198,레소토,,country_ls
 199,라이베리아,,country_lr
-200,리비아 아랍 자마 이리 야,,country_ly
+200,리비아,,country_ly
 201,리히텐슈타인,,country_li
 202,리투아니아,,country_lt
 203,룩셈부르크,,country_lu
 204,마카오,,country_mo
-205,"마케도니아, 전 유고 슬라비아 공화국",,country_mk
+205,노스 마케도니아,,country_mk
 206,마다가스카르,,country_mg
 207,말라위,,country_mw
 208,말레이시아,,country_my
@@ -209,7 +209,7 @@ code,text,status,key
 216,Mayotte,,country_yt
 217,멕시코,,country_mx
 218,"미크로네시아, 연합 상태",,country_fm
-219,"몰도바, 공화국",,country_md
+219,몰도바,,country_md
 220,모나코,,country_mc
 221,몽골리아,,country_mn
 222,Montserrat,,country_ms
@@ -246,7 +246,7 @@ code,text,status,key
 253,카타르,,country_qa
 254,재결합,,country_re
 255,루마니아,,country_ro
-256,러시아 연맹,,country_ru
+256,러시아 제국,,country_ru
 257,르완다,,country_rw
 258,세인트 헬레나,,country_sh
 259,세인트 키츠와 네비스,,country_kn
@@ -276,10 +276,10 @@ code,text,status,key
 283,스와질란드,,country_sz
 284,스웨덴,,country_se
 285,스위스,,country_ch
-286,시리아 아랍 공화국,,country_sy
-287,"대만, 중국 지방",,country_tw
+286,시리아,,country_sy
+287,대만,,country_tw
 288,타지키스탄,,country_tj
-289,"탄자니아, 연합 공화국",,country_tz
+289,탄자니아,,country_tz
 290,태국,,country_th
 291,동 티모르,,country_tl
 292,토고,,country_tg
@@ -309,3 +309,6 @@ code,text,status,key
 316,예멘 아랍 공화국,,country_ye
 317,잠비아,,country_zm
 318,짐바브웨,,country_zw
+319,몬테네그로,,country_me
+321,세르비아,,country_rs
+322,코소보,,country_xk

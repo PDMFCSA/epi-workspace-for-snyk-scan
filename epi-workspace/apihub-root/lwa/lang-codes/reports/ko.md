@@ -97,7 +97,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_bv | Bouvet Island |  | 105 |
 | country_br | 브라질 |  | 106 |
 | country_io | 영국 인도양 영토 |  | 107 |
-| country_bn | 브루나이 다 루살람 |  | 108 |
+| country_bn | 브루나이 |  | 108 |
 | country_bg | 불가리아 |  | 109 |
 | country_bf | 부르 키나 파소 |  | 110 |
 | country_bi | 부룬디 |  | 111 |
@@ -114,11 +114,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_cc | 코코 (킬링) 섬 |  | 122 |
 | country_co | 콜롬비아 |  | 123 |
 | country_km | 코 모로 |  | 124 |
-| country_cg | 콩고 |  | 125 |
+| country_cg | 콩고, 공화국 |  | 125 |
 | country_cd | 콩고, 민주 공화국 |  | 126 |
 | country_ck | 쿡 제도 |  | 127 |
 | country_cr | 코스타리카 |  | 128 |
-| country_ci | 코트 디부 아르 |  | 129 |
+| country_ci | 상아 해안 |  | 129 |
 | country_hr | 크로아티아 |  | 130 |
 | country_cu | 쿠바 |  | 131 |
 | country_cy | 키프로스 |  | 132 |
@@ -180,21 +180,21 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_kz | 카자흐스탄 |  | 188 |
 | country_ke | 케냐 |  | 189 |
 | country_ki | 키리 바티 |  | 190 |
-| COUNTRY_KP | 한국, 민주당 인민 공화국 |  | 191 |
-| COUNTRY_KR | 한국, 공화국 |  | 192 |
+| country_kp | 북한 |  | 191 |
+| country_kr | 대한민국 |  | 192 |
 | country_kw | 쿠웨이트 |  | 193 |
 | country_kg | 키르기스스탄 |  | 194 |
-| COUNTRY_LA | 라오스 민주 공화국 |  | 195 |
-| COUNTRY_LV | 라트비아 |  | 196 |
+| country_la | 라오스 |  | 195 |
+| country_lv | 라트비아 |  | 196 |
 | country_lb | 레바논 |  | 197 |
 | country_ls | 레소토 |  | 198 |
 | country_lr | 라이베리아 |  | 199 |
-| country_ly | 리비아 아랍 자마 이리 야 |  | 200 |
+| country_ly | 리비아 |  | 200 |
 | country_li | 리히텐슈타인 |  | 201 |
 | country_lt | 리투아니아 |  | 202 |
 | country_lu | 룩셈부르크 |  | 203 |
 | country_mo | 마카오 |  | 204 |
-| country_mk | 마케도니아, 전 유고 슬라비아 공화국 |  | 205 |
+| country_mk | 노스 마케도니아 |  | 205 |
 | country_mg | 마다가스카르 |  | 206 |
 | country_mw | 말라위 |  | 207 |
 | country_my | 말레이시아 |  | 208 |
@@ -208,7 +208,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_yt | Mayotte |  | 216 |
 | country_mx | 멕시코 |  | 217 |
 | country_fm | 미크로네시아, 연합 상태 |  | 218 |
-| country_md | 몰도바, 공화국 |  | 219 |
+| country_md | 몰도바 |  | 219 |
 | country_mc | 모나코 |  | 220 |
 | country_mn | 몽골리아 |  | 221 |
 | country_ms | Montserrat |  | 222 |
@@ -245,7 +245,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_qa | 카타르 |  | 253 |
 | country_re | 재결합 |  | 254 |
 | country_ro | 루마니아 |  | 255 |
-| country_ru | 러시아 연맹 |  | 256 |
+| country_ru | 러시아 제국 |  | 256 |
 | country_rw | 르완다 |  | 257 |
 | country_sh | 세인트 헬레나 |  | 258 |
 | country_kn | 세인트 키츠와 네비스 |  | 259 |
@@ -275,10 +275,10 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_sz | 스와질란드 |  | 283 |
 | country_se | 스웨덴 |  | 284 |
 | country_ch | 스위스 |  | 285 |
-| country_sy | 시리아 아랍 공화국 |  | 286 |
-| country_tw | 대만, 중국 지방 |  | 287 |
+| country_sy | 시리아 |  | 286 |
+| country_tw | 대만 |  | 287 |
 | country_tj | 타지키스탄 |  | 288 |
-| country_tz | 탄자니아, 연합 공화국 |  | 289 |
+| country_tz | 탄자니아 |  | 289 |
 | country_th | 태국 |  | 290 |
 | country_tl | 동 티모르 |  | 291 |
 | country_tg | 토고 |  | 292 |
@@ -308,3 +308,6 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_ye | 예멘 아랍 공화국 |  | 316 |
 | country_zm | 잠비아 |  | 317 |
 | country_zw | 짐바브웨 |  | 318 |
+| country_me | 몬테네그로 |  | 319 |
+| country_rs | 세르비아 |  | 321 |
+| country_xk | 코소보 |  | 322 |

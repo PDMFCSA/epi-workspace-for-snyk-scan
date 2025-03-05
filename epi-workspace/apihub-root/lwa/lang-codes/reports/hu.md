@@ -97,7 +97,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_bv | Bouvet -sziget |  | 105 |
 | country_br | Brazília |  | 106 |
 | country_io | Brit Indiai -óceán területe |  | 107 |
-| country_bn | Brunei Darussalam |  | 108 |
+| country_bn | Brunei |  | 108 |
 | country_bg | Bulgária |  | 109 |
 | country_bf | Burkina Faso |  | 110 |
 | country_bi | Burundi |  | 111 |
@@ -114,7 +114,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_cc | Cocos (Keeling) szigetek |  | 122 |
 | country_co | Colombia |  | 123 |
 | country_km | Komorók |  | 124 |
-| country_cg | Kongó |  | 125 |
+| country_cg | Kongó, a Köztársaság |  | 125 |
 | country_cd | Kongó, a Demokratikus Köztársaság |  | 126 |
 | country_ck | Cook -szigetek |  | 127 |
 | country_cr | Costa Rica |  | 128 |
@@ -180,21 +180,21 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_kz | Kazahsztán |  | 188 |
 | country_ke | Kenya |  | 189 |
 | country_ki | Kiribati |  | 190 |
-| COUNTRY_KP | Korea, Demokratikus Népköztársaság |  | 191 |
-| COUNTRY_KR | Korea, Köztársaság |  | 192 |
+| country_kp | Észak -Korea |  | 191 |
+| country_kr | Dél -Korea |  | 192 |
 | country_kw | Kuvait |  | 193 |
 | country_kg | Kirgizisztán |  | 194 |
-| COUNTRY_LA | Lao Népi Demokratikus Köztársaság |  | 195 |
-| COUNTRY_LV | Lettország |  | 196 |
+| country_la | Laosz |  | 195 |
+| country_lv | Lettország |  | 196 |
 | country_lb | Libanon |  | 197 |
 | country_ls | Lesotho |  | 198 |
 | country_lr | Libéria |  | 199 |
-| country_ly | Líbiai arab jamahiriya |  | 200 |
+| country_ly | Líbia |  | 200 |
 | country_li | Liechtenstein |  | 201 |
 | country_lt | Litvánia |  | 202 |
 | country_lu | Luxemburg |  | 203 |
 | country_mo | Makaó |  | 204 |
-| country_mk | Macedónia, a volt Jugoszláv Köztársaság |  | 205 |
+| country_mk | Észak -Macedónia |  | 205 |
 | country_mg | Madagaszkár |  | 206 |
 | country_mw | Malawi |  | 207 |
 | country_my | Malaysia |  | 208 |
@@ -208,7 +208,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_yt | Mayotte |  | 216 |
 | country_mx | Mexikó |  | 217 |
 | country_fm | Mikronézia, szövetségi államok |  | 218 |
-| country_md | Moldova, Köztársaság |  | 219 |
+| country_md | Moldova |  | 219 |
 | country_mc | Monacói |  | 220 |
 | country_mn | Mongólia |  | 221 |
 | country_ms | Montserrat |  | 222 |
@@ -245,7 +245,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_qa | Katar |  | 253 |
 | country_re | Újraegyesítés |  | 254 |
 | country_ro | Románia |  | 255 |
-| country_ru | Orosz szövetség |  | 256 |
+| country_ru | Oroszország |  | 256 |
 | country_rw | Ruanda |  | 257 |
 | country_sh | Szent Helena |  | 258 |
 | country_kn | Szent Kitts és Nevis |  | 259 |
@@ -275,12 +275,12 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_sz | Szigigaföld |  | 283 |
 | country_se | Svédország |  | 284 |
 | country_ch | Svájc |  | 285 |
-| country_sy | Szíriai Arab Köztársaság |  | 286 |
-| country_tw | Tajvan, Kína tartomány |  | 287 |
+| country_sy | Szíria |  | 286 |
+| country_tw | Tajvani |  | 287 |
 | country_tj | Tádzsikisztán |  | 288 |
-| country_tz | Tanzánia, Egyesült Köztársaság |  | 289 |
+| country_tz | Tanzánia |  | 289 |
 | country_th | Thaiföld |  | 290 |
-| country_tl | Timor-Leste |  | 291 |
+| country_tl | Kelet -Timor |  | 291 |
 | country_tg | Togó |  | 292 |
 | country_tk | Tokelau |  | 293 |
 | country_to | Tonga |  | 294 |
@@ -308,3 +308,6 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_ye | Jemen |  | 316 |
 | country_zm | Zambia |  | 317 |
 | country_zw | Zimbabwé |  | 318 |
+| country_me | Montenegró |  | 319 |
+| country_rs | Szerbia |  | 321 |
+| country_xk | Koszovó |  | 322 |

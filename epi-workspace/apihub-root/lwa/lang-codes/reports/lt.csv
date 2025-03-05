@@ -92,7 +92,7 @@ code,text,status,key
 105,Bouveto sala,,country_bv
 106,Brazilija,,country_br
 107,Britanijos Indijos vandenyno teritorija,,country_io
-108,Brunei Darussalam,,country_bn
+108,Brunei,,country_bn
 109,Bulgarija,,country_bg
 110,Burkina Faso,,country_bf
 111,Burundis,,country_bi
@@ -109,11 +109,11 @@ code,text,status,key
 122,Cocos (Keeling) salos,,country_cc
 123,Kolumbija,,country_co
 124,Komoros,,country_km
-125,Kongo,,country_cg
+125,Kongo Respublika,,country_cg
 126,"Kongo, Demokratinė Respublika",,country_cd
 127,Kuko salos,,country_ck
 128,Kosta Rika,,country_cr
-129,Cote d'Voire,,country_ci
+129,Dramblio Kaulo Krantas,,country_ci
 130,Kroatija,,country_hr
 131,Kuba,,country_cu
 132,Kipras,,country_cy
@@ -175,21 +175,21 @@ code,text,status,key
 188,Kazachstanas,,country_kz
 189,Kenija,,country_ke
 190,Kiribati,,country_ki
-191,"Korėja, Demokratinės liaudies Respublika",,COUNTRY_KP
-192,"Korėja, Respublika",,COUNTRY_KR
+191,Šiaurės Korėja,,country_kp
+192,Pietų Korėja,,country_kr
 193,Kuveitas,,country_kw
 194,Kirgizija,,country_kg
-195,Laoso liaudies demokratinė respublika,,COUNTRY_LA
-196,Latvija,,COUNTRY_LV
+195,Laosas,,country_la
+196,Latvija,,country_lv
 197,Libanas,,country_lb
 198,Lesotas,,country_ls
 199,Liberija,,country_lr
-200,Libijos arabų Jamahiriya,,country_ly
+200,Libija,,country_ly
 201,Lichtenšteinas,,country_li
 202,Lietuva,,country_lt
 203,Liuksemburgas,,country_lu
 204,Makao,,country_mo
-205,"Makedonija, buvusi Jugoslavijos Respublika",,country_mk
+205,Šiaurės Makedonija,,country_mk
 206,Madagaskaras,,country_mg
 207,Malavis,,country_mw
 208,Malaizija,,country_my
@@ -203,7 +203,7 @@ code,text,status,key
 216,Mayotte,,country_yt
 217,Meksika,,country_mx
 218,"Mikronezija, federalinės valstybės",,country_fm
-219,"Moldova, Respublika",,country_md
+219,Moldova,,country_md
 220,Monakas,,country_mc
 221,Mongolija,,country_mn
 222,Montserratas,,country_ms
@@ -240,7 +240,7 @@ code,text,status,key
 253,Kataras,,country_qa
 254,Susivienijimas,,country_re
 255,Rumunija,,country_ro
-256,Rusijos federacija,,country_ru
+256,Rusija,,country_ru
 257,Ruanda,,country_rw
 258,Saint Helena,,country_sh
 259,Saint Kitts ir Nevis,,country_kn
@@ -270,12 +270,12 @@ code,text,status,key
 283,Svazilandas,,country_sz
 284,Švedija,,country_se
 285,Šveicarija,,country_ch
-286,Sirijos Arabų Respublika,,country_sy
-287,"Taivanas, Kinijos provincija",,country_tw
+286,Sirija,,country_sy
+287,Taivanas,,country_tw
 288,Tadžikistanas,,country_tj
-289,"Tanzanija, Jungtinė Respublika",,country_tz
+289,Tanzanija,,country_tz
 290,Tailandas,,country_th
-291,Timor-Leste,,country_tl
+291,Rytų Timoras,,country_tl
 292,Togo,,country_tg
 293,Tokelau,,country_tk
 294,Tonga,,country_to
@@ -303,3 +303,6 @@ code,text,status,key
 316,Jemenas,,country_ye
 317,Zambija,,country_zm
 318,Zimbabvė,,country_zw
+319,Juodkalnija,,country_me
+321,Serbija,,country_rs
+322,Kosovas,,country_xk

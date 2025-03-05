@@ -88,7 +88,7 @@ code,text,status,key
 105,Bouveti saar,,country_bv
 106,Brasiilia,,country_br
 107,Briti India ookeani territoorium,,country_io
-108,Brunei Daussalam,,country_bn
+108,Brunei,,country_bn
 109,Bulgaaria,,country_bg
 110,Burkina Faso,,country_bf
 111,Burundi,,country_bi
@@ -105,11 +105,11 @@ code,text,status,key
 122,Cocos (Keeling) saared,,country_cc
 123,Colombia,,country_co
 124,Comiros,,country_km
-125,Kongo,,country_cg
+125,"Kongo, vabariik",,country_cg
 126,"Kongo, The Demokraatlik Vabariik",,country_cd
 127,Koka saared,,country_ck
 128,Costa Rica,,country_cr
-129,Cote d'Ivoire,,country_ci
+129,Elevandiluurannik,,country_ci
 130,Horvaatia,,country_hr
 131,Kuuba,,country_cu
 132,Küpros,,country_cy
@@ -171,21 +171,21 @@ code,text,status,key
 188,Kasahstan,,country_kz
 189,Keenia,,country_ke
 190,Kiribati,,country_ki
-191,"Korea, demokraatia rahva vabariik",,COUNTRY_KP
-192,"Korea, Vabariik",,COUNTRY_KR
+191,Põhja -Korea,,country_kp
+192,Lõuna -Korea,,country_kr
 193,Kuveit,,country_kw
 194,Kõrgõzstan,,country_kg
-195,Lao rahva demokraatlik vabariik,,COUNTRY_LA
-196,Läti,,COUNTRY_LV
+195,Laos,,country_la
+196,Läti,,country_lv
 197,Liibanon,,country_lb
 198,Lesotho,,country_ls
 199,Libeeria,,country_lr
-200,Liibüa araabia Jamahiriya,,country_ly
+200,Liibüa,,country_ly
 201,Liechtenstein,,country_li
 202,Leedu,,country_lt
 203,Luksemburg,,country_lu
 204,Aokao,,country_mo
-205,"Makedoonia, endine Jugoslaavia vabariik",,country_mk
+205,Põhja -Makedoonia,,country_mk
 206,Madagaskaar,,country_mg
 207,Malawi,,country_mw
 208,Malaisia,,country_my
@@ -199,7 +199,7 @@ code,text,status,key
 216,Mayotte,,country_yt
 217,Mehhiko,,country_mx
 218,"Mikroneesia, ühendatud olekud",,country_fm
-219,"Moldova, vabariik",,country_md
+219,Moldova,,country_md
 220,Monaco,,country_mc
 221,Mongoolia,,country_mn
 222,Montserrat,,country_ms
@@ -236,7 +236,7 @@ code,text,status,key
 253,Katar,,country_qa
 254,Taasühinemine,,country_re
 255,Rumeenia,,country_ro
-256,Venemaa föderatsioon,,country_ru
+256,Venemaa,,country_ru
 257,Rwanda,,country_rw
 258,Püha Helena,,country_sh
 259,Saint Kitts ja Nevis,,country_kn
@@ -266,12 +266,12 @@ code,text,status,key
 283,Svaasimaa,,country_sz
 284,Rootsi,,country_se
 285,Šveits,,country_ch
-286,Süüria Araabia Vabariik,,country_sy
-287,"Taiwan, Hiina provints",,country_tw
+286,Süüria,,country_sy
+287,Taiwan,,country_tw
 288,Tajikistan,,country_tj
-289,"Tansaania, Ühendatud Vabariik",,country_tz
+289,Tansaania,,country_tz
 290,Tai,,country_th
-291,Timor,,country_tl
+291,Ida -Timor,,country_tl
 292,Togo,,country_tg
 293,Tokelau,,country_tk
 294,Tong,,country_to
@@ -299,3 +299,6 @@ code,text,status,key
 316,Jeemen,,country_ye
 317,Sambia,,country_zm
 318,Zimbabwe,,country_zw
+319,Montenegro,,country_me
+321,Serbia,,country_rs
+322,Kosovo,,country_xk

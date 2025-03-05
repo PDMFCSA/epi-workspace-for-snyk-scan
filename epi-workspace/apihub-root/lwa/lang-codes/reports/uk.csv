@@ -91,7 +91,7 @@ code,text,status,key
 105,Острів Бувет,,country_bv
 106,Бразилія,,country_br
 107,Британська територія Індійського океану,,country_io
-108,Бруней Даруссалам,,country_bn
+108,Бруней,,country_bn
 109,Болгарія,,country_bg
 110,Буркіна Фасо,,country_bf
 111,Бурунді,,country_bi
@@ -108,11 +108,11 @@ code,text,status,key
 122,Кокос (кілінг) острови,,country_cc
 123,Колумбія,,country_co
 124,Комор,,country_km
-125,Конго,,country_cg
+125,"Конго, Республіка",,country_cg
 126,"Конго, демократична республіка",,country_cd
 127,Кухарські острови,,country_ck
 128,Коста -Ріка,,country_cr
-129,Cote d'ivoire,,country_ci
+129,Узбережжя слонової кістки,,country_ci
 130,Хорватія,,country_hr
 131,Куба,,country_cu
 132,Кіпр,,country_cy
@@ -174,21 +174,21 @@ code,text,status,key
 188,Казахстан,,country_kz
 189,Кенія,,country_ke
 190,Кірібаті,,country_ki
-191,"Корея, демократична народна республіка",,COUNTRY_KP
-192,"Корея, Республіка",,COUNTRY_KR
+191,Північна Корея,,country_kp
+192,Південна Корея,,country_kr
 193,Кувейт,,country_kw
 194,Киргизстан,,country_kg
-195,Народна демократична республіка Лао,,COUNTRY_LA
-196,Латвія,,COUNTRY_LV
+195,Лаос,,country_la
+196,Латвія,,country_lv
 197,Ліван,,country_lb
 198,Лесото,,country_ls
 199,Ліберія,,country_lr
-200,Лівійська арабська Джамахірія,,country_ly
+200,Лівія,,country_ly
 201,Ліхтенштейн,,country_li
 202,Литва,,country_lt
 203,Люксембург,,country_lu
 204,Макао,,country_mo
-205,"Македонія, колишня Югославська республіка",,country_mk
+205,Північна Македонія,,country_mk
 206,Мадагаскар,,country_mg
 207,Малаві,,country_mw
 208,Малайзія,,country_my
@@ -202,7 +202,7 @@ code,text,status,key
 216,Майотта,,country_yt
 217,Мексика,,country_mx
 218,"Мікронезія, федеративні держави",,country_fm
-219,"Молдова, Республіка",,country_md
+219,Молдова,,country_md
 220,Монако,,country_mc
 221,Монголія,,country_mn
 222,Монтсеррат,,country_ms
@@ -239,7 +239,7 @@ code,text,status,key
 253,Катар,,country_qa
 254,Возз'єднання,,country_re
 255,Румунія,,country_ro
-256,Російська федерація,,country_ru
+256,Росія,,country_ru
 257,Руанда,,country_rw
 258,Свята Гелена,,country_sh
 259,Сент -Кітс і Невіс,,country_kn
@@ -269,12 +269,12 @@ code,text,status,key
 283,Свазіленд,,country_sz
 284,Швеція,,country_se
 285,Швейцарія,,country_ch
-286,Сирійська арабська республіка,,country_sy
-287,"Тайвань, провінція Китай",,country_tw
+286,Сирія,,country_sy
+287,Тайвань,,country_tw
 288,Таджикистан,,country_tj
-289,"Танзанія, Об'єднана республіка",,country_tz
+289,Танзанія,,country_tz
 290,Таїланд,,country_th
-291,Тимор,,country_tl
+291,Східний Тимор,,country_tl
 292,Того,,country_tg
 293,Токелау,,country_tk
 294,Тонга,,country_to
@@ -302,3 +302,6 @@ code,text,status,key
 316,Ємен,,country_ye
 317,Замбія,,country_zm
 318,Зімбабве,,country_zw
+319,Чорногорія,,country_me
+321,Сербія,,country_rs
+322,Косово,,country_xk

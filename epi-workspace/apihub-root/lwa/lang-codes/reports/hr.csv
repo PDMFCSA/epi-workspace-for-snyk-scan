@@ -87,7 +87,7 @@ code,text,status,key
 105,Otok buvet,,country_bv
 106,Brazil,,country_br
 107,Britanski teritorij Indijskog oceana,,country_io
-108,Brunej Darussalam,,country_bn
+108,Brunej,,country_bn
 109,Bugarska,,country_bg
 110,Burkina Faso,,country_bf
 111,Burundi,,country_bi
@@ -104,11 +104,11 @@ code,text,status,key
 122,Otoci Cocos (Keeling),,country_cc
 123,Kolumbija,,country_co
 124,Komori,,country_km
-125,Kongo,,country_cg
+125,"Kongo, Republika",,country_cg
 126,"Kongo, Demokratska Republika",,country_cd
 127,Kuhati otoci,,country_ck
 128,Kostarika,,country_cr
-129,Cote d'Ovoire,,country_ci
+129,Obala bjelokosti,,country_ci
 130,Hrvatska,,country_hr
 131,Kuba,,country_cu
 132,Cipar,,country_cy
@@ -170,21 +170,21 @@ code,text,status,key
 188,Kazakhstan,,country_kz
 189,Kenija,,country_ke
 190,Kiribati,,country_ki
-191,"Koreja, Demokratska narodna Republika",,COUNTRY_KP
-192,"Koreja, Republika",,COUNTRY_KR
+191,Sjeverna Koreja,,country_kp
+192,Južna Koreja,,country_kr
 193,Kuvajt,,country_kw
 194,Kirgijski,,country_kg
-195,Lao narodna demokratska republika,,COUNTRY_LA
-196,Latvija,,COUNTRY_LV
+195,Laos,,country_la
+196,Latvija,,country_lv
 197,Libanon,,country_lb
 198,Lesoto,,country_ls
 199,Liberija,,country_lr
-200,Libijska Arapska Jamahiriya,,country_ly
+200,Libija,,country_ly
 201,Lihtenštajn,,country_li
 202,Litvanija,,country_lt
 203,Luksemburg,,country_lu
 204,Makao,,country_mo
-205,"Makedonija, bivša Jugoslavenska Republika",,country_mk
+205,Sjeverna Makedonija,,country_mk
 206,Madagaskar,,country_mg
 207,Malavi,,country_mw
 208,Malezija,,country_my
@@ -198,7 +198,7 @@ code,text,status,key
 216,Mayotte,,country_yt
 217,Meksiko,,country_mx
 218,"Mikronezija, federalne države",,country_fm
-219,"Moldava, Republika",,country_md
+219,Moldavija,,country_md
 220,Monako,,country_mc
 221,Mongolija,,country_mn
 222,Montserrat,,country_ms
@@ -235,7 +235,7 @@ code,text,status,key
 253,Katar,,country_qa
 254,Ponovno spajanje,,country_re
 255,Rumunija,,country_ro
-256,Ruska Federacija,,country_ru
+256,Rusija,,country_ru
 257,Ruanda,,country_rw
 258,Sveta Helena,,country_sh
 259,Sveti Kitts i Nevis,,country_kn
@@ -265,12 +265,12 @@ code,text,status,key
 283,Svaziland,,country_sz
 284,Švedska,,country_se
 285,Švicarska,,country_ch
-286,Sirijska Arapska republika,,country_sy
-287,"Tajvan, pokrajina Kine",,country_tw
+286,Sirija,,country_sy
+287,Tajvan,,country_tw
 288,Tajkistan,,country_tj
-289,"Tanzanija, Ujedinjena Republika",,country_tz
+289,Tanzanija,,country_tz
 290,Tajland,,country_th
-291,Timor-Leste,,country_tl
+291,Istočni Timor,,country_tl
 292,Togo,,country_tg
 293,Tokelau,,country_tk
 294,Laka dvokolica,,country_to
@@ -298,3 +298,6 @@ code,text,status,key
 316,Jemen,,country_ye
 317,Zambija,,country_zm
 318,Zimbabve,,country_zw
+319,Crna Gora,,country_me
+321,Srbija,,country_rs
+322,Kosov,,country_xk

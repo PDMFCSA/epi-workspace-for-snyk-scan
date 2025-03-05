@@ -93,7 +93,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_bv | Ανθοδέσμη νησιού |  | 105 |
 | country_br | Βραζιλία |  | 106 |
 | country_io | Βρετανική περιοχή του Ινδικού Ωκεανού |  | 107 |
-| country_bn | Μπρουνέι Νταρουσαλάμ |  | 108 |
+| country_bn | Μπρουνέι |  | 108 |
 | country_bg | Βουλγαρία |  | 109 |
 | country_bf | Μπουρκίνα Φάσο |  | 110 |
 | country_bi | Μπουρούντι |  | 111 |
@@ -110,11 +110,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_cc | Νησιά Cocos (Keeling) |  | 122 |
 | country_co | Κολομβία |  | 123 |
 | country_km | Κομπόριο |  | 124 |
-| country_cg | Κογκό |  | 125 |
+| country_cg | Κονγκό, Δημοκρατία του |  | 125 |
 | country_cd | Κονγκό, Η Λαϊκή Δημοκρατία του |  | 126 |
 | country_ck | Νησιά μαγειρικής |  | 127 |
 | country_cr | Κόστα Ρίκα |  | 128 |
-| country_ci | Cote d'Voire |  | 129 |
+| country_ci | Ακτή του ελεφαντόδοντου |  | 129 |
 | country_hr | Κροατία |  | 130 |
 | country_cu | Κούβα |  | 131 |
 | country_cy | Κύπρος |  | 132 |
@@ -176,21 +176,21 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_kz | Καζακστάν |  | 188 |
 | country_ke | Κενύα |  | 189 |
 | country_ki | Κιριμπάτι |  | 190 |
-| COUNTRY_KP | Κορέα, Δημοκρατική Λαϊκή Δημοκρατία του |  | 191 |
-| COUNTRY_KR | Κορέα, Δημοκρατία της |  | 192 |
+| country_kp | Βόρεια Κορέα |  | 191 |
+| country_kr | Νότια Κορέα |  | 192 |
 | country_kw | Κουβέιτ |  | 193 |
 | country_kg | Κιργιζία |  | 194 |
-| COUNTRY_LA | Λαϊκή Λαϊκή Δημοκρατία |  | 195 |
-| COUNTRY_LV | Λατβία |  | 196 |
+| country_la | Λάος |  | 195 |
+| country_lv | Λατβία |  | 196 |
 | country_lb | Λίβανος |  | 197 |
 | country_ls | Λεσόθο |  | 198 |
 | country_lr | Λιβερία |  | 199 |
-| country_ly | Λιβυκός Αραβικός Jamahiriya |  | 200 |
+| country_ly | Λιβύη |  | 200 |
 | country_li | Λιχτενστάιν |  | 201 |
 | country_lt | Λιθουανία |  | 202 |
 | country_lu | Λουξεμβούργο |  | 203 |
 | country_mo | Μακάο |  | 204 |
-| country_mk | Η Μακεδονία, η πρώην Γιουγκοσλαβική Δημοκρατία της |  | 205 |
+| country_mk | Βόρεια Μακεδονία |  | 205 |
 | country_mg | Μαδαγασκάρη |  | 206 |
 | country_mw | Μαλάουι |  | 207 |
 | country_my | Μαλαισία |  | 208 |
@@ -204,7 +204,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_yt | Μαγιόττα |  | 216 |
 | country_mx | Μεξικό |  | 217 |
 | country_fm | Micronesia, ομοσπονδιακά κράτη του |  | 218 |
-| country_md | Μολδαβία, Δημοκρατία της |  | 219 |
+| country_md | Μολδαβία |  | 219 |
 | country_mc | Μονακό |  | 220 |
 | country_mn | Μογγολία |  | 221 |
 | country_ms | Μοντσέρρατ |  | 222 |
@@ -241,7 +241,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_qa | Κατάρ |  | 253 |
 | country_re | Ξανασμίξιμο |  | 254 |
 | country_ro | Ρουμανία |  | 255 |
-| country_ru | Ρωσική Ομοσπονδία |  | 256 |
+| country_ru | Ρωσία |  | 256 |
 | country_rw | Ρουάντα |  | 257 |
 | country_sh | Άγιος Ελένη |  | 258 |
 | country_kn | Άγιος Kitts και Nevis |  | 259 |
@@ -271,12 +271,12 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_sz | Σουαζιλάνδη |  | 283 |
 | country_se | Σουηδία |  | 284 |
 | country_ch | Ελβετία |  | 285 |
-| country_sy | Συριακή Αραβική Δημοκρατία |  | 286 |
-| country_tw | Ταϊβάν, επαρχία της Κίνας |  | 287 |
+| country_sy | Συρία |  | 286 |
+| country_tw | Ταϊβάν |  | 287 |
 | country_tj | Τατζικιστάν |  | 288 |
-| country_tz | Τανζανία, Ηνωμένη Δημοκρατία της |  | 289 |
+| country_tz | Τανζανία |  | 289 |
 | country_th | Σιάμ |  | 290 |
-| country_tl | Τιμόρ-Λέστερ |  | 291 |
+| country_tl | Ανατολικός Τιμόρ |  | 291 |
 | country_tg | Τόγκο |  | 292 |
 | country_tk | Τακέλαου |  | 293 |
 | country_to | Τόνγκα |  | 294 |
@@ -304,3 +304,6 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_ye | Γέμενη |  | 316 |
 | country_zm | Ζάμπια |  | 317 |
 | country_zw | Ζιμπάμπουε |  | 318 |
+| country_me | Μαυροβούνιο |  | 319 |
+| country_rs | Σερβία |  | 321 |
+| country_xk | Κοσσυφοπέδιο |  | 322 |

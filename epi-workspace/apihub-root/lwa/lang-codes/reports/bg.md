@@ -93,7 +93,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_bv | Остров Бувет |  | 105 |
 | country_br | Бразилия |  | 106 |
 | country_io | Британска територия на Индийския океан |  | 107 |
-| country_bn | Бруней Дарусалам |  | 108 |
+| country_bn | Бруней |  | 108 |
 | country_bg | България |  | 109 |
 | country_bf | Буркина Фасо |  | 110 |
 | country_bi | Бурунди |  | 111 |
@@ -110,11 +110,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_cc | Острови Кокос (Килинг) |  | 122 |
 | country_co | Колумбия |  | 123 |
 | country_km | Коморос |  | 124 |
-| country_cg | Конго |  | 125 |
+| country_cg | Конго, Република |  | 125 |
 | country_cd | Конго, Демократична република |  | 126 |
 | country_ck | Кук острови |  | 127 |
 | country_cr | Коста Рика |  | 128 |
-| country_ci | Кот д'Ивоар |  | 129 |
+| country_ci | Котче на слонова кост |  | 129 |
 | country_hr | Хърватия |  | 130 |
 | country_cu | Куба |  | 131 |
 | country_cy | Кипър |  | 132 |
@@ -176,21 +176,21 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_kz | Казахстан |  | 188 |
 | country_ke | Кения |  | 189 |
 | country_ki | Кирибати |  | 190 |
-| COUNTRY_KP | Корея, демократична народна република |  | 191 |
-| COUNTRY_KR | Корея, Република |  | 192 |
+| country_kp | Северна Корея |  | 191 |
+| country_kr | Южна Корея |  | 192 |
 | country_kw | Кувейт |  | 193 |
 | country_kg | Киргизстан |  | 194 |
-| COUNTRY_LA | Демократичната република на Лаото |  | 195 |
-| COUNTRY_LV | Латвия |  | 196 |
+| country_la | Лаос |  | 195 |
+| country_lv | Латвия |  | 196 |
 | country_lb | Ливан |  | 197 |
 | country_ls | Лесото |  | 198 |
 | country_lr | Либерия |  | 199 |
-| country_ly | Либийски арабски Джамахирия |  | 200 |
+| country_ly | Либия |  | 200 |
 | country_li | Лихтенщайн |  | 201 |
 | country_lt | Литва |  | 202 |
 | country_lu | Люксембург |  | 203 |
 | country_mo | Макао |  | 204 |
-| country_mk | Македония, бившата югославска република на |  | 205 |
+| country_mk | Северна Македония |  | 205 |
 | country_mg | Мадагаскар |  | 206 |
 | country_mw | Малави |  | 207 |
 | country_my | Малайзия |  | 208 |
@@ -204,7 +204,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_yt | Майота |  | 216 |
 | country_mx | Мексико |  | 217 |
 | country_fm | Микронезия, федерални държави на |  | 218 |
-| country_md | Молдова, Република |  | 219 |
+| country_md | Молдова |  | 219 |
 | country_mc | Монако |  | 220 |
 | country_mn | Монголия |  | 221 |
 | country_ms | Монсерат |  | 222 |
@@ -241,7 +241,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_qa | Катар |  | 253 |
 | country_re | Събиране |  | 254 |
 | country_ro | Румъния |  | 255 |
-| country_ru | Руска федерация |  | 256 |
+| country_ru | Русия |  | 256 |
 | country_rw | Руанда |  | 257 |
 | country_sh | Света Елена |  | 258 |
 | country_kn | Сейнт Китс и Невис |  | 259 |
@@ -271,12 +271,12 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_sz | Свазиленд |  | 283 |
 | country_se | Швеция |  | 284 |
 | country_ch | Швейцария |  | 285 |
-| country_sy | Сирийска арабска република |  | 286 |
-| country_tw | Тайван, провинция Китай |  | 287 |
+| country_sy | Сирия |  | 286 |
+| country_tw | Тайван |  | 287 |
 | country_tj | Таджикистан |  | 288 |
-| country_tz | Танзания, Обединена република |  | 289 |
+| country_tz | Танзания |  | 289 |
 | country_th | Тайланд |  | 290 |
-| country_tl | Тимор-Лесте |  | 291 |
+| country_tl | Източен Тимор |  | 291 |
 | country_tg | Того |  | 292 |
 | country_tk | Токелау |  | 293 |
 | country_to | Тонга |  | 294 |
@@ -304,3 +304,6 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_ye | Йемен |  | 316 |
 | country_zm | Замбия |  | 317 |
 | country_zw | Зимбабве |  | 318 |
+| country_me | Черна гора |  | 319 |
+| country_rs | Сърбия |  | 321 |
+| country_xk | Косово |  | 322 |

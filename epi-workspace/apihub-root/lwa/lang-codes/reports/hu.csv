@@ -92,7 +92,7 @@ code,text,status,key
 105,Bouvet -sziget,,country_bv
 106,Brazília,,country_br
 107,Brit Indiai -óceán területe,,country_io
-108,Brunei Darussalam,,country_bn
+108,Brunei,,country_bn
 109,Bulgária,,country_bg
 110,Burkina Faso,,country_bf
 111,Burundi,,country_bi
@@ -109,7 +109,7 @@ code,text,status,key
 122,Cocos (Keeling) szigetek,,country_cc
 123,Colombia,,country_co
 124,Komorók,,country_km
-125,Kongó,,country_cg
+125,"Kongó, a Köztársaság",,country_cg
 126,"Kongó, a Demokratikus Köztársaság",,country_cd
 127,Cook -szigetek,,country_ck
 128,Costa Rica,,country_cr
@@ -175,21 +175,21 @@ code,text,status,key
 188,Kazahsztán,,country_kz
 189,Kenya,,country_ke
 190,Kiribati,,country_ki
-191,"Korea, Demokratikus Népköztársaság",,COUNTRY_KP
-192,"Korea, Köztársaság",,COUNTRY_KR
+191,Észak -Korea,,country_kp
+192,Dél -Korea,,country_kr
 193,Kuvait,,country_kw
 194,Kirgizisztán,,country_kg
-195,Lao Népi Demokratikus Köztársaság,,COUNTRY_LA
-196,Lettország,,COUNTRY_LV
+195,Laosz,,country_la
+196,Lettország,,country_lv
 197,Libanon,,country_lb
 198,Lesotho,,country_ls
 199,Libéria,,country_lr
-200,Líbiai arab jamahiriya,,country_ly
+200,Líbia,,country_ly
 201,Liechtenstein,,country_li
 202,Litvánia,,country_lt
 203,Luxemburg,,country_lu
 204,Makaó,,country_mo
-205,"Macedónia, a volt Jugoszláv Köztársaság",,country_mk
+205,Észak -Macedónia,,country_mk
 206,Madagaszkár,,country_mg
 207,Malawi,,country_mw
 208,Malaysia,,country_my
@@ -203,7 +203,7 @@ code,text,status,key
 216,Mayotte,,country_yt
 217,Mexikó,,country_mx
 218,"Mikronézia, szövetségi államok",,country_fm
-219,"Moldova, Köztársaság",,country_md
+219,Moldova,,country_md
 220,Monacói,,country_mc
 221,Mongólia,,country_mn
 222,Montserrat,,country_ms
@@ -240,7 +240,7 @@ code,text,status,key
 253,Katar,,country_qa
 254,Újraegyesítés,,country_re
 255,Románia,,country_ro
-256,Orosz szövetség,,country_ru
+256,Oroszország,,country_ru
 257,Ruanda,,country_rw
 258,Szent Helena,,country_sh
 259,Szent Kitts és Nevis,,country_kn
@@ -270,12 +270,12 @@ code,text,status,key
 283,Szigigaföld,,country_sz
 284,Svédország,,country_se
 285,Svájc,,country_ch
-286,Szíriai Arab Köztársaság,,country_sy
-287,"Tajvan, Kína tartomány",,country_tw
+286,Szíria,,country_sy
+287,Tajvani,,country_tw
 288,Tádzsikisztán,,country_tj
-289,"Tanzánia, Egyesült Köztársaság",,country_tz
+289,Tanzánia,,country_tz
 290,Thaiföld,,country_th
-291,Timor-Leste,,country_tl
+291,Kelet -Timor,,country_tl
 292,Togó,,country_tg
 293,Tokelau,,country_tk
 294,Tonga,,country_to
@@ -303,3 +303,6 @@ code,text,status,key
 316,Jemen,,country_ye
 317,Zambia,,country_zm
 318,Zimbabwé,,country_zw
+319,Montenegró,,country_me
+321,Szerbia,,country_rs
+322,Koszovó,,country_xk

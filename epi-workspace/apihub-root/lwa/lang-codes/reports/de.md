@@ -50,21 +50,21 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_incorrect_date_title |  |  | 50 |
 | leaflet_incorrect_date_subtitle |  |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; &lt;/b&gt;. |  | 52 |
-| leaflet_print_title | Informationen drucken |  | 61 |
-| leaflet_print_description | Die aktuellen ausgewählten Informationen werden als PDF gedruckt. |  | 62 |
+| leaflet_print_title | Dokument Drucken |  | 61 |
+| leaflet_print_description | Das aktuelle Dokument wird als PDF gedruckt. |  | 62 |
 | leaflet_print_description2 | Möchten Sie fortfahren? |  | 63 |
 | leaflet_print_button | Fortfahren |  | 64 |
-| leaflet_print_button_back | Geh zurück |  | 65 |
+| leaflet_print_button_back | Zurück |  | 65 |
 | document_modal_title | Bitte wählen Sie |  | 66 |
 | document_modal_message | Bitte wählen Sie aus, welches Dokument angezeigt werden soll |  | 67 |
 | document_patient_info | Patienteninformationen |  | 68 |
 | document_product_info | Produktinformationen für Patienten |  | 69 |
-| document_lang_select_message | Produktinformationen sind nur in Englisch verfügbar |  | 70 |
-| document_lang_select_title | Beachten |  | 71 |
+| document_lang_select_message | Produktinformationen sind nur in englischer Sprache verfügbar |  | 70 |
+| document_lang_select_title | Hinweis |  | 71 |
 | document_prescribing_info | Information für medizinisches Fachpersonal |  | 72 |
 | epi_markets_modal_title | Wählen Sie Land aus |  | 73 |
 | epi_markets_modal_message | Bitte wählen Sie Ihr Land aus |  | 74 |
-| epi_markets_modal_no_market | Kein Land |  | 75 |
+| epi_markets_modal_no_market | Keines dieser Länder |  | 75 |
 | country_af | Afghanistan |  | 76 |
 | country_ax | Ålandinseln |  | 77 |
 | country_al | Albanien |  | 78 |
@@ -97,7 +97,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_bv | Bouvet Island |  | 105 |
 | country_br | Brasilien |  | 106 |
 | country_io | Gebiet des britischen Indischen Ozeans |  | 107 |
-| country_bn | Brunei Darussalam |  | 108 |
+| country_bn | Brunei |  | 108 |
 | country_bg | Bulgarien |  | 109 |
 | country_bf | Burkina Faso |  | 110 |
 | country_bi | Burundi |  | 111 |
@@ -114,11 +114,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_cc | Cocos (Keeling) Inseln |  | 122 |
 | country_co | Kolumbien |  | 123 |
 | country_km | Komoros |  | 124 |
-| country_cg | Kongo |  | 125 |
+| country_cg | Kongo, Republik der |  | 125 |
 | country_cd | Kongo, die Demokratische Republik der |  | 126 |
 | country_ck | Kochinseln |  | 127 |
 | country_cr | Costa Rica |  | 128 |
-| country_ci | Cote d'Ivoire |  | 129 |
+| country_ci | Elfenbeinküste |  | 129 |
 | country_hr | Kroatien |  | 130 |
 | country_cu | Kuba |  | 131 |
 | country_cy | Zypern |  | 132 |
@@ -180,21 +180,21 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_kz | Kasachstan |  | 188 |
 | country_ke | Kenia |  | 189 |
 | country_ki | Kiribati |  | 190 |
-| COUNTRY_KP | Korea, demokratische Volksrepublik von |  | 191 |
-| COUNTRY_KR | Korea, Republik von |  | 192 |
+| country_kp | Nordkorea |  | 191 |
+| country_kr | Südkorea |  | 192 |
 | country_kw | Kuwait |  | 193 |
 | country_kg | Kirgisistan |  | 194 |
-| COUNTRY_LA | Lao Volks demokratische Republik |  | 195 |
-| COUNTRY_LV | Lettland |  | 196 |
+| country_la | Laos |  | 195 |
+| country_lv | Lettland |  | 196 |
 | country_lb | Libanon |  | 197 |
 | country_ls | Lesotho |  | 198 |
 | country_lr | Liberia |  | 199 |
-| country_ly | Libyan arabischer Jamahiriya |  | 200 |
+| country_ly | Libyen |  | 200 |
 | country_li | Liechtenstein |  | 201 |
 | country_lt | Litauen |  | 202 |
 | country_lu | Luxemburg |  | 203 |
 | country_mo | Macao |  | 204 |
-| country_mk | Mazedonien, die ehemalige jugoslawische Republik von |  | 205 |
+| country_mk | Nord -Mazedonien |  | 205 |
 | country_mg | Madagaskar |  | 206 |
 | country_mw | Malawi |  | 207 |
 | country_my | Malaysia |  | 208 |
@@ -208,7 +208,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_yt | Mayotte |  | 216 |
 | country_mx | Mexiko |  | 217 |
 | country_fm | Mikronesien, Föderierte Zustände von |  | 218 |
-| country_md | Moldawien, Republik von |  | 219 |
+| country_md | Moldawien |  | 219 |
 | country_mc | Monaco |  | 220 |
 | country_mn | Mongolei |  | 221 |
 | country_ms | Montserrat |  | 222 |
@@ -245,7 +245,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_qa | Katar |  | 253 |
 | country_re | Wiedervereinigung |  | 254 |
 | country_ro | Rumänien |  | 255 |
-| country_ru | Russische Föderation |  | 256 |
+| country_ru | Russland |  | 256 |
 | country_rw | Ruanda |  | 257 |
 | country_sh | Saint Helena |  | 258 |
 | country_kn | Saint Kitts und Nevis |  | 259 |
@@ -275,12 +275,12 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_sz | Swasiland |  | 283 |
 | country_se | Schweden |  | 284 |
 | country_ch | Schweiz |  | 285 |
-| country_sy | Syrische arabische Republik |  | 286 |
-| country_tw | Taiwan, Provinz China |  | 287 |
+| country_sy | Syrien |  | 286 |
+| country_tw | Taiwan |  | 287 |
 | country_tj | Tadschikistan |  | 288 |
-| country_tz | Tansania, Vereinigte Republik von |  | 289 |
+| country_tz | Tansania |  | 289 |
 | country_th | Thailand |  | 290 |
-| country_tl | Timor-Leste |  | 291 |
+| country_tl | Osttimor |  | 291 |
 | country_tg | Togo |  | 292 |
 | country_tk | ToKelau |  | 293 |
 | country_to | Tonga |  | 294 |
@@ -308,3 +308,6 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_ye | Jemen |  | 316 |
 | country_zm | Sambia |  | 317 |
 | country_zw | Simbabwe |  | 318 |
+| country_me | Montenegro |  | 319 |
+| country_rs | Serbien |  | 321 |
+| country_xk | Kosovo |  | 322 |

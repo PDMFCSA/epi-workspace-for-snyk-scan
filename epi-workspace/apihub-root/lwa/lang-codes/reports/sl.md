@@ -97,7 +97,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_bv | Otok Bouvet |  | 105 |
 | country_br | Brazilija |  | 106 |
 | country_io | Ozemlje britanskega Indijskega oceana |  | 107 |
-| country_bn | Brunei Darussalam |  | 108 |
+| country_bn | Brunej |  | 108 |
 | country_bg | Bolgarija |  | 109 |
 | country_bf | Burkina Faso |  | 110 |
 | country_bi | Burundi |  | 111 |
@@ -114,11 +114,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_cc | Cocos (Keeling) otoki |  | 122 |
 | country_co | Kolumbija |  | 123 |
 | country_km | Komoros |  | 124 |
-| country_cg | Kongo |  | 125 |
+| country_cg | Kongo, republika |  | 125 |
 | country_cd | Kongo, Demokratična republika |  | 126 |
 | country_ck | Kuharski otoki |  | 127 |
 | country_cr | Kostarika |  | 128 |
-| country_ci | Cote d'Ivoire |  | 129 |
+| country_ci | Slonokoščena obala |  | 129 |
 | country_hr | Hrvaška |  | 130 |
 | country_cu | Kuba |  | 131 |
 | country_cy | Ciper |  | 132 |
@@ -180,21 +180,21 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_kz | Kazahstan |  | 188 |
 | country_ke | Kenija |  | 189 |
 | country_ki | Kiribati |  | 190 |
-| COUNTRY_KP | Koreja, demokratična ljudska republika |  | 191 |
-| COUNTRY_KR | Koreja, republika |  | 192 |
+| country_kp | Severna Koreja |  | 191 |
+| country_kr | Južna Koreja |  | 192 |
 | country_kw | Kuvajt |  | 193 |
 | country_kg | Kirgizistan |  | 194 |
-| COUNTRY_LA | Demokratična republika Laosa |  | 195 |
-| COUNTRY_LV | Latvija |  | 196 |
+| country_la | Laos |  | 195 |
+| country_lv | Latvija |  | 196 |
 | country_lb | Libanon |  | 197 |
 | country_ls | Lesoto |  | 198 |
 | country_lr | Liberija |  | 199 |
-| country_ly | Libijska arabska jamahiriya |  | 200 |
+| country_ly | Libija |  | 200 |
 | country_li | Lihtenštain |  | 201 |
 | country_lt | Litva |  | 202 |
 | country_lu | Luksemburg |  | 203 |
 | country_mo | Makao |  | 204 |
-| country_mk | Makedonija, nekdanja Jugoslovanska republika |  | 205 |
+| country_mk | Severna Makedonija |  | 205 |
 | country_mg | Madagaskar |  | 206 |
 | country_mw | Malavi |  | 207 |
 | country_my | Malezija |  | 208 |
@@ -208,7 +208,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_yt | Mačka |  | 216 |
 | country_mx | Mehika |  | 217 |
 | country_fm | Mikronezija, zvezne države |  | 218 |
-| country_md | Moldavija, republika |  | 219 |
+| country_md | Moldavija |  | 219 |
 | country_mc | Monako |  | 220 |
 | country_mn | Mongolija |  | 221 |
 | country_ms | Montserrat |  | 222 |
@@ -245,7 +245,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_qa | Katar |  | 253 |
 | country_re | Reunion |  | 254 |
 | country_ro | Romunija |  | 255 |
-| country_ru | Ruska federacija |  | 256 |
+| country_ru | Rusija |  | 256 |
 | country_rw | Ruanda |  | 257 |
 | country_sh | Sveta Helena |  | 258 |
 | country_kn | Saint Kitts in Nevis |  | 259 |
@@ -275,12 +275,12 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_sz | Swaziland |  | 283 |
 | country_se | Švedska |  | 284 |
 | country_ch | Švica |  | 285 |
-| country_sy | Sirska arabska republika |  | 286 |
-| country_tw | Tajvan, provinca Kitajske |  | 287 |
+| country_sy | Sirija |  | 286 |
+| country_tw | Tajvan |  | 287 |
 | country_tj | Tadžikistan |  | 288 |
-| country_tz | Tanzanija, Združena republika |  | 289 |
+| country_tz | Tanzanija |  | 289 |
 | country_th | Tajska |  | 290 |
-| country_tl | Timor-leste |  | 291 |
+| country_tl | Vzhodni Timor |  | 291 |
 | country_tg | Togo |  | 292 |
 | country_tk | Tokelau |  | 293 |
 | country_to | Tonga |  | 294 |
@@ -308,3 +308,6 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_ye | Jemen |  | 316 |
 | country_zm | Zambija |  | 317 |
 | country_zw | Zimbabve |  | 318 |
+| country_me | Črna gora |  | 319 |
+| country_rs | Srbija |  | 321 |
+| country_xk | Kosovo |  | 322 |

@@ -297,16 +297,14 @@ const data = {
   "country_ye": "Jemen",
   "country_zm": "Sambia",
   "country_zw": "Simbabwe",
+  "country_me": "Montenegro",
+  "country_rs": "Serbien",
+  "country_xk": "Kosovo",
   "leaflet_print_title": "Dokument Drucken",
   "leaflet_print_description": "Das aktuelle Dokument wird als PDF gedruckt.",
   "leaflet_print_description2": "Möchten Sie fortfahren?",
   "leaflet_print_button": "Fortfahren",
-  "leaflet_print_button_back": "Zurück",
-  "country_kp": "Nordkorea",
-  "country_kr": "Südkorea",
-  "country_me": "Montenegro",
-  "country_rs": "Serbien",
-  "country_xk": "Kosovo"
+  "leaflet_print_button_back": "Zurück"
 }
 
 export default data;

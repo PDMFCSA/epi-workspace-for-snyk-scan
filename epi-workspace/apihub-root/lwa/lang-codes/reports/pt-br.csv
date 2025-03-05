@@ -57,7 +57,7 @@ code,text,status,key
 62,As informações selecionadas atuais serão impressas como PDF.,,leaflet_print_description
 63,Você quer prosseguir?,,leaflet_print_description2
 64,Prosseguir,,leaflet_print_button
-65,Volte,,leaflet_print_button_back
+65,Voltar,,leaflet_print_button_back
 66,"Por favor, escolha",,document_modal_title
 67,Selecione qual documento exibir,,document_modal_message
 68,Informação do paciente,,document_patient_info
@@ -65,11 +65,11 @@ code,text,status,key
 70,As informações do produto estão disponíveis apenas em inglês,,document_lang_select_message
 71,Aviso,,document_lang_select_title
 72,Prescrição de informações para profissionais de saúde,,document_prescribing_info
-73,Selecione país,,epi_markets_modal_title
+73,Selecionar país,,epi_markets_modal_title
 74,Selecione seu país,,epi_markets_modal_message
 75,Nenhum país,,epi_markets_modal_no_market
 76,Afeganistão,,country_af
-77,Åland Ilhas,,country_ax
+77,Ilhas Åland,,country_ax
 78,Albânia,,country_al
 79,Argélia,,country_dz
 80,Samoa americano,,country_as
@@ -100,7 +100,7 @@ code,text,status,key
 105,Ilha Bouvet,,country_bv
 106,Brasil,,country_br
 107,Território do Oceano Índico Britânico,,country_io
-108,Brunei Darussalam,,country_bn
+108,Brunei,,country_bn
 109,Bulgária,,country_bg
 110,Burkina Faso,,country_bf
 111,Burundi,,country_bi
@@ -117,11 +117,11 @@ code,text,status,key
 122,Ilhas Cocos (Keeling),,country_cc
 123,Colômbia,,country_co
 124,Comores,,country_km
-125,Congo,,country_cg
-126,"Congo, a República Democrática do",,country_cd
+125,República do Congo,,country_cg
+126,República Democrática do Congo,,country_cd
 127,Ilhas cozinheiras,,country_ck
 128,Costa Rica,,country_cr
-129,Cote D'ivoire,,country_ci
+129,Costa do Marfim,,country_ci
 130,Croácia,,country_hr
 131,Cuba,,country_cu
 132,Chipre,,country_cy
@@ -162,15 +162,15 @@ code,text,status,key
 167,Guiné-bissau,,country_gw
 168,Guiana,,country_gy
 169,Haiti,,country_ht
-170,Heard Island e McDonald Islands,,country_hm
-171,Santa See (Estado da cidade do Vaticano),,country_va
+170,Ilha Heard e Ilhas McDonald,,country_hm
+171,Santa Sé (Estado da cidade do Vaticano),,country_va
 172,Honduras,,country_hn
 173,Hong Kong,,country_hk
 174,Hungria,,country_hu
 175,Islândia,,country_is
 176,Índia,,country_in
 177,Indonésia,,country_id
-178,"Irã, República Islâmica de",,country_ir
+178,República Islâmica do Irã,,country_ir
 179,Iraque,,country_iq
 180,Irlanda,,country_ie
 181,Ilha de Homem,,country_im
@@ -183,21 +183,21 @@ code,text,status,key
 188,Cazaquistão,,country_kz
 189,Quênia,,country_ke
 190,Kiribati,,country_ki
-191,"Coréia, República Popular Democrática de",,COUNTRY_KP
-192,"Coréia, República de",,COUNTRY_KR
+191,Coréia do Norte,,country_kp
+192,Coréia do Sul,,country_kr
 193,Kuwait,,country_kw
 194,Quirguistão,,country_kg
-195,República Democrática Popular do Lao,,COUNTRY_LA
-196,Letônia,,COUNTRY_LV
+195,Laos,,country_la
+196,Letônia,,country_lv
 197,Líbano,,country_lb
 198,Lesoto,,country_ls
 199,Libéria,,country_lr
-200,Jamahiriya árabe da Líbia,,country_ly
+200,Líbia,,country_ly
 201,Liechtenstein,,country_li
 202,Lituânia,,country_lt
 203,Luxemburgo,,country_lu
 204,Macau,,country_mo
-205,"Macedônia, a antiga República Iugoslava de",,country_mk
+205,Macedônia do Norte,,country_mk
 206,Madagáscar,,country_mg
 207,Malawi,,country_mw
 208,Malásia,,country_my
@@ -211,7 +211,7 @@ code,text,status,key
 216,Mayotte,,country_yt
 217,México,,country_mx
 218,"Micronésia, estados federados de",,country_fm
-219,"Moldávia, República de",,country_md
+219,Moldávia,,country_md
 220,Mônaco,,country_mc
 221,Mongólia,,country_mn
 222,Montserrat,,country_ms
@@ -248,7 +248,7 @@ code,text,status,key
 253,Catar,,country_qa
 254,Reunião,,country_re
 255,Romênia,,country_ro
-256,Federação Russa,,country_ru
+256,Rússia,,country_ru
 257,Ruanda,,country_rw
 258,Saint Helena,,country_sh
 259,Saint Kitts e Nevis,,country_kn
@@ -278,12 +278,12 @@ code,text,status,key
 283,Suazilândia,,country_sz
 284,Suécia,,country_se
 285,Suíça,,country_ch
-286,República Árabe da Síria,,country_sy
-287,"Taiwan, província da China",,country_tw
+286,Síria,,country_sy
+287,Taiwan,,country_tw
 288,Tajiquistão,,country_tj
-289,"Tanzânia, República Unida de",,country_tz
+289,Tanzânia,,country_tz
 290,Tailândia,,country_th
-291,Timor-Leste,,country_tl
+291,Timor -Leste,,country_tl
 292,Ir,,country_tg
 293,Tokelau,,country_tk
 294,Tonga,,country_to
@@ -311,3 +311,6 @@ code,text,status,key
 316,Iémen,,country_ye
 317,Zâmbia,,country_zm
 318,Zimbábue,,country_zw
+319,Montenegro,,country_me
+321,Sérvia,,country_rs
+322,Kosovo,,country_xk

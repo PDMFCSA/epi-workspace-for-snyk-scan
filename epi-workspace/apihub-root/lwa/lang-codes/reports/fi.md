@@ -93,7 +93,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_bv | Bouvet -saari |  | 105 |
 | country_br | Brasilia |  | 106 |
 | country_io | Britannian Intian valtameren alue |  | 107 |
-| country_bn | Brunei Darussalam |  | 108 |
+| country_bn | Brunei |  | 108 |
 | country_bg | Bulgaria |  | 109 |
 | country_bf | Burkina Faso |  | 110 |
 | country_bi | Burundi |  | 111 |
@@ -110,11 +110,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_cc | Cocos (keeling) saaret |  | 122 |
 | country_co | Kolumbia |  | 123 |
 | country_km | Komorit |  | 124 |
-| country_cg | Kongo |  | 125 |
+| country_cg | Kongo, |  | 125 |
 | country_cd | Kongo, |  | 126 |
 | country_ck | Keitä saaria |  | 127 |
 | country_cr | Costa Rica |  | 128 |
-| country_ci | Norsunlukija |  | 129 |
+| country_ci | Norsunluurannikko |  | 129 |
 | country_hr | Kroatia |  | 130 |
 | country_cu | Kuuba |  | 131 |
 | country_cy | Kypros |  | 132 |
@@ -176,21 +176,21 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_kz | Kazakstan |  | 188 |
 | country_ke | Kenia |  | 189 |
 | country_ki | Kiribati |  | 190 |
-| COUNTRY_KP | Korea, demokraattinen kansan tasavalta |  | 191 |
-| COUNTRY_KR | Korea, |  | 192 |
+| country_kp | Pohjois -Korea |  | 191 |
+| country_kr | Etelä -Korea |  | 192 |
 | country_kw | Kuwait |  | 193 |
 | country_kg | Kirgisian |  | 194 |
-| COUNTRY_LA | Laon kansan demokraattinen tasavalta |  | 195 |
-| COUNTRY_LV | Latvia |  | 196 |
+| country_la | Laos |  | 195 |
+| country_lv | Latvia |  | 196 |
 | country_lb | Libanon |  | 197 |
 | country_ls | Lesotho |  | 198 |
 | country_lr | Liberia |  | 199 |
-| country_ly | Libyan arabi Jamahiriya |  | 200 |
+| country_ly | Libya |  | 200 |
 | country_li | Liechtenstein |  | 201 |
 | country_lt | Liettua |  | 202 |
 | country_lu | Luxemburg |  | 203 |
 | country_mo | Macao |  | 204 |
-| country_mk | Makedonia, entinen Jugoslavian tasavalta |  | 205 |
+| country_mk | Pohjois -Makedonia |  | 205 |
 | country_mg | Madagaskar |  | 206 |
 | country_mw | Malawi |  | 207 |
 | country_my | Malesia |  | 208 |
@@ -204,7 +204,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_yt | Mayotti |  | 216 |
 | country_mx | Meksiko |  | 217 |
 | country_fm | Mikronesia, liittovaltiot |  | 218 |
-| country_md | Moldova, |  | 219 |
+| country_md | Moldova |  | 219 |
 | country_mc | Monaco |  | 220 |
 | country_mn | Mongolia |  | 221 |
 | country_ms | Montserrat |  | 222 |
@@ -241,7 +241,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_qa | Qatari |  | 253 |
 | country_re | Tapaaminen |  | 254 |
 | country_ro | Romania |  | 255 |
-| country_ru | Venäjän liitto |  | 256 |
+| country_ru | Venäjä |  | 256 |
 | country_rw | Ruutu |  | 257 |
 | country_sh | Pyhä Helena |  | 258 |
 | country_kn | Saint Kitts ja Nevis |  | 259 |
@@ -271,12 +271,12 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_sz | Swazimaa |  | 283 |
 | country_se | Ruotsi |  | 284 |
 | country_ch | Sveitsi |  | 285 |
-| country_sy | Syyrian arabitasavalta |  | 286 |
-| country_tw | Taiwan, Kiinan maakunta |  | 287 |
+| country_sy | Syyria |  | 286 |
+| country_tw | Taiwan |  | 287 |
 | country_tj | Tadžikistan |  | 288 |
-| country_tz | Tansania, United Tasavalmis |  | 289 |
+| country_tz | Tansania |  | 289 |
 | country_th | Thaimaa |  | 290 |
-| country_tl | Timor-Leste |  | 291 |
+| country_tl | Itä -Timor |  | 291 |
 | country_tg | Togo |  | 292 |
 | country_tk | Tokelau |  | 293 |
 | country_to | Tonga |  | 294 |
@@ -304,3 +304,6 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_ye | Jemenit |  | 316 |
 | country_zm | Sambia |  | 317 |
 | country_zw | Zimbabwe |  | 318 |
+| country_me | Montenegro |  | 319 |
+| country_rs | Serbia |  | 321 |
+| country_xk | Kosovo |  | 322 |

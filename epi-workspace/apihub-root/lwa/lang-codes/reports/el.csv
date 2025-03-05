@@ -88,7 +88,7 @@ code,text,status,key
 105,Ανθοδέσμη νησιού,,country_bv
 106,Βραζιλία,,country_br
 107,Βρετανική περιοχή του Ινδικού Ωκεανού,,country_io
-108,Μπρουνέι Νταρουσαλάμ,,country_bn
+108,Μπρουνέι,,country_bn
 109,Βουλγαρία,,country_bg
 110,Μπουρκίνα Φάσο,,country_bf
 111,Μπουρούντι,,country_bi
@@ -105,11 +105,11 @@ code,text,status,key
 122,Νησιά Cocos (Keeling),,country_cc
 123,Κολομβία,,country_co
 124,Κομπόριο,,country_km
-125,Κογκό,,country_cg
+125,"Κονγκό, Δημοκρατία του",,country_cg
 126,"Κονγκό, Η Λαϊκή Δημοκρατία του",,country_cd
 127,Νησιά μαγειρικής,,country_ck
 128,Κόστα Ρίκα,,country_cr
-129,Cote d'Voire,,country_ci
+129,Ακτή του ελεφαντόδοντου,,country_ci
 130,Κροατία,,country_hr
 131,Κούβα,,country_cu
 132,Κύπρος,,country_cy
@@ -171,21 +171,21 @@ code,text,status,key
 188,Καζακστάν,,country_kz
 189,Κενύα,,country_ke
 190,Κιριμπάτι,,country_ki
-191,"Κορέα, Δημοκρατική Λαϊκή Δημοκρατία του",,COUNTRY_KP
-192,"Κορέα, Δημοκρατία της",,COUNTRY_KR
+191,Βόρεια Κορέα,,country_kp
+192,Νότια Κορέα,,country_kr
 193,Κουβέιτ,,country_kw
 194,Κιργιζία,,country_kg
-195,Λαϊκή Λαϊκή Δημοκρατία,,COUNTRY_LA
-196,Λατβία,,COUNTRY_LV
+195,Λάος,,country_la
+196,Λατβία,,country_lv
 197,Λίβανος,,country_lb
 198,Λεσόθο,,country_ls
 199,Λιβερία,,country_lr
-200,Λιβυκός Αραβικός Jamahiriya,,country_ly
+200,Λιβύη,,country_ly
 201,Λιχτενστάιν,,country_li
 202,Λιθουανία,,country_lt
 203,Λουξεμβούργο,,country_lu
 204,Μακάο,,country_mo
-205,"Η Μακεδονία, η πρώην Γιουγκοσλαβική Δημοκρατία της",,country_mk
+205,Βόρεια Μακεδονία,,country_mk
 206,Μαδαγασκάρη,,country_mg
 207,Μαλάουι,,country_mw
 208,Μαλαισία,,country_my
@@ -199,7 +199,7 @@ code,text,status,key
 216,Μαγιόττα,,country_yt
 217,Μεξικό,,country_mx
 218,"Micronesia, ομοσπονδιακά κράτη του",,country_fm
-219,"Μολδαβία, Δημοκρατία της",,country_md
+219,Μολδαβία,,country_md
 220,Μονακό,,country_mc
 221,Μογγολία,,country_mn
 222,Μοντσέρρατ,,country_ms
@@ -236,7 +236,7 @@ code,text,status,key
 253,Κατάρ,,country_qa
 254,Ξανασμίξιμο,,country_re
 255,Ρουμανία,,country_ro
-256,Ρωσική Ομοσπονδία,,country_ru
+256,Ρωσία,,country_ru
 257,Ρουάντα,,country_rw
 258,Άγιος Ελένη,,country_sh
 259,Άγιος Kitts και Nevis,,country_kn
@@ -266,12 +266,12 @@ code,text,status,key
 283,Σουαζιλάνδη,,country_sz
 284,Σουηδία,,country_se
 285,Ελβετία,,country_ch
-286,Συριακή Αραβική Δημοκρατία,,country_sy
-287,"Ταϊβάν, επαρχία της Κίνας",,country_tw
+286,Συρία,,country_sy
+287,Ταϊβάν,,country_tw
 288,Τατζικιστάν,,country_tj
-289,"Τανζανία, Ηνωμένη Δημοκρατία της",,country_tz
+289,Τανζανία,,country_tz
 290,Σιάμ,,country_th
-291,Τιμόρ-Λέστερ,,country_tl
+291,Ανατολικός Τιμόρ,,country_tl
 292,Τόγκο,,country_tg
 293,Τακέλαου,,country_tk
 294,Τόνγκα,,country_to
@@ -299,3 +299,6 @@ code,text,status,key
 316,Γέμενη,,country_ye
 317,Ζάμπια,,country_zm
 318,Ζιμπάμπουε,,country_zw
+319,Μαυροβούνιο,,country_me
+321,Σερβία,,country_rs
+322,Κοσσυφοπέδιο,,country_xk

@@ -87,7 +87,7 @@ code,text,status,key
 105,Bouvet adası,,country_bv
 106,Brezilya,,country_br
 107,İngiliz Hint Okyanusu Bölgesi,,country_io
-108,Brunei Darussalam,,country_bn
+108,Brunei,,country_bn
 109,Bulgaristan,,country_bg
 110,Burkina Faso,,country_bf
 111,Burundi,,country_bi
@@ -104,11 +104,11 @@ code,text,status,key
 122,Cocos (Keeling) Adaları,,country_cc
 123,Kolombiya,,country_co
 124,Komoros,,country_km
-125,Kongo,,country_cg
+125,"Kongo, Cumhuriyet",,country_cg
 126,"Kongo, Demokratik Cumhuriyeti",,country_cd
 127,Cook Adaları,,country_ck
 128,Kosta Rika,,country_cr
-129,Cote D'Ivoire,,country_ci
+129,Fildişi Sahili,,country_ci
 130,Hırvatistan,,country_hr
 131,Küba,,country_cu
 132,Kıbrıs,,country_cy
@@ -170,21 +170,21 @@ code,text,status,key
 188,Kazakistan,,country_kz
 189,Kenya,,country_ke
 190,Kiribati,,country_ki
-191,"Kore, Demokratik Halk Cumhuriyeti",,COUNTRY_KP
-192,"Kore, Cumhuriyet",,COUNTRY_KR
+191,Kuzey Kore,,country_kp
+192,Güney Kore,,country_kr
 193,Kuveyt,,country_kw
 194,Kırgızistan,,country_kg
-195,Lao Halk Demokratik Cumhuriyeti,,COUNTRY_LA
-196,Letonya,,COUNTRY_LV
+195,Laos,,country_la
+196,Letonya,,country_lv
 197,Lübnan,,country_lb
 198,Lesoto,,country_ls
 199,Liberya,,country_lr
-200,Libya Arap Jamahiriya,,country_ly
+200,Libya,,country_ly
 201,Liechtenstein,,country_li
 202,Litvanya,,country_lt
 203,Lüksemburg,,country_lu
 204,Macao,,country_mo
-205,"Makedonya, eski Yugoslav Cumhuriyeti",,country_mk
+205,Kuzey Makedonya,,country_mk
 206,Madagaskar,,country_mg
 207,Malawi,,country_mw
 208,Malezya,,country_my
@@ -198,7 +198,7 @@ code,text,status,key
 216,Mayotte,,country_yt
 217,Meksika,,country_mx
 218,"Mikronezya, federasyonlu durumlar",,country_fm
-219,"Moldova, Cumhuriyet",,country_md
+219,Moldova,,country_md
 220,Monako,,country_mc
 221,Moğolistan,,country_mn
 222,Montserrat,,country_ms
@@ -235,7 +235,7 @@ code,text,status,key
 253,Katar,,country_qa
 254,Yeniden birleşme,,country_re
 255,Romanya,,country_ro
-256,Rusya Federasyonu,,country_ru
+256,Rusya,,country_ru
 257,Ruanda,,country_rw
 258,Saint Helena,,country_sh
 259,Saint Kitts ve Nevis,,country_kn
@@ -265,12 +265,12 @@ code,text,status,key
 283,Svaziland,,country_sz
 284,İsveç,,country_se
 285,İsviçre,,country_ch
-286,Suriye Arap Cumhuriyeti,,country_sy
-287,"Tayvan, Çin eyaleti",,country_tw
+286,Suriye,,country_sy
+287,Tayvan,,country_tw
 288,Tacikistan,,country_tj
-289,"Tanzanya, Birleşik Cumhuriyet",,country_tz
+289,Tanzanya,,country_tz
 290,Tayland,,country_th
-291,Timor-Leste,,country_tl
+291,Doğu Timor,,country_tl
 292,Togo,,country_tg
 293,Tokelau,,country_tk
 294,Tonga,,country_to
@@ -298,3 +298,6 @@ code,text,status,key
 316,Yemen,,country_ye
 317,Zambiya,,country_zm
 318,Zimbabve,,country_zw
+319,Karadağ,,country_me
+321,Sırbistan,,country_rs
+322,Kosova,,country_xk

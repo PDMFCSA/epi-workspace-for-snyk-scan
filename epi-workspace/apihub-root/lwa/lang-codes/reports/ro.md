@@ -93,7 +93,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_bv | Insula Bouvet |  | 105 |
 | country_br | Brazilia |  | 106 |
 | country_io | Teritoriul Oceanului Indian Britanic |  | 107 |
-| country_bn | Brunei Darussalam |  | 108 |
+| country_bn | Brunei |  | 108 |
 | country_bg | Bulgaria |  | 109 |
 | country_bf | Burkina Faso |  | 110 |
 | country_bi | Burundi |  | 111 |
@@ -110,11 +110,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_cc | Insulele Cocos (Keeling) |  | 122 |
 | country_co | Columbia |  | 123 |
 | country_km | Comoros |  | 124 |
-| country_cg | Congo |  | 125 |
+| country_cg | Congo, Republica |  | 125 |
 | country_cd | Congo, Republica Democrată a |  | 126 |
 | country_ck | Insulele Cook |  | 127 |
 | country_cr | Costa Rica |  | 128 |
-| country_ci | Cote d'Ivoire |  | 129 |
+| country_ci | Coasta de fildeș |  | 129 |
 | country_hr | Croaţia |  | 130 |
 | country_cu | Cuba |  | 131 |
 | country_cy | Cipru |  | 132 |
@@ -176,21 +176,21 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_kz | Kazahstan |  | 188 |
 | country_ke | Kenya |  | 189 |
 | country_ki | Kiribati |  | 190 |
-| COUNTRY_KP | Coreea, Republica Populară Democrată |  | 191 |
-| COUNTRY_KR | Coreea, Republica din |  | 192 |
+| country_kp | Coreea de Nord |  | 191 |
+| country_kr | Coreea de Sud |  | 192 |
 | country_kw | Kuweit |  | 193 |
 | country_kg | Kirgazistan |  | 194 |
-| COUNTRY_LA | Republica Democrată a Poporului Lao |  | 195 |
-| COUNTRY_LV | Letonia |  | 196 |
+| country_la | Laos |  | 195 |
+| country_lv | Letonia |  | 196 |
 | country_lb | Liban |  | 197 |
 | country_ls | Lesotho |  | 198 |
 | country_lr | Liberia |  | 199 |
-| country_ly | Jamahiriya arabă libiană |  | 200 |
+| country_ly | Libia |  | 200 |
 | country_li | Liechtenstein |  | 201 |
 | country_lt | Lituania |  | 202 |
 | country_lu | Luxemburg |  | 203 |
 | country_mo | Macao |  | 204 |
-| country_mk | Macedonia, fosta Republica Iugoslavă |  | 205 |
+| country_mk | Macedonia de Nord |  | 205 |
 | country_mg | Madagascar |  | 206 |
 | country_mw | Malawi |  | 207 |
 | country_my | Malaezia |  | 208 |
@@ -204,7 +204,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_yt | Mayotte |  | 216 |
 | country_mx | Mexic |  | 217 |
 | country_fm | Micronezie, state federate ale |  | 218 |
-| country_md | Moldova, Republica din |  | 219 |
+| country_md | Moldova |  | 219 |
 | country_mc | Monaco |  | 220 |
 | country_mn | Mongolia |  | 221 |
 | country_ms | Montserrat |  | 222 |
@@ -241,7 +241,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_qa | Qatar |  | 253 |
 | country_re | Reuniune |  | 254 |
 | country_ro | România |  | 255 |
-| country_ru | Federația rusă |  | 256 |
+| country_ru | Rusia |  | 256 |
 | country_rw | Rwanda |  | 257 |
 | country_sh | Sfânta Elena |  | 258 |
 | country_kn | Saint Kitts și Nevis |  | 259 |
@@ -271,12 +271,12 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_sz | Swaziland |  | 283 |
 | country_se | Suedia |  | 284 |
 | country_ch | Elveţia |  | 285 |
-| country_sy | Republica arabă siriană |  | 286 |
-| country_tw | Taiwan, provincia Chinei |  | 287 |
+| country_sy | Siria |  | 286 |
+| country_tw | Taiwan |  | 287 |
 | country_tj | Tadjikistan |  | 288 |
-| country_tz | Tanzania, Republica Unite |  | 289 |
+| country_tz | Tanzania |  | 289 |
 | country_th | Tailanda |  | 290 |
-| country_tl | Timor-Leste |  | 291 |
+| country_tl | Timorul de Est |  | 291 |
 | country_tg | Togo |  | 292 |
 | country_tk | Tokelau |  | 293 |
 | country_to | Tonga |  | 294 |
@@ -304,3 +304,6 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_ye | Yemen |  | 316 |
 | country_zm | Zambia |  | 317 |
 | country_zw | Zimbabwe |  | 318 |
+| country_me | Muntenegru |  | 319 |
+| country_rs | Serbia |  | 321 |
+| country_xk | Kosovo |  | 322 |

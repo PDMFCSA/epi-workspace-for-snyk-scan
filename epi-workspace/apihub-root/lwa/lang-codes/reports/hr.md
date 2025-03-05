@@ -93,7 +93,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_bv | Otok buvet |  | 105 |
 | country_br | Brazil |  | 106 |
 | country_io | Britanski teritorij Indijskog oceana |  | 107 |
-| country_bn | Brunej Darussalam |  | 108 |
+| country_bn | Brunej |  | 108 |
 | country_bg | Bugarska |  | 109 |
 | country_bf | Burkina Faso |  | 110 |
 | country_bi | Burundi |  | 111 |
@@ -110,11 +110,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_cc | Otoci Cocos (Keeling) |  | 122 |
 | country_co | Kolumbija |  | 123 |
 | country_km | Komori |  | 124 |
-| country_cg | Kongo |  | 125 |
+| country_cg | Kongo, Republika |  | 125 |
 | country_cd | Kongo, Demokratska Republika |  | 126 |
 | country_ck | Kuhati otoci |  | 127 |
 | country_cr | Kostarika |  | 128 |
-| country_ci | Cote d'Ovoire |  | 129 |
+| country_ci | Obala bjelokosti |  | 129 |
 | country_hr | Hrvatska |  | 130 |
 | country_cu | Kuba |  | 131 |
 | country_cy | Cipar |  | 132 |
@@ -176,21 +176,21 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_kz | Kazakhstan |  | 188 |
 | country_ke | Kenija |  | 189 |
 | country_ki | Kiribati |  | 190 |
-| COUNTRY_KP | Koreja, Demokratska narodna Republika |  | 191 |
-| COUNTRY_KR | Koreja, Republika |  | 192 |
+| country_kp | Sjeverna Koreja |  | 191 |
+| country_kr | Južna Koreja |  | 192 |
 | country_kw | Kuvajt |  | 193 |
 | country_kg | Kirgijski |  | 194 |
-| COUNTRY_LA | Lao narodna demokratska republika |  | 195 |
-| COUNTRY_LV | Latvija |  | 196 |
+| country_la | Laos |  | 195 |
+| country_lv | Latvija |  | 196 |
 | country_lb | Libanon |  | 197 |
 | country_ls | Lesoto |  | 198 |
 | country_lr | Liberija |  | 199 |
-| country_ly | Libijska Arapska Jamahiriya |  | 200 |
+| country_ly | Libija |  | 200 |
 | country_li | Lihtenštajn |  | 201 |
 | country_lt | Litvanija |  | 202 |
 | country_lu | Luksemburg |  | 203 |
 | country_mo | Makao |  | 204 |
-| country_mk | Makedonija, bivša Jugoslavenska Republika |  | 205 |
+| country_mk | Sjeverna Makedonija |  | 205 |
 | country_mg | Madagaskar |  | 206 |
 | country_mw | Malavi |  | 207 |
 | country_my | Malezija |  | 208 |
@@ -204,7 +204,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_yt | Mayotte |  | 216 |
 | country_mx | Meksiko |  | 217 |
 | country_fm | Mikronezija, federalne države |  | 218 |
-| country_md | Moldava, Republika |  | 219 |
+| country_md | Moldavija |  | 219 |
 | country_mc | Monako |  | 220 |
 | country_mn | Mongolija |  | 221 |
 | country_ms | Montserrat |  | 222 |
@@ -241,7 +241,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_qa | Katar |  | 253 |
 | country_re | Ponovno spajanje |  | 254 |
 | country_ro | Rumunija |  | 255 |
-| country_ru | Ruska Federacija |  | 256 |
+| country_ru | Rusija |  | 256 |
 | country_rw | Ruanda |  | 257 |
 | country_sh | Sveta Helena |  | 258 |
 | country_kn | Sveti Kitts i Nevis |  | 259 |
@@ -271,12 +271,12 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_sz | Svaziland |  | 283 |
 | country_se | Švedska |  | 284 |
 | country_ch | Švicarska |  | 285 |
-| country_sy | Sirijska Arapska republika |  | 286 |
-| country_tw | Tajvan, pokrajina Kine |  | 287 |
+| country_sy | Sirija |  | 286 |
+| country_tw | Tajvan |  | 287 |
 | country_tj | Tajkistan |  | 288 |
-| country_tz | Tanzanija, Ujedinjena Republika |  | 289 |
+| country_tz | Tanzanija |  | 289 |
 | country_th | Tajland |  | 290 |
-| country_tl | Timor-Leste |  | 291 |
+| country_tl | Istočni Timor |  | 291 |
 | country_tg | Togo |  | 292 |
 | country_tk | Tokelau |  | 293 |
 | country_to | Laka dvokolica |  | 294 |
@@ -304,3 +304,6 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_ye | Jemen |  | 316 |
 | country_zm | Zambija |  | 317 |
 | country_zw | Zimbabve |  | 318 |
+| country_me | Crna Gora |  | 319 |
+| country_rs | Srbija |  | 321 |
+| country_xk | Kosov |  | 322 |
