@@ -46,6 +46,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | product_not_loaded | Valitettavasti tuotetietoja ei ole ladattu. | ok | 45 |
 | err_code | Virhekoodi | ok | 46 |
 | system_busy | Järjestelmä on kiireinen, yritä myöhemmin uudelleen. | ok | 47 |
+| leaflet_print | Painaa |  | 48 |
 | leaflet_print_title | Tulostustiedot |  | 61 |
 | leaflet_print_description | Nykyiset valitut tiedot tulostetaan PDF: ksi. |  | 62 |
 | leaflet_print_description2 | Haluatko edetä? |  | 63 |
@@ -62,18 +63,13 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | epi_markets_modal_message | Valitse maasi |  | 74 |
 | epi_markets_modal_no_market | Ei maata |  | 75 |
 | country_af | Afganistan |  | 76 |
-| country_ax | Ålannin saaret |  | 77 |
 | country_al | Albania |  | 78 |
 | country_dz | Algeria |  | 79 |
-| country_as | Amerikkalainen samoa |  | 80 |
 | country_ad | Andorra |  | 81 |
 | country_ao | Angola |  | 82 |
-| country_ai | Anguilla |  | 83 |
-| country_aq | Antarktis |  | 84 |
 | country_ag | Antigua ja Barbuda |  | 85 |
 | country_ar | Argentiina |  | 86 |
 | country_am | Armenia |  | 87 |
-| country_aw | Aruba |  | 88 |
 | country_au | Australia |  | 89 |
 | country_at | Itävalta |  | 90 |
 | country_az | Azerbaidžan |  | 91 |
@@ -85,14 +81,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_be | Belgia |  | 97 |
 | country_bz | Belize |  | 98 |
 | country_bj | Benin |  | 99 |
-| country_bm | Bermudaa |  | 100 |
 | country_bt | Bhutan |  | 101 |
 | country_bo | Bolivia |  | 102 |
 | country_ba | Bosnia ja Hertsegovinina |  | 103 |
 | country_bw | Botswana |  | 104 |
-| country_bv | Bouvet -saari |  | 105 |
 | country_br | Brasilia |  | 106 |
-| country_io | Britannian Intian valtameren alue |  | 107 |
 | country_bn | Brunei |  | 108 |
 | country_bg | Bulgaria |  | 109 |
 | country_bf | Burkina Faso |  | 110 |
@@ -101,18 +94,14 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_cm | Kamerun |  | 113 |
 | country_ca | Kanada |  | 114 |
 | country_cv | Kapita |  | 115 |
-| country_ky | Caymansaaret |  | 116 |
 | country_cf | Keski -Afrikan tasavalta |  | 117 |
 | country_td | Puna |  | 118 |
 | country_cl | Chile |  | 119 |
 | country_cn | Kiina |  | 120 |
-| country_cx | Joulusaari |  | 121 |
-| country_cc | Cocos (keeling) saaret |  | 122 |
 | country_co | Kolumbia |  | 123 |
 | country_km | Komorit |  | 124 |
 | country_cg | Kongo, |  | 125 |
 | country_cd | Kongo, |  | 126 |
-| country_ck | Keitä saaria |  | 127 |
 | country_cr | Costa Rica |  | 128 |
 | country_ci | Norsunluurannikko |  | 129 |
 | country_hr | Kroatia |  | 130 |
@@ -130,33 +119,21 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_er | Eritrea |  | 142 |
 | country_ee | Viro |  | 143 |
 | country_et | Etiopia |  | 144 |
-| country_fk | Falklandinsaaret (Malvinas) |  | 145 |
-| country_fo | Färsaaret |  | 146 |
 | country_fj | Fidži |  | 147 |
 | country_fi | Suomi |  | 148 |
 | country_fr | Ranska |  | 149 |
-| country_gf | Ranskalainen Guayana |  | 150 |
-| country_pf | Ranskan polynesia |  | 151 |
-| country_tf | Ranskan eteläiset alueet |  | 152 |
 | country_ga | Gabon |  | 153 |
 | country_gm | Gambia |  | 154 |
 | country_ge | Georgia |  | 155 |
 | country_de | Saksa |  | 156 |
 | country_gh | Ghana |  | 157 |
-| country_gi | Gibraltar |  | 158 |
 | country_gr | Kreikka |  | 159 |
-| country_gl | Grönlanti |  | 160 |
 | country_gd | Grenada |  | 161 |
-| country_gp | Guadeloupe |  | 162 |
-| country_gu | Guam |  | 163 |
 | country_gt | Guatemala |  | 164 |
-| country_gg | Guernsey |  | 165 |
 | country_gn | Guinea |  | 166 |
 | country_gw | Guinea-Bissau |  | 167 |
 | country_gy | Guyana |  | 168 |
 | country_ht | Haiti |  | 169 |
-| country_hm | Heard Island ja McDonald -saaret |  | 170 |
-| country_va | Pyhä See (Vatikaanin kaupungin osavaltio) |  | 171 |
 | country_hn | Honduras |  | 172 |
 | country_hk | Hongkong |  | 173 |
 | country_hu | Unkari |  | 174 |
@@ -166,12 +143,10 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_ir | Iran, islamilainen tasavalta |  | 178 |
 | country_iq | Irak |  | 179 |
 | country_ie | Irlanti |  | 180 |
-| country_im | Ihmisen saari |  | 181 |
 | country_il | Israel |  | 182 |
 | country_it | Italia |  | 183 |
 | country_jm | Jamaika |  | 184 |
 | country_jp | Japani |  | 185 |
-| country_je | Jersey |  | 186 |
 | country_jo | Jordania |  | 187 |
 | country_kz | Kazakstan |  | 188 |
 | country_ke | Kenia |  | 189 |
@@ -189,7 +164,6 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_li | Liechtenstein |  | 201 |
 | country_lt | Liettua |  | 202 |
 | country_lu | Luxemburg |  | 203 |
-| country_mo | Macao |  | 204 |
 | country_mk | Pohjois -Makedonia |  | 205 |
 | country_mg | Madagaskar |  | 206 |
 | country_mw | Malawi |  | 207 |
@@ -198,16 +172,13 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_ml | Mali |  | 210 |
 | country_mt | Malta |  | 211 |
 | country_mh | Marshallinsaaret |  | 212 |
-| country_mq | Martinique |  | 213 |
 | country_mr | Mauritania |  | 214 |
 | country_mu | Mauritius |  | 215 |
-| country_yt | Mayotti |  | 216 |
 | country_mx | Meksiko |  | 217 |
 | country_fm | Mikronesia, liittovaltiot |  | 218 |
 | country_md | Moldova |  | 219 |
 | country_mc | Monaco |  | 220 |
 | country_mn | Mongolia |  | 221 |
-| country_ms | Montserrat |  | 222 |
 | country_ma | Marokko |  | 223 |
 | country_mz | Mosambik |  | 224 |
 | country_mm | Myanmar |  | 225 |
@@ -215,45 +186,33 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_nr | Nauru |  | 227 |
 | country_np | Nepal |  | 228 |
 | country_nl | Alankomaat |  | 229 |
-| country_an | Alankomaat Antilles |  | 230 |
-| country_nc | Uusi Kaledonia |  | 231 |
 | country_nz | Uusi -Seelanti |  | 232 |
 | country_ni | Nicaragua |  | 233 |
 | country_ne | Niger |  | 234 |
 | country_ng | Nigeria |  | 235 |
-| country_nu | Nieen |  | 236 |
-| country_nf | Norfolkin saari |  | 237 |
-| country_mp | Pohjois -Mariana -saaret |  | 238 |
 | country_no | Norja |  | 239 |
 | country_om | Oman |  | 240 |
 | country_pk | Pakistan |  | 241 |
 | country_pw | Palu |  | 242 |
-| country_ps | Palestiinan alue, miehitetty |  | 243 |
 | country_pa | Panama |  | 244 |
 | country_pg | Papua -Uusi -Guinea |  | 245 |
 | country_py | Paraguay |  | 246 |
 | country_pe | Peru |  | 247 |
 | country_ph | Filippiinit |  | 248 |
-| country_pn | Pitcairn |  | 249 |
 | country_pl | Puola |  | 250 |
 | country_pt | Portugali |  | 251 |
-| country_pr | Puerto Rico |  | 252 |
 | country_qa | Qatari |  | 253 |
-| country_re | Tapaaminen |  | 254 |
 | country_ro | Romania |  | 255 |
 | country_ru | Venäjä |  | 256 |
 | country_rw | Ruutu |  | 257 |
-| country_sh | Pyhä Helena |  | 258 |
 | country_kn | Saint Kitts ja Nevis |  | 259 |
 | country_lc | Pyhä Lucia |  | 260 |
-| country_pm | Saint Pierre ja Miquelon |  | 261 |
 | country_vc | Saint Vincent ja grenadiinit |  | 262 |
 | country_ws | Samoa |  | 263 |
 | country_sm | San Marino |  | 264 |
 | country_st | Sao Tome ja Principe |  | 265 |
 | country_sa | Saudi -Arabia |  | 266 |
 | country_sn | Senegal |  | 267 |
-| country_cs | Serbia ja Montenegro |  | 268 |
 | country_sc | Seychelles |  | 269 |
 | country_sl | Sierra Leone |  | 270 |
 | country_sg | Singapore |  | 271 |
@@ -262,12 +221,10 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_sb | Salomonsaaret |  | 274 |
 | country_so | Somalia |  | 275 |
 | country_za | Etelä -Afrikka |  | 276 |
-| country_gs | Etelä -Georgia ja Etelä -voileipäsaaret |  | 277 |
 | country_es | Espanja |  | 278 |
 | country_lk | Sri Lanka |  | 279 |
 | country_sd | Sudan |  | 280 |
 | country_sr | Surinimi |  | 281 |
-| country_sj | Svalbard ja Jan Mayen |  | 282 |
 | country_sz | Swazimaa |  | 283 |
 | country_se | Ruotsi |  | 284 |
 | country_ch | Sveitsi |  | 285 |
@@ -278,32 +235,26 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_th | Thaimaa |  | 290 |
 | country_tl | Itä -Timor |  | 291 |
 | country_tg | Togo |  | 292 |
-| country_tk | Tokelau |  | 293 |
 | country_to | Tonga |  | 294 |
 | country_tt | Trinidad ja Tobago |  | 295 |
 | country_tn | Tunisia |  | 296 |
 | country_tr | Turkki |  | 297 |
 | country_tm | Turkmenistan |  | 298 |
-| country_tc | Turkkilaiset ja Caicos -saaret |  | 299 |
 | country_tv | Tuvalu |  | 300 |
 | country_ug | Uganda |  | 301 |
 | country_ua | Ukraina |  | 302 |
 | country_ae | Yhdistyneet arabiemiirikunnat |  | 303 |
 | country_gb | Yhdistynyt kuningaskunta |  | 304 |
 | country_us | Yhdysvallat |  | 305 |
-| country_um | Yhdysvaltain pienet syrjäiset saaret |  | 306 |
 | country_uy | Uruguay |  | 307 |
 | country_uz | Uzbekistan |  | 308 |
 | country_vu | Vanuatu |  | 309 |
 | country_ve | Venezuela |  | 310 |
 | country_vn | Vietnam |  | 311 |
-| country_vg | Neitsytsaaret, brittiläiset |  | 312 |
-| country_vi | Neitsytsaaret, Yhdysvallat |  | 313 |
-| country_wf | Wallis ja Futuna |  | 314 |
-| country_eh | Länsi -Sahara |  | 315 |
 | country_ye | Jemenit |  | 316 |
 | country_zm | Sambia |  | 317 |
 | country_zw | Zimbabwe |  | 318 |
 | country_me | Montenegro |  | 319 |
 | country_rs | Serbia |  | 321 |
 | country_xk | Kosovo |  | 322 |
+| country_ss | Etelä -Sudan |  | 324 |

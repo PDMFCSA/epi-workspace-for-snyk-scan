@@ -1,6 +1,6 @@
 import {translate, getTranslation} from "./translationUtils.js";
 
-const countries = [
+export const countries = [
     {"name": "No Market", "code": ""},
     {"name": "Afghanistan", "code": "AF"},
     {"name": "Albania", "code": "AL"},
