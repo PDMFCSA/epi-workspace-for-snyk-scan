@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | Välkommen till PharmaLedger | ok | 1 |
-| scan_explain | Hitta DataMatrix-streckkoden på ditt läkemedel för att skanna och visa information. | ok | 2 |
+| scan_explain | Hitta datamatrix på din medicin. Se exempel ovan. |  | 2 |
 | scan_button | Skanna DataMatrix | ok | 3 |
 | change_camera | Byt kamera | ok | 4 |
 | cancel | Avbryt | ok | 5 |

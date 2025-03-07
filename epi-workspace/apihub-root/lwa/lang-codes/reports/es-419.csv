@@ -1,6 +1,6 @@
 code,text,status,key
 1,Bienvenido a PharmaLedger,ok,welcome
-2,Encuentra el código de barras DataMatrix en tu medicamento para escanear y ver la información,ok,scan_explain
+2,Encuentre la DataMatrix en su medicamento. Ver ejemplo de arriba.,,scan_explain
 3,Escanea el código DataMatrix,ok,scan_button
 4,Permitir acceso a la cámara,ok,change_camera
 5,Cancelar,ok,cancel

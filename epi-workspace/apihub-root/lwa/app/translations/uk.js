@@ -1,7 +1,7 @@
 const data = {
   "app_version": "Версія додатка: ",
   "welcome": "Вітаємо в PharmaLedger",
-  "scan_explain": "Знайдіть штрих-код DataMatrix на ваших ліках, щоб відсканувати та переглянути інформацію.",
+  "scan_explain": "Знайдіть датаматрикс на своєму ліку. Див. Приклад вище.",
   "scan_button": "Відсканувати DataMatrix",
   "cancel": "Відмінити",
   "change_camera": "Змінити камеру",

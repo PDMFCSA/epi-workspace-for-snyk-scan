@@ -1,6 +1,6 @@
 code,text,status,key
 1,Welkom bij PharmaLedger,ok,welcome
-2,Zoek de DataMatrix code op uw geneesmiddel om informatie te scannen en te bekijken.,ok,scan_explain
+2,Zoek de Datamatrix op uw medicijn. Zie voorbeeld hierboven.,,scan_explain
 3,DataMatrix code scannen,ok,scan_button
 4,Camera wijzigen,ok,change_camera
 5,Annuleren,ok,cancel

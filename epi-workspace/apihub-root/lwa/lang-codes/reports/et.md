@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | Tere tulemast PharmaLedgerisse | ok | 1 |
-| scan_explain | Leidke oma ravimilt DataMatrix-vöötkood, et skannida ja vaadata teavet. | ok | 2 |
+| scan_explain | Leidke oma ravimist DataMarrix. Vt näidet ülal. |  | 2 |
 | scan_button | Skaneeri DataMatrix | ok | 3 |
 | change_camera | Vahetage kaamerat | ok | 4 |
 | cancel | Tühista | ok | 5 |

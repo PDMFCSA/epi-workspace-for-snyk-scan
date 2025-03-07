@@ -1,6 +1,6 @@
 code,text,status,key
 1,Tere tulemast PharmaLedgerisse,ok,welcome
-2,"Leidke oma ravimilt DataMatrix-vöötkood, et skannida ja vaadata teavet.",ok,scan_explain
+2,Leidke oma ravimist DataMarrix. Vt näidet ülal.,,scan_explain
 3,Skaneeri DataMatrix,ok,scan_button
 4,Vahetage kaamerat,ok,change_camera
 5,Tühista,ok,cancel

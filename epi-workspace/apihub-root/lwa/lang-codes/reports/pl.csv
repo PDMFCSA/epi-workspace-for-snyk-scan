@@ -1,6 +1,6 @@
 code,text,status,key
 1,Witaj w PharmaLedger,ok,welcome
-2,W celu wyświetlenia informacji odszukaj i zeskanuj kod DataMatrix na swoim produkcie leczniczym.,ok,scan_explain
+2,Znajdź datamatrix w swoim leku. Patrz przykład powyżej.,,scan_explain
 3,Skanuj kod DataMatrix,ok,scan_button
 4,Zmień aparat,ok,change_camera
 5,Anuluj,ok,cancel

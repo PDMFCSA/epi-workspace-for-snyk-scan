@@ -1,6 +1,6 @@
 code,text,status,key
 1,Sveiki atvykę į „PharmaLedger“,ok,welcome
-2,Raskite „DataMatrix“ brūkšninį kodą ant vaisto ir nuskaitykite bei peržiūrėkite informaciją.,ok,scan_explain
+2,Raskite „Datamatrix“ apie savo vaistą. Žr. Aukščiau pateiktą pavyzdį.,,scan_explain
 3,Nuskaityti „DataMatrix“,ok,scan_button
 4,Keisti kamerą,ok,change_camera
 5,Atšaukti,ok,cancel

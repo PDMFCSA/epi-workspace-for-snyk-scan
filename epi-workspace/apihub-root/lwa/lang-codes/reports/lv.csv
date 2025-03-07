@@ -1,6 +1,6 @@
 code,text,status,key
 1,Laipni lūgti PharmaLedger,ok,welcome
-2,"Atrodiet DataMatrix svītrkodu uz savām zālēm, lai skenētu un skatītu informāciju.",ok,scan_explain
+2,Atrodiet savu medicīnu datuatrrix. Skatīt piemēru iepriekš.,,scan_explain
 3,DataMatrix skenēšana,ok,scan_button
 4,Mainīt kameru,ok,change_camera
 5,Atcelt,ok,cancel

@@ -1,6 +1,6 @@
 code,text,status,key
 1,欢迎来到 PharmaLedger,ok,welcome
-2,找到药品上的DataMatrix条形码，扫描并查看信息,ok,scan_explain
+2,查找有关您的药物的Datamatrix。 请参见上面的示例。,,scan_explain
 3,扫描DataMatrix,ok,scan_button
 4,改变相机,ok,change_camera
 5,取消,ok,cancel

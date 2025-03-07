@@ -1,6 +1,6 @@
 code,text,status,key
 1,PharmaLedger'a Hoş Geldiniz,ok,welcome
-2,Bilgileri taramak ve görüntülemek için ilacınızın üzerindeki DataMatrix Barkodunu bulun.,ok,scan_explain
+2,İlacınızdaki Datamatrix'i bulun. Yukarıdaki örneğe bakın.,,scan_explain
 3,DataMatrix'i tarayın,ok,scan_button
 4,Kamerayı değiştir,ok,change_camera
 5,İptal,ok,cancel

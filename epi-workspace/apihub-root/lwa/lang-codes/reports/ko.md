@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | PharmaLedger에 오신 것을 환영합니다 | ok | 1 |
-| scan_explain | 의약품의 데이터 매트릭스 바코드(DataMatrix Barcode)를 스캔하여 자세한 정보를 확인할 수 있습니다. | ok | 2 |
+| scan_explain | 약에서 Datamatrix를 찾으십시오. 위의 예를 참조하십시오. |  | 2 |
 | scan_button | 데이터 매트릭스 스캔하기 | ok | 3 |
 | change_camera | 카메라를 바꾸세요 | ok | 4 |
 | cancel | 취소 | ok | 5 |

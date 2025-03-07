@@ -1,7 +1,7 @@
 const data = {
   "app_version": "Version de l’application:",
   "welcome": "Bienvenue dans Pharmaledger",
-  "scan_explain": "Trouvez le DataMatrix sur votre médicament pour le scanner et afficher les informations le concernant.",
+  "scan_explain": "Trouvez le Datamatrix sur votre médicament. Voir l'exemple ci-dessus.",
   "scan_button": "Scanner DataMatrix",
   "cancel": "Annuler",
   "change_camera": "Changer d’appareil photo",

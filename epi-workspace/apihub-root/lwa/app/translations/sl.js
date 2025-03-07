@@ -1,7 +1,7 @@
 const data = {
   "app_version": "Različica aplikacije: ",
   "welcome": "Dobrodošli v PharmaLedger",
-  "scan_explain": "Poiščite črtno kodo DataMatrix na svojem zdravilu in si oglejte informacije.",
+  "scan_explain": "Poiščite DataMatrix na svojem zdravilu. Glej primer zgoraj.",
   "scan_button": "Skenirajte DataMatrix",
   "cancel": "Prekliči",
   "change_camera": "Zamenjajte kamero",

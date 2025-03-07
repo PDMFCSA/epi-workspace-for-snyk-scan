@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | Willkommen bei PharmaLedger | ok | 1 |
-| scan_explain | Suchen und scannen Sie den DataMatrix Barcode auf Ihrem Arzneimittel, um die Packungsbeilage anzuzeigen. | ok | 2 |
+| scan_explain | Identifiizieren Sie den DataMatrix Code auf Ihrem Arzneimittel. Ein Beispiel ist oben dargestellt. |  | 2 |
 | scan_button | DataMatrix Scannen | ok | 3 |
 | change_camera | Kamera wechseln | ok | 4 |
 | cancel | Abbrechen | ok | 5 |

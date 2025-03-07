@@ -1,6 +1,6 @@
 code,text,status,key
 1,Tervetuloa PharmaLedgeriin,ok,welcome
-2,Skannaa lääkkeesi DataMatrix-viivakoodi ja tarkastele tietoja.,ok,scan_explain
+2,Löydä datamatrix lääkkeestäsi. Katso yllä oleva esimerkki.,,scan_explain
 3,Skannaa DataMatrix,ok,scan_button
 4,Vaihda kameraa,ok,change_camera
 5,Peruuta,ok,cancel

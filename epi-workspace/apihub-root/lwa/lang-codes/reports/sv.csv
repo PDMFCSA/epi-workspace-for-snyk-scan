@@ -1,6 +1,6 @@
 code,text,status,key
 1,Välkommen till PharmaLedger,ok,welcome
-2,Hitta DataMatrix-streckkoden på ditt läkemedel för att skanna och visa information.,ok,scan_explain
+2,Hitta datamatrix på din medicin. Se exempel ovan.,,scan_explain
 3,Skanna DataMatrix,ok,scan_button
 4,Byt kamera,ok,change_camera
 5,Avbryt,ok,cancel

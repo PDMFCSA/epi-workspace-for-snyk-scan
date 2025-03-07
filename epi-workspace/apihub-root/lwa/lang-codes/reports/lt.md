@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | Sveiki atvykę į „PharmaLedger“ | ok | 1 |
-| scan_explain | Raskite „DataMatrix“ brūkšninį kodą ant vaisto ir nuskaitykite bei peržiūrėkite informaciją. | ok | 2 |
+| scan_explain | Raskite „Datamatrix“ apie savo vaistą. Žr. Aukščiau pateiktą pavyzdį. |  | 2 |
 | scan_button | Nuskaityti „DataMatrix“ | ok | 3 |
 | change_camera | Keisti kamerą | ok | 4 |
 | cancel | Atšaukti | ok | 5 |

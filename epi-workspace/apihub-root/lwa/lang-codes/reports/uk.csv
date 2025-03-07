@@ -1,6 +1,6 @@
 code,text,status,key
 1,Вітаємо в PharmaLedger,ok,welcome
-2,"Знайдіть штрих-код DataMatrix на ваших ліках, щоб відсканувати та переглянути інформацію.",ok,scan_explain
+2,Знайдіть датаматрикс на своєму ліку. Див. Приклад вище.,,scan_explain
 3,Відсканувати DataMatrix,ok,scan_button
 4,Змінити камеру,ok,change_camera
 5,Відмінити,ok,cancel

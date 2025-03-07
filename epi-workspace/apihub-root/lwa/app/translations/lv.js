@@ -1,7 +1,7 @@
 const data = {
   "app_version": "Lietotnes versija:",
   "welcome": "Laipni lūgti PharmaLedger",
-  "scan_explain": "Atrodiet DataMatrix svītrkodu uz savām zālēm, lai skenētu un skatītu informāciju.",
+  "scan_explain": "Atrodiet savu medicīnu datuatrrix. Skatīt piemēru iepriekš.",
   "scan_button": "DataMatrix skenēšana",
   "cancel": "Atcelt",
   "change_camera": "Mainīt kameru",

@@ -1,6 +1,6 @@
 code,text,status,key
 1,Dobrodošli v PharmaLedger,ok,welcome
-2,Poiščite črtno kodo DataMatrix na svojem zdravilu in si oglejte informacije.,ok,scan_explain
+2,Poiščite DataMatrix na svojem zdravilu. Glej primer zgoraj.,,scan_explain
 3,Skenirajte DataMatrix,ok,scan_button
 4,Zamenjajte kamero,ok,change_camera
 5,Prekliči,ok,cancel

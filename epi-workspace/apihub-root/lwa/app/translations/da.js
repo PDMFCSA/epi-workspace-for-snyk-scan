@@ -1,7 +1,7 @@
 const data = {
   "app_version": "App-version:",
   "welcome": "Velkommen til PharmaLedger",
-  "scan_explain": "Find DataMatrix-stregkoden på din medicin for at scanne og se information.",
+  "scan_explain": "Find datamatrixen på din medicin. Se eksempel ovenfor.",
   "scan_button": "Scan DataMatrix",
   "cancel": "Annuller",
   "change_camera": "Skift kamera",

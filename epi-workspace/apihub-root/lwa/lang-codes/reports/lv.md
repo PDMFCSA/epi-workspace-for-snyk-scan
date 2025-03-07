@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | Laipni lūgti PharmaLedger | ok | 1 |
-| scan_explain | Atrodiet DataMatrix svītrkodu uz savām zālēm, lai skenētu un skatītu informāciju. | ok | 2 |
+| scan_explain | Atrodiet savu medicīnu datuatrrix. Skatīt piemēru iepriekš. |  | 2 |
 | scan_button | DataMatrix skenēšana | ok | 3 |
 | change_camera | Mainīt kameru | ok | 4 |
 | cancel | Atcelt | ok | 5 |

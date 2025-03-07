@@ -1,7 +1,7 @@
 const data = {
   "app_version": "Version:",
   "welcome": "Willkommen bei PharmaLedger",
-  "scan_explain": "Suchen und scannen Sie den DataMatrix Barcode auf Ihrem Arzneimittel, um die Packungsbeilage anzuzeigen.",
+  "scan_explain": "Identifiizieren Sie den DataMatrix Code auf Ihrem Arzneimittel. Ein Beispiel ist oben dargestellt.",
   "scan_button": "DataMatrix Scannen",
   "cancel": "Abbrechen",
   "change_camera": "Kamera wechseln",

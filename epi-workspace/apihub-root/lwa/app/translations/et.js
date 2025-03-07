@@ -1,7 +1,7 @@
 const data = {
   "app_version": "Rakenduse versioon: ",
   "welcome": "Tere tulemast PharmaLedgerisse",
-  "scan_explain": "Leidke oma ravimilt DataMatrix-vöötkood, et skannida ja vaadata teavet.",
+  "scan_explain": "Leidke oma ravimist DataMarrix. Vt näidet ülal.",
   "scan_button": "Skaneeri DataMatrix",
   "cancel": "Tühista",
   "change_camera": "Vahetage kaamerat",

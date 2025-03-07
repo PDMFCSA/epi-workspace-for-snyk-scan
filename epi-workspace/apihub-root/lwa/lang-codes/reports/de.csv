@@ -1,6 +1,6 @@
 code,text,status,key
 1,Willkommen bei PharmaLedger,ok,welcome
-2,"Suchen und scannen Sie den DataMatrix Barcode auf Ihrem Arzneimittel, um die Packungsbeilage anzuzeigen.",ok,scan_explain
+2,Identifiizieren Sie den DataMatrix Code auf Ihrem Arzneimittel. Ein Beispiel ist oben dargestellt.,,scan_explain
 3,DataMatrix Scannen,ok,scan_button
 4,Kamera wechseln,ok,change_camera
 5,Abbrechen,ok,cancel

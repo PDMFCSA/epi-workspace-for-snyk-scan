@@ -1,7 +1,7 @@
 const data = {
   "app_version": "Verzió: ",
   "welcome": "Üdvözöljük a PharmaLedger alkalmazásban!",
-  "scan_explain": "Az információk megtekintéséhez olvassa be a gyógyszeren található DataMatrix kódot.",
+  "scan_explain": "Keresse meg a datamatrixot a gyógyszerén. Lásd a fenti példát.",
   "scan_button": "DataMatrix beolvasása",
   "cancel": "Mégse",
   "change_camera": "Kamera váltása",

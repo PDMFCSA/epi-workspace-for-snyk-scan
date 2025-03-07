@@ -1,6 +1,6 @@
 code,text,status,key
 1,Bienvenue dans Pharmaledger,ok,welcome
-2,Trouvez le DataMatrix sur votre médicament pour le scanner et afficher les informations le concernant.,ok,scan_explain
+2,Trouvez le Datamatrix sur votre médicament. Voir l'exemple ci-dessus.,,scan_explain
 3,Scanner DataMatrix,ok,scan_button
 4,Changer d’appareil photo,ok,change_camera
 5,Annuler,ok,cancel

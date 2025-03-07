@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | 欢迎来到 PharmaLedger | ok | 1 |
-| scan_explain | 找到药品上的DataMatrix条形码，扫描并查看信息 | ok | 2 |
+| scan_explain | 查找有关您的药物的Datamatrix。 请参见上面的示例。 |  | 2 |
 | scan_button | 扫描DataMatrix | ok | 3 |
 | change_camera | 改变相机 | ok | 4 |
 | cancel | 取消 | ok | 5 |

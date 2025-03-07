@@ -1,6 +1,6 @@
 code,text,status,key
 1,Vitajte vo PharmaLedger,ok,welcome
-2,"Ak chcete naskenovať a zobraziť informácie, nájdite na svojom lieku DataMatrix kód.",ok,scan_explain
+2,Nájdite Datamatrix vo svojom lieku. Pozri príklad vyššie.,,scan_explain
 3,Naskenovať DataMatrix,ok,scan_button
 4,Zmeniť fotoaparát,ok,change_camera
 5,Zrušiť,ok,cancel

@@ -1,7 +1,7 @@
 const data = {
   "app_version": "Programėlės versija: ",
   "welcome": "Sveiki atvykę į „PharmaLedger“",
-  "scan_explain": "Raskite „DataMatrix“ brūkšninį kodą ant vaisto ir nuskaitykite bei peržiūrėkite informaciją.",
+  "scan_explain": "Raskite „Datamatrix“ apie savo vaistą. Žr. Aukščiau pateiktą pavyzdį.",
   "scan_button": "Nuskaityti „DataMatrix“",
   "cancel": "Atšaukti",
   "change_camera": "Keisti kamerą",

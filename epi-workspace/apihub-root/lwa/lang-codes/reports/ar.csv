@@ -1,6 +1,6 @@
 code,text,status,key
 1,مرحبا بك في فارما ليدجر,ok,welcome
-2,ابحث عن باركود داتا ماتركس الموجود على دوائك لمسحه وعرض المعلومات الخاصة بالدواء. ,ok,scan_explain
+2,ابحث عن Datamatrix على الطب الخاص بك. انظر المثال أعلاه.,,scan_explain
 3,امسح الداتا ماتركس,ok,scan_button
 4,بدل الكاميرا,ok,change_camera
 5,الغاء,ok,cancel

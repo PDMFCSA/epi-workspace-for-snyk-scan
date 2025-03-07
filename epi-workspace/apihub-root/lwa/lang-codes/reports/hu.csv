@@ -1,6 +1,6 @@
 code,text,status,key
 1,Üdvözöljük a PharmaLedger alkalmazásban!,ok,welcome
-2,Az információk megtekintéséhez olvassa be a gyógyszeren található DataMatrix kódot.,ok,scan_explain
+2,Keresse meg a datamatrixot a gyógyszerén. Lásd a fenti példát.,,scan_explain
 3,DataMatrix beolvasása,ok,scan_button
 4,Kamera váltása,ok,change_camera
 5,Mégse,ok,cancel

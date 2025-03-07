@@ -1,7 +1,7 @@
 const data = {
   "app_version": "Verzia aplikácie: ",
   "welcome": "Vitajte vo PharmaLedger",
-  "scan_explain": "Ak chcete naskenovať a zobraziť informácie, nájdite na svojom lieku DataMatrix kód.",
+  "scan_explain": "Nájdite Datamatrix vo svojom lieku. Pozri príklad vyššie.",
   "scan_button": "Naskenovať DataMatrix",
   "cancel": "Zrušiť",
   "change_camera": "Zmeniť fotoaparát",

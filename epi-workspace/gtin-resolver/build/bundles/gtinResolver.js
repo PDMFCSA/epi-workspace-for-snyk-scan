@@ -13567,6 +13567,17 @@ const acordisXslContent = `<?xml version="1.0" encoding="UTF-8"?>
             <xsl:apply-templates select="node()" />
         </h2>
     </xsl:template>
+
+    <xsl:template match="video">
+        <video>
+            <xsl:copy-of select="@*"/>
+            <xsl:if test="not(@controls)">
+                <xsl:attribute name="controls">true</xsl:attribute>
+            </xsl:if>
+
+            <xsl:apply-templates/>
+        </video>
+    </xsl:template>
 </xsl:stylesheet>`;
 
 module.exports = acordisXslContent;
@@ -14234,6 +14245,17 @@ const xslContent = `<?xml version="1.0" encoding="UTF-8"?>
         </li>
     </xsl:template>
 
+    <xsl:template match="video">
+        <video>
+            <xsl:copy-of select="@*"/>
+            <xsl:if test="not(@controls)">
+                <xsl:attribute name="controls">true</xsl:attribute>
+            </xsl:if>
+
+            <xsl:apply-templates/>
+        </video>
+    </xsl:template>
+
     <xsl:template match="xs:linkHtml">
         <xsl:variable name="_href">
             <xsl:value-of select="@href"/>
@@ -14353,6 +14375,8 @@ const xslContent = `<?xml version="1.0" encoding="UTF-8"?>
             match="xs:author|xs:id|xs:document/xs:code|xs:document/xs:effectiveTime|xs:document/xs:setId|xs:document/xs:versionNumber">
         <!--hide selected nodes-->
     </xsl:template>
+
+    
 </xsl:stylesheet>`
 
 module.exports = xslContent;

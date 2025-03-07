@@ -1,7 +1,7 @@
 const data = {
   "app_version": "Versión de la aplicación",
   "welcome": "Bienvenido a PharmaLedger",
-  "scan_explain": "Encuentra el código de barras DataMatrix en tu medicamento para escanear y ver la información",
+  "scan_explain": "Encuentre la DataMatrix en su medicamento. Ver ejemplo de arriba.",
   "scan_button": "Escanea el código DataMatrix",
   "cancel": "Cancelar",
   "change_camera": "Permitir acceso a la cámara",

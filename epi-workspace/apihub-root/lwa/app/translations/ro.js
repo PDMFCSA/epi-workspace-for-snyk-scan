@@ -1,7 +1,7 @@
 const data = {
   "app_version": "Versiunea aplicației:",
   "welcome": "Bine ați venit la PharmaLedger",
-  "scan_explain": "Găsiți Codul de Bare DataMatrix pe medicament pentru a îl scana și vedea informația",
+  "scan_explain": "Găsiți DataMatrix pe medicamentul dvs. Vezi exemplul de mai sus.",
   "scan_button": "Scanați DataMatrix",
   "cancel": "Anulați",
   "change_camera": "Schimbați camera",

@@ -1,6 +1,6 @@
 code,text,status,key
 1,Welcome to PharmaLedger,ok,welcome
-2,Find the DataMatrix Barcode on your medicine to scan and view information.,ok,scan_explain
+2,Find the DataMatrix on your Medicine. See example above.,,scan_explain
 3,Scan DataMatrix,ok,scan_button
 4,Change camera,ok,change_camera
 5,Cancel,ok,cancel

@@ -1,6 +1,6 @@
 code,text,status,key
 1,Добре дошли във PharmaLedger,ok,welcome
-2,"Намерете баркода DataMatrix на Вашето лекарство, за да сканирате и видите информацията.",ok,scan_explain
+2,Намерете Datamatrix на вашето лекарство. Вижте пример по -горе.,,scan_explain
 3,Сканирайте DataMatrix,ok,scan_button
 4,Сменете камерата,ok,change_camera
 5,Отказ,ok,cancel

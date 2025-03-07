@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | Bine ați venit la PharmaLedger | ok | 1 |
-| scan_explain | Găsiți Codul de Bare DataMatrix pe medicament pentru a îl scana și vedea informația | ok | 2 |
+| scan_explain | Găsiți DataMatrix pe medicamentul dvs. Vezi exemplul de mai sus. |  | 2 |
 | scan_button | Scanați DataMatrix | ok | 3 |
 | change_camera | Schimbați camera | ok | 4 |
 | cancel | Anulați | ok | 5 |

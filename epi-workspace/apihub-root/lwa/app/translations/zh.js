@@ -1,7 +1,7 @@
 const data = {
   "app_version": "应用程序版本: ",
   "welcome": "欢迎来到 PharmaLedger",
-  "scan_explain": "找到药品上的DataMatrix条形码，扫描并查看信息",
+  "scan_explain": "查找有关您的药物的Datamatrix。 请参见上面的示例。",
   "scan_button": "扫描DataMatrix",
   "cancel": "取消",
   "change_camera": "改变相机",

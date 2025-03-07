@@ -1,7 +1,7 @@
 const data = {
   "app_version": "Έκδοση εφαρμογής: ",
   "welcome": "Καλωσήρθατε στην PharmaLedger",
-  "scan_explain": "Βρείτε το DataMatrix γραμμωτό κώδικα (Barcode) στο φάρμακο σας για σάρωση και προβολή πληροφοριών.",
+  "scan_explain": "Βρείτε το DataMatrix στο φάρμακό σας. Δείτε το παραπάνω παράδειγμα.",
   "scan_button": "Σαρώστε το DataMatrix",
   "cancel": "Ακύρωση",
   "change_camera": "Αλλάξτε κάμερα",

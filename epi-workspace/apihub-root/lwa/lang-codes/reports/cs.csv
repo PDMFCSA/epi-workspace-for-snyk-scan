@@ -1,6 +1,6 @@
 code,text,status,key
 1,Vítejte na PharmaLedger,ok,welcome
-2,Naskenujte čárový kód DataMatrix na Vašem léčivém přípravku a přečtěte si  informace.,ok,scan_explain
+2,Najděte datamatrix na lék. Viz příklad výše.,,scan_explain
 3,Naskenujte DataMatrix,ok,scan_button
 4,Zvolit jiný fotoaparát,ok,change_camera
 5,Zrušit,ok,cancel

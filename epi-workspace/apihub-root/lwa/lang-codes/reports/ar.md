@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | مرحبا بك في فارما ليدجر | ok | 1 |
-| scan_explain | ابحث عن باركود داتا ماتركس الموجود على دوائك لمسحه وعرض المعلومات الخاصة بالدواء. | ok | 2 |
+| scan_explain | ابحث عن Datamatrix على الطب الخاص بك. انظر المثال أعلاه. |  | 2 |
 | scan_button | امسح الداتا ماتركس | ok | 3 |
 | change_camera | بدل الكاميرا | ok | 4 |
 | cancel | الغاء | ok | 5 |

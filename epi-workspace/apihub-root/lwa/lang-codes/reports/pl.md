@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | Witaj w PharmaLedger | ok | 1 |
-| scan_explain | W celu wyświetlenia informacji odszukaj i zeskanuj kod DataMatrix na swoim produkcie leczniczym. | ok | 2 |
+| scan_explain | Znajdź datamatrix w swoim leku. Patrz przykład powyżej. |  | 2 |
 | scan_button | Skanuj kod DataMatrix | ok | 3 |
 | change_camera | Zmień aparat | ok | 4 |
 | cancel | Anuluj | ok | 5 |

@@ -1,6 +1,6 @@
 code,text,status,key
 1,Dobrodošli u PharmaLedger.,ok,welcome
-2,Pronađite DataMatrix barkod na svojem lijeku kako biste skenirali i pregledali informacije.,ok,scan_explain
+2,Pronađite Datamatrix na svom lijeku. Pogledajte gornji primjer.,,scan_explain
 3,Skeniraj DataMatrix.,ok,scan_button
 4,Promjena kamere,ok,change_camera
 5,Otkaži,ok,cancel

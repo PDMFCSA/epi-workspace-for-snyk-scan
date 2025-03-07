@@ -1,7 +1,7 @@
 const data = {
   "app_version": "Версия на приложението:",
   "welcome": "Добре дошли във PharmaLedger",
-  "scan_explain": "Намерете баркода DataMatrix на Вашето лекарство, за да сканирате и видите информацията.",
+  "scan_explain": "Намерете Datamatrix на вашето лекарство. Вижте пример по -горе.",
   "scan_button": "Сканирайте DataMatrix",
   "cancel": "Отказ",
   "change_camera": "Сменете камерата",

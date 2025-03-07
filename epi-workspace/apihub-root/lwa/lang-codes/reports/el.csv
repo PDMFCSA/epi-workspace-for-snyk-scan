@@ -1,6 +1,6 @@
 code,text,status,key
 1,Καλωσήρθατε στην PharmaLedger,ok,welcome
-2,Βρείτε το DataMatrix γραμμωτό κώδικα (Barcode) στο φάρμακο σας για σάρωση και προβολή πληροφοριών.,ok,scan_explain
+2,Βρείτε το DataMatrix στο φάρμακό σας. Δείτε το παραπάνω παράδειγμα.,,scan_explain
 3,Σαρώστε το DataMatrix,ok,scan_button
 4,Αλλάξτε κάμερα,ok,change_camera
 5,Ακύρωση,ok,cancel

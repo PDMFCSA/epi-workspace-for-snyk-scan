@@ -1,7 +1,7 @@
 const data = {
   "app_version": "Sovelluksen versio:",
   "welcome": "Tervetuloa PharmaLedgeriin",
-  "scan_explain": "Skannaa lääkkeesi DataMatrix-viivakoodi ja tarkastele tietoja.",
+  "scan_explain": "Löydä datamatrix lääkkeestäsi. Katso yllä oleva esimerkki.",
   "scan_button": "Skannaa DataMatrix",
   "cancel": "Peruuta",
   "change_camera": "Vaihda kameraa",

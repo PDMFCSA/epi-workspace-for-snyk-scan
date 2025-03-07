@@ -1,6 +1,6 @@
 code,text,status,key
 1,Bine ați venit la PharmaLedger,ok,welcome
-2,Găsiți Codul de Bare DataMatrix pe medicament pentru a îl scana și vedea informația,ok,scan_explain
+2,Găsiți DataMatrix pe medicamentul dvs. Vezi exemplul de mai sus.,,scan_explain
 3,Scanați DataMatrix,ok,scan_button
 4,Schimbați camera,ok,change_camera
 5,Anulați,ok,cancel

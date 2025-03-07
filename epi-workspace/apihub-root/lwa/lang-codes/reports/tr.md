@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | PharmaLedger'a Hoş Geldiniz | ok | 1 |
-| scan_explain | Bilgileri taramak ve görüntülemek için ilacınızın üzerindeki DataMatrix Barkodunu bulun. | ok | 2 |
+| scan_explain | İlacınızdaki Datamatrix'i bulun. Yukarıdaki örneğe bakın. |  | 2 |
 | scan_button | DataMatrix'i tarayın | ok | 3 |
 | change_camera | Kamerayı değiştir | ok | 4 |
 | cancel | İptal | ok | 5 |

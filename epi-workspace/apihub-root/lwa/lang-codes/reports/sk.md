@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | Vitajte vo PharmaLedger | ok | 1 |
-| scan_explain | Ak chcete naskenovať a zobraziť informácie, nájdite na svojom lieku DataMatrix kód. | ok | 2 |
+| scan_explain | Nájdite Datamatrix vo svojom lieku. Pozri príklad vyššie. |  | 2 |
 | scan_button | Naskenovať DataMatrix | ok | 3 |
 | change_camera | Zmeniť fotoaparát | ok | 4 |
 | cancel | Zrušiť | ok | 5 |
