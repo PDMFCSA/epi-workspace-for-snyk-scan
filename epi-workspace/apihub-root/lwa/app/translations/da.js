@@ -251,7 +251,20 @@ const data = {
   "country_rs": "Serbien",
   "country_xk": "Kosovo",
   "country_ss": "Sydsudan",
-  "leaflet_print": "Trykke"
+  "leaflet_print": "Trykke",
+  "error_subtitle": "Ikke -verificeret produkt",
+  "leaflet_incorrect_date_title": "Forkert dato",
+  "leaflet_incorrect_date_subtitle": "Scannet dato er forkert",
+  "scan_gif": "Hvordan man scanner, animeret gif",
+  "gif_play": "Spil",
+  "gif_pause": "Pause",
+  "play_pause_gif": "Play / Pause Animation -knap",
+  "top_close": "Tæt",
+  "close_error_message": "Luk fejlmeddelelsen",
+  "menu_button": "Menu -knap",
+  "alert_icon": "Alertikon",
+  "leaflet_available_doc": "Poles ledige dokumenter",
+  "leaflet_available_lang": "Poles ledige sprog"
 }
 
 export default data;

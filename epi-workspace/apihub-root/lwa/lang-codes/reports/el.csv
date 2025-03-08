@@ -42,6 +42,9 @@ code,text,status,key
 46,Σφάλμα κωδικού,ok,err_code
 47,"Το σύστημα είναι απασχολημένο (δεν μπορεί να σας εξυπηρετήσει), δοκιμάστε ξανά αργότερα.",ok,system_busy
 48,Αποτύπωμα,,leaflet_print
+49,Μη επαληθευμένο προϊόν,,error_subtitle
+50,Εσφαλμένη ημερομηνία,,leaflet_incorrect_date_title
+51,Η ημερομηνία σαρωτής είναι λανθασμένη,,leaflet_incorrect_date_subtitle
 61,Πληροφορίες εκτύπωσης,,leaflet_print_title
 62,Οι τρέχουσες επιλεγμένες πληροφορίες θα εκτυπωθούν ως PDF.,,leaflet_print_description
 63,Θέλετε να προχωρήσετε;,,leaflet_print_description2
@@ -253,3 +256,13 @@ code,text,status,key
 321,Σερβία,,country_rs
 322,Κοσσυφοπέδιο,,country_xk
 324,Νότιο Σουδάν,,country_ss
+325,Εικονίδιο ειδοποίησης,,alert_icon
+326,"Πώς να σαρώσετε, κινούμενο gif",,scan_gif
+327,Παιχνίδι,,gif_play
+328,Παύση,,gif_pause
+329,Κουμπί αναπαραγωγής / παύσης,,play_pause_gif
+330,Κοντά,,top_close
+331,Κλείστε το μήνυμα σφάλματος,,close_error_message
+332,Μενού,,menu_button
+333,Τα διαθέσιμα έγγραφα του φυλλαδίου,,leaflet_available_doc
+334,Οι διαθέσιμες γλώσσες του φυλλαδίου,,leaflet_available_lang

@@ -107,7 +107,9 @@ export function getTranslation(key, ...args) {
 
 function parseResult(result, key, ...args) {
     if(!result || result === undefined) 
-       return parseResult(fallbackTranslation[key], key, args);
+        if(fallbackTranslation[key]){
+            return parseResult(fallbackTranslation[key], key, args);
+        }
 
     if(!args)
         return result;
@@ -122,3 +124,16 @@ export function stringFormat(text, ...args) {
             : match;
     });
 };
+
+export function translateAcessabilityAttributes(){
+    ["alt", "title", "aria-label"].forEach((attr) => {
+        let altElements = document.querySelectorAll(`[${attr}]`);
+        altElements.forEach((element) => {
+            let elAttr = element.getAttribute(`${attr}`);
+            let elAttrTranslated = getTranslation(elAttr);
+            if(elAttrTranslated){
+                element.setAttribute(`${attr}`,elAttrTranslated);
+            }
+        });
+    })
+}

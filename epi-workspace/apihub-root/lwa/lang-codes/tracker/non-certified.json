@@ -1,4 +1,5 @@
 {
+  "scan_explain": 2,
   "leaflet_print": 48,
   "error_subtitle": 49,
   "leaflet_incorrect_date_title": 50,
@@ -275,5 +276,14 @@
   "country_xk": 322,
   "country_LV": 323,
   "country_ss": 324,
-  "scan_explain": 2
+  "alert_icon": 325,
+  "scan_gif": 326,
+  "gif_play": 327,
+  "gif_pause": 328,
+  "play_pause_gif": 329,
+  "top_close": 330,
+  "close_error_message": 331,
+  "menu_button": 332,
+  "leaflet_available_doc": 333,
+  "leaflet_available_lang": 334
 }

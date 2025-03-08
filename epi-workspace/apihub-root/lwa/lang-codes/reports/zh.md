@@ -47,9 +47,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | err_code | 错误代码 | ok | 46 |
 | system_busy | 系统繁忙，请稍后再试。 | ok | 47 |
 | leaflet_print | 打印 |  | 48 |
-| error_subtitle | 未验证的产品 |  | 49 |
-| leaflet_incorrect_date_title | 日期不正确 |  | 50 |
-| leaflet_incorrect_date_subtitle | 扫描的日期不正确 |  | 51 |
+| error_subtitle | 未经验证的产品 |  | 49 |
+| leaflet_incorrect_date_title | 不正确的日期 |  | 50 |
+| leaflet_incorrect_date_subtitle | 扫描日期不正确 |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; 此产品的日期不正确&lt;/b&gt;. |  | 52 |
 | leaflet_print_title | 打印信息 |  | 61 |
 | leaflet_print_description | 当前选定的信息将以PDF打印。 |  | 62 |
@@ -262,3 +262,13 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_rs | 塞尔维亚 |  | 321 |
 | country_xk | 科索沃 |  | 322 |
 | country_ss | 南苏丹 |  | 324 |
+| alert_icon | 警报图标 |  | 325 |
+| scan_gif | 如何扫描，动画gif |  | 326 |
+| gif_play | 玩 |  | 327 |
+| gif_pause | 暂停 |  | 328 |
+| play_pause_gif | 播放 /暂停动画按钮 |  | 329 |
+| top_close | 关闭 |  | 330 |
+| close_error_message | 关闭错误消息 |  | 331 |
+| menu_button | 菜单按钮 |  | 332 |
+| leaflet_available_doc | 传单的可用文件 |  | 333 |
+| leaflet_available_lang | 传单的可用语言 |  | 334 |

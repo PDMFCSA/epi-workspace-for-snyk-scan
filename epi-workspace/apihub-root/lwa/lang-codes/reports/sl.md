@@ -47,9 +47,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | err_code | Koda napake | ok | 46 |
 | system_busy | Sistem je zaseden, prosimo poskusite pozneje. | ok | 47 |
 | leaflet_print | Tisk |  | 48 |
-| error_subtitle | Unverified Product |  | 49 |
-| leaflet_incorrect_date_title | Incorrect date |  | 50 |
-| leaflet_incorrect_date_subtitle | Scanned date is incorrect |  | 51 |
+| error_subtitle | Neverificiran izdelek |  | 49 |
+| leaflet_incorrect_date_title | Nepravilen datum |  | 50 |
+| leaflet_incorrect_date_subtitle | Skeniran datum je napačen |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; This product's date is incorrect&lt;/b&gt;. |  | 52 |
 | leaflet_print_title | Informacije o tiskanju |  | 61 |
 | leaflet_print_description | Trenutni izbrani podatki bodo natisnjeni kot PDF. |  | 62 |
@@ -262,3 +262,13 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_rs | Srbija |  | 321 |
 | country_xk | Kosovo |  | 322 |
 | country_ss | Južni Sudan |  | 324 |
+| alert_icon | Ikona opozorila |  | 325 |
+| scan_gif | Kako skenirati, animirani gif |  | 326 |
+| gif_play | Igrati |  | 327 |
+| gif_pause | Premor |  | 328 |
+| play_pause_gif | Gumb za predvajanje / pavzo animacije |  | 329 |
+| top_close | Blizu |  | 330 |
+| close_error_message | Zaprite sporočilo o napaki |  | 331 |
+| menu_button | Gumb za meni |  | 332 |
+| leaflet_available_doc | Na voljo dokumenti z letaki |  | 333 |
+| leaflet_available_lang | Na voljo jezikov |  | 334 |

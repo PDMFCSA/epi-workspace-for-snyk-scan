@@ -5,13 +5,14 @@ import {
   parseGS1Code, sanitizeLogMessage
 } from "../../../utils.js";
 import ScanService from "../services/ScanService.js";
-import {getTranslation, translate} from "../translationUtils.js";
+import {getTranslation, translate, translateAcessabilityAttributes} from "../translationUtils.js";
 import constants from "../../../constants.js";
 
 
 enableConsolePersistence();
 window.onload = async (event) => {
   await translate();
+  translateAcessabilityAttributes();
   setTimeout(() => {
     document.querySelector(".modal-header .close-modal").style.position = "absolute";
   }, 0);

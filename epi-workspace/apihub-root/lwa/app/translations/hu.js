@@ -8,15 +8,15 @@ const data = {
   "scan_again": "Beolvasás újra",
   "product_not_found_title": "Nem azonosítható",
   "product_not_loaded_title": "Nincs elérhető betegtájékoztató.",
-  "error_subtitle": "Unverified Product",
+  "error_subtitle": "Nem ellenőrzött termék",
   "product_not_found": "A termék nem található.",
   "product_not_loaded": "A betegtájékoztatót nem sikerült betölteni.",
   "system_busy": "A rendszer működésében hiba merült fel. Kérjük, próbálja meg később.",
   "err_code": "Hibaüzenet",
   "leaflet_expired_title": "Lejárt",
   "leaflet_expired_message": "<p><b>Lejárt szavatosságú termék.</b></p> ",
-  "leaflet_incorrect_date_title": "Incorrect date",
-  "leaflet_incorrect_date_subtitle": "Scanned date is incorrect",
+  "leaflet_incorrect_date_title": "Helytelen dátum",
+  "leaflet_incorrect_date_subtitle": "A beolvasott dátum helytelen",
   "leaflet_incorrect_date_message": "<b> This product's date is incorrect</b>.",
   "select_lang_title": "A választott nyelv nem érhető el",
   "scan_error_title": "Sikertelen beolvasás",
@@ -255,7 +255,17 @@ const data = {
   "country_rs": "Szerbia",
   "country_xk": "Koszovó",
   "country_ss": "Dél -Szudán",
-  "leaflet_print": "Nyomtatás"
+  "leaflet_print": "Nyomtatás",
+  "scan_gif": "Hogyan szkenneljünk, animált gif",
+  "gif_play": "Játék",
+  "gif_pause": "Szünet",
+  "play_pause_gif": "Lejátszás / szünet animációs gomb",
+  "top_close": "Közeli",
+  "close_error_message": "Zárja be a hibaüzenetet",
+  "menu_button": "Menügomb",
+  "alert_icon": "Riasztási ikon",
+  "leaflet_available_doc": "A szórólap rendelkezésre álló dokumentumai",
+  "leaflet_available_lang": "A szórólap rendelkezésre álló nyelvei"
 }
 
 export default data;

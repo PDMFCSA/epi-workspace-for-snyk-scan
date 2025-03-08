@@ -47,6 +47,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | err_code | Kļūdas kods | ok | 46 |
 | system_busy | Sistēma ir aizņemta, lūdzu, mēģiniet vēlāk. | ok | 47 |
 | leaflet_print | Drukāt |  | 48 |
+| error_subtitle | Nepārbaudīts produkts |  | 49 |
+| leaflet_incorrect_date_title | Nepareizs datums |  | 50 |
+| leaflet_incorrect_date_subtitle | Skenēts datums nav pareizs |  | 51 |
 | leaflet_print_title | Drukas informācija |  | 61 |
 | leaflet_print_description | Pašreizējā atlasītā informācija tiks izdrukāta kā PDF. |  | 62 |
 | leaflet_print_description2 | Vai vēlaties turpināt? |  | 63 |
@@ -258,3 +261,13 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_rs | Serbija |  | 321 |
 | country_xk | Kosovo |  | 322 |
 | country_ss | Dienvidsudāna |  | 324 |
+| alert_icon | Brīdinājuma ikona |  | 325 |
+| scan_gif | Kā skenēt, animēt GIF |  | 326 |
+| gif_play | Rotaļlieta |  | 327 |
+| gif_pause | Apturēt |  | 328 |
+| play_pause_gif | Spēlēt / pauzēt animācijas pogu |  | 329 |
+| top_close | Tuvs |  | 330 |
+| close_error_message | Aizveriet kļūdas ziņojumu |  | 331 |
+| menu_button | Izvēlnes poga |  | 332 |
+| leaflet_available_doc | Beamplet pieejamie dokumenti |  | 333 |
+| leaflet_available_lang | Beamplet pieejamās valodas |  | 334 |

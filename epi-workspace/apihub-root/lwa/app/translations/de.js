@@ -8,15 +8,15 @@ const data = {
   "scan_again": "Erneut Scannen",
   "product_not_found_title": "Nicht erkannt",
   "product_not_loaded_title": "Produktinformationen nicht gefunden.",
-  "error_subtitle": "",
+  "error_subtitle": "Nicht überprüftes Produkt",
   "product_not_found": "Dieses Produkt wurde nicht gefunden.",
   "product_not_loaded": "Es wurden leider keine Produktinformationen zu diesem Arzneimittel zur Verfügung gestellt.",
   "system_busy": "Das System ist beschäftigt, bitte versuchen Sie es später noch einmal.",
   "err_code": "Fehler",
   "leaflet_expired_title": "Abgelaufen",
   "leaflet_expired_message": "<p> <b>Das Verfallsdatum dieses Arzneimittels ist überschritten.</b> </p> ",
-  "leaflet_incorrect_date_title": "",
-  "leaflet_incorrect_date_subtitle": "",
+  "leaflet_incorrect_date_title": "Falsches Datum",
+  "leaflet_incorrect_date_subtitle": "Das gescannte Datum ist falsch",
   "leaflet_incorrect_date_message": "<b> </b>.",
   "select_lang_title": "Sprache nicht verfügbar",
   "scan_error_title": "Scan Fehler",
@@ -255,7 +255,17 @@ const data = {
   "leaflet_print_button": "Fortfahren",
   "leaflet_print_button_back": "Zurück",
   "country_ss": "Südsudan",
-  "leaflet_print": "Drucken"
+  "leaflet_print": "Drucken",
+  "scan_gif": "So scannen, animierte GIF",
+  "gif_play": "Spielen",
+  "gif_pause": "Pause",
+  "play_pause_gif": "Animationstaste abspielen / pausieren",
+  "top_close": "Schließen",
+  "close_error_message": "Schließen Sie die Fehlermeldung",
+  "menu_button": "Menüschaltfläche",
+  "alert_icon": "Alarm -Symbol",
+  "leaflet_available_doc": "Die verfügbaren Dokumente von Broschüren",
+  "leaflet_available_lang": "Die verfügbaren Sprachen von Broschüren"
 }
 
 export default data;

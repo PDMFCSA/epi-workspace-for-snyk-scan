@@ -47,9 +47,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | err_code | Hibaüzenet | ok | 46 |
 | system_busy | A rendszer működésében hiba merült fel. Kérjük, próbálja meg később. | ok | 47 |
 | leaflet_print | Nyomtatás |  | 48 |
-| error_subtitle | Unverified Product |  | 49 |
-| leaflet_incorrect_date_title | Incorrect date |  | 50 |
-| leaflet_incorrect_date_subtitle | Scanned date is incorrect |  | 51 |
+| error_subtitle | Nem ellenőrzött termék |  | 49 |
+| leaflet_incorrect_date_title | Helytelen dátum |  | 50 |
+| leaflet_incorrect_date_subtitle | A beolvasott dátum helytelen |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; This product's date is incorrect&lt;/b&gt;. |  | 52 |
 | leaflet_print_title | Nyomtatási információk |  | 61 |
 | leaflet_print_description | Az aktuális kiválasztott információt PDF -ként nyomtatják ki. |  | 62 |
@@ -262,3 +262,13 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_rs | Szerbia |  | 321 |
 | country_xk | Koszovó |  | 322 |
 | country_ss | Dél -Szudán |  | 324 |
+| alert_icon | Riasztási ikon |  | 325 |
+| scan_gif | Hogyan szkenneljünk, animált gif |  | 326 |
+| gif_play | Játék |  | 327 |
+| gif_pause | Szünet |  | 328 |
+| play_pause_gif | Lejátszás / szünet animációs gomb |  | 329 |
+| top_close | Közeli |  | 330 |
+| close_error_message | Zárja be a hibaüzenetet |  | 331 |
+| menu_button | Menügomb |  | 332 |
+| leaflet_available_doc | A szórólap rendelkezésre álló dokumentumai |  | 333 |
+| leaflet_available_lang | A szórólap rendelkezésre álló nyelvei |  | 334 |

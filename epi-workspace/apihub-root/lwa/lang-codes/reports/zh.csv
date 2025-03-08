@@ -41,9 +41,9 @@ code,text,status,key
 46,错误代码,ok,err_code
 47,系统繁忙，请稍后再试。,ok,system_busy
 48,打印,,leaflet_print
-49,未验证的产品,,error_subtitle
-50,日期不正确,,leaflet_incorrect_date_title
-51,扫描的日期不正确,,leaflet_incorrect_date_subtitle
+49,未经验证的产品,,error_subtitle
+50,不正确的日期,,leaflet_incorrect_date_title
+51,扫描日期不正确,,leaflet_incorrect_date_subtitle
 52,<b> 此产品的日期不正确</b>.,,leaflet_incorrect_date_message
 61,打印信息,,leaflet_print_title
 62,当前选定的信息将以PDF打印。,,leaflet_print_description
@@ -256,3 +256,13 @@ code,text,status,key
 321,塞尔维亚,,country_rs
 322,科索沃,,country_xk
 324,南苏丹,,country_ss
+325,警报图标,,alert_icon
+326,如何扫描，动画gif,,scan_gif
+327,玩,,gif_play
+328,暂停,,gif_pause
+329,播放 /暂停动画按钮,,play_pause_gif
+330,关闭,,top_close
+331,关闭错误消息,,close_error_message
+332,菜单按钮,,menu_button
+333,传单的可用文件,,leaflet_available_doc
+334,传单的可用语言,,leaflet_available_lang

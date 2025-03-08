@@ -8,15 +8,15 @@ const data = {
   "scan_again": "Ponovno skeniranje",
   "product_not_found_title": "Ni prepoznano",
   "product_not_loaded_title": "Informacije o izdelku niso na voljo.",
-  "error_subtitle": "Unverified Product",
+  "error_subtitle": "Neverificiran izdelek",
   "product_not_found": "Tega izdelka ni mogoče najti.",
   "product_not_loaded": "Žal ni bilo naloženih nobenih informacij o izdelku.",
   "system_busy": "Sistem je zaseden, prosimo poskusite pozneje.",
   "err_code": "Koda napake",
   "leaflet_expired_title": "Preteklo",
   "leaflet_expired_message": "<p> <b>Rok uporabnosti tega izdelka je potekel.</b> </p> ",
-  "leaflet_incorrect_date_title": "Incorrect date",
-  "leaflet_incorrect_date_subtitle": "Scanned date is incorrect",
+  "leaflet_incorrect_date_title": "Nepravilen datum",
+  "leaflet_incorrect_date_subtitle": "Skeniran datum je napačen",
   "leaflet_incorrect_date_message": "<b> This product's date is incorrect</b>.",
   "select_lang_title": "Jezik ni na voljo",
   "scan_error_title": "Napaka pri skeniranju",
@@ -255,7 +255,17 @@ const data = {
   "country_rs": "Srbija",
   "country_xk": "Kosovo",
   "country_ss": "Južni Sudan",
-  "leaflet_print": "Tisk"
+  "leaflet_print": "Tisk",
+  "scan_gif": "Kako skenirati, animirani gif",
+  "gif_play": "Igrati",
+  "gif_pause": "Premor",
+  "play_pause_gif": "Gumb za predvajanje / pavzo animacije",
+  "top_close": "Blizu",
+  "close_error_message": "Zaprite sporočilo o napaki",
+  "menu_button": "Gumb za meni",
+  "alert_icon": "Ikona opozorila",
+  "leaflet_available_doc": "Na voljo dokumenti z letaki",
+  "leaflet_available_lang": "Na voljo jezikov"
 }
 
 export default data;

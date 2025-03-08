@@ -251,7 +251,20 @@ const data = {
   "country_rs": "Srbija",
   "country_xk": "Kosov",
   "country_ss": "Južni Sudan",
-  "leaflet_print": "Ispis"
+  "leaflet_print": "Ispis",
+  "error_subtitle": "Neprovjereni proizvod",
+  "leaflet_incorrect_date_title": "Netočan datum",
+  "leaflet_incorrect_date_subtitle": "Datum skeniranja je netočan",
+  "scan_gif": "Kako skenirati, animirani gif",
+  "gif_play": "Igrati",
+  "gif_pause": "Pauza",
+  "play_pause_gif": "Gumb za animaciju reproduciraj / pauzu",
+  "top_close": "Zatvoriti",
+  "close_error_message": "Zatvorite poruku o pogrešci",
+  "menu_button": "Gumb",
+  "alert_icon": "Ikona upozorenja",
+  "leaflet_available_doc": "Dostupni dokumenti Leaflet",
+  "leaflet_available_lang": "Dostupni jezici Leaflet"
 }
 
 export default data;

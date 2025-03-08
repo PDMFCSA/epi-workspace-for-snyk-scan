@@ -47,9 +47,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | err_code | Foutmelding | ok | 46 |
 | system_busy | Systeem is bezet, probeer het later nog eens. | ok | 47 |
 | leaflet_print | Afdrukken |  | 48 |
-| error_subtitle |  |  | 49 |
-| leaflet_incorrect_date_title |  |  | 50 |
-| leaflet_incorrect_date_subtitle |  |  | 51 |
+| error_subtitle | Niet -geverifieerd product |  | 49 |
+| leaflet_incorrect_date_title | Onjuiste datum |  | 50 |
+| leaflet_incorrect_date_subtitle | Gescande datum is onjuist |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; &lt;/b&gt;. |  | 52 |
 | leaflet_print_title | Informatie afdrukken |  | 61 |
 | leaflet_print_description | De huidige geselecteerde informatie wordt afgedrukt als PDF. |  | 62 |
@@ -262,3 +262,13 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_rs | Servië |  | 321 |
 | country_xk | Kosovo |  | 322 |
 | country_ss | Zuid -Soedan |  | 324 |
+| alert_icon | Alert pictogram |  | 325 |
+| scan_gif | Hoe te scannen, geanimeerde gif |  | 326 |
+| gif_play | Toneelstuk |  | 327 |
+| gif_pause | Pauze |  | 328 |
+| play_pause_gif | Speel / pauzeer animatieknop |  | 329 |
+| top_close | Dichtbij |  | 330 |
+| close_error_message | Sluit het foutbericht |  | 331 |
+| menu_button | Menu -knop |  | 332 |
+| leaflet_available_doc | De beschikbare documenten van folder |  | 333 |
+| leaflet_available_lang | De beschikbare talen van folder |  | 334 |

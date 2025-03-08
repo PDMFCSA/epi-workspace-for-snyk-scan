@@ -8,15 +8,15 @@ const data = {
   "scan_again": "Відсканувати ще раз",
   "product_not_found_title": "Не розпізнано",
   "product_not_loaded_title": "нформація про продукт недоступна.",
-  "error_subtitle": "Unverified Product",
+  "error_subtitle": "Неперевірений продукт",
   "product_not_found": "Неможливо знайти цей товар.",
   "product_not_loaded": "На жаль, жодної інформації про продукт не завантажено.",
   "system_busy": "Система зайнята, будь ласка, повторіть спробу пізніше.",
   "err_code": "Код помилки",
   "leaflet_expired_title": "Закінчився термін дії",
   "leaflet_expired_message": "<p> <b>Термін придатності цього продукту закінчився.</b> </p> ",
-  "leaflet_incorrect_date_title": "Incorrect date",
-  "leaflet_incorrect_date_subtitle": "Scanned date is incorrect",
+  "leaflet_incorrect_date_title": "Неправильна дата",
+  "leaflet_incorrect_date_subtitle": "Відсканована дата невірна",
   "leaflet_incorrect_date_message": "<b> This product's date is incorrect</b>.",
   "select_lang_title": "Мова недоступна",
   "scan_error_title": "Помилка сканування",
@@ -255,7 +255,17 @@ const data = {
   "country_rs": "Сербія",
   "country_xk": "Косово",
   "country_ss": "Південний Судан",
-  "leaflet_print": "Друкувати"
+  "leaflet_print": "Друкувати",
+  "scan_gif": "Як сканувати, анімований gif",
+  "gif_play": "Гра",
+  "gif_pause": "Пауза",
+  "play_pause_gif": "Кнопка анімації гри / паузи",
+  "top_close": "Закривати",
+  "close_error_message": "Закрийте повідомлення про помилку",
+  "menu_button": "Кнопка меню",
+  "alert_icon": "Піктограма оповіщення",
+  "leaflet_available_doc": "Доступні документи листівки",
+  "leaflet_available_lang": "Наявні мови листівки"
 }
 
 export default data;

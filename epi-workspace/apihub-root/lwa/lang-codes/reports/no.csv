@@ -41,6 +41,9 @@ code,text,status,key
 46,Feilkode,ok,err_code
 47,"Systemet er opptatt, vennligst prøv igjen senere.",ok,system_busy
 48,Trykk,,leaflet_print
+49,Ubekreftet produkt,,error_subtitle
+50,Feil dato,,leaflet_incorrect_date_title
+51,Skannet dato er feil,,leaflet_incorrect_date_subtitle
 61,Skriv ut informasjon,,leaflet_print_title
 62,Den gjeldende valgte informasjonen vil bli skrevet ut som PDF.,,leaflet_print_description
 63,Vil du fortsette?,,leaflet_print_description2
@@ -252,3 +255,13 @@ code,text,status,key
 321,Serbia,,country_rs
 322,Kosovo,,country_xk
 324,Sør -Sudan,,country_ss
+325,Varslingsikon,,alert_icon
+326,"Hvordan skanne, animerte gif",,scan_gif
+327,Spille,,gif_play
+328,Pause,,gif_pause
+329,Spill / pause animasjonsknapp,,play_pause_gif
+330,Lukke,,top_close
+331,Lukk feilmeldingen,,close_error_message
+332,Menyknapp,,menu_button
+333,Brosjyrens tilgjengelige dokumenter,,leaflet_available_doc
+334,Brosjyrens tilgjengelige språk,,leaflet_available_lang

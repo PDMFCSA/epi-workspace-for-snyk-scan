@@ -8,15 +8,15 @@ const data = {
   "scan_again": "Skanna igen",
   "product_not_found_title": "Ej igenkänd",
   "product_not_loaded_title": "Produktinformation ej tillgänglig.",
-  "error_subtitle": "Unverified Product",
+  "error_subtitle": "Overifierad produkt",
   "product_not_found": "Produkten kan inte hittas.",
   "product_not_loaded": "Tyvärr har ingen produktinformation laddats.",
   "system_busy": "Systemet är upptaget, försök igen senare.",
   "err_code": "Felkod",
   "leaflet_expired_title": "Utgången",
   "leaflet_expired_message": "<p> <b>Denna produkt har identifierats som utgången.</b> </p> ",
-  "leaflet_incorrect_date_title": "Incorrect date",
-  "leaflet_incorrect_date_subtitle": "Scanned date is incorrect",
+  "leaflet_incorrect_date_title": "Felaktigt datum",
+  "leaflet_incorrect_date_subtitle": "Skannat datum är felaktigt",
   "leaflet_incorrect_date_message": "<b> This product's date is incorrect</b>.",
   "select_lang_title": "Språk otillgängligt",
   "scan_error_title": "Fel vid skanning",
@@ -255,7 +255,17 @@ const data = {
   "country_rs": "Serbien",
   "country_xk": "Kosovo",
   "country_ss": "Sydsudan",
-  "leaflet_print": "Skriva ut"
+  "leaflet_print": "Skriva ut",
+  "scan_gif": "Hur man skannar, animerad gif",
+  "gif_play": "Spela",
+  "gif_pause": "Paus",
+  "play_pause_gif": "Spela / Paus Animation -knappen",
+  "top_close": "Nära",
+  "close_error_message": "Stäng felmeddelandet",
+  "menu_button": "Menyknapp",
+  "alert_icon": "Varna ikon",
+  "leaflet_available_doc": "Broschyrens tillgängliga dokument",
+  "leaflet_available_lang": "Broschyrens tillgängliga språk"
 }
 
 export default data;

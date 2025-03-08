@@ -41,9 +41,9 @@ code,text,status,key
 46,خطأ بالكود,ok,err_code
 47,النظام مشغول، يرجى إعادة المحاولة لاحقا.,ok,system_busy
 48,مطبعة,,leaflet_print
-49,منتج غير موثوق,,error_subtitle
-50,تاريخ خاطئ,,leaflet_incorrect_date_title
-51,تاريخ المسح غير صحيح,,leaflet_incorrect_date_subtitle
+49,المنتج غير التحقق من ذلك,,error_subtitle
+50,تاريخ غير صحيح,,leaflet_incorrect_date_title
+51,التاريخ الممسوحة ضوئيًا غير صحيح,,leaflet_incorrect_date_subtitle
 52,<b> تاريخ هذا المنتج غير صحيح</b>.,,leaflet_incorrect_date_message
 61,معلومات الطباعة,,leaflet_print_title
 62,سيتم طباعة المعلومات المحددة الحالية على أنها PDF.,,leaflet_print_description
@@ -256,3 +256,13 @@ code,text,status,key
 321,صربيا,,country_rs
 322,كوسوفو,,country_xk
 324,جنوب السودان,,country_ss
+325,أيقونة التنبيه,,alert_icon
+326,كيفية مسح ، الرسوم المتحركة gif,,scan_gif
+327,يلعب,,gif_play
+328,يوقف,,gif_pause
+329,زر التشغيل / الإيقاف المؤقت للرسوم المتحركة,,play_pause_gif
+330,يغلق,,top_close
+331,أغلق رسالة الخطأ,,close_error_message
+332,زر القائمة,,menu_button
+333,مستندات النشرة المتاحة,,leaflet_available_doc
+334,اللغات المتاحة للنشرة,,leaflet_available_lang

@@ -42,6 +42,9 @@ code,text,status,key
 46,Viga kood,ok,err_code
 47,"Süsteem on hõivatud, palun proovige hiljem uuesti.",ok,system_busy
 48,Trükikoda,,leaflet_print
+49,Kontrollimata toode,,error_subtitle
+50,Vale kuupäev,,leaflet_incorrect_date_title
+51,Skaneeritud kuupäev on vale,,leaflet_incorrect_date_subtitle
 61,Trükiteave,,leaflet_print_title
 62,Praegune valitud teave trükitakse PDF -na.,,leaflet_print_description
 63,Kas soovite jätkata?,,leaflet_print_description2
@@ -253,3 +256,13 @@ code,text,status,key
 321,Serbia,,country_rs
 322,Kosovo,,country_xk
 324,Lõuna -Sudaan,,country_ss
+325,Hoiatusikoon,,alert_icon
+326,"Kuidas skannida, animeeritud gif",,scan_gif
+327,Näidend,,gif_play
+328,Paus,,gif_pause
+329,Play / pausi animatsiooni nupp,,play_pause_gif
+330,Sulgur,,top_close
+331,Sulgege veateade,,close_error_message
+332,Menüünupp,,menu_button
+333,Voldiku saadaolevad dokumendid,,leaflet_available_doc
+334,Voldiku saadaolevad keeled,,leaflet_available_lang

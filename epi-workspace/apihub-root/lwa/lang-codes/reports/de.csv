@@ -41,9 +41,9 @@ code,text,status,key
 46,Fehler,ok,err_code
 47,"Das System ist beschäftigt, bitte versuchen Sie es später noch einmal.",ok,system_busy
 48,Drucken,,leaflet_print
-49,,,error_subtitle
-50,,,leaflet_incorrect_date_title
-51,,,leaflet_incorrect_date_subtitle
+49,Nicht überprüftes Produkt,,error_subtitle
+50,Falsches Datum,,leaflet_incorrect_date_title
+51,Das gescannte Datum ist falsch,,leaflet_incorrect_date_subtitle
 52,<b> </b>.,,leaflet_incorrect_date_message
 61,Dokument Drucken,,leaflet_print_title
 62,Das aktuelle Dokument wird als PDF gedruckt.,,leaflet_print_description
@@ -256,3 +256,13 @@ code,text,status,key
 321,Serbien,,country_rs
 322,Kosovo,,country_xk
 324,Südsudan,,country_ss
+325,Alarm -Symbol,,alert_icon
+326,"So scannen, animierte GIF",,scan_gif
+327,Spielen,,gif_play
+328,Pause,,gif_pause
+329,Animationstaste abspielen / pausieren,,play_pause_gif
+330,Schließen,,top_close
+331,Schließen Sie die Fehlermeldung,,close_error_message
+332,Menüschaltfläche,,menu_button
+333,Die verfügbaren Dokumente von Broschüren,,leaflet_available_doc
+334,Die verfügbaren Sprachen von Broschüren,,leaflet_available_lang

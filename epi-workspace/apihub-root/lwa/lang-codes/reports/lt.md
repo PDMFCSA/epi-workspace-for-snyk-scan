@@ -47,9 +47,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | err_code | Klaidos kodas | ok | 46 |
 | system_busy | Sistema užimta, pabandykite vėliau. | ok | 47 |
 | leaflet_print | Spausdinti |  | 48 |
-| error_subtitle | Unverified Product |  | 49 |
-| leaflet_incorrect_date_title | Incorrect date |  | 50 |
-| leaflet_incorrect_date_subtitle | Scanned date is incorrect |  | 51 |
+| error_subtitle | Nepatikrintas produktas |  | 49 |
+| leaflet_incorrect_date_title | Neteisinga data |  | 50 |
+| leaflet_incorrect_date_subtitle | Nuskaityta data neteisinga |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; This product's date is incorrect&lt;/b&gt;. |  | 52 |
 | leaflet_print_title | Spausdinti informaciją |  | 61 |
 | leaflet_print_description | Dabartinė pasirinkta informacija bus atspausdinta kaip PDF. |  | 62 |
@@ -262,3 +262,13 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_rs | Serbija |  | 321 |
 | country_xk | Kosovas |  | 322 |
 | country_ss | Pietų Sudanas |  | 324 |
+| alert_icon | Įspėjimo piktograma |  | 325 |
+| scan_gif | Kaip nuskaityti, animuoti GIF |  | 326 |
+| gif_play | Žaisk |  | 327 |
+| gif_pause | Pauzė |  | 328 |
+| play_pause_gif | Žaisk / pristabdykite animacijos mygtuką |  | 329 |
+| top_close | Uždaryti |  | 330 |
+| close_error_message | Uždarykite klaidos pranešimą |  | 331 |
+| menu_button | Meniu mygtukas |  | 332 |
+| leaflet_available_doc | Lankstinukas turimi dokumentai |  | 333 |
+| leaflet_available_lang | Lankstinukas turimas kalbas |  | 334 |

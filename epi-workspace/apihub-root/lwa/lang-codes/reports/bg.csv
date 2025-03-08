@@ -41,6 +41,9 @@ code,text,status,key
 46,Код за грешка,ok,err_code
 47,"Системата е претоварена, моля, опитайте отново по-късно.",ok,system_busy
 48,Печат,,leaflet_print
+49,Непроверен продукт,,error_subtitle
+50,Неправилна дата,,leaflet_incorrect_date_title
+51,Сканираната дата е неправилна,,leaflet_incorrect_date_subtitle
 61,Информация за отпечатване,,leaflet_print_title
 62,Текущата избрана информация ще бъде отпечатана като PDF.,,leaflet_print_description
 63,Искате ли да продължите?,,leaflet_print_description2
@@ -252,3 +255,13 @@ code,text,status,key
 321,Сърбия,,country_rs
 322,Косово,,country_xk
 324,Южен Судан,,country_ss
+325,Икона за предупреждение,,alert_icon
+326,"Как да сканираме, анимиран GIF",,scan_gif
+327,Игра,,gif_play
+328,Пауза,,gif_pause
+329,Бутон за анимация за възпроизвеждане / пауза,,play_pause_gif
+330,Затворете,,top_close
+331,Затворете съобщението за грешка,,close_error_message
+332,Бутон за менюто,,menu_button
+333,Наличните документи на листовка,,leaflet_available_doc
+334,Наличните езици на листовка,,leaflet_available_lang

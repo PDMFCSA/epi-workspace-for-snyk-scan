@@ -251,7 +251,20 @@ const data = {
   "country_rs": "Σερβία",
   "country_xk": "Κοσσυφοπέδιο",
   "country_ss": "Νότιο Σουδάν",
-  "leaflet_print": "Αποτύπωμα"
+  "leaflet_print": "Αποτύπωμα",
+  "error_subtitle": "Μη επαληθευμένο προϊόν",
+  "leaflet_incorrect_date_title": "Εσφαλμένη ημερομηνία",
+  "leaflet_incorrect_date_subtitle": "Η ημερομηνία σαρωτής είναι λανθασμένη",
+  "scan_gif": "Πώς να σαρώσετε, κινούμενο gif",
+  "gif_play": "Παιχνίδι",
+  "gif_pause": "Παύση",
+  "play_pause_gif": "Κουμπί αναπαραγωγής / παύσης",
+  "top_close": "Κοντά",
+  "close_error_message": "Κλείστε το μήνυμα σφάλματος",
+  "menu_button": "Μενού",
+  "alert_icon": "Εικονίδιο ειδοποίησης",
+  "leaflet_available_doc": "Τα διαθέσιμα έγγραφα του φυλλαδίου",
+  "leaflet_available_lang": "Οι διαθέσιμες γλώσσες του φυλλαδίου"
 }
 
 export default data;

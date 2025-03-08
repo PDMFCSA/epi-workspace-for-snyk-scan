@@ -41,8 +41,9 @@ code,text,status,key
 46,Código de erro,ok,err_code
 47,"O sistema está ocupado, por favor tente novamente mais tarde.",ok,system_busy
 48,Imprimir,,leaflet_print
-50,Incorrect date,,leaflet_incorrect_date_title
-51,Scanned date is incorrect,,leaflet_incorrect_date_subtitle
+49,Produto não verificado,,error_subtitle
+50,Data incorreta,,leaflet_incorrect_date_title
+51,A data digitalizada está incorreta,,leaflet_incorrect_date_subtitle
 52,<b> This product's date is incorrect</b>.,,leaflet_incorrect_date_message
 61,Informações de impressão,,leaflet_print_title
 62,As informações selecionadas serão impressas como PDF.,,leaflet_print_description
@@ -255,3 +256,13 @@ code,text,status,key
 321,Sérvia,,country_rs
 322,Kosovo,,country_xk
 324,Sudão do Sul,,country_ss
+325,Ícone de alerta,,alert_icon
+326,"Como digitalizar, GIF animado",,scan_gif
+327,Começar,,gif_play
+328,Pausa,,gif_pause
+329,Botão de reprodução / pausa da animação,,play_pause_gif
+330,Fechar,,top_close
+331,Fechar a mensagem de erro,,close_error_message
+332,Botão de menu,,menu_button
+333,Documentos disponíveis do folheto,,leaflet_available_doc
+334,Línguas disponíveis do folheto,,leaflet_available_lang

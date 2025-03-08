@@ -42,6 +42,9 @@ papierowej ulotki dla pacjenta z informacjami o produkcie, którą zwykle można
 46,Kod błędu,ok,err_code
 47,"System jest przeciążony, spróbuj ponownie później.",ok,system_busy
 48,Wydrukować,,leaflet_print
+49,Niezweryfikowany produkt,,error_subtitle
+50,Niepoprawna data,,leaflet_incorrect_date_title
+51,Skanowana data jest nieprawidłowa,,leaflet_incorrect_date_subtitle
 61,Drukuj informacje,,leaflet_print_title
 62,Obecne wybrane informacje zostaną wydrukowane jako PDF.,,leaflet_print_description
 63,Chcesz kontynuować?,,leaflet_print_description2
@@ -253,3 +256,13 @@ papierowej ulotki dla pacjenta z informacjami o produkcie, którą zwykle można
 321,Serbia,,country_rs
 322,Kosovo,,country_xk
 324,Sudan Południowy,,country_ss
+325,Ikona alertów,,alert_icon
+326,"Jak skanować, animowany GIF",,scan_gif
+327,Grać,,gif_play
+328,Pauza,,gif_pause
+329,Przycisk odtwarzania / pauzy,,play_pause_gif
+330,Zamknąć,,top_close
+331,Zamknij komunikat o błędzie,,close_error_message
+332,Przycisk menu,,menu_button
+333,Dostępne dokumenty ulotki,,leaflet_available_doc
+334,Dostępne języki ulotki,,leaflet_available_lang

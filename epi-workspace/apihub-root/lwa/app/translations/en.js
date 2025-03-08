@@ -263,7 +263,17 @@ const data = {
   "country_me": "Montenegro",
   "country_rs": "Serbia",
   "country_xk": "Kosovo",
-  "country_ss": "South Sudan"
+  "country_ss": "South Sudan",
+  "alert_icon": "Alert icon",
+  "scan_gif": "How to scan, animated gif",
+  "gif_play": "Play",
+  "gif_pause": "Pause",
+  "play_pause_gif": "Play / Pause animation button",
+  "top_close": "Close",
+  "close_error_message": "Close the error message",
+  "menu_button": "Menu button",
+  "leaflet_available_doc": "Leaflet's available documents",
+  "leaflet_available_lang": "Leaflet's available languages"
 }
 
 export default data;

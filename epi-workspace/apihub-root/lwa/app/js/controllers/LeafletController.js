@@ -5,7 +5,7 @@ import constants from "../../../constants.js";
 import LeafletService from "../services/LeafletService.js";
 import environment from "../../../environment.js";
 import {focusModalHeader, renderLeaflet, showExpired, renderProductInformation} from "../utils/leafletUtils.js"
-import {translate, getTranslation, transformToISOStandardLangCode, langSubtypesMap} from "../translationUtils.js";
+import {translate, getTranslation, transformToISOStandardLangCode, langSubtypesMap, translateAcessabilityAttributes} from "../translationUtils.js";
 import {getCountry} from "../countriesUtils.js";
 
 const DocumentsTypes = {
@@ -22,6 +22,7 @@ enableConsolePersistence();
 
 window.onload = async (event) => {
     await translate();
+    translateAcessabilityAttributes();
     setTimeout(() => {
         document.querySelectorAll(".modal-header .close-modal").forEach(elem => {
             elem.style.position = "absolute";

@@ -1,10 +1,11 @@
 import {goToPage, escapeHTML} from "../../../utils.js"
-import {getTranslation, translate} from "../translationUtils.js";
+import {getTranslation, translate, translateAcessabilityAttributes} from "../translationUtils.js";
 import constants from "../../../constants.js"
 
 
 window.onload = async (event) => {
     await translate();
+    translateAcessabilityAttributes();
 
     function ErrorController() {
         const queryString = window.location.search;

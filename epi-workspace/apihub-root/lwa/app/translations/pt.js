@@ -12,8 +12,8 @@ const data = {
   "product_not_loaded": "Infelizmente, nenhum folheto informativo foi carregado.",
   "system_busy": "O sistema está ocupado, por favor tente novamente mais tarde.",
   "err_code": "Código de erro",
-  "leaflet_incorrect_date_title": "Incorrect date",
-  "leaflet_incorrect_date_subtitle": "Scanned date is incorrect",
+  "leaflet_incorrect_date_title": "Data incorreta",
+  "leaflet_incorrect_date_subtitle": "A data digitalizada está incorreta",
   "leaflet_incorrect_date_message": "<b> This product's date is incorrect</b>.",
   "leaflet_expired_title": "Expirado",
   "leaflet_expired_message": "<p> <b>Este produto foi identificado como expirado. </b> </p>",
@@ -254,7 +254,18 @@ const data = {
   "country_xk": "Kosovo",
   "country_lv": "Letônia",
   "country_ss": "Sudão do Sul",
-  "leaflet_print": "Imprimir"
+  "leaflet_print": "Imprimir",
+  "error_subtitle": "Produto não verificado",
+  "scan_gif": "Como digitalizar, GIF animado",
+  "gif_play": "Começar",
+  "gif_pause": "Pausa",
+  "play_pause_gif": "Botão de reprodução / pausa da animação",
+  "top_close": "Fechar",
+  "close_error_message": "Fechar a mensagem de erro",
+  "menu_button": "Botão de menu",
+  "alert_icon": "Ícone de alerta",
+  "leaflet_available_doc": "Documentos disponíveis do folheto",
+  "leaflet_available_lang": "Línguas disponíveis do folheto"
 }
 
 export default data;

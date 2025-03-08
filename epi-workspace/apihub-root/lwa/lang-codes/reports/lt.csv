@@ -42,9 +42,9 @@ code,text,status,key
 46,Klaidos kodas,ok,err_code
 47,"Sistema užimta, pabandykite vėliau.",ok,system_busy
 48,Spausdinti,,leaflet_print
-49,Unverified Product,,error_subtitle
-50,Incorrect date,,leaflet_incorrect_date_title
-51,Scanned date is incorrect,,leaflet_incorrect_date_subtitle
+49,Nepatikrintas produktas,,error_subtitle
+50,Neteisinga data,,leaflet_incorrect_date_title
+51,Nuskaityta data neteisinga,,leaflet_incorrect_date_subtitle
 52,<b> This product's date is incorrect</b>.,,leaflet_incorrect_date_message
 61,Spausdinti informaciją,,leaflet_print_title
 62,Dabartinė pasirinkta informacija bus atspausdinta kaip PDF.,,leaflet_print_description
@@ -257,3 +257,13 @@ code,text,status,key
 321,Serbija,,country_rs
 322,Kosovas,,country_xk
 324,Pietų Sudanas,,country_ss
+325,Įspėjimo piktograma,,alert_icon
+326,"Kaip nuskaityti, animuoti GIF",,scan_gif
+327,Žaisk,,gif_play
+328,Pauzė,,gif_pause
+329,Žaisk / pristabdykite animacijos mygtuką,,play_pause_gif
+330,Uždaryti,,top_close
+331,Uždarykite klaidos pranešimą,,close_error_message
+332,Meniu mygtukas,,menu_button
+333,Lankstinukas turimi dokumentai,,leaflet_available_doc
+334,Lankstinukas turimas kalbas,,leaflet_available_lang

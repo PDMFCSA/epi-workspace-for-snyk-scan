@@ -251,7 +251,20 @@ const data = {
   "country_rs": "Serbia",
   "country_xk": "Kosovo",
   "country_ss": "Etelä -Sudan",
-  "leaflet_print": "Painaa"
+  "leaflet_print": "Painaa",
+  "error_subtitle": "Vahvistamaton tuote",
+  "leaflet_incorrect_date_title": "Virheellinen päivämäärä",
+  "leaflet_incorrect_date_subtitle": "Skannattu päivämäärä on väärä",
+  "scan_gif": "Kuinka skannata, animoitu gif",
+  "gif_play": "Pelata",
+  "gif_pause": "Tauko",
+  "play_pause_gif": "Toista / keskeyttää animaatiopainike",
+  "top_close": "Lähellä",
+  "close_error_message": "Sulje virheilmoitus",
+  "menu_button": "Valikkopainike",
+  "alert_icon": "Hälytyskuvake",
+  "leaflet_available_doc": "Lehtisen käytettävissä olevat asiakirjat",
+  "leaflet_available_lang": "Lehteisen kielet"
 }
 
 export default data;

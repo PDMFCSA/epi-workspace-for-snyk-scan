@@ -41,9 +41,9 @@ code,text,status,key
 46,Chybový kód,ok,err_code
 47,"Systém je zaneprázdnený, skúste neskôr.",ok,system_busy
 48,Tlač,,leaflet_print
-49,Unverified Product,,error_subtitle
-50,Incorrect date,,leaflet_incorrect_date_title
-51,Scanned date is incorrect,,leaflet_incorrect_date_subtitle
+49,Neverený produkt,,error_subtitle
+50,Nesprávny dátum,,leaflet_incorrect_date_title
+51,Naskenovaný dátum je nesprávny,,leaflet_incorrect_date_subtitle
 52,<b> This product's date is incorrect</b>.,,leaflet_incorrect_date_message
 61,Výtlačok,,leaflet_print_title
 62,Aktuálne vybrané informácie budú vytlačené ako PDF.,,leaflet_print_description
@@ -256,3 +256,13 @@ code,text,status,key
 321,Srbsko,,country_rs
 322,Kosovo,,country_xk
 324,Južný Sudán,,country_ss
+325,Ikona výstrahy,,alert_icon
+326,"Ako skenovať, animovaný gif",,scan_gif
+327,Hračka,,gif_play
+328,Pozastaviť,,gif_pause
+329,Tlačidlo prehrať / pozastaviť animáciu,,play_pause_gif
+330,Zatvoriť,,top_close
+331,Zatvorte chybovú správu,,close_error_message
+332,Tlačidlo ponuky,,menu_button
+333,Dostupné dokumenty letákov,,leaflet_available_doc
+334,Dostupné jazyky letákov,,leaflet_available_lang

@@ -8,15 +8,15 @@ const data = {
   "scan_again": "再次扫描",
   "product_not_found_title": "未被识别",
   "product_not_loaded_title": "产品信息不可用",
-  "error_subtitle": "未验证的产品",
+  "error_subtitle": "未经验证的产品",
   "product_not_found": "此产品无法找到",
   "product_not_loaded": "很遗憾，没有加载产品信息",
   "system_busy": "系统繁忙，请稍后再试。",
   "err_code": "错误代码",
   "leaflet_expired_title": "过期",
   "leaflet_expired_message": "<p> <b>该产品已被认定为过期.</b> </p> ",
-  "leaflet_incorrect_date_title": "日期不正确",
-  "leaflet_incorrect_date_subtitle": "扫描的日期不正确",
+  "leaflet_incorrect_date_title": "不正确的日期",
+  "leaflet_incorrect_date_subtitle": "扫描日期不正确",
   "leaflet_incorrect_date_message": "<b> 此产品的日期不正确</b>.",
   "select_lang_title": "语言不可用",
   "scan_error_title": "扫描错误",
@@ -255,7 +255,17 @@ const data = {
   "country_rs": "塞尔维亚",
   "country_xk": "科索沃",
   "country_ss": "南苏丹",
-  "leaflet_print": "打印"
+  "leaflet_print": "打印",
+  "scan_gif": "如何扫描，动画gif",
+  "gif_play": "玩",
+  "gif_pause": "暂停",
+  "play_pause_gif": "播放 /暂停动画按钮",
+  "top_close": "关闭",
+  "close_error_message": "关闭错误消息",
+  "menu_button": "菜单按钮",
+  "alert_icon": "警报图标",
+  "leaflet_available_doc": "传单的可用文件",
+  "leaflet_available_lang": "传单的可用语言"
 }
 
 export default data;

@@ -47,6 +47,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | err_code | Kôd pogreške: | ok | 46 |
 | system_busy | Sustav je zauzet, molimo pokušajte ponovno kasnije. | ok | 47 |
 | leaflet_print | Ispis |  | 48 |
+| error_subtitle | Neprovjereni proizvod |  | 49 |
+| leaflet_incorrect_date_title | Netočan datum |  | 50 |
+| leaflet_incorrect_date_subtitle | Datum skeniranja je netočan |  | 51 |
 | leaflet_print_title | Informacije o ispisu |  | 61 |
 | leaflet_print_description | Trenutne odabrane informacije bit će ispisane kao PDF. |  | 62 |
 | leaflet_print_description2 | Želite li nastaviti? |  | 63 |
@@ -258,3 +261,13 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_rs | Srbija |  | 321 |
 | country_xk | Kosov |  | 322 |
 | country_ss | Južni Sudan |  | 324 |
+| alert_icon | Ikona upozorenja |  | 325 |
+| scan_gif | Kako skenirati, animirani gif |  | 326 |
+| gif_play | Igrati |  | 327 |
+| gif_pause | Pauza |  | 328 |
+| play_pause_gif | Gumb za animaciju reproduciraj / pauzu |  | 329 |
+| top_close | Zatvoriti |  | 330 |
+| close_error_message | Zatvorite poruku o pogrešci |  | 331 |
+| menu_button | Gumb |  | 332 |
+| leaflet_available_doc | Dostupni dokumenti Leaflet |  | 333 |
+| leaflet_available_lang | Dostupni jezici Leaflet |  | 334 |

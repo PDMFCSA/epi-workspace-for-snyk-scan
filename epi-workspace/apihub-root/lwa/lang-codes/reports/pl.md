@@ -47,6 +47,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | err_code | Kod błędu | ok | 46 |
 | system_busy | System jest przeciążony, spróbuj ponownie później. | ok | 47 |
 | leaflet_print | Wydrukować |  | 48 |
+| error_subtitle | Niezweryfikowany produkt |  | 49 |
+| leaflet_incorrect_date_title | Niepoprawna data |  | 50 |
+| leaflet_incorrect_date_subtitle | Skanowana data jest nieprawidłowa |  | 51 |
 | leaflet_print_title | Drukuj informacje |  | 61 |
 | leaflet_print_description | Obecne wybrane informacje zostaną wydrukowane jako PDF. |  | 62 |
 | leaflet_print_description2 | Chcesz kontynuować? |  | 63 |
@@ -258,3 +261,13 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_rs | Serbia |  | 321 |
 | country_xk | Kosovo |  | 322 |
 | country_ss | Sudan Południowy |  | 324 |
+| alert_icon | Ikona alertów |  | 325 |
+| scan_gif | Jak skanować, animowany GIF |  | 326 |
+| gif_play | Grać |  | 327 |
+| gif_pause | Pauza |  | 328 |
+| play_pause_gif | Przycisk odtwarzania / pauzy |  | 329 |
+| top_close | Zamknąć |  | 330 |
+| close_error_message | Zamknij komunikat o błędzie |  | 331 |
+| menu_button | Przycisk menu |  | 332 |
+| leaflet_available_doc | Dostępne dokumenty ulotki |  | 333 |
+| leaflet_available_lang | Dostępne języki ulotki |  | 334 |

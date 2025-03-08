@@ -41,9 +41,9 @@ code,text,status,key
 46,Felkod,ok,err_code
 47,"Systemet är upptaget, försök igen senare.",ok,system_busy
 48,Skriva ut,,leaflet_print
-49,Unverified Product,,error_subtitle
-50,Incorrect date,,leaflet_incorrect_date_title
-51,Scanned date is incorrect,,leaflet_incorrect_date_subtitle
+49,Overifierad produkt,,error_subtitle
+50,Felaktigt datum,,leaflet_incorrect_date_title
+51,Skannat datum är felaktigt,,leaflet_incorrect_date_subtitle
 52,<b> This product's date is incorrect</b>.,,leaflet_incorrect_date_message
 61,Utskriftsinformation,,leaflet_print_title
 62,Den nuvarande valda informationen kommer att skrivas ut som PDF.,,leaflet_print_description
@@ -256,3 +256,13 @@ code,text,status,key
 321,Serbien,,country_rs
 322,Kosovo,,country_xk
 324,Sydsudan,,country_ss
+325,Varna ikon,,alert_icon
+326,"Hur man skannar, animerad gif",,scan_gif
+327,Spela,,gif_play
+328,Paus,,gif_pause
+329,Spela / Paus Animation -knappen,,play_pause_gif
+330,Nära,,top_close
+331,Stäng felmeddelandet,,close_error_message
+332,Menyknapp,,menu_button
+333,Broschyrens tillgängliga dokument,,leaflet_available_doc
+334,Broschyrens tillgängliga språk,,leaflet_available_lang

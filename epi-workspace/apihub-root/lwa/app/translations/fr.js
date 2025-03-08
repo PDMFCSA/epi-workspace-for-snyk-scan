@@ -8,15 +8,15 @@ const data = {
   "scan_again": "Rescanner",
   "product_not_found_title": "Non reconnu",
   "product_not_loaded_title": "Information sur le produit indisponible",
-  "error_subtitle": "",
+  "error_subtitle": "Produit non vérifié",
   "product_not_found": "Ce produit est introuvable",
   "product_not_loaded": "Malheureusement, aucune information sur le produit n’a été chargée.",
   "system_busy": "Le système est occupé, veuillez réessayer plus tard.",
   "err_code": "Code d’erreur",
   "leaflet_expired_title": "Perimé",
   "leaflet_expired_message": "<p> <b>Ce médicament a été identifié comme périmé.</b> </p> ",
-  "leaflet_incorrect_date_title": "",
-  "leaflet_incorrect_date_subtitle": "",
+  "leaflet_incorrect_date_title": "Date incorrecte",
+  "leaflet_incorrect_date_subtitle": "La date numérisée est incorrecte",
   "leaflet_incorrect_date_message": "<b> </b>.",
   "select_lang_title": "Langue indisponible",
   "scan_error_title": "Erreur de Scan",
@@ -255,7 +255,17 @@ const data = {
   "country_rs": "Serbie",
   "country_xk": "Kosovo",
   "country_ss": "Soudan du Sud",
-  "leaflet_print": "Imprimer"
+  "leaflet_print": "Imprimer",
+  "scan_gif": "Comment scanner, gif animé",
+  "gif_play": "Jouer",
+  "gif_pause": "Pause",
+  "play_pause_gif": "Bouton d'animation de lecture / pause",
+  "top_close": "Fermer",
+  "close_error_message": "Fermez le message d'erreur",
+  "menu_button": "Bouton de menu",
+  "alert_icon": "Icône d'alerte",
+  "leaflet_available_doc": "Documents disponibles de la dépliante",
+  "leaflet_available_lang": "Langues disponibles de la dépliante"
 }
 
 export default data;

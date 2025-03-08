@@ -42,9 +42,9 @@ code,text,status,key
 46,Hibaüzenet,ok,err_code
 47,"A rendszer működésében hiba merült fel. Kérjük, próbálja meg később.",ok,system_busy
 48,Nyomtatás,,leaflet_print
-49,Unverified Product,,error_subtitle
-50,Incorrect date,,leaflet_incorrect_date_title
-51,Scanned date is incorrect,,leaflet_incorrect_date_subtitle
+49,Nem ellenőrzött termék,,error_subtitle
+50,Helytelen dátum,,leaflet_incorrect_date_title
+51,A beolvasott dátum helytelen,,leaflet_incorrect_date_subtitle
 52,<b> This product's date is incorrect</b>.,,leaflet_incorrect_date_message
 61,Nyomtatási információk,,leaflet_print_title
 62,Az aktuális kiválasztott információt PDF -ként nyomtatják ki.,,leaflet_print_description
@@ -257,3 +257,13 @@ code,text,status,key
 321,Szerbia,,country_rs
 322,Koszovó,,country_xk
 324,Dél -Szudán,,country_ss
+325,Riasztási ikon,,alert_icon
+326,"Hogyan szkenneljünk, animált gif",,scan_gif
+327,Játék,,gif_play
+328,Szünet,,gif_pause
+329,Lejátszás / szünet animációs gomb,,play_pause_gif
+330,Közeli,,top_close
+331,Zárja be a hibaüzenetet,,close_error_message
+332,Menügomb,,menu_button
+333,A szórólap rendelkezésre álló dokumentumai,,leaflet_available_doc
+334,A szórólap rendelkezésre álló nyelvei,,leaflet_available_lang

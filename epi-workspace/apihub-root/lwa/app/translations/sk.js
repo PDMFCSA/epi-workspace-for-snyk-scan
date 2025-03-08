@@ -8,15 +8,15 @@ const data = {
   "scan_again": "Naskenovať znova",
   "product_not_found_title": "Nerozpoznané",
   "product_not_loaded_title": "Písomná informácia o lieku nie je k dispozícii.",
-  "error_subtitle": "Unverified Product",
+  "error_subtitle": "Neverený produkt",
   "product_not_found": "Tento liek nie je možné nájsť.",
   "product_not_loaded": "Ľutujeme, písomná informácia o lieku nebola nahraná.",
   "system_busy": "Systém je zaneprázdnený, skúste neskôr.",
   "err_code": "Chybový kód",
   "leaflet_expired_title": "Exspirovaný",
   "leaflet_expired_message": "<p> <b>Tento liek bol identifikovaný ako exspirovaný.</b> </p> ",
-  "leaflet_incorrect_date_title": "Incorrect date",
-  "leaflet_incorrect_date_subtitle": "Scanned date is incorrect",
+  "leaflet_incorrect_date_title": "Nesprávny dátum",
+  "leaflet_incorrect_date_subtitle": "Naskenovaný dátum je nesprávny",
   "leaflet_incorrect_date_message": "<b> This product's date is incorrect</b>.",
   "select_lang_title": "Jazyk nie je k dispozícii",
   "scan_error_title": "Chyba skenovania",
@@ -255,7 +255,17 @@ const data = {
   "country_rs": "Srbsko",
   "country_xk": "Kosovo",
   "country_ss": "Južný Sudán",
-  "leaflet_print": "Tlač"
+  "leaflet_print": "Tlač",
+  "scan_gif": "Ako skenovať, animovaný gif",
+  "gif_play": "Hračka",
+  "gif_pause": "Pozastaviť",
+  "play_pause_gif": "Tlačidlo prehrať / pozastaviť animáciu",
+  "top_close": "Zatvoriť",
+  "close_error_message": "Zatvorte chybovú správu",
+  "menu_button": "Tlačidlo ponuky",
+  "alert_icon": "Ikona výstrahy",
+  "leaflet_available_doc": "Dostupné dokumenty letákov",
+  "leaflet_available_lang": "Dostupné jazyky letákov"
 }
 
 export default data;

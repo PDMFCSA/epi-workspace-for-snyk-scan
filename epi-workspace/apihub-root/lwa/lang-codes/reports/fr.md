@@ -47,9 +47,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | err_code | Code d’erreur | ok | 46 |
 | system_busy | Le système est occupé, veuillez réessayer plus tard. | ok | 47 |
 | leaflet_print | Imprimer |  | 48 |
-| error_subtitle |  |  | 49 |
-| leaflet_incorrect_date_title |  |  | 50 |
-| leaflet_incorrect_date_subtitle |  |  | 51 |
+| error_subtitle | Produit non vérifié |  | 49 |
+| leaflet_incorrect_date_title | Date incorrecte |  | 50 |
+| leaflet_incorrect_date_subtitle | La date numérisée est incorrecte |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; &lt;/b&gt;. |  | 52 |
 | leaflet_print_title | Imprimer des informations |  | 61 |
 | leaflet_print_description | Les informations sélectionnées actuelles seront imprimées sous forme de PDF. |  | 62 |
@@ -262,3 +262,13 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_rs | Serbie |  | 321 |
 | country_xk | Kosovo |  | 322 |
 | country_ss | Soudan du Sud |  | 324 |
+| alert_icon | Icône d'alerte |  | 325 |
+| scan_gif | Comment scanner, gif animé |  | 326 |
+| gif_play | Jouer |  | 327 |
+| gif_pause | Pause |  | 328 |
+| play_pause_gif | Bouton d'animation de lecture / pause |  | 329 |
+| top_close | Fermer |  | 330 |
+| close_error_message | Fermez le message d'erreur |  | 331 |
+| menu_button | Bouton de menu |  | 332 |
+| leaflet_available_doc | Documents disponibles de la dépliante |  | 333 |
+| leaflet_available_lang | Langues disponibles de la dépliante |  | 334 |

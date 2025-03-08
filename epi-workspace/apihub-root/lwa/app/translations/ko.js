@@ -8,7 +8,7 @@ const data = {
   "scan_again": "다시 스캔하기",
   "product_not_found_title": "인식되지 않음.",
   "product_not_loaded_title": "제품 정보를 볼 수 없습니다.",
-  "error_subtitle": "인증되지 않은 제품",
+  "error_subtitle": "검증되지 않은 제품",
   "product_not_found": "이 제품을 찾을 수 없습니다.",
   "product_not_loaded": "죄송합니다. 제품 정보가 입력되지 않았습니다.",
   "system_busy": "시스템이 사용 중입니다. 나중에 다시 시도하십시오.",
@@ -16,7 +16,7 @@ const data = {
   "leaflet_expired_title": "만료됨",
   "leaflet_expired_message": "<p> <b>이 제품의 유효기간이 만료된 것으로 확인되었습니다.</b> </p> ",
   "leaflet_incorrect_date_title": "잘못된 날짜",
-  "leaflet_incorrect_date_subtitle": "스캔한 날짜가 잘못되었습니다",
+  "leaflet_incorrect_date_subtitle": "스캔 날짜가 올바르지 않습니다",
   "leaflet_incorrect_date_message": "<b>이 제품의 날짜가 잘못되었습니다</b>.",
   "select_lang_title": "언어를 사용할 수 없습니다",
   "scan_error_title": "스캔 오류",
@@ -255,7 +255,17 @@ const data = {
   "country_rs": "세르비아",
   "country_xk": "코소보",
   "country_ss": "남 수단",
-  "leaflet_print": "인쇄"
+  "leaflet_print": "인쇄",
+  "scan_gif": "스캔하는 방법, 애니메이션 GIF",
+  "gif_play": "놀다",
+  "gif_pause": "정지시키다",
+  "play_pause_gif": "플레이 / 일시 중지 애니메이션 버튼",
+  "top_close": "닫다",
+  "close_error_message": "오류 메시지를 닫습니다",
+  "menu_button": "메뉴 버튼",
+  "alert_icon": "경고 아이콘",
+  "leaflet_available_doc": "리플렛의 사용 가능한 문서",
+  "leaflet_available_lang": "리플렛의 사용 가능한 언어"
 }
 
 export default data;

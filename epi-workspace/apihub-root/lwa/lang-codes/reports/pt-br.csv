@@ -264,3 +264,13 @@ code,text,status,key
 321,Sérvia,,country_rs
 322,Kosovo,,country_xk
 324,Sudão do Sul,,country_ss
+325,Ícone de alerta,,alert_icon
+326,"Como digitalizar, GIF animado",,scan_gif
+327,Começar,,gif_play
+328,Pausa,,gif_pause
+329,Botão de reprodução / pausa da animação,,play_pause_gif
+330,Fechar,,top_close
+331,Fechar a mensagem de erro,,close_error_message
+332,Botão de menu,,menu_button
+333,Documentos disponíveis do folheto,,leaflet_available_doc
+334,Línguas disponíveis do folheto,,leaflet_available_lang

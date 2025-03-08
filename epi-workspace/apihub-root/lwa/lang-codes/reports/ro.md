@@ -47,6 +47,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | err_code | Cod de eroare | ok | 46 |
 | system_busy | Sistemul este ocupat, vă rugăm să încercați din nou mai târziu. | ok | 47 |
 | leaflet_print | Imprimare |  | 48 |
+| error_subtitle | Produs neverificat |  | 49 |
+| leaflet_incorrect_date_title | Data incorectă |  | 50 |
+| leaflet_incorrect_date_subtitle | Data scanată este incorectă |  | 51 |
 | leaflet_print_title | Informații tipărite |  | 61 |
 | leaflet_print_description | Informațiile selectate curente vor fi tipărite ca PDF. |  | 62 |
 | leaflet_print_description2 | Doriți să continuați? |  | 63 |
@@ -258,3 +261,13 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_rs | Serbia |  | 321 |
 | country_xk | Kosovo |  | 322 |
 | country_ss | Sudanul de Sud |  | 324 |
+| alert_icon | Pictogramă de alertă |  | 325 |
+| scan_gif | Cum să scanați, GIF animat |  | 326 |
+| gif_play | Juca |  | 327 |
+| gif_pause | Pauză |  | 328 |
+| play_pause_gif | Butonul de animație de redare / pauză |  | 329 |
+| top_close | Aproape |  | 330 |
+| close_error_message | Închideți mesajul de eroare |  | 331 |
+| menu_button | Butonul de meniu |  | 332 |
+| leaflet_available_doc | Documentele disponibile ale prospectului |  | 333 |
+| leaflet_available_lang | Limbile disponibile ale prospectului |  | 334 |

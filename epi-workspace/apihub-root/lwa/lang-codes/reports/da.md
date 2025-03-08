@@ -47,6 +47,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | err_code | Fejlkode | ok | 46 |
 | system_busy | Systemet er optaget, prøv venligst igen senere. | ok | 47 |
 | leaflet_print | Trykke |  | 48 |
+| error_subtitle | Ikke -verificeret produkt |  | 49 |
+| leaflet_incorrect_date_title | Forkert dato |  | 50 |
+| leaflet_incorrect_date_subtitle | Scannet dato er forkert |  | 51 |
 | leaflet_print_title | Udskriv information |  | 61 |
 | leaflet_print_description | De aktuelle valgte oplysninger udskrives som PDF. |  | 62 |
 | leaflet_print_description2 | Vil du fortsætte? |  | 63 |
@@ -258,3 +261,13 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_rs | Serbien |  | 321 |
 | country_xk | Kosovo |  | 322 |
 | country_ss | Sydsudan |  | 324 |
+| alert_icon | Alertikon |  | 325 |
+| scan_gif | Hvordan man scanner, animeret gif |  | 326 |
+| gif_play | Spil |  | 327 |
+| gif_pause | Pause |  | 328 |
+| play_pause_gif | Play / Pause Animation -knap |  | 329 |
+| top_close | Tæt |  | 330 |
+| close_error_message | Luk fejlmeddelelsen |  | 331 |
+| menu_button | Menu -knap |  | 332 |
+| leaflet_available_doc | Poles ledige dokumenter |  | 333 |
+| leaflet_available_lang | Poles ledige sprog |  | 334 |

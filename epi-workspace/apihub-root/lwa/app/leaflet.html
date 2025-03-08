@@ -34,7 +34,7 @@
                     <h1 class="product-name bold-title"></h1>
                     <div class="product-description" tabindex="2"></div>
                 </div>
-                <div id="print-modal-button" class="modal-icon menu-print-icon" aria-label="print-icon" role="img" tabindex="2"></div>
+                <div id="print-modal-button" class="modal-icon menu-print-icon" aria-label="leaflet_print" role="img" tabindex="2"></div>
             </div>
         </div>
         <div class="modal-content">
@@ -59,7 +59,7 @@
                     <h1 class="product-name bold-title"></h1>
                     <div class="product-description" tabindex="2"></div>
                 </div>
-                <div id="print-modal-button" class="modal-icon menu-print-icon" aria-label="print-icon" role="img" tabindex="2"></div>
+                <div id="print-modal-button" class="modal-icon menu-print-icon" aria-label="leaflet_print" role="img" tabindex="2"></div>
             </div>
         </div>
         <div class="modal-content">
@@ -134,9 +134,9 @@
     <div class="modal-body" tabindex="0">
         <div class="modal-header centered-header">
             <button class="close-modal" modal-id="documents-modal"
-                    aria-label="close" tabindex="1"></button>
+                    aria-label="top_close" tabindex="1"></button>
             <div class="icon-title-container">
-                <div class="modal-icon" aria-hidden="true" aria-label="alert-icon" role="img" tabindex="2"></div>
+                <div class="modal-icon" aria-hidden="true" aria-label="alert_icon" role="img" tabindex="2"></div>
                 <h2 class="modal-title bold-title" id="lang-title" role="heading" aria-level="1"
                     translate="document_modal_title" role="alert"
                     tabindex="3"></h2>
@@ -145,7 +145,7 @@
         </div>
         <div class="modal-content" role="alert">
             <div class="text-section has-leaflets" role="heading" aria-level="2" translate="document_modal_message"></div>
-            <div id="content-container" role="radiogroup" aria-label="leaflet available documents" tabindex="2"></div>
+            <div id="content-container" role="radiogroup" aria-label="leaflet_available_doc" tabindex="2"></div>
             <button id="proceed-button" class="proceed-button has-leaflets" translate="lang_proceed"></button>
             <button id="go-back-button" class="go-back-button go-home-button"  translate="go_home"></button>
         </div>
@@ -156,9 +156,9 @@
 <div id="epi-markets-modal" class="modal-container popup-modal warning-modal hiddenElement">
     <div class="modal-body" tabindex="0">
         <div class="modal-header centered-header">
-            <button class="close-modal" modal-id="epi-markets-modal" aria-label="close" tabindex="1"></button>
+            <button class="close-modal" modal-id="epi-markets-modal" aria-label="top_close" tabindex="1"></button>
             <div class="icon-title-container">
-                <div class="modal-icon" aria-hidden="true" aria-label="alert-icon" role="img" tabindex="2"></div>
+                <div class="modal-icon" aria-hidden="true" aria-label="alert_icon" role="img" tabindex="2"></div>
                 <h1 class="modal-title bold-title" id="epi-market-title" role="heading" aria-level="1"
                     translate="epi_markets_modal_title" role="alert" tabindex="3"
                 ></h1>
@@ -166,7 +166,7 @@
         </div>
         <div class="modal-content" role="alert">
             <div class="text-section has-leaflets" role="heading" aria-level="2" translate="epi_markets_modal_message"></div>
-            <div id="content-container" role="radiogroup" aria-label="leaflet available documents" tabindex="2"></div>
+            <div id="content-container" role="radiogroup" aria-label="leaflet_available_doc" tabindex="2"></div>
             <button id="epi-market-proceed-button" class="proceed-button has-leaflets" translate="lang_proceed"></button>
             <button id="epi-market-go-back-button" class="go-back-button go-home-button"  translate="go_home"></button>
         </div>
@@ -177,7 +177,7 @@
     <div class="modal-body">
         <div class="modal-header centered-header">
             <button class="close-modal" modal-id="expired-modal" tabindex="0"
-                    aria-label="close error message"></button>
+                    aria-label="close_error_message"></button>
             <div class="icon-title-container">
                 <div class="modal-icon" aria-hidden="true"></div>
                 <h2 class="modal-title bold-title" id="expired-title" translate="leaflet_expired_title"
@@ -198,7 +198,7 @@
                      role="alert"></h2>
             </div>
             <button class="close-modal" modal-id="recalled-modal" tabindex="0"
-                    aria-label="close error message"></button>
+                    aria-label="close_error_message"></button>
         </div>
         <div class="modal-content" role="alert">
             <div class="recalled-message-container"></div>
@@ -219,7 +219,7 @@
                     role="alert"></h2>
             </div>
             <button class="close-modal" modal-id="incorrect-date-modal"
-                    aria-label="close error modal"></button>
+                    aria-label="close_error_message"></button>
         </div>
         <div class="modal-content" translate="leaflet_incorrect_date_message"></div>
     </div>
@@ -228,9 +228,9 @@
     <div class="modal-body" tabindex="0">
         <div class="modal-header centered-header">
             <button class="close-modal" modal-id="leaflet-lang-select"
-                    aria-label="close" tabindex="1"></button>
+                    aria-label="top_close" tabindex="1"></button>
             <div class="icon-title-container">
-                <div class="modal-icon" aria-hidden="true" aria-label="alert-icon" role="img" tabindex="2"></div>
+                <div class="modal-icon" aria-hidden="true" aria-label="alert_icon" role="img" tabindex="2"></div>
                 <h2 class="modal-title bold-title" id="lang-title" role="heading" aria-level="1"
                     translate="select_lang_title" role="alert"
                     tabindex="3"></h2>
@@ -241,7 +241,7 @@
             <div class="text-section has-leaflets" id="language-message" role="heading" aria-level="2"
                  translate="leaflet_lang_select_message"></div>
             <!-- <div class="text-section no-leaflet" translate="no_leaflet_message"></div>-->
-            <div class="languages-container" role="radiogroup" aria-label="leaflet available languages"
+            <div class="languages-container" role="radiogroup" aria-label="leaflet_available_lang"
                  tabindex="2"></div>
             <button id="proceed-button" class="proceed-button has-leaflets"
                     translate="lang_proceed"></button>
@@ -257,7 +257,7 @@
     <div class="modal-body" tabindex="0">
         <div class="modal-header centered-header">
             <div class="icon-title-container">
-                <div class="modal-icon print-icon" aria-hidden="true" aria-label="print-icon" role="img" tabindex="2"></div>
+                <div class="modal-icon print-icon" aria-hidden="true" aria-label="leaflet_print" role="img" tabindex="2"></div>
                 <h2 class="modal-title bold-title" role="heading" aria-level="1"
                     translate="leaflet_print_title" role="alert"
                     tabindex="3"></h2>

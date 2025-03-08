@@ -48,9 +48,9 @@ code,text,status,key
 46,코드 오류,ok,err_code
 47,시스템이 사용 중입니다. 나중에 다시 시도하십시오.,ok,system_busy
 48,인쇄,,leaflet_print
-49,인증되지 않은 제품,,error_subtitle
+49,검증되지 않은 제품,,error_subtitle
 50,잘못된 날짜,,leaflet_incorrect_date_title
-51,스캔한 날짜가 잘못되었습니다,,leaflet_incorrect_date_subtitle
+51,스캔 날짜가 올바르지 않습니다,,leaflet_incorrect_date_subtitle
 52,<b>이 제품의 날짜가 잘못되었습니다</b>.,,leaflet_incorrect_date_message
 61,인쇄 정보,,leaflet_print_title
 62,현재 선택된 정보는 PDF로 인쇄됩니다.,,leaflet_print_description
@@ -263,3 +263,13 @@ code,text,status,key
 321,세르비아,,country_rs
 322,코소보,,country_xk
 324,남 수단,,country_ss
+325,경고 아이콘,,alert_icon
+326,"스캔하는 방법, 애니메이션 GIF",,scan_gif
+327,놀다,,gif_play
+328,정지시키다,,gif_pause
+329,플레이 / 일시 중지 애니메이션 버튼,,play_pause_gif
+330,닫다,,top_close
+331,오류 메시지를 닫습니다,,close_error_message
+332,메뉴 버튼,,menu_button
+333,리플렛의 사용 가능한 문서,,leaflet_available_doc
+334,리플렛의 사용 가능한 언어,,leaflet_available_lang

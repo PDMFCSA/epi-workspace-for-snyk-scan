@@ -41,6 +41,9 @@ code,text,status,key
 46,Virhekoodi,ok,err_code
 47,"Järjestelmä on kiireinen, yritä myöhemmin uudelleen.",ok,system_busy
 48,Painaa,,leaflet_print
+49,Vahvistamaton tuote,,error_subtitle
+50,Virheellinen päivämäärä,,leaflet_incorrect_date_title
+51,Skannattu päivämäärä on väärä,,leaflet_incorrect_date_subtitle
 61,Tulostustiedot,,leaflet_print_title
 62,Nykyiset valitut tiedot tulostetaan PDF: ksi.,,leaflet_print_description
 63,Haluatko edetä?,,leaflet_print_description2
@@ -252,3 +255,13 @@ code,text,status,key
 321,Serbia,,country_rs
 322,Kosovo,,country_xk
 324,Etelä -Sudan,,country_ss
+325,Hälytyskuvake,,alert_icon
+326,"Kuinka skannata, animoitu gif",,scan_gif
+327,Pelata,,gif_play
+328,Tauko,,gif_pause
+329,Toista / keskeyttää animaatiopainike,,play_pause_gif
+330,Lähellä,,top_close
+331,Sulje virheilmoitus,,close_error_message
+332,Valikkopainike,,menu_button
+333,Lehtisen käytettävissä olevat asiakirjat,,leaflet_available_doc
+334,Lehteisen kielet,,leaflet_available_lang

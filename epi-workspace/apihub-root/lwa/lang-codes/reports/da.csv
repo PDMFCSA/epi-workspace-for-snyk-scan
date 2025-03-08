@@ -41,6 +41,9 @@ code,text,status,key
 46,Fejlkode,ok,err_code
 47,"Systemet er optaget, prøv venligst igen senere.",ok,system_busy
 48,Trykke,,leaflet_print
+49,Ikke -verificeret produkt,,error_subtitle
+50,Forkert dato,,leaflet_incorrect_date_title
+51,Scannet dato er forkert,,leaflet_incorrect_date_subtitle
 61,Udskriv information,,leaflet_print_title
 62,De aktuelle valgte oplysninger udskrives som PDF.,,leaflet_print_description
 63,Vil du fortsætte?,,leaflet_print_description2
@@ -252,3 +255,13 @@ code,text,status,key
 321,Serbien,,country_rs
 322,Kosovo,,country_xk
 324,Sydsudan,,country_ss
+325,Alertikon,,alert_icon
+326,"Hvordan man scanner, animeret gif",,scan_gif
+327,Spil,,gif_play
+328,Pause,,gif_pause
+329,Play / Pause Animation -knap,,play_pause_gif
+330,Tæt,,top_close
+331,Luk fejlmeddelelsen,,close_error_message
+332,Menu -knap,,menu_button
+333,Poles ledige dokumenter,,leaflet_available_doc
+334,Poles ledige sprog,,leaflet_available_lang

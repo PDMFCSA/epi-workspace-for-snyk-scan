@@ -41,9 +41,9 @@ code,text,status,key
 46,Foutmelding,ok,err_code
 47,"Systeem is bezet, probeer het later nog eens.",ok,system_busy
 48,Afdrukken,,leaflet_print
-49,,,error_subtitle
-50,,,leaflet_incorrect_date_title
-51,,,leaflet_incorrect_date_subtitle
+49,Niet -geverifieerd product,,error_subtitle
+50,Onjuiste datum,,leaflet_incorrect_date_title
+51,Gescande datum is onjuist,,leaflet_incorrect_date_subtitle
 52,<b> </b>.,,leaflet_incorrect_date_message
 61,Informatie afdrukken,,leaflet_print_title
 62,De huidige geselecteerde informatie wordt afgedrukt als PDF.,,leaflet_print_description
@@ -256,3 +256,13 @@ code,text,status,key
 321,Servië,,country_rs
 322,Kosovo,,country_xk
 324,Zuid -Soedan,,country_ss
+325,Alert pictogram,,alert_icon
+326,"Hoe te scannen, geanimeerde gif",,scan_gif
+327,Toneelstuk,,gif_play
+328,Pauze,,gif_pause
+329,Speel / pauzeer animatieknop,,play_pause_gif
+330,Dichtbij,,top_close
+331,Sluit het foutbericht,,close_error_message
+332,Menu -knop,,menu_button
+333,De beschikbare documenten van folder,,leaflet_available_doc
+334,De beschikbare talen van folder,,leaflet_available_lang

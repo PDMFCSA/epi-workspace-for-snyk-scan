@@ -47,9 +47,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | err_code | Fehler | ok | 46 |
 | system_busy | Das System ist beschäftigt, bitte versuchen Sie es später noch einmal. | ok | 47 |
 | leaflet_print | Drucken |  | 48 |
-| error_subtitle |  |  | 49 |
-| leaflet_incorrect_date_title |  |  | 50 |
-| leaflet_incorrect_date_subtitle |  |  | 51 |
+| error_subtitle | Nicht überprüftes Produkt |  | 49 |
+| leaflet_incorrect_date_title | Falsches Datum |  | 50 |
+| leaflet_incorrect_date_subtitle | Das gescannte Datum ist falsch |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; &lt;/b&gt;. |  | 52 |
 | leaflet_print_title | Dokument Drucken |  | 61 |
 | leaflet_print_description | Das aktuelle Dokument wird als PDF gedruckt. |  | 62 |
@@ -262,3 +262,13 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_rs | Serbien |  | 321 |
 | country_xk | Kosovo |  | 322 |
 | country_ss | Südsudan |  | 324 |
+| alert_icon | Alarm -Symbol |  | 325 |
+| scan_gif | So scannen, animierte GIF |  | 326 |
+| gif_play | Spielen |  | 327 |
+| gif_pause | Pause |  | 328 |
+| play_pause_gif | Animationstaste abspielen / pausieren |  | 329 |
+| top_close | Schließen |  | 330 |
+| close_error_message | Schließen Sie die Fehlermeldung |  | 331 |
+| menu_button | Menüschaltfläche |  | 332 |
+| leaflet_available_doc | Die verfügbaren Dokumente von Broschüren |  | 333 |
+| leaflet_available_lang | Die verfügbaren Sprachen von Broschüren |  | 334 |

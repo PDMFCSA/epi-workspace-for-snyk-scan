@@ -47,6 +47,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | err_code | Hata kodu | ok | 46 |
 | system_busy | Sistem meşgul, lütfen daha sonra tekrar deneyin. | ok | 47 |
 | leaflet_print | Basılı |  | 48 |
+| error_subtitle | Doğrulanmamış ürün |  | 49 |
+| leaflet_incorrect_date_title | Yanlış Tarih |  | 50 |
+| leaflet_incorrect_date_subtitle | Taranan tarih yanlış |  | 51 |
 | leaflet_print_title | Baskı Bilgileri |  | 61 |
 | leaflet_print_description | Mevcut seçilen bilgiler PDF olarak yazdırılacaktır. |  | 62 |
 | leaflet_print_description2 | Devam etmek ister misin? |  | 63 |
@@ -258,3 +261,13 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_rs | Sırbistan |  | 321 |
 | country_xk | Kosova |  | 322 |
 | country_ss | Güney Sudan |  | 324 |
+| alert_icon | Uyarı simgesi |  | 325 |
+| scan_gif | Nasıl taranır, animasyonlu GIF |  | 326 |
+| gif_play | Oynamak |  | 327 |
+| gif_pause | Duraklamak |  | 328 |
+| play_pause_gif | Animasyon düğmesini oynat / duraklat |  | 329 |
+| top_close | Kapalı |  | 330 |
+| close_error_message | Hata mesajını kapatın |  | 331 |
+| menu_button | Menü düğmesi |  | 332 |
+| leaflet_available_doc | Broşürün Mevcut Belgeleri |  | 333 |
+| leaflet_available_lang | Broşürün Mevcut Dilleri |  | 334 |

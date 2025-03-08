@@ -8,15 +8,15 @@ const data = {
   "scan_again": "Scan opnieuw",
   "product_not_found_title": "Onherkenbaar",
   "product_not_loaded_title": "Product informatie niet beschikbaar",
-  "error_subtitle": "",
+  "error_subtitle": "Niet -geverifieerd product",
   "product_not_found": "Product niet gevonden",
   "product_not_loaded": "Helaas, er is geen productinformatie beschikbaar.",
   "system_busy": "Systeem is bezet, probeer het later nog eens.",
   "err_code": "Foutmelding",
   "leaflet_expired_title": "Vervallen",
   "leaflet_expired_message": "<p> <b>Dit product is geïdentificeerd als vervallen (over datum).</b> </p> ",
-  "leaflet_incorrect_date_title": "",
-  "leaflet_incorrect_date_subtitle": "",
+  "leaflet_incorrect_date_title": "Onjuiste datum",
+  "leaflet_incorrect_date_subtitle": "Gescande datum is onjuist",
   "leaflet_incorrect_date_message": "<b> </b>.",
   "select_lang_title": "Taal niet beschikbaar",
   "scan_error_title": "Fout in Scannen",
@@ -255,7 +255,17 @@ const data = {
   "country_rs": "Servië",
   "country_xk": "Kosovo",
   "country_ss": "Zuid -Soedan",
-  "leaflet_print": "Afdrukken"
+  "leaflet_print": "Afdrukken",
+  "scan_gif": "Hoe te scannen, geanimeerde gif",
+  "gif_play": "Toneelstuk",
+  "gif_pause": "Pauze",
+  "play_pause_gif": "Speel / pauzeer animatieknop",
+  "top_close": "Dichtbij",
+  "close_error_message": "Sluit het foutbericht",
+  "menu_button": "Menu -knop",
+  "alert_icon": "Alert pictogram",
+  "leaflet_available_doc": "De beschikbare documenten van folder",
+  "leaflet_available_lang": "De beschikbare talen van folder"
 }
 
 export default data;

@@ -47,6 +47,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | err_code | Viga kood | ok | 46 |
 | system_busy | Süsteem on hõivatud, palun proovige hiljem uuesti. | ok | 47 |
 | leaflet_print | Trükikoda |  | 48 |
+| error_subtitle | Kontrollimata toode |  | 49 |
+| leaflet_incorrect_date_title | Vale kuupäev |  | 50 |
+| leaflet_incorrect_date_subtitle | Skaneeritud kuupäev on vale |  | 51 |
 | leaflet_print_title | Trükiteave |  | 61 |
 | leaflet_print_description | Praegune valitud teave trükitakse PDF -na. |  | 62 |
 | leaflet_print_description2 | Kas soovite jätkata? |  | 63 |
@@ -258,3 +261,13 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_rs | Serbia |  | 321 |
 | country_xk | Kosovo |  | 322 |
 | country_ss | Lõuna -Sudaan |  | 324 |
+| alert_icon | Hoiatusikoon |  | 325 |
+| scan_gif | Kuidas skannida, animeeritud gif |  | 326 |
+| gif_play | Näidend |  | 327 |
+| gif_pause | Paus |  | 328 |
+| play_pause_gif | Play / pausi animatsiooni nupp |  | 329 |
+| top_close | Sulgur |  | 330 |
+| close_error_message | Sulgege veateade |  | 331 |
+| menu_button | Menüünupp |  | 332 |
+| leaflet_available_doc | Voldiku saadaolevad dokumendid |  | 333 |
+| leaflet_available_lang | Voldiku saadaolevad keeled |  | 334 |

@@ -41,6 +41,9 @@ code,text,status,key
 46,Hata kodu,ok,err_code
 47,"Sistem meşgul, lütfen daha sonra tekrar deneyin.",ok,system_busy
 48,Basılı,,leaflet_print
+49,Doğrulanmamış ürün,,error_subtitle
+50,Yanlış Tarih,,leaflet_incorrect_date_title
+51,Taranan tarih yanlış,,leaflet_incorrect_date_subtitle
 61,Baskı Bilgileri,,leaflet_print_title
 62,Mevcut seçilen bilgiler PDF olarak yazdırılacaktır.,,leaflet_print_description
 63,Devam etmek ister misin?,,leaflet_print_description2
@@ -252,3 +255,13 @@ code,text,status,key
 321,Sırbistan,,country_rs
 322,Kosova,,country_xk
 324,Güney Sudan,,country_ss
+325,Uyarı simgesi,,alert_icon
+326,"Nasıl taranır, animasyonlu GIF",,scan_gif
+327,Oynamak,,gif_play
+328,Duraklamak,,gif_pause
+329,Animasyon düğmesini oynat / duraklat,,play_pause_gif
+330,Kapalı,,top_close
+331,Hata mesajını kapatın,,close_error_message
+332,Menü düğmesi,,menu_button
+333,Broşürün Mevcut Belgeleri,,leaflet_available_doc
+334,Broşürün Mevcut Dilleri,,leaflet_available_lang

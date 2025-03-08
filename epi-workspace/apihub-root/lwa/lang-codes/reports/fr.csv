@@ -41,9 +41,9 @@ code,text,status,key
 46,Code d’erreur,ok,err_code
 47,"Le système est occupé, veuillez réessayer plus tard.",ok,system_busy
 48,Imprimer,,leaflet_print
-49,,,error_subtitle
-50,,,leaflet_incorrect_date_title
-51,,,leaflet_incorrect_date_subtitle
+49,Produit non vérifié,,error_subtitle
+50,Date incorrecte,,leaflet_incorrect_date_title
+51,La date numérisée est incorrecte,,leaflet_incorrect_date_subtitle
 52,<b> </b>.,,leaflet_incorrect_date_message
 61,Imprimer des informations,,leaflet_print_title
 62,Les informations sélectionnées actuelles seront imprimées sous forme de PDF.,,leaflet_print_description
@@ -256,3 +256,13 @@ code,text,status,key
 321,Serbie,,country_rs
 322,Kosovo,,country_xk
 324,Soudan du Sud,,country_ss
+325,Icône d'alerte,,alert_icon
+326,"Comment scanner, gif animé",,scan_gif
+327,Jouer,,gif_play
+328,Pause,,gif_pause
+329,Bouton d'animation de lecture / pause,,play_pause_gif
+330,Fermer,,top_close
+331,Fermez le message d'erreur,,close_error_message
+332,Bouton de menu,,menu_button
+333,Documents disponibles de la dépliante,,leaflet_available_doc
+334,Langues disponibles de la dépliante,,leaflet_available_lang

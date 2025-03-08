@@ -1,5 +1,5 @@
 import {goToPage} from "../../../utils.js"
-import {translate} from "../translationUtils.js";
+import {translate,translateAcessabilityAttributes} from "../translationUtils.js";
 
 
 function MenuPageController() {
@@ -19,6 +19,7 @@ const menuPageController = new MenuPageController();
 window.onload = async (event) => {
   // document.querySelector("#settings-modal").classList.remove("hiddenElement");
   await translate();
+  translateAcessabilityAttributes();
   document.querySelector(".loader-container").setAttribute('style', 'display:none');
   setTimeout(() => {
     document.querySelector(".modal-header .close-modal").style.position = "absolute";

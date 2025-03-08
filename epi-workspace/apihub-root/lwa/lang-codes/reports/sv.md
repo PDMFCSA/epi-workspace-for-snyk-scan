@@ -47,9 +47,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | err_code | Felkod | ok | 46 |
 | system_busy | Systemet är upptaget, försök igen senare. | ok | 47 |
 | leaflet_print | Skriva ut |  | 48 |
-| error_subtitle | Unverified Product |  | 49 |
-| leaflet_incorrect_date_title | Incorrect date |  | 50 |
-| leaflet_incorrect_date_subtitle | Scanned date is incorrect |  | 51 |
+| error_subtitle | Overifierad produkt |  | 49 |
+| leaflet_incorrect_date_title | Felaktigt datum |  | 50 |
+| leaflet_incorrect_date_subtitle | Skannat datum är felaktigt |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; This product's date is incorrect&lt;/b&gt;. |  | 52 |
 | leaflet_print_title | Utskriftsinformation |  | 61 |
 | leaflet_print_description | Den nuvarande valda informationen kommer att skrivas ut som PDF. |  | 62 |
@@ -262,3 +262,13 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_rs | Serbien |  | 321 |
 | country_xk | Kosovo |  | 322 |
 | country_ss | Sydsudan |  | 324 |
+| alert_icon | Varna ikon |  | 325 |
+| scan_gif | Hur man skannar, animerad gif |  | 326 |
+| gif_play | Spela |  | 327 |
+| gif_pause | Paus |  | 328 |
+| play_pause_gif | Spela / Paus Animation -knappen |  | 329 |
+| top_close | Nära |  | 330 |
+| close_error_message | Stäng felmeddelandet |  | 331 |
+| menu_button | Menyknapp |  | 332 |
+| leaflet_available_doc | Broschyrens tillgängliga dokument |  | 333 |
+| leaflet_available_lang | Broschyrens tillgängliga språk |  | 334 |

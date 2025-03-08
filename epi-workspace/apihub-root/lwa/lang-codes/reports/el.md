@@ -47,6 +47,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | err_code | Σφάλμα κωδικού | ok | 46 |
 | system_busy | Το σύστημα είναι απασχολημένο (δεν μπορεί να σας εξυπηρετήσει), δοκιμάστε ξανά αργότερα. | ok | 47 |
 | leaflet_print | Αποτύπωμα |  | 48 |
+| error_subtitle | Μη επαληθευμένο προϊόν |  | 49 |
+| leaflet_incorrect_date_title | Εσφαλμένη ημερομηνία |  | 50 |
+| leaflet_incorrect_date_subtitle | Η ημερομηνία σαρωτής είναι λανθασμένη |  | 51 |
 | leaflet_print_title | Πληροφορίες εκτύπωσης |  | 61 |
 | leaflet_print_description | Οι τρέχουσες επιλεγμένες πληροφορίες θα εκτυπωθούν ως PDF. |  | 62 |
 | leaflet_print_description2 | Θέλετε να προχωρήσετε; |  | 63 |
@@ -258,3 +261,13 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_rs | Σερβία |  | 321 |
 | country_xk | Κοσσυφοπέδιο |  | 322 |
 | country_ss | Νότιο Σουδάν |  | 324 |
+| alert_icon | Εικονίδιο ειδοποίησης |  | 325 |
+| scan_gif | Πώς να σαρώσετε, κινούμενο gif |  | 326 |
+| gif_play | Παιχνίδι |  | 327 |
+| gif_pause | Παύση |  | 328 |
+| play_pause_gif | Κουμπί αναπαραγωγής / παύσης |  | 329 |
+| top_close | Κοντά |  | 330 |
+| close_error_message | Κλείστε το μήνυμα σφάλματος |  | 331 |
+| menu_button | Μενού |  | 332 |
+| leaflet_available_doc | Τα διαθέσιμα έγγραφα του φυλλαδίου |  | 333 |
+| leaflet_available_lang | Οι διαθέσιμες γλώσσες του φυλλαδίου |  | 334 |

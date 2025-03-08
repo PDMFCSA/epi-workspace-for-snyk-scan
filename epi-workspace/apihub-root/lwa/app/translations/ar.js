@@ -8,15 +8,15 @@ const data = {
   "scan_again": "امسح مرة أخرىً",
   "product_not_found_title": "لم يتم التعرف على المنتوج",
   "product_not_loaded_title": "معلومات المنتج غير متوفرة.",
-  "error_subtitle": "منتج غير موثوق",
+  "error_subtitle": "المنتج غير التحقق من ذلك",
   "product_not_found": "لا يمكن العثور على هذا المنتج.",
   "product_not_loaded": "للأسف، لم يتم تحميل أي معلومات عن المنتج.",
   "system_busy": "النظام مشغول، يرجى إعادة المحاولة لاحقا.",
   "err_code": "خطأ بالكود",
   "leaflet_expired_title": "منتهي الصلاحية",
   "leaflet_expired_message": "<p> <b>تم تحديد هذا المنتوج على أنه منتهي الصلاحية. </b> </p> ",
-  "leaflet_incorrect_date_title": "تاريخ خاطئ",
-  "leaflet_incorrect_date_subtitle": "تاريخ المسح غير صحيح",
+  "leaflet_incorrect_date_title": "تاريخ غير صحيح",
+  "leaflet_incorrect_date_subtitle": "التاريخ الممسوحة ضوئيًا غير صحيح",
   "leaflet_incorrect_date_message": "<b> تاريخ هذا المنتج غير صحيح</b>.",
   "select_lang_title": "اللغة غير متوفرة",
   "scan_error_title": "خطأ في المسح",
@@ -255,7 +255,17 @@ const data = {
   "country_rs": "صربيا",
   "country_xk": "كوسوفو",
   "country_ss": "جنوب السودان",
-  "leaflet_print": "مطبعة"
+  "leaflet_print": "مطبعة",
+  "scan_gif": "كيفية مسح ، الرسوم المتحركة gif",
+  "gif_play": "يلعب",
+  "gif_pause": "يوقف",
+  "play_pause_gif": "زر التشغيل / الإيقاف المؤقت للرسوم المتحركة",
+  "top_close": "يغلق",
+  "close_error_message": "أغلق رسالة الخطأ",
+  "menu_button": "زر القائمة",
+  "alert_icon": "أيقونة التنبيه",
+  "leaflet_available_doc": "مستندات النشرة المتاحة",
+  "leaflet_available_lang": "اللغات المتاحة للنشرة"
 }
 
 export default data;

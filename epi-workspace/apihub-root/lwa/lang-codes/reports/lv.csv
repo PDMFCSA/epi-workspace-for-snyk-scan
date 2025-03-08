@@ -41,6 +41,9 @@ code,text,status,key
 46,Kļūdas kods,ok,err_code
 47,"Sistēma ir aizņemta, lūdzu, mēģiniet vēlāk.",ok,system_busy
 48,Drukāt,,leaflet_print
+49,Nepārbaudīts produkts,,error_subtitle
+50,Nepareizs datums,,leaflet_incorrect_date_title
+51,Skenēts datums nav pareizs,,leaflet_incorrect_date_subtitle
 61,Drukas informācija,,leaflet_print_title
 62,Pašreizējā atlasītā informācija tiks izdrukāta kā PDF.,,leaflet_print_description
 63,Vai vēlaties turpināt?,,leaflet_print_description2
@@ -252,3 +255,13 @@ code,text,status,key
 321,Serbija,,country_rs
 322,Kosovo,,country_xk
 324,Dienvidsudāna,,country_ss
+325,Brīdinājuma ikona,,alert_icon
+326,"Kā skenēt, animēt GIF",,scan_gif
+327,Rotaļlieta,,gif_play
+328,Apturēt,,gif_pause
+329,Spēlēt / pauzēt animācijas pogu,,play_pause_gif
+330,Tuvs,,top_close
+331,Aizveriet kļūdas ziņojumu,,close_error_message
+332,Izvēlnes poga,,menu_button
+333,Beamplet pieejamie dokumenti,,leaflet_available_doc
+334,Beamplet pieejamās valodas,,leaflet_available_lang

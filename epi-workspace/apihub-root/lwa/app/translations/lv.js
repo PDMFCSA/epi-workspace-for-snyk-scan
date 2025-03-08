@@ -251,7 +251,20 @@ const data = {
   "country_rs": "Serbija",
   "country_xk": "Kosovo",
   "country_ss": "Dienvidsudāna",
-  "leaflet_print": "Drukāt"
+  "leaflet_print": "Drukāt",
+  "error_subtitle": "Nepārbaudīts produkts",
+  "leaflet_incorrect_date_title": "Nepareizs datums",
+  "leaflet_incorrect_date_subtitle": "Skenēts datums nav pareizs",
+  "scan_gif": "Kā skenēt, animēt GIF",
+  "gif_play": "Rotaļlieta",
+  "gif_pause": "Apturēt",
+  "play_pause_gif": "Spēlēt / pauzēt animācijas pogu",
+  "top_close": "Tuvs",
+  "close_error_message": "Aizveriet kļūdas ziņojumu",
+  "menu_button": "Izvēlnes poga",
+  "alert_icon": "Brīdinājuma ikona",
+  "leaflet_available_doc": "Beamplet pieejamie dokumenti",
+  "leaflet_available_lang": "Beamplet pieejamās valodas"
 }
 
 export default data;

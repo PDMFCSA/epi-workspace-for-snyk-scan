@@ -1,5 +1,5 @@
 import {goToPage} from "../../../utils.js"
-import {translate} from "../translationUtils.js";
+import {getTranslation, translateAcessabilityAttributes, translate} from "../translationUtils.js";
 import environment from "../../../environment.js";
 import constants from "../../../constants.js";
 import Scanner from "./../../lib/zxing-wrapper/scanner.js";
@@ -222,6 +222,7 @@ const mainController = new MainController();
 
 window.onload = async (event) => {
     await translate();
+    translateAcessabilityAttributes();
     mainController.checkOnboarding();
     document.querySelector(".page-container").classList.remove("hiddenElement");
     document.querySelector(".loader-container").setAttribute('style', 'display:none');
@@ -229,6 +230,7 @@ window.onload = async (event) => {
         document.querySelector(".app-menu-container ").style.position = "absolute";
     }, 0);
 }
+
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 let epiDomain = urlParams.get("setdomain") || localStorage.getItem(constants.EPI_DOMAIN) || environment.epiDomain;

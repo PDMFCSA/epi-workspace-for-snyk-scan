@@ -251,7 +251,20 @@ const data = {
   "country_rs": "Serbia",
   "country_xk": "Kosovo",
   "country_ss": "Sør -Sudan",
-  "leaflet_print": "Trykk"
+  "leaflet_print": "Trykk",
+  "error_subtitle": "Ubekreftet produkt",
+  "leaflet_incorrect_date_title": "Feil dato",
+  "leaflet_incorrect_date_subtitle": "Skannet dato er feil",
+  "scan_gif": "Hvordan skanne, animerte gif",
+  "gif_play": "Spille",
+  "gif_pause": "Pause",
+  "play_pause_gif": "Spill / pause animasjonsknapp",
+  "top_close": "Lukke",
+  "close_error_message": "Lukk feilmeldingen",
+  "menu_button": "Menyknapp",
+  "alert_icon": "Varslingsikon",
+  "leaflet_available_doc": "Brosjyrens tilgjengelige dokumenter",
+  "leaflet_available_lang": "Brosjyrens tilgjengelige språk"
 }
 
 export default data;

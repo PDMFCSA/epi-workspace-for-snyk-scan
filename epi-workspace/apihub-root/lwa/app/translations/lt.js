@@ -8,15 +8,15 @@ const data = {
   "scan_again": "Dar kartą nuskaityti",
   "product_not_found_title": "Neatpažintas",
   "product_not_loaded_title": "Informacijos apie produktą nėra.",
-  "error_subtitle": "Unverified Product",
+  "error_subtitle": "Nepatikrintas produktas",
   "product_not_found": "Šio produkto negalima rasti.",
   "product_not_loaded": "Deja, nebuvo įkelta jokia informacija apie produktą.",
   "system_busy": "Sistema užimta, pabandykite vėliau.",
   "err_code": "Klaidos kodas",
   "leaflet_expired_title": "Pasibaigęs galiojimo laikas",
   "leaflet_expired_message": "<p> <b>Nustatyta, kad šio produkto galiojimo laikas pasibaigęs. </b> </p> ",
-  "leaflet_incorrect_date_title": "Incorrect date",
-  "leaflet_incorrect_date_subtitle": "Scanned date is incorrect",
+  "leaflet_incorrect_date_title": "Neteisinga data",
+  "leaflet_incorrect_date_subtitle": "Nuskaityta data neteisinga",
   "leaflet_incorrect_date_message": "<b> This product's date is incorrect</b>.",
   "select_lang_title": "Kalba neprieinama",
   "scan_error_title": "Nuskaitymo klaida",
@@ -255,7 +255,17 @@ const data = {
   "country_rs": "Serbija",
   "country_xk": "Kosovas",
   "country_ss": "Pietų Sudanas",
-  "leaflet_print": "Spausdinti"
+  "leaflet_print": "Spausdinti",
+  "scan_gif": "Kaip nuskaityti, animuoti GIF",
+  "gif_play": "Žaisk",
+  "gif_pause": "Pauzė",
+  "play_pause_gif": "Žaisk / pristabdykite animacijos mygtuką",
+  "top_close": "Uždaryti",
+  "close_error_message": "Uždarykite klaidos pranešimą",
+  "menu_button": "Meniu mygtukas",
+  "alert_icon": "Įspėjimo piktograma",
+  "leaflet_available_doc": "Lankstinukas turimi dokumentai",
+  "leaflet_available_lang": "Lankstinukas turimas kalbas"
 }
 
 export default data;

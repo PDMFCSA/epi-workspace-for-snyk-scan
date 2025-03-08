@@ -41,6 +41,9 @@ code,text,status,key
 46,Kôd pogreške:,ok,err_code
 47,"Sustav je zauzet, molimo pokušajte ponovno kasnije.",ok,system_busy
 48,Ispis,,leaflet_print
+49,Neprovjereni proizvod,,error_subtitle
+50,Netočan datum,,leaflet_incorrect_date_title
+51,Datum skeniranja je netočan,,leaflet_incorrect_date_subtitle
 61,Informacije o ispisu,,leaflet_print_title
 62,Trenutne odabrane informacije bit će ispisane kao PDF.,,leaflet_print_description
 63,Želite li nastaviti?,,leaflet_print_description2
@@ -252,3 +255,13 @@ code,text,status,key
 321,Srbija,,country_rs
 322,Kosov,,country_xk
 324,Južni Sudan,,country_ss
+325,Ikona upozorenja,,alert_icon
+326,"Kako skenirati, animirani gif",,scan_gif
+327,Igrati,,gif_play
+328,Pauza,,gif_pause
+329,Gumb za animaciju reproduciraj / pauzu,,play_pause_gif
+330,Zatvoriti,,top_close
+331,Zatvorite poruku o pogrešci,,close_error_message
+332,Gumb,,menu_button
+333,Dostupni dokumenti Leaflet,,leaflet_available_doc
+334,Dostupni jezici Leaflet,,leaflet_available_lang
