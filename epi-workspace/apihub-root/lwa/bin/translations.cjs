@@ -280,14 +280,18 @@ async function  generateCodeSheet(langs, format = "json"){
 async function decertify(key) {
   const certified = getCertified();
   const certifiedKeys = Object.keys(certified);
-  let lowerCaseKey = key.toLowerCase();
+  const lowerCaseKey = key.toLowerCase();
   if (!certifiedKeys.includes(lowerCaseKey))
     throw new Error(`${key} is not certified`);
 
 
 
-  const nonCertified = getCertified(false);
+  let nonCertified = getCertified(false);
   nonCertified[key] = certified[key];
+
+  nonCertified = Object.fromEntries(
+    Object.entries(nonCertified).sort(([, a], [, b]) => a - b)
+  );
 
   updateCertificationTracker(nonCertified,  false);
 
@@ -308,8 +312,12 @@ async function certify(key) {
 
 
 
-  const certified = getCertified();
+  let certified = getCertified();
   certified[key] = nonCertified[key];
+
+  certified = Object.fromEntries(
+    Object.entries(certified).sort(([, a], [, b]) => a - b)
+  );
 
   updateCertificationTracker(certified,  true);
 
