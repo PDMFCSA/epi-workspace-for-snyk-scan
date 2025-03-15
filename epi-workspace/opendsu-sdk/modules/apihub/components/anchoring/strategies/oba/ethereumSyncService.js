@@ -30,26 +30,34 @@ function EthereumSyncService(server, config) {
             this.finishInitialisation();
         })
 
-        lokiEnclaveFacade.filter(undefined, ANCHORS_TABLE_NAME, (err, anchors) => {
-            if (err) {
+        lokiEnclaveFacade.storageDB.createCollection(undefined, ANCHORS_TABLE_NAME, ["scheduled"], (err) => {
+            if (err){
+                logger.error(`Failed to boot ${ANCHORS_TABLE_NAME} database: ${err}`);
                 this.finishInitialisation();
                 return;
             }
 
-            if (typeof anchors === "undefined" || anchors.length === 0) {
-                return this.finishInitialisation();
-            }
+            lokiEnclaveFacade.filter(undefined, ANCHORS_TABLE_NAME, (err, anchors) => {
+                if (err) {
+                    this.finishInitialisation();
+                    return;
+                }
 
-            taskCounter.increment(anchors.length);
-            anchors.forEach(anchor => {
-                anchor.scheduled = null;
-                anchor.tc = 1;
-                lokiEnclaveFacade.updateRecord(undefined, ANCHORS_TABLE_NAME, anchor.pk, anchor, err => {
-                    if (err) {
-                        logger.debug(`Failed to update anchor ${anchor.pk} in db: ${err}`);
-                    }
+                if (typeof anchors === "undefined" || anchors.length === 0) {
+                    return this.finishInitialisation();
+                }
 
-                    taskCounter.decrement();
+                taskCounter.increment(anchors.length);
+                anchors.forEach(anchor => {
+                    anchor.scheduled = null;
+                    anchor.tc = 1;
+                    lokiEnclaveFacade.updateRecord(undefined, ANCHORS_TABLE_NAME, anchor.pk, anchor, err => {
+                        if (err) {
+                            logger.debug(`Failed to update anchor ${anchor.pk} in db: ${err}`);
+                        }
+
+                        taskCounter.decrement();
+                    })
                 })
             })
         })

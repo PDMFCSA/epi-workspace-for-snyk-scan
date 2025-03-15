@@ -1,7 +1,0 @@
-{
-  "confFileName": "double-check.json",
-  "ignore": [
-    "utils.js",
-    "ApiCallTest.js"
-  ]
-}

@@ -48,19 +48,14 @@ if (!isMainThread) {
             }
 
             result = await strategy[taskName](pool, ...args);
-            if (result !== undefined) {
-                result = JSON.parse(JSON.stringify(result));
-            }
+            result = JSON.parse(JSON.stringify(result));
 
             parentPort.postMessage({
                 success: true,
                 result
             });
         } catch (err) {
-            // Only log error if it's not the expected "relation does not exist" error
-            if (!(err.code === '42P01' && err.message.includes('relation') && err.message.includes('does not exist'))) {
-                console.error('DEBUG: Error executing task:', err);
-            }
+            console.error('DEBUG: Error executing task:', err);
             error = {
                 message: err.message,
                 code: err.code,

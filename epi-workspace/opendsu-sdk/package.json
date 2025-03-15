@@ -3,17 +3,17 @@
     "version": "2.0.14",
     "description": "This repo is meant to be used for opendsu sdk development.",
     "scripts": {
-        "dev-install": "node ./bin/scripts/mkDevEnv.js && npm install && npm run pre-freeze-install",
-        "pre-freeze-install": "npm install && node ./node_modules/octopus/scripts/setEnv --file=../../../../env.json \"npm run do-install\"",
-        "ensure-freeze": "node ./node_modules/octopus/scripts/ensureFreezeState.js && npm run do-install",
-        "no-freeze-install": "npm install && node ./node_modules/octopus/scripts/setEnv --file=../../../../env.json \"npm run ensure-freeze\"",
-        "do-install": "node ./node_modules/octopus/scripts/run",
+        "postinstall": "npm run build",
         "update": "git pull && npm install",
         "build": "node ./bin/scripts/pskbuild.js --projectMap=./builds/build.json --output=./builds/output/ && node ./node_modules/octopus/scripts/run postBuild devmode",
         "start": "node ./psknode/bin/scripts/apiHubLauncher.js",
         "cloud-enclave": "node ./psknode/bin/scripts/enclaveLauncher.js",
         "remote-enclave": "npm run cloud-enclave",
         "tests": "npm run smoke-tests",
+        "start-db": "cd docker && docker compose up -d",
+        "shutdown-db": "cd docker && docker compose down -v --remove-orphans",
+        "create-users-db": "curl -X PUT admin:adminpw@localhost:5984/_users",
+        "create-read-user": "curl -X PUT admin:adminpw@localhost:5984/_users/org.couchdb.user:reader -H \"Accept: application/json\" -H \"Content-Type: application/json\" -d '{\"name\": \"reader\", \"password\": \"readerpw\", \"roles\": [], \"type\": \"user\"}'",
         "freeze": "node ./node_modules/octopus/scripts/freeze",
         "tag-freeze": "node ./node_modules/octopus/scripts/tagFreeze.js",
         "smoke-tests": "npm run build && node ./node_modules/octopus/scripts/setEnv --file=../../../env.json \"node ./psknode/bin/scripts/testrunner.js --config=./smoke-test-suites.json\""
@@ -36,7 +36,8 @@
     "devDependencies": {
         "@msgpack/msgpack": "^1.8.0",
         "browserify": "^17.0.0",
-        "common-shakeify": "^1.1.1"
+        "common-shakeify": "^1.1.1",
+        "nano": "^10.1.4"
     },
     "dependencies": {
         "octopus": "git+http://git@github.com/opendsu/octopus.git"

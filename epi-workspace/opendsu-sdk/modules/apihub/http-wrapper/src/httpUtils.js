@@ -32,14 +32,14 @@ function sendErrorResponse(error, response, statusCode) {
 }
 
 function bodyParser(req, res, next) {
-    let bodyContent = [];
+    let bodyContent = '';
 
     req.on('data', function (dataChunk) {
-        bodyContent.push(dataChunk);
+        bodyContent += dataChunk;
     });
 
     req.on('end', function () {
-        req.body = Buffer.concat(bodyContent).toString();
+        req.body = bodyContent;
         next();
     });
 

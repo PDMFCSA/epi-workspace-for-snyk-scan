@@ -20,10 +20,6 @@ class BaseStrategy {
         throw new Error('Not implemented');
     }
 
-    async cleanupDatabase(connection) {
-        throw new Error('Not implemented');
-    }
-
     // Database schema operations
     async createCollection(connection, tableName, indicesList) {
         throw new Error('Not implemented');

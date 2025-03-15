@@ -832,9 +832,6 @@ const INTERVAL_TIME = 1 * 1000; //ms aka 1 sec
 const DEFAULT_MAX_AGE = 10; //seconds aka 10 sec
 const TASKS_TABLE = "tasks";
 const HISTORY_TABLE = "history";
-
-const getEnclaveKey = (name) => `enclave_${name}`.replaceAll(".", "_");
-
 const DATABASE = "FixedUrls.db";
 
 const enclaveAPI = require("opendsu").loadAPI("enclave");
@@ -844,18 +841,12 @@ const pathname = "path";
 const path = require(pathname);
 const logger = $$.getLogger("FixedUrl", "apihub/logger");
 
-const {DBService} = require("loki-enclave-facade");
+module.exports = function (server) {
 
-function getFixedUrl (server) {
     const workingDir = path.join(server.rootFolder, "external-volume", "fixed-urls");
     const storage = path.join(workingDir, "storage");
     let lightDBEnclaveClient = enclaveAPI.initialiseLightDBEnclave(DATABASE);
-    // const {uri, user, secret} = server.config.db;
-    // const lightDBEnclaveClient = new DBService({
-    //     uri: uri,
-    //     username: user,
-    //     secret: secret,
-    // });
+
     let watchedUrls = [];
     //we inject a helper function that can be called by different components or middleware to signal that their requests
     // can be watched by us
@@ -1289,7 +1280,6 @@ function getFixedUrl (server) {
             if (err) {
                 logger.error("Failed to ensure folder structure due to", err);
             }
-            // lightDBEnclaveClient.createDatabase(getEnclaveKey(DATABASE), (err) => {
             lightDBEnclaveClient.createDatabase(DATABASE, (err) => {
                 if (err) {
                     logger.debug("Failed to create database", err.message, err.code, err.rootCause);
@@ -1310,12 +1300,12 @@ function getFixedUrl (server) {
                             logger.error("Failed to grant write access to the enclave", err.message, err.code, err.rootCause);
                         }
 
-                        lightDBEnclaveClient.createCollection($$.SYSTEM_IDENTIFIER, TASKS_TABLE, ["pk", "__timestamp"], (err) => {
+                        lightDBEnclaveClient.createCollection($$.SYSTEM_IDENTIFIER, TASKS_TABLE, ["pk", "__timestamp", "url"], (err) => {
                             if (err) {
                                 logger.error("Failed to create collection", err.message, err.code, err.rootCause);
                             }
 
-                            lightDBEnclaveClient.createCollection($$.SYSTEM_IDENTIFIER, HISTORY_TABLE, ["pk", "__timestamp"], (err) => {
+                            lightDBEnclaveClient.createCollection($$.SYSTEM_IDENTIFIER, HISTORY_TABLE, ["pk", "__timestamp", "url"], (err) => {
                                 if (err) {
                                     logger.error("Failed to create collection", err.message, err.code, err.rootCause);
                                 }
@@ -1564,11 +1554,9 @@ function getFixedUrl (server) {
     server.get("/mtime/*", getTimestampHandler);
     server.get("/statusFixedURL", taskRegistry.httpStatus);
 }
-
-module.exports.getFixedUrl = getFixedUrl;
 }).call(this)}).call(this,require("buffer").Buffer)
 
-},{"./utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/fixed-urls/utils/index.js","buffer":false,"loki-enclave-facade":false,"opendsu":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/fixed-urls/utils/index.js":[function(require,module,exports){
+},{"./utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/fixed-urls/utils/index.js","buffer":false,"opendsu":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/fixed-urls/utils/index.js":[function(require,module,exports){
 (function (Buffer){(function (){
 function bodyReaderMiddleware(req, res, next) {
     const data = [];
@@ -7007,7 +6995,9 @@ function AuditService(enclave) {
         if (logType === AUDIT_LOG_TYPES.USER_ACTION || logType === AUDIT_LOG_TYPES.DEMIURGE_USER_ACTION || logType === AUDIT_LOG_TYPES.DEMIURGE_USER_ACCESS) {
             table = TABLES.AUDIT
         }
-        return await $$.promisify(enclave.filter)($$.SYSTEM_IDENTIFIER, table, query, sort, number);
+
+        const results = await $$.promisify(enclave.filter)($$.SYSTEM_IDENTIFIER, table, query, sort, number);
+        return results;
     }
 }
 
@@ -14821,7 +14811,7 @@ const countries = [
     {"name": "Iceland", "code": "IS"},
     {"name": "India", "code": "IN"},
     {"name": "Indonesia", "code": "ID"},
-    {"name": "Iran, Islamic Republic Of", "code": "IR"},
+    {"name": "Iran", "code": "IR"}, // After 406, old value Iran, Islamic Republic Of
     {"name": "Iraq", "code": "IQ"},
     {"name": "Ireland", "code": "IE"},
     {"name": "Israel", "code": "IL"},
@@ -14835,8 +14825,6 @@ const countries = [
     {"name": "Kazakhstan", "code": "KZ"},
     {"name": "Kenya", "code": "KE"},
     {"name": "Kiribati", "code": "KI"},
-    // {"name": "Korea, Democratic People'S Republic of", "code": "KP"}, // In 406 is only North Korea *
-    // {"name": "Korea, Republic of", "code": "KR"}, // In 406 is only South Korea *
     {"name": "Kosovo", "code": "XK"}, // New 406 *
     {"name": "Kuwait", "code": "KW"},
     {"name": "Kyrgyzstan", "code": "KG"},

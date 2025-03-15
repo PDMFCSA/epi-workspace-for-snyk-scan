@@ -1,1 +1,0 @@
-# opendsu-sdk-tests

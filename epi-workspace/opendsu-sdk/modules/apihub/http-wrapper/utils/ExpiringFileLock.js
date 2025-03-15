@@ -21,10 +21,7 @@ function ExpiringFileLock(folderLock, timeout) {
             }
 
             try {
-                let fpath = await fsPromises.mkdir(folderLock, {recursive: true});
-                if(typeof fpath === "undefined"){
-                    throw Error("Folder already exists");
-                }
+                await fsPromises.mkdir(folderLock, {recursive: true});
                 return;
             } catch (e) {
                 console.log("Retrying to acquire lock", folderLock, "after 100ms");

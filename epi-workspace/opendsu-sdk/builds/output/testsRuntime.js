@@ -1480,26 +1480,34 @@ function EthereumSyncService(server, config) {
             this.finishInitialisation();
         })
 
-        lokiEnclaveFacade.filter(undefined, ANCHORS_TABLE_NAME, (err, anchors) => {
-            if (err) {
+        lokiEnclaveFacade.storageDB.createCollection(undefined, ANCHORS_TABLE_NAME, ["scheduled"], (err) => {
+            if (err){
+                logger.error(`Failed to boot ${ANCHORS_TABLE_NAME} database: ${err}`);
                 this.finishInitialisation();
                 return;
             }
 
-            if (typeof anchors === "undefined" || anchors.length === 0) {
-                return this.finishInitialisation();
-            }
+            lokiEnclaveFacade.filter(undefined, ANCHORS_TABLE_NAME, (err, anchors) => {
+                if (err) {
+                    this.finishInitialisation();
+                    return;
+                }
 
-            taskCounter.increment(anchors.length);
-            anchors.forEach(anchor => {
-                anchor.scheduled = null;
-                anchor.tc = 1;
-                lokiEnclaveFacade.updateRecord(undefined, ANCHORS_TABLE_NAME, anchor.pk, anchor, err => {
-                    if (err) {
-                        logger.debug(`Failed to update anchor ${anchor.pk} in db: ${err}`);
-                    }
+                if (typeof anchors === "undefined" || anchors.length === 0) {
+                    return this.finishInitialisation();
+                }
 
-                    taskCounter.decrement();
+                taskCounter.increment(anchors.length);
+                anchors.forEach(anchor => {
+                    anchor.scheduled = null;
+                    anchor.tc = 1;
+                    lokiEnclaveFacade.updateRecord(undefined, ANCHORS_TABLE_NAME, anchor.pk, anchor, err => {
+                        if (err) {
+                            logger.debug(`Failed to update anchor ${anchor.pk} in db: ${err}`);
+                        }
+
+                        taskCounter.decrement();
+                    })
                 })
             })
         })
@@ -7317,7 +7325,6 @@ function Server(sslOptions) {
 
 module.exports = Server;
 },{"./MiddlewareRegistry":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/classes/MiddlewareRegistry.js","http":false,"https":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/httpUtils.js":[function(require,module,exports){
-(function (Buffer){(function (){
 const logger = $$.getLogger("http-wrapper", "apihub/libs");
 
 function setDataHandler(request, callback) {
@@ -7352,14 +7359,14 @@ function sendErrorResponse(error, response, statusCode) {
 }
 
 function bodyParser(req, res, next) {
-    let bodyContent = [];
+    let bodyContent = '';
 
     req.on('data', function (dataChunk) {
-        bodyContent.push(dataChunk);
+        bodyContent += dataChunk;
     });
 
     req.on('end', function () {
-        req.body = Buffer.concat(bodyContent).toString();
+        req.body = bodyContent;
         next();
     });
 
@@ -7370,9 +7377,7 @@ function bodyParser(req, res, next) {
 
 module.exports = {setDataHandler, setDataHandlerMiddleware, sendErrorResponse, bodyParser};
 
-}).call(this)}).call(this,require("buffer").Buffer)
-
-},{"buffer":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/index.js":[function(require,module,exports){
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/index.js":[function(require,module,exports){
 const Client = require('./classes/Client');
 const Server = require('./classes/Server');
 const httpUtils = require('./httpUtils');
@@ -7405,10 +7410,7 @@ function ExpiringFileLock(folderLock, timeout) {
             }
 
             try {
-                let fpath = await fsPromises.mkdir(folderLock, {recursive: true});
-                if(typeof fpath === "undefined"){
-                    throw Error("Folder already exists");
-                }
+                await fsPromises.mkdir(folderLock, {recursive: true});
                 return;
             } catch (e) {
                 console.log("Retrying to acquire lock", folderLock, "after 100ms");
@@ -7431,7 +7433,6 @@ module.exports = {
         return new ExpiringFileLock(folderLock, timeout);
     }
 };
-
 },{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/backupUtils.js":[function(require,module,exports){
 const fs = require('fs');
 const path = require('path');
@@ -7832,10 +7833,6 @@ const extensionsMimeTypes = {
         name: "audio/webm",
         binary: true
     },
-    "mp4": {
-        name: "video/mp4",
-        binary: true
-    },
     "webm": {
         name: "video/webm",
         binary: true
@@ -7900,7 +7897,6 @@ module.exports = function (extension) {
     }
     return defaultMimeType;
 };
-
 },{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/request-utils.js":[function(require,module,exports){
 const logger = $$.getLogger("request-utils", "apihub/utils");
 
@@ -8251,7 +8247,7 @@ module.exports = function (server) {
                 return callback(undefined, false);
             }
 
-            fs.mkdir(getLockFolderPath(id), (err) => {
+            fs.mkdir(getLockFolderPath(id), {recursive: true}, (err) => {
                 if (err) {
                     logger.error("Failed to write lock", err);
                     return callback(err);
@@ -8333,7 +8329,6 @@ module.exports = function (server) {
         });
     });
 }
-
 },{"opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/apiKeyAuth/index.js":[function(require,module,exports){
 function APIKeyAuth(server) {
     const SecretsService = require("../../components/secrets/SecretsService");
@@ -8611,9 +8606,25 @@ module.exports = function (server) {
     function respond(res, content, statusCode) {
         if (statusCode) {
             res.statusCode = statusCode;
-            logger.audit(0x102, `Responding to url ${res.req.url} with status code ${statusCode}`);
+            let code = 0x104;
+
+            if(res.req.url.includes('leaflets'))
+                code = 0x102;
+
+            if(res.req.url.includes('metadata'))
+                code = 0x106;
+
+            logger.audit(code, `Responding to url ${res.req.url} with status code ${statusCode}`);
         } else {
-            logger.audit(0x101, `Successful serving url ${res.req.url}`);
+            let code = 0x103;
+
+            if(res.req.url.includes('leaflets'))
+                code = 0x101;
+
+            if(res.req.url.includes('metadata'))
+                code = 0x105;
+
+            logger.audit(code, `Successful serving url ${res.req.url}`);
             res.statusCode = 200;
         }
         const fixedURLExpiry = server.config.fixedURLExpiry || DEFAULT_MAX_AGE;
@@ -9019,12 +9030,12 @@ module.exports = function (server) {
                             logger.error("Failed to grant write access to the enclave", err.message, err.code, err.rootCause);
                         }
 
-                        lightDBEnclaveClient.createCollection($$.SYSTEM_IDENTIFIER, TASKS_TABLE, ["pk", "__timestamp"], (err) => {
+                        lightDBEnclaveClient.createCollection($$.SYSTEM_IDENTIFIER, TASKS_TABLE, ["pk", "__timestamp", "url"], (err) => {
                             if (err) {
                                 logger.error("Failed to create collection", err.message, err.code, err.rootCause);
                             }
 
-                            lightDBEnclaveClient.createCollection($$.SYSTEM_IDENTIFIER, HISTORY_TABLE, ["pk", "__timestamp"], (err) => {
+                            lightDBEnclaveClient.createCollection($$.SYSTEM_IDENTIFIER, HISTORY_TABLE, ["pk", "__timestamp", "url"], (err) => {
                                 if (err) {
                                     logger.error("Failed to create collection", err.message, err.code, err.rootCause);
                                 }
@@ -29357,15 +29368,274 @@ function RaceConditionPreventer() {
 
 module.exports = RaceConditionPreventer;
 },{"../DSUFactoryRegistry/factories/BarFactory":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/key-ssi-resolver/lib/DSUFactoryRegistry/factories/BarFactory.js","opendsu":"opendsu","swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/lightDB-sql-adapter/sqlAdapter.js":[function(require,module,exports){
-function SQLAdapter(config) {
-    const logger = $$.getLogger("SQLAdapter", "SQLAdapter.js");
-    const SQLDecorator = require("./sqlDecorator");
+(function (Buffer,__dirname){(function (){
+// sqlAdapter.js
+const syndicate = require('syndicate');
+const path = require('path');
+
+class SQLAdapter {
+    READ_WRITE_KEY_TABLE;
+    debug;
+    workerPool;
+    config;
+
+    constructor(config) {
+        this.READ_WRITE_KEY_TABLE = "KeyValueTable";
+        this.debug = process.env.DEBUG === 'true';
+
+        this.config = config;
+
+        this.workerPool = syndicate.createWorkerPool({
+            bootScript: path.join(__dirname, "./workerScript.js"),
+            maximumNumberOfWorkers: 4,
+            workerOptions: {
+                workerData: {
+                    config
+                }
+            }
+        });
+        console.log("creating new sqlAdapter instance.");
+    }
+
+    close = async () => {
+        try {
+            if (this.workerPool && typeof this.workerPool.drain === 'function') {
+                await this.workerPool.drain();
+            }
+            if (this.workerPool && typeof this.workerPool.clear === 'function') {
+                await this.workerPool.clear();
+            }
+            if (this.workerPool && typeof this.workerPool.terminate === 'function') {
+                await this.workerPool.terminate();
+            }
+        } catch (error) {
+            console.error('Error closing worker pool:', error);
+            throw error;
+        }
+    }
+
+    _executeTask = (taskName, args) => {
+        return new Promise((resolve, reject) => {
+            try {
+                // Sanitize args to ensure they're serializable
+                const safeArgs = args.map(arg => {
+                    if (arg === null || arg === undefined) return arg;
+                    if (typeof arg === 'function') return null;
+                    if (Buffer.isBuffer(arg)) return arg.toString('base64');
+                    if (typeof arg === 'object') {
+                        return JSON.parse(JSON.stringify(arg));
+                    }
+                    return arg;
+                });
+
+                // Include workerData in the message
+                this.workerPool.addTask({
+                    taskName,
+                    args: safeArgs,
+                    workerData: {
+                        config: this.config,
+                    }
+                }, (err, result) => {
+                    if (err) {
+                        const error = new Error(err.message || 'Unknown error');
+                        if (err.code) error.code = err.code;
+                        if (err.type) error.type = err.type;
+                        reject(error);
+                    } else {
+                        if (!result.success) {
+                            const error = new Error(result.error?.message || 'Unknown error');
+                            if (result.error?.code) error.code = result.error.code;
+                            if (result.error?.type) error.type = result.error.type;
+                            reject(error);
+                        } else {
+                            resolve(result.result);
+                        }
+                    }
+                });
+            } catch (err) {
+                reject(new Error('Task execution failed: ' + (err.message || 'Unknown error')));
+            }
+        });
+    }
+
+    _executeWithCallback = (taskName, args, callback) => {
+        this._executeTask(taskName, args)
+            .then(result => callback(null, result))
+            .catch(error => {
+                // Ensure error is properly formatted
+                if (!(error instanceof Error)) {
+                    error = new Error(error.message || 'Unknown error');
+                }
+                callback(error);
+            });
+    }
+
+    createDatabase = (forDID, callback) => {
+        this._executeWithCallback('createDatabase', [], callback);
+    }
+
+    // Database operations with callbacks
+    refresh = (forDID, callback) => {
+        this._executeWithCallback('refresh', [], callback);
+    }
+
+    saveDatabase = (forDID, callback) => {
+        this._executeWithCallback('saveDatabase', [], callback);
+    }
+
+    getCollections = (forDID, callback) => {
+        this._executeWithCallback('getCollections', [], callback);
+    }
+
+    createCollection = (forDID, tableName, indicesList, callback) => {
+        this._executeWithCallback('createCollection', [tableName, indicesList], callback);
+    }
+
+    removeCollection = (forDID, tableName, callback) => {
+        this._executeWithCallback('removeCollection', [tableName], callback);
+    }
+
+    addIndex = (forDID, tableName, property, callback) => {
+        this._executeWithCallback('addIndex', [tableName, property], callback);
+    }
+
+    getOneRecord = (forDID, tableName, callback) => {
+        this._executeWithCallback('getOneRecord', [tableName], callback);
+    }
+
+    getAllRecords = (forDID, tableName, callback) => {
+        this._executeWithCallback('getAllRecords', [tableName], callback);
+    }
+
+    insertRecord = (forDID, tableName, pk, record, callback) => {
+        this._executeWithCallback('insertRecord', [tableName, pk, record], callback);
+    }
+
+    updateRecord = (forDID, tableName, pk, record, callback) => {
+        this._executeWithCallback('updateRecord', [tableName, pk, record], callback);
+    }
+
+    deleteRecord = (forDID, tableName, pk, callback) => {
+        this._executeWithCallback('deleteRecord', [tableName, pk], callback);
+    }
+
+    getRecord = (forDID, tableName, pk, callback) => {
+        this._executeWithCallback('getRecord', [tableName, pk], callback);
+    }
+
+    filter = (forDID, tableName, filterConditions = [], sort = 'asc', max = null, callback) => {
+
+        // Handle when filterConditions is the callback
+        if (typeof filterConditions === 'function') {
+            callback = filterConditions;
+            filterConditions = [];
+            sort = 'asc';
+            max = null;
+        }
+        // Handle when sort is the callback
+        else if (typeof sort === 'function') {
+            callback = sort;
+            sort = 'asc';
+            max = null;
+        }
+        // Handle when max is the callback
+        else if (typeof max === 'function') {
+            callback = max;
+            max = null;
+        }
+        this._executeWithCallback('filter', [tableName, filterConditions, sort, max], callback);
+    }
+
+    addInQueue = (forDID, queueName, object, ensureUniqueness = false, callback) => {
+        this._executeWithCallback('addInQueue', [queueName, object, ensureUniqueness], callback);
+    }
+
+    queueSize = (forDID, queueName, callback) => {
+        this._executeWithCallback('queueSize', [queueName], callback);
+    }
+
+    listQueue = (forDID, queueName, sortAfterInsertTime = 'asc', onlyFirstN = null, callback) => {
+        this._executeWithCallback('listQueue', [queueName, sortAfterInsertTime, onlyFirstN], callback);
+    }
+
+    getObjectFromQueue = (forDID, queueName, hash, callback) => {
+        this._executeWithCallback('getObjectFromQueue', [queueName, hash], callback);
+    }
+
+    deleteObjectFromQueue = (forDID, queueName, hash, callback) => {
+        this._executeWithCallback('deleteObjectFromQueue', [queueName, hash], callback);
+    }
+
+    writeKey = (forDID, key, value, callback) => {
+        const valueObject = this._processValueForStorage(value);
+        this._executeWithCallback('writeKey', [key, valueObject], callback);
+    }
+
+    readKey = (forDID, key, callback) => {
+        this._executeWithCallback('readKey', [key], (error, result) => {
+            if (error) return callback(error);
+            if (!result) return callback(null, null);
+            callback(null, typeof result === 'string' ? JSON.parse(result) : result);
+        });
+    }
+
+    // Async versions of operations
+    refreshAsync = async () => {
+        return this._executeTask('refresh', []);
+    }
+
+    removeCollectionAsync = async (forDID, tableName) => {
+        return this._executeTask('removeCollectionAsync', [tableName]);
+    }
+
+    count = async (forDID, tableName, callback) => {
+        return this._executeWithCallback('count', [tableName], callback);
+    }
+
+    saveDatabaseAsync = async (forDID) => {
+        await this._executeTask('saveDatabase', []);
+        return {message: "Database saved"};
+    }
+
+    // Helper methods
+    _processValueForStorage = (value) => {
+        if (Buffer.isBuffer(value)) {
+            return {
+                type: "buffer",
+                value: value.toString()
+            };
+        }
+        if (value !== null && typeof value === "object") {
+            return {
+                type: "object",
+                value: JSON.stringify(value)
+            };
+        }
+        return {
+            type: typeof value,
+            value: value
+        };
+    }
+}
+
+module.exports = SQLAdapter;
+}).call(this)}).call(this,{"isBuffer":require("../../node_modules/is-buffer/index.js")},"/modules/lightDB-sql-adapter")
+
+},{"../../node_modules/is-buffer/index.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/is-buffer/index.js","path":false,"syndicate":"syndicate"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/CouchDBEnclaveFacade.js":[function(require,module,exports){
+function CouchDBEnclaveFacade(rootFolder, autosaveInterval, adaptorConstructorFunction) {
+    const logger = $$.getLogger("CouchDBEnclaveFacade", "CouchDBEnclaveFacade.js");
+    const LightDBAdapter = require("./adapters/LightDBAdapter");
     const openDSU = require("opendsu");
     const aclAPI = require("acl-magic");
     const utils = openDSU.loadAPI("utils");
-    logger.info("Creating SQLAdapter instance");
+    logger.info("Creating CouchDBEnclaveFacade instance");
     const EnclaveMixin = openDSU.loadAPI("enclave").EnclaveMixin;
     EnclaveMixin(this);
+
+    if (typeof rootFolder !== "string") {
+        throw new Error("Invalid rootFolder. It must be a string.");
+    }
+    logger.info(`db root folder ${rootFolder}`);
 
     let refreshInProgress = false;
 
@@ -29389,14 +29659,6 @@ function SQLAdapter(config) {
         this.storageDB.saveDatabase(callback);
     }
 
-    this.createDatabase = (forDID, callback) => {
-        this.storageDB.createDatabase(callback);
-    }
-
-    this.cleanupDatabase = (forDID, callback) => {
-        this.storageDB.cleanupDatabase(callback);
-    }
-
     this.removeCollection = (forDID, tableName, callback) => {
         this.storageDB.removeCollection(tableName, callback);
     }
@@ -29413,15 +29675,15 @@ function SQLAdapter(config) {
     }
 
     this.refreshAsync = () => {
-        let self = this;
-        return new Promise((resolve, reject) => {
-            self.storageDB.refresh((err) => {
-                if (err) {
-                    return reject(err);
-                }
-                resolve();
-            });
-        });
+        // let self = this;
+        // return new Promise((resolve, reject) => {
+        //     self.storageDB.refresh((err) => {
+        //         if (err) {
+        //             return reject(err);
+        //         }
+        //         resolve();
+        //     });
+        // });
     }
 
     const WRITE_ACCESS = "write";
@@ -29517,51 +29779,6 @@ function SQLAdapter(config) {
         this.storageDB.createCollection(tableName, indicesList, callback);
     }
 
-    this.getAllRecords = (forDID, tableName, callback) => {
-        this.storageDB.getAllRecords(tableName, callback);
-    }
-
-    this.insertRecord = (forDID, tableName, pk, record, callback) => {
-        this.storageDB.insertRecord(tableName, pk, record, callback);
-    }
-
-    this.updateRecord = (forDID, tableName, pk, record, callback) => {
-        this.storageDB.updateRecord(tableName, pk, record, callback);
-    }
-
-    this.deleteRecord = (forDID, tableName, pk, callback) => {
-        this.storageDB.deleteRecord(tableName, pk, callback);
-    }
-
-    this.getRecord = (forDID, tableName, pk, callback) => {
-        this.storageDB.getRecord(tableName, pk, callback);
-    }
-
-    this.filter = (forDID, tableName, filterConditions, sort = 'asc', max = null, callback) => {
-        if (typeof filterConditions === "function") {
-            callback = filterConditions;
-            filterConditions = [];
-            sort = 'asc';
-            max = null;
-        } else if (typeof sort === "function") {
-            callback = sort;
-            sort = 'asc';
-            max = null;
-        } else if (typeof max === "function") {
-            callback = max;
-            max = null;
-        }
-        this.storageDB.filter(tableName, filterConditions, sort, max, callback);
-    }
-
-    this.writeKey = (forDID, key, value, callback) => {
-        this.storageDB.writeKey(key, value, callback);
-    }
-
-    this.readKey = (forDID, key, callback) => {
-        this.storageDB.readKey(key, callback);
-    }
-
     this.allowedInReadOnlyMode = function (functionName) {
         let readOnlyFunctions = ["getCollections",
             "listQueue",
@@ -29589,251 +29806,365 @@ function SQLAdapter(config) {
 
     utils.bindAutoPendingFunctions(this, ["on", "off", "dispatchEvent", "beginBatch", "isInitialised", "getEnclaveType", "getDID", "getUniqueIdAsync"]);
 
-    this.storageDB = new SQLDecorator(config);
+    // this.storageDB = new LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction);
+
+    let config;
+    try {
+        config = require("apihub").getServerConfig();
+    } catch (e) {
+        throw new Error(`Failed to read apihub. Error: ${e.message || e}}`);
+    }
+
+    this.storageDB = new LightDBAdapter({
+        uri: config.db.uri,
+        username: config.db.user,
+        secret: config.db.secret,
+        root: rootFolder
+    }, this);
     this.finishInitialisation();
 }
 
-module.exports = SQLAdapter;
-},{"./sqlDecorator":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/lightDB-sql-adapter/sqlDecorator.js","acl-magic":"acl-magic","opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/lightDB-sql-adapter/sqlDecorator.js":[function(require,module,exports){
-(function (Buffer){(function (){
-// sqlDecorator.js
-const syndicate = require('syndicate');
-const path = require('path');
-const workerScriptPath = require.resolve('./workerScript.js');
+module.exports = CouchDBEnclaveFacade;
+},{"./adapters/LightDBAdapter":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/adapters/LightDBAdapter.js","acl-magic":"acl-magic","apihub":"apihub","opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/CouchDBServer.js":[function(require,module,exports){
+const LightDBAdapter = require("./adapters/LightDBAdapter");
+const path = require("path");
+const logger = $$.getLogger("LightDBServer", "LokiEnclaveFacade");
+const DATABASE = "database";
+const getEnclaveKey = (name) => `enclave_${name}`.replaceAll(".", "_");
 
-class SQLDecorator {
-    READ_WRITE_KEY_TABLE;
-    debug;
-    workerPool;
-    config;
+process.on('uncaughtException', err => {
+    logger.critical('There was an uncaught error', err, err.message, err.stack);
+});
 
-    constructor(config) {
-        this.READ_WRITE_KEY_TABLE = "KeyValueTable";
-        this.debug = process.env.DEBUG === 'true';
+process.on('SIGTERM', (signal) => {
+    process.shuttingDown = true;
+    logger.info('Received signal:', signal, ". Activating the gracefulTerminationWatcher.");
+});
 
-        this.config = config;
+function CouchDBServer(config, callback) {
+    let {lightDBStorage, lightDBPort, lightDBDynamicPort, host, sqlConfig} = config;
+    const apihubModule = require("apihub");
+    const LokiEnclaveFacade = require("loki-enclave-facade");
+    const httpWrapper = apihubModule.getHttpWrapper();
+    const Server = httpWrapper.Server;
+    const CHECK_FOR_RESTART_COMMAND_FILE_INTERVAL = 500;
 
-        this.workerPool = syndicate.createWorkerPool({
-            bootScript: workerScriptPath,
-            maximumNumberOfWorkers: 4,
-            workerOptions: {
-                workerData: {
-                    config
-                }
-            }
-        });
-        console.log("creating new sqlDecorator instance");
+    host = host || "127.0.0.1";
+    lightDBPort = lightDBPort || 8081;
+
+    const server = new Server();
+    server.config = config.serverConfig || config;
+    if (!config.storage) {
+        config.storage = lightDBStorage;
     }
+    //
+    // const dbAdapter = new LightDBAdapter({
+    //     uri: config.db.uri,
+    //     username: config.db.user,
+    //     secret: config.db.secret
+    // });
 
-    close = async () => {
-        try {
-            await this._executeTask('close', []);
-        } catch (error) {
-            console.error('Error closing worker pool:', error);
-            throw error;
-        }
-    }
 
-    _executeTask = (taskName, args) => {
-        return new Promise((resolve, reject) => {
-            try {
-                const safeArgs = args.map(arg => {
-                    if (arg === null || arg === undefined) return arg;
-                    if (typeof arg === 'function') return null;
-                    if (Buffer.isBuffer(arg)) return arg.toString('base64');
-                    if (typeof arg === 'object') {
-                        return JSON.parse(JSON.stringify(arg));
-                    }
-                    return arg;
-                });
-
-                this.workerPool.addTask({
-                    taskName,
-                    args: safeArgs,
-                    workerData: {
-                        config: this.config,
-                    }
-                }, (err, result) => {
-                    if (err) {
-                        const error = new Error(err.message || 'Unknown error');
-                        if (err.code) error.code = err.code;
-                        if (err.type) error.type = err.type;
-                        reject(error);
-                    } else {
-                        if (!result.success) {
-                            const error = new Error(result.error?.message || 'Unknown error');
-                            if (result.error?.code) error.code = result.error.code;
-                            if (result.error?.type) error.type = result.error.type;
-                            reject(error);
-                        } else {
-                            resolve(result.result);
-                        }
-                    }
-                });
-            } catch (err) {
-                reject(new Error('Task execution failed: ' + (err.message || 'Unknown error')));
-            }
-        });
-    }
-
-    _executeWithCallback = (taskName, args, callback) => {
-        this._executeTask(taskName, args)
-            .then(result => callback(null, result))
-            .catch(error => {
-                if (!(error instanceof Error)) {
-                    error = new Error(error.message || 'Unknown error');
-                }
-                callback(error);
+    const enclaves = {};
+    // const clonedEnclaves = {};
+    const fs = require("fs");
+    fs.accessSync(lightDBStorage);
+    const folderContent = fs.readdirSync(lightDBStorage, {withFileTypes: true});
+    const promises = folderContent
+        .filter(entry => entry.isDirectory())
+        .map(entry => {
+            return new Promise((resolve, reject) => {
+                const enclaveName = entry.name;
+                const enclaveKey = getEnclaveKey(enclaveName);
+                enclaves[enclaveName] = LokiEnclaveFacade.createLokiEnclaveFacadeInstance(path.join(lightDBStorage, enclaveName, DATABASE));
+                resolve()
+                // dbAdapter.createCollection(undefined, enclaveKey, [], (err) => {
+                //     if (err) {
+                //         reject(new Error(err));
+                //         return;
+                //     }
+                //     enclaves[enclaveName] = enclaveKey;
+                //     // clonedEnclaves[enclaveName] = enclaveKey;
+                //     resolve();
+                // });
             });
-    }
-
-    createDatabase = (callback) => {
-        this._executeWithCallback('createDatabase', [], callback);
-    }
-
-    cleanupDatabase = (callback) => {
-        this._executeWithCallback('cleanupDatabase', [], callback);
-    }
-
-    refresh = (callback) => {
-        this._executeWithCallback('refresh', [], callback);
-    }
-
-    saveDatabase = (callback) => {
-        this._executeWithCallback('saveDatabase', [], callback);
-    }
-
-    getCollections = (callback) => {
-        this._executeWithCallback('getCollections', [], callback);
-    }
-
-    createCollection = (tableName, indicesList, callback) => {
-        this._executeWithCallback('createCollection', [tableName, indicesList], callback);
-    }
-
-    removeCollection = (tableName, callback) => {
-        this._executeWithCallback('removeCollection', [tableName], callback);
-    }
-
-    addIndex = (tableName, property, callback) => {
-        this._executeWithCallback('addIndex', [tableName, property], callback);
-    }
-
-    getOneRecord = (tableName, callback) => {
-        this._executeWithCallback('getOneRecord', [tableName], callback);
-    }
-
-    getAllRecords = (tableName, callback) => {
-        this._executeWithCallback('getAllRecords', [tableName], callback);
-    }
-
-    insertRecord = (tableName, pk, record, callback) => {
-        this._executeWithCallback('insertRecord', [tableName, pk, record], callback);
-    }
-
-    updateRecord = (tableName, pk, record, callback) => {
-        this._executeWithCallback('updateRecord', [tableName, pk, record], callback);
-    }
-
-    deleteRecord = (tableName, pk, callback) => {
-        this._executeWithCallback('deleteRecord', [tableName, pk], callback);
-    }
-
-    getRecord = (tableName, pk, callback) => {
-        this._executeWithCallback('getRecord', [tableName, pk], callback);
-    }
-
-    filter = (tableName, filterConditions = [], sort = 'asc', max = null, callback) => {
-        if (typeof filterConditions === 'function') {
-            callback = filterConditions;
-            filterConditions = [];
-            sort = 'asc';
-            max = null;
-        } else if (typeof sort === 'function') {
-            callback = sort;
-            sort = 'asc';
-            max = null;
-        } else if (typeof max === 'function') {
-            callback = max;
-            max = null;
-        }
-        this._executeWithCallback('filter', [tableName, filterConditions, sort, max], callback);
-    }
-
-    addInQueue = (queueName, object, ensureUniqueness = false, callback) => {
-        this._executeWithCallback('addInQueue', [queueName, object, ensureUniqueness], callback);
-    }
-
-    queueSize = (queueName, callback) => {
-        this._executeWithCallback('queueSize', [queueName], callback);
-    }
-
-    listQueue = (queueName, sortAfterInsertTime = 'asc', onlyFirstN = null, callback) => {
-        this._executeWithCallback('listQueue', [queueName, sortAfterInsertTime, onlyFirstN], callback);
-    }
-
-    getObjectFromQueue = (queueName, hash, callback) => {
-        this._executeWithCallback('getObjectFromQueue', [queueName, hash], callback);
-    }
-
-    deleteObjectFromQueue = (queueName, hash, callback) => {
-        this._executeWithCallback('deleteObjectFromQueue', [queueName, hash], callback);
-    }
-
-    writeKey = (key, value, callback) => {
-        const valueObject = this._processValueForStorage(value);
-        this._executeWithCallback('writeKey', [key, valueObject], callback);
-    }
-
-    readKey = (key, callback) => {
-        this._executeWithCallback('readKey', [key], (error, result) => {
-            if (error) return callback(error);
-            if (!result) return callback(null, null);
-            callback(null, typeof result === 'string' ? JSON.parse(result) : result);
         });
-    }
 
-    refreshAsync = async () => {
-        return this._executeTask('refresh', []);
-    }
+    Promise.all(promises).then(() => {
+        let accessControlAllowHeaders = new Set();
+        accessControlAllowHeaders.add("Content-Type");
+        accessControlAllowHeaders.add("Content-Length");
+        accessControlAllowHeaders.add("X-Content-Length");
+        accessControlAllowHeaders.add("Access-Control-Allow-Origin");
+        accessControlAllowHeaders.add("User-Agent");
+        accessControlAllowHeaders.add("Authorization");
 
-    removeCollectionAsync = async (tableName) => {
-        return this._executeTask('removeCollectionAsync', [tableName]);
-    }
+        let listenCallback = (err) => {
+            if (err) {
+                if (lightDBDynamicPort && err.code === 'EADDRINUSE') {
+                    logger.debug("Failed to listen on port <" + lightDBPort + ">", err);
 
-    count = (tableName, callback) => {
-        return this._executeWithCallback('count', [tableName], callback);
-    }
+                    function getRandomPort() {
+                        const min = 9000;
+                        const max = 65535;
+                        return Math.floor(Math.random() * (max - min) + min);
+                    }
 
-    saveDatabaseAsync = async () => {
-        await this._executeTask('saveDatabase', []);
-        return {message: "Database saved"};
-    }
-
-    _processValueForStorage = (value) => {
-        if (Buffer.isBuffer(value)) {
-            return {
-                type: "buffer",
-                value: value.toString()
-            };
-        }
-        if (value !== null && typeof value === "object") {
-            return {
-                type: "object",
-                value: JSON.stringify(value)
-            };
-        }
-        return {
-            type: typeof value,
-            value: value
+                    lightDBPort = getRandomPort();
+                    if (Number.isInteger(lightDBDynamicPort)) {
+                        lightDBDynamicPort -= 1;
+                    }
+                    setTimeout(boot, CHECK_FOR_RESTART_COMMAND_FILE_INTERVAL);
+                    return
+                }
+                logger.error(err);
+                if (!lightDBDynamicPort && callback) {
+                    return OpenDSUSafeCallback(callback)(createOpenDSUErrorWrapper(`Failed to listen on port <${lightDBPort}>`, err));
+                }
+            }
         };
-    }
+
+        function bindFinished(err) {
+            if (err) {
+                logger.error(err);
+                if (callback) {
+                    return OpenDSUSafeCallback(callback)(createOpenDSUErrorWrapper(`Failed to bind on port <${lightDBPort}>`, err));
+                }
+                return;
+            }
+
+            process.env.LIGHT_DB_SERVER_ADDRESS = `http://${host}:${lightDBPort}`;
+            logger.info(`LightDB server running at port: ${lightDBPort}`);
+            registerEndpoints();
+            if (callback) {
+                callback(undefined, server);
+            }
+        }
+
+        function boot() {
+            logger.debug(`Trying to listen on port ${lightDBPort}`);
+            server.listen(lightDBPort, host, listenCallback);
+        }
+
+        boot();
+
+        server.on('listening', bindFinished);
+        server.on('error', listenCallback);
+
+        function registerEndpoints() {
+            server.getAccessControlAllowHeadersAsString = function () {
+                return Array.from(accessControlAllowHeaders).join(", ");
+            };
+
+            server.use(function gracefulTerminationWatcher(req, res, next) {
+                if (process.shuttingDown) {
+                    //uncaught exception was caught so server is shutting down gracefully and not accepting any requests
+                    res.statusCode = 503;
+                    logger.log(0x02, `Rejecting ${req.url} with status code ${res.statusCode} because process is shutting down.`);
+                    res.end();
+                    return;
+                }
+                //if the shuttingDown flag not present, we let the request go on...
+                next();
+            });
+
+
+            server.use(function (req, res, next) {
+                res.setHeader('Access-Control-Allow-Origin', req.headers.origin || req.headers.host || "*");
+                res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, OPTIONS');
+                res.setHeader('Access-Control-Allow-Headers', server.getAccessControlAllowHeadersAsString());
+                res.setHeader('Access-Control-Allow-Credentials', true);
+                next();
+            });
+
+            //we activate the readOnly without the server.use handler becase we expose only PUT type of http methods
+            apihubModule.middlewares.ReadOnly(server, false);
+
+            server.put(`/executeCommand/:dbName`, (req, res, next) => {
+                const {dbName} = req.params;
+                if (!enclaves[dbName]) {
+                    res.statusCode = 400;
+                    res.write(`No db with name ${dbName} was found!`);
+                    res.end();
+                    return;
+                }
+                httpWrapper.httpUtils.bodyParser(req, res, next);
+            });
+
+            server.put(`/executeCommand/:dbName`, function (req, res) {
+                let body = req.body;
+                try {
+                    body = JSON.parse(body);
+                } catch (e) {
+                    logger.error("Invalid body", body);
+                    res.statusCode = 400;
+                    res.write("Invalid body");
+                    return res.end();
+                }
+
+                if (typeof body.command !== "string") {
+                    logger.error("Invalid command", body.command);
+                    res.statusCode = 400;
+                    res.write("Invalid command");
+                    return res.end();
+                }
+
+                let command;
+                try {
+                    command = JSON.parse(body.command);
+                } catch (e) {
+                    logger.error("Invalid command", command);
+                    res.statusCode = 400;
+                    res.write("Invalid command");
+                    return res.end();
+                }
+
+                const didAPI = require("opendsu").loadAPI("w3cdid");
+                const args = command.params;
+                if (!Array.isArray(args)) {
+                    logger.error("Invalid args", args);
+                    return res.send(400, "Invalid args");
+                }
+
+                let didDocument;
+                const __verifySignatureAndExecuteCommand = () => {
+                    didDocument.verify(body.command, $$.Buffer.from(body.signature, "base64"), async (err, result) => {
+                        if (err) {
+                            logger.error(`Failed to verify signature`, err);
+                            res.statusCode = 500;
+                            res.write(`Failed to verify signature`);
+                            return res.end();
+                        }
+
+                        if (!result) {
+                            logger.error(`Invalid signature`);
+                            res.statusCode = 500;
+                            res.write(`Invalid signature`);
+                            return res.end();
+                        }
+
+                        if (server.readOnlyModeActive) {
+                            if (enclaves[req.params.dbName].allowedInReadOnlyMode &&
+                                !enclaves[req.params.dbName].allowedInReadOnlyMode(command.commandName)) {
+
+                                res.statusCode = 403;
+                                res.end();
+                                return;
+                            }
+
+                            //at this point we know that will execute a read cmd so first of all we need to ensure that a refresh is made if needed
+                            // try {
+                            //     let lastRefresh = lastRefreshes[req.params.dbName];
+                            //     if (!lastRefresh || LAST_REFRESH_TIMEOUT < Date.now() - lastRefresh) {
+                            //         enclaves[req.params.dbName].refresh(undefined, (err) => {
+                            //             clonedEnclaves[req.params.dbName].refresh(undefined, (err) => {
+                            //                 lastRefreshes[req.params.dbName] = Date.now();
+                            //             });
+                            //         });
+                            //     }
+                            // } catch (err) {
+                            //     //we ignore any refresh errors for now...
+                            // }
+                        }
+
+                        const cb = (err, result) => {
+                            if (err) {
+                                res.statusCode = 500;
+                                logger.debug(`Error while executing command ${command.commandName}`, err);
+                                res.write(`Error while executing command`);
+                                return res.end();
+                            }
+
+                            res.statusCode = 200;
+                            if (typeof result !== "undefined") {
+                                res.write(JSON.stringify(result));
+                            }
+
+                            res.end();
+                        }
+
+                        args.push(cb);
+
+                        // trying to capture any sync error that might occur during the execution of the command
+                        try {
+                            enclaves[req.params.dbName][command.commandName](...args);
+                        } catch (e) {
+                            cb(e);
+                        }
+                    });
+                }
+                if (args[0] === $$.SYSTEM_IDENTIFIER) {
+                    didDocument = $$.SYSTEM_DID_DOCUMENT;
+                    return __verifySignatureAndExecuteCommand();
+                }
+
+                didAPI.resolveDID(args[0], (err, _didDocument) => {
+                    if (err) {
+                        logger.error(`Failed to resolve DID ${args[0]}`, err);
+                        res.statusCode = 500;
+                        res.write(`Failed to resolve DID`);
+                        return res.end();
+                    }
+
+                    didDocument = _didDocument;
+                    __verifySignatureAndExecuteCommand();
+                });
+            });
+
+            server.put(`/createDatabase/:dbName`, function (req, res) {
+                const {dbName} = req.params;
+                if (enclaves[dbName]) {
+                    res.statusCode = 409;
+                    res.write("Already exists");
+                    res.end();
+                    return;
+                }
+
+                const storage = path.join(lightDBStorage, dbName);
+                logger.info(`Creating new Database at ${storage}`);
+                let fsModule = "fs";
+                fsModule = require(fsModule);
+                fsModule.mkdir(storage, {recursive: true}, (err) => {
+                    if (err) {
+                        logger.error("Failed to create database", err);
+                        res.statusCode = 500;
+                        res.end();
+                        return;
+                    }
+                    if (enclaves[dbName]) {
+                        logger.error("Race condition detected and resolved during lightDB database creation");
+                        res.statusCode = 409;
+                        res.write("Already exists");
+                        return res.end();
+                    }
+                    enclaves[dbName] = LokiEnclaveFacade.createLokiEnclaveFacadeInstance(path.join(storage, DATABASE));
+                    res.statusCode = 201;
+                    res.end();
+                })
+                //
+                // const enclaveKey = getEnclaveKey(dbName);
+                // enclaves[enclaveKey].createCollection(enclaveKey, [], (err, result) => {
+                //     if (err) {
+                //         logger.error("Failed to create database", err);
+                //         res.statusCode = 500;
+                //         res.end();
+                //         return;
+                //     }
+                //
+                //     enclaves[dbName] = enclaveKey;
+                //     res.statusCode = 201;
+                //     res.end();
+                // });
+            });
+        }
+    }).catch((err) => {
+        throw err;
+    });
+
 }
 
-module.exports = SQLDecorator;
-}).call(this)}).call(this,{"isBuffer":require("../../node_modules/is-buffer/index.js")})
-
-},{"../../node_modules/is-buffer/index.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/is-buffer/index.js","path":false,"syndicate":"syndicate"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LightDBServer.js":[function(require,module,exports){
+module.exports = CouchDBServer;
+},{"./adapters/LightDBAdapter":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/adapters/LightDBAdapter.js","apihub":"apihub","fs":false,"loki-enclave-facade":"loki-enclave-facade","opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LightDBServer.js":[function(require,module,exports){
 const logger = $$.getLogger("LightDBServer", "LokiEnclaveFacade");
 const DATABASE = "database";
 process.on('uncaughtException', err => {
@@ -31112,7 +31443,886 @@ const Adapters = {
 }
 
 module.exports = Adapters;
-},{"./lib/lokijs/src/loki-fs-structured-adapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/lib/lokijs/src/loki-fs-structured-adapter.js","./lib/lokijs/src/loki-fs-sync-adapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/lib/lokijs/src/loki-fs-sync-adapter.js","./lib/lokijs/src/lokijs":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/lib/lokijs/src/lokijs.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/lib/lokijs/src/loki-fs-structured-adapter.js":[function(require,module,exports){
+},{"./lib/lokijs/src/loki-fs-structured-adapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/lib/lokijs/src/loki-fs-structured-adapter.js","./lib/lokijs/src/loki-fs-sync-adapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/lib/lokijs/src/loki-fs-sync-adapter.js","./lib/lokijs/src/lokijs":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/lib/lokijs/src/lokijs.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/adapters/LightDBAdapter.js":[function(require,module,exports){
+(function (Buffer){(function (){
+const {
+    Tables,
+    Permissions,
+    getSortingKeyFromCondition,
+    safeParseKeySSI,
+    generateUniqueId
+} = require("../utils");
+const {DBService} = require("../services");
+
+const {parseConditionsToDBQuery} = require("../services/utils")
+
+/**
+ * @param {string} msg - The custom error message.
+ * @param {Error} [error] - Optional. The original error, if available.
+ * @returns {Error | string} - The original error if provided, otherwise the custom message.
+ */
+function createOpenDSUErrorWrapper(msg, error) {
+    return error || msg;
+}
+
+/**
+ *
+ * @param {username: string, secret: string, uri: string, root: string} config
+ * @constructor
+ */
+function LightDBAdapter(config) {
+    const logger = $$.getLogger("LightDBAdapter", "LightDBAdapter");
+    const openDSU = require("opendsu");
+    const aclAPI = require("acl-magic");
+    const keySSISpace = openDSU.loadAPI("keyssi");
+    const w3cDID = openDSU.loadAPI("w3cdid");
+    const utils = openDSU.loadAPI("utils");
+    const CryptoSkills = w3cDID.CryptographicSkills;
+    const baseConfig = config;
+
+    // const EnclaveMixin = openDSU.loadAPI("enclave").EnclaveMixin;
+    // EnclaveMixin(this);
+    logger.info(`Initializing CouchDB instance.`);
+    if (typeof config.uri === "undefined")
+        throw Error("URI was not specified for LightDBAdapter");
+
+    const dbService = new DBService(config);
+    const persistence = aclAPI.createEnclavePersistence(this);
+    utils.bindAutoPendingFunctions(this);
+
+    const prefix = config.root.includes("/")
+        ? config.root.split("/").slice(config.root.split("/").length -2, config.root.split("/").length -1)[0]
+        : config.root;
+
+    let folderPath;
+    try {
+        const fs = require("fs");
+        folderPath = config.root.replace(/\/database\/?$/, '')
+        if(!fs.existsSync(folderPath))
+            fs.mkdirSync(folderPath, { recursive: true });
+    } catch(e) {
+        logger.info(`Failed to create folder ${folderPath}. ${e}`);
+    }
+
+    function getDbName(dbName){
+        return ["db", prefix, dbName].filter(e => !!e).join("_");
+    }
+
+    /**
+     * Creates a collection and sets indexes for it.
+     *
+     * @param {string} forDID
+     * @param {string} dbName - The name of the database to create.
+     * @param {array<string>} indexes - An array of index objects to be created in the database.
+     * @param {function(Error|null, string)} callback - A callback function that returns an error (if any) and the result message.
+     */
+    this.createCollection = function (forDID, dbName, indexes, callback) {
+        if (!callback) {
+            callback = indexes;
+            indexes = [];
+            dbName = forDID;
+            forDID = undefined;
+        }
+        // if (dbName === "audit"){
+        //     if (!forDID)
+        //         return callback("Missing did for audit db");
+        //     dbName = [dbName, forDID].join("_");
+        // }
+        dbName = getDbName(dbName);
+        dbName = dbService.changeDBNameToLowerCaseAndValidate(dbName);
+
+        dbService.dbExists(dbName).then((exists) => {
+            if (exists)
+                return callback(undefined, {message: `Collection ${dbName} Already Exists!`});
+            dbService.createDatabase(dbName, indexes)
+                .then((response) => callback(undefined, {message: `Collection ${dbName} created`}))
+                .catch((e) => callback(e, undefined));
+        }).catch((e) => callback(e, undefined))
+    }
+
+    /**
+     * Removes a collection.
+     *
+     * @param {string} did
+     * @param {string} dbName - The name of the database to create.
+     * @param {function(Error|null, {message: string})} callback - A callback function that returns an error (if any) and the result message.
+     */
+    this.removeCollection = (did, dbName, callback) => {
+        dbName = getDbName(dbName);
+        dbName = dbService.changeDBNameToLowerCaseAndValidate(dbName);
+
+        if (!dbService.dbExists(dbName))
+            return callback(undefined, {message: `Collection ${dbName} was removed!`})
+
+        dbService.deleteDatabase(dbName).then((r) => {
+            // maintained backward compatibility: The saveDatabase method was previously called
+            callback(undefined, {message: `Collection ${dbName} was removed!`});
+        }).catch((e) => callback(e));
+    }
+
+    this.removeCollectionAsync = (did, dbName) => {
+        return new Promise((resolve, reject) => {
+            this.removeCollection(did, dbName, (err, result) => err ? reject(err) : resolve(result));
+        });
+    }
+
+    /**
+     * Lists all collections and returns the document count for each.
+     *
+     * @returns {Promise<Array<{ name: string, type: string, count: number }>>} - Resolves to an array of objects containing the collection name, its type, and the document count.
+     */
+    this.listCollections = async () => {
+        return dbService.listDatabases(true);
+    }
+
+    /**
+     * Retrieves a list of collections
+     *
+     * @param {string} forDID
+     * @param {function(Error|undefined, Array<string>)} callback
+     */
+    this.getCollections = (forDID, callback) => {
+        if (!callback) {
+            callback = forDID;
+            forDID = undefined;
+        }
+        dbService.listDatabases(false)
+            .then((response) => callback(undefined, response))
+            .catch((e) => callback(e, undefined));
+    }
+
+
+    /**
+     * Adds an index to a specified table for a given property.
+     *
+     * @param {string} dbName - The name of the table where the index will be added.
+     * @param {string} property - The property (field) on which the index will be created.
+     * @param {function(Error|undefined, void)} callback
+     */
+    this.addIndex = function (dbName, property, callback) {
+        dbName = getDbName(dbName);
+        dbName = dbService.changeDBNameToLowerCaseAndValidate(dbName);
+
+        dbService.addIndex(dbName, property)
+            .then((r) => callback(undefined))
+            .catch((e) => callback(createOpenDSUErrorWrapper(`Could not add index ${property} on ${dbName}`, e), undefined));
+    }
+
+
+    /**
+     * Counts the number of documents in a table.
+     *
+     * @param {string} dbName
+     * @param {function(Error|undefined, number)} callback
+     */
+    this.count = function (dbName, callback) {
+        dbName = getDbName(dbName);
+        dbName = dbService.changeDBNameToLowerCaseAndValidate(dbName);
+
+        dbService.countDocs(dbName)
+            .then((response) => callback(undefined, response))
+            .catch((e) => callback(e, undefined));
+    };
+
+
+    /**
+     * Inserts a record into the specified table.
+     *
+     * @param {string} forDID
+     * @param {string} dbName - The table name where the record should be inserted.
+     * @param {string} pk - The record id (primary key)
+     * @param {Object} record - The record to insert into the database.
+     * @param {function(Error|undefined, { [key: string]: any })} callback
+     */
+    this.insertRecord = (forDID, dbName, pk, record, callback) => {
+        if(!callback) {
+            callback = record;
+            record = pk;
+            pk = dbName;
+            dbName = forDID;
+            forDID = undefined;
+        }
+
+        dbName = getDbName(dbName);
+        dbName = dbService.changeDBNameToLowerCaseAndValidate(dbName);
+
+        dbService.insertDocument(dbName, pk, record)
+            .then((response) => callback(undefined, response))
+            .catch((e) => callback(e, undefined));
+    };
+
+    /**
+     * Get a record from the specified table.
+     *
+     * @param {string} forDID
+     * @param {string} dbName - The table name from which the record will be retrieved.
+     * @param {string} pk - The record id (primary key)
+     * @param {function(Error|undefined, { [key: string]: any })} callback
+     */
+    this.getRecord = function (forDID, dbName, pk, callback) {
+        if(!callback) {
+            callback = pk;
+            pk = dbName;
+            dbName = forDID;
+            forDID = undefined;
+        }
+
+        dbName = getDbName(dbName);
+        dbName = dbService.changeDBNameToLowerCaseAndValidate(dbName);
+
+        dbService.readDocument(dbName, pk)
+            .then((response) => callback(undefined, response))
+            .catch((e) => callback(createOpenDSUErrorWrapper(`Could not find object with pk ${pk}`, e), undefined));
+    };
+
+    /**
+     * Updates an existing record in the specified table.
+     *
+     * @param {string} forDID
+     * @param {string} dbName - The name of the table where the record will be updated.
+     * @param {string} pk - The record id (primary key)
+     * @param {Object} record - The data to update the record (can be a full or partial update).
+     * @param {function(Error|undefined, { [key: string]: any })} callback
+     */
+    this.updateRecord = function (forDID, dbName, pk, record, callback) {
+        if(!callback) {
+            callback = record;
+            record = pk;
+            pk = dbName;
+            dbName = forDID;
+            forDID = undefined;
+        }
+
+        dbName = getDbName(dbName);
+        dbName = dbService.changeDBNameToLowerCaseAndValidate(dbName);
+
+        dbService.updateDocument(dbName, pk, record)
+            .then((response) => callback(undefined, response))
+            .catch((e) => callback(createOpenDSUErrorWrapper(` Could not insert record in table ${dbName} `, e)));
+    };
+
+    /**
+     * Deletes an existing record in the specified table.
+     *
+     * @param {string} forDID
+     * @param {string} dbName - The name of the table where the record will be deleted.
+     * @param {string} pk - The record id (primary key) to be deleted
+     * @param {function(Error|undefined, {pk: string, [key: string]: any})} callback
+     */
+    this.deleteRecord = function (forDID, dbName, pk, callback) {
+        if(!callback) {
+            callback = pk;
+            pk = dbName;
+            dbName = forDID;
+            forDID = undefined;
+        }
+        dbName = getDbName(dbName);
+        dbName = dbService.changeDBNameToLowerCaseAndValidate(dbName);
+
+        dbService.deleteDocument(dbName, pk)
+            .then((response) => callback(undefined, response))
+            .catch((e) => callback(createOpenDSUErrorWrapper(`Couldn't do remove for pk ${pk} in ${dbName}`, e)));
+    };
+
+    /**
+     * Filters records in the specified table based on given conditions.
+     *
+     * @param {string} forDid
+     * @param {string} dbName - The name of the table to query.
+     * @param {string | string[]} filterConditions - The conditions to filter records by.
+     * @param {"asc" | "dsc"} [sort] - Optional sorting criteria.
+     * @param {number} [max] - Optional maximum number of records to return.
+     * @param {function(Error|undefined, Array<{[key: string]: any }>)} callback
+     */
+    this.filter = function (forDid, dbName, filterConditions, sort, max, callback) {
+        if (!callback){
+            callback = max;
+            max = sort;
+            sort = filterConditions;
+            filterConditions = dbName;
+            dbName = forDid;
+            forDid = undefined;
+        }
+
+        dbName = getDbName(dbName);
+        dbName = dbService.changeDBNameToLowerCaseAndValidate(dbName);
+
+        if (typeof filterConditions === "string") {
+            filterConditions = [filterConditions];
+        }
+
+        if (typeof filterConditions === "function") {
+            callback = filterConditions;
+            filterConditions = undefined;
+            sort = "asc";
+            max = Infinity;
+        }
+
+        if (typeof sort === "function") {
+            callback = sort;
+            sort = "asc";
+            max = Infinity;
+        }
+
+        if (typeof max === "function") {
+            callback = max;
+            max = Infinity;
+        }
+
+        if (!max) {
+            max = Infinity;
+        }
+
+        const sortingField = getSortingKeyFromCondition(filterConditions);
+
+        dbService.openDatabase(dbName).then((db) => {
+            if (!db)
+                return callback(undefined, []);
+
+            let actualSort = undefined;
+            if (sort === "desc" || sort === "dsc") {
+                actualSort = [sortingField, sort]
+            }
+
+            // let result;
+            // try {
+            //     result = db.find(filterConditions).simplesort(sortingField, direction).limit(max).data();
+            // } catch (err) {
+            //     return callback(createOpenDSUErrorWrapper(`Filter operation failed on ${dbName}`, err));
+            // }
+
+            // TODO: Add filter
+            dbService.filter(dbName, filterConditions, actualSort, max)
+                .then((response) => callback(undefined, response))
+                .catch((e) => callback(createOpenDSUErrorWrapper(`Filter operation failed on ${dbName}`, e)));
+        }).catch((e) => callback(createOpenDSUErrorWrapper(`open operation failed on ${dbName}`, e)))
+    }
+
+    /**
+     * Retrieves a single record from the specified table.
+     *
+     * @param {string} did - The table name from which the record will be retrieved.
+     * @param {string} dbName - The table name from which the record will be retrieved.
+     * @param {function(Error|undefined, {[key: string]: any})} callback
+     */
+    this.getOneRecord = (did, dbName, callback) => {
+        if (!callback){
+            callback = dbName;
+            dbName = did;
+            did = undefined;
+        }
+        dbName = getDbName(dbName);
+        dbName = dbService.changeDBNameToLowerCaseAndValidate(dbName);
+
+        dbService.listDocuments(dbName, {limit: 1})
+            .then((response) => {
+                if (!Array.isArray(response)) {
+                    return callback(createOpenDSUErrorWrapper(`Invalid response from List documents in ${dbName}`), undefined);
+                }
+                if (!response.length) {
+                    return callback();
+                }
+                callback(undefined, response[0])
+            })
+            .catch((e) => callback(createOpenDSUErrorWrapper(`Failed to fetch record from ${dbName}`, e)));
+    }
+
+    /**
+     * Retrieves all records from the specified table.
+     *
+     * @param {string} dbName - The table name from which the records will be retrieved.
+     * @param {function(Error|undefined, Array<{[key: string]: any}>)} callback
+     */
+    this.getAllRecords = (forDID, dbName, callback) => {
+        if (!callback) {
+            callback = dbName;
+            dbName = forDID;
+            forDID = undefined;
+        }
+
+        dbName = getDbName(dbName);
+        dbName = dbService.changeDBNameToLowerCaseAndValidate(dbName);
+
+        dbService.listDocuments(dbName)
+            .then((response) => callback(undefined, response))
+            .catch((e) => callback(createOpenDSUErrorWrapper(`Failed to fetch records from ${dbName}`, e)));
+    }
+
+    // --------------------------------------------------------------------
+    // READ-WRITE TABLE METHODS
+    // --------------------------------------------------------------------
+    /**
+     * @param {string} key - The key under which the value will be stored.
+     * @param {*} value - The value to store.
+     * @param {function(Error|undefined, {[key: string]: any})} callback
+     * @returns {void}
+     */
+    this.writeKey = (key, value, callback) => {
+        const valueObject = {type: typeof value, value};
+        if (typeof value === "object") {
+            valueObject.type = Buffer.isBuffer(value) ? "buffer" : "object";
+            valueObject.value = Buffer.isBuffer(value) ? value.toString() : JSON.stringify(value)
+        }
+        this.insertRecord(Tables.READ_WRITE_KEY, key, valueObject, callback);
+    }
+
+    /**
+     * @param {string} key - The record id
+     * @param {function(Error|undefined, {[key: string]: any})} callback
+     * @returns {void}
+     */
+    this.readKey = (key, callback) => {
+        this.getRecord(Tables.READ_WRITE_KEY, key, (err, record) => {
+            if (err)
+                return callback(createOpenDSUErrorWrapper(`Failed to read key ${key}`, err));
+            callback(undefined, record);
+        });
+    }
+
+    // --------------------------------------------------------------------
+    // ACCESS METHODS
+    // --------------------------------------------------------------------
+    this.grantWriteAccess = (forDID, callback) => {
+        persistence.grant(Permissions.WRITE_ACCESS, Permissions.WILDCARD, forDID, (err) => {
+            if (err) {
+                return callback(err);
+            }
+
+            this.grantReadAccess(forDID, callback);
+        });
+    }
+
+    this.hasWriteAccess = (forDID, callback) => {
+        persistence.loadResourceDirectGrants(Permissions.WRITE_ACCESS, forDID, (err, usersWithAccess) => {
+            if (err) {
+                return callback(err);
+            }
+
+            callback(undefined, usersWithAccess.indexOf(Permissions.WILDCARD) !== -1);
+        });
+    }
+
+    this.revokeWriteAccess = (forDID, callback) => {
+        persistence.ungrant(Permissions.WRITE_ACCESS, Permissions.WILDCARD, forDID, callback);
+    }
+
+    this.grantReadAccess = (forDID, callback) => {
+        persistence.grant(Permissions.READ_ACCESS, Permissions.WILDCARD, forDID, callback);
+    }
+
+    this.hasReadAccess = (forDID, callback) => {
+        persistence.loadResourceDirectGrants(Permissions.READ_ACCESS, forDID, (err, usersWithAccess) => {
+            if (err) {
+                return callback(err);
+            }
+
+            callback(undefined, usersWithAccess.indexOf(Permissions.WILDCARD) !== -1);
+        });
+    }
+
+    this.revokeReadAccess = (forDID, callback) => {
+        persistence.ungrant(Permissions.READ_ACCESS, Permissions.WILDCARD, forDID, err => {
+            if (err) {
+                return callback(err);
+            }
+
+            this.revokeWriteAccess(forDID, callback);
+        });
+    }
+
+
+    // --------------------------------------------------------------------
+    // QUEUE METHODS
+    // --------------------------------------------------------------------
+
+
+    /**
+     * Add an Object to Queue.
+     *
+     * @param {string} did
+     * @param {string} queueName - The table name where the record should be inserted.
+     * @param {*} encryptedObject - Object to be added to Queue
+     * @param {boolean} ensureUniqueness - Whether to ensure uniqueness identifier
+     * @param {function(Error|undefined, string)} callback
+     * @returns {void}
+     */
+    this.addInQueue = (did, queueName, encryptedObject, ensureUniqueness, callback) => {
+        if (typeof ensureUniqueness === "function") {
+            callback = ensureUniqueness;
+            ensureUniqueness = false;
+        }
+        const pk = generateUniqueId(encryptedObject, ensureUniqueness);
+        // TODO - Add a specific table to QUEUE
+        this.insertRecord(queueName, pk, encryptedObject, (err) => callback(err, pk));
+    }
+
+
+    /**
+     *
+     * @param {string} forDID
+     * @param {string} queueName
+     * @param {"asc" | "dsc"} sortAfterInsertTime
+     * @param {number} onlyFirstN
+     * @param {function(Error|undefined, Array<{[key: string]: any}>)} callback
+     */
+    this.listQueue = (forDID, queueName, sortAfterInsertTime, onlyFirstN, callback) => {
+        if (typeof sortAfterInsertTime === "function") {
+            callback = sortAfterInsertTime;
+            sortAfterInsertTime = "asc";
+            onlyFirstN = undefined
+        }
+
+        if (typeof onlyFirstN === "function") {
+            callback = onlyFirstN;
+            onlyFirstN = undefined;
+        }
+
+        this.filter(queueName, undefined, sortAfterInsertTime, onlyFirstN, (err, result) => {
+            if (err) {
+                if (err.code === 404)
+                    return callback(undefined, []);
+                return callback(err);
+            }
+            result = result.map(item => item.pk);
+            return callback(null, result);
+        });
+    }
+
+    /**
+     * Returns the Queue size.
+     *
+     * @param {string} did
+     * @param {string} queueName
+     * @param {function(Error|undefined, number)} callback
+     * @returns {void}
+     */
+    this.queueSize = (did, queueName, callback) => this.count(queueName, callback);
+
+    /**
+     * Get an Object from the Queue.
+     *
+     * @param {string} forDID
+     * @param {string} queueName
+     * @param {string} hash - The object hash/identifier
+     * @param {function(Error|undefined, { [key: string]: any })} callback
+     * @returns {void}
+     */
+    this.getObjectFromQueue = (forDID, queueName, hash, callback) => this.getRecord(queueName, hash, callback);
+
+    /**
+     * Deletes an existing record in the Queue.
+     *
+     * @param {string} forDID
+     * @param {string} queueName
+     * @param {string} hash - Queue record id
+     * @param {function(Error|undefined, {pk: string, [key: string]: any})} callback
+     * @returns {void}
+     */
+    this.deleteObjectFromQueue = (forDID, queueName, hash, callback) => this.deleteRecord(queueName, hash, callback);
+
+
+    // --------------------------------------------------------------------
+    // KeySSIs METHODS
+    // --------------------------------------------------------------------
+    /**
+     * Stores a Seed SSI and its derived Key SSIs in the database.
+     * The function first stores the Seed SSI under a given alias, then recursively derives and stores all associated Key SSIs.
+     *
+     * @param {string} seedSSI - The Seed SSI to be stored. This is expected to be a valid Key SSI string.
+     * @param {string} alias - The alias under which the Seed SSI will be stored in the database.
+     * @param {function(Error | undefined, void): void} callback
+     * @returns {void}
+     * @throws {Error} If the `seedSSI` parameter is not a valid Key SSI string.
+     * @throws {Error} If there is an error storing the keySSI
+     */
+    this.storeSeedSSI = (seedSSI, alias, callback) => {
+        try {
+            seedSSI = safeParseKeySSI(seedSSI);
+        } catch (e) {
+            return callback(e, undefined);
+        }
+
+        const keySSIIdentifier = seedSSI.getIdentifier();
+
+        const registerDerivedKeySSIs = (derivedKeySSI) => {
+            this.insertRecord(Tables.KEY_SSIS_TABLE, derivedKeySSI.getIdentifier(), {capableOfSigningKeySSI: keySSIIdentifier}, (err) => {
+                if (err)
+                    return callback(err);
+
+                try {
+                    derivedKeySSI = derivedKeySSI.derive();
+                } catch (e) {
+                    return callback();
+                }
+
+                registerDerivedKeySSIs(derivedKeySSI);
+            });
+        }
+
+        this.insertRecord(Tables.SEED_SSIS_TABLE, alias, {seedSSI: keySSIIdentifier}, (err) => {
+            if (err)
+                return callback(err);
+            return registerDerivedKeySSIs(seedSSI);
+        })
+    }
+
+    /**
+     * Signs a hash using the provided keySSI.
+     *
+     * @param {string | {getIdentifier: () => string}} keySSI - The keySSI to be used for signing, can be a string or a keySSI object.
+     * @param {string} hash - The hash value to be signed.
+     * @param {function(Error | undefined, string): void} callback
+     * @returns {void}
+     * @throws {Error} If the keySSI is invalid or cannot be parsed.
+     * @throws {Error} If an invalid keySSI is provided or if signing fails.
+     */
+    this.signForKeySSI = (keySSI, hash, callback) => {
+        try {
+            keySSI = safeParseKeySSI(keySSI);
+        } catch (e) {
+            return callback(e, undefined);
+        }
+
+        // TODO - Add specific method/class to query "protected" tables
+        this.getRecord(Tables.KEY_SSIS_TABLE, keySSI.getIdentifier(), (err, record) => {
+            if (err) {
+                return callback(createOpenDSUErrorWrapper(`No capable of signing keySSI found for keySSI ${keySSI.getIdentifier()}`, err));
+            }
+
+            let capableOfSigningKeySSI;
+            try {
+                capableOfSigningKeySSI = keySSISpace.parse(record.capableOfSigningKeySSI);
+            } catch (e) {
+                return callback(createOpenDSUErrorWrapper(`Failed to parse keySSI ${record.capableOfSigningKeySSI}`, e))
+            }
+
+            if (typeof capableOfSigningKeySSI === "undefined")
+                return callback(new Error(`The provided SSI does not grant writing rights`), undefined);
+
+            capableOfSigningKeySSI.sign(hash, callback);
+        });
+    }
+
+    // --------------------------------------------------------------------
+    // DIDs METHODS
+    // --------------------------------------------------------------------
+    const getPrivateInfoForDID = (did, callback) => {
+        this.getRecord(undefined, Tables.DIDS_PRIVATE_KEYS, did, (err, record) => {
+            if (err) {
+                return callback(err);
+            }
+
+            const privateKeysAsBuff = record.privateKeys.map(privateKey => {
+                if (privateKey) {
+                    return $$.Buffer.from(privateKey)
+                }
+                return privateKey;
+            });
+            callback(undefined, privateKeysAsBuff);
+        });
+    };
+
+    const __ensureAreDIDDocumentsThenExecute = (did, fn, callback) => {
+        if (typeof did === "string") {
+            return w3cDID.resolveDID(did, (err, didDocument) => {
+                if (err) {
+                    return callback(err);
+                }
+
+                fn(didDocument, callback);
+            })
+        }
+
+        fn(did, callback);
+    }
+
+    this.storeDID = (storedDID, privateKeys, callback) => {
+        this.getRecord(Tables.DIDS_PRIVATE_KEYS, storedDID, (err, res) => {
+            if (err || !res) {
+                return this.insertRecord(Tables.DIDS_PRIVATE_KEYS, storedDID, {privateKeys: privateKeys}, callback);
+            }
+
+            privateKeys.forEach(privateKey => {
+                res.privateKeys.push(privateKey);
+            })
+            this.updateRecord(Tables.DIDS_PRIVATE_KEYS, storedDID, res, callback);
+        });
+    }
+
+    this.signForDID = (didThatIsSigning, hash, callback) => {
+        const __signForDID = (didThatIsSigning, callback) => {
+            getPrivateInfoForDID(didThatIsSigning.getIdentifier(), (err, privateKeys) => {
+                if (err) {
+                    return callback(createOpenDSUErrorWrapper(`Failed to get private info for did ${didThatIsSigning.getIdentifier()}`, err));
+                }
+
+                let signature;
+                try {
+                    signature = CryptoSkills.applySkill(didThatIsSigning.getMethodName(), CryptoSkills.NAMES.SIGN, hash, privateKeys[privateKeys.length - 1]);
+                } catch (err) {
+                    return callback(err);
+                }
+                callback(undefined, signature);
+            });
+        }
+
+        __ensureAreDIDDocumentsThenExecute(didThatIsSigning, __signForDID, callback);
+    }
+
+    this.verifyForDID = (didThatIsVerifying, hash, signature, callback) => {
+        const __verifyForDID = (didThatIsVerifying, callback) => {
+            didThatIsVerifying.getPublicKey("pem", (err, publicKey) => {
+                if (err) {
+                    return callback(createOpenDSUErrorWrapper(`Failed to read public key for did ${didThatIsVerifying.getIdentifier()}`, err));
+                }
+
+                const verificationResult = CryptoSkills.applySkill(didThatIsVerifying.getMethodName(), CryptoSkills.NAMES.VERIFY, hash, publicKey, $$.Buffer.from(signature));
+                callback(undefined, verificationResult);
+            });
+        }
+
+        __ensureAreDIDDocumentsThenExecute(didThatIsVerifying, __verifyForDID, callback);
+    }
+
+    this.encryptMessage = (didFrom, didTo, message, callback) => {
+        const __encryptMessage = () => {
+            getPrivateInfoForDID(didFrom.getIdentifier(), (err, privateKeys) => {
+                if (err) {
+                    return callback(createOpenDSUErrorWrapper(`Failed to get private info for did ${didFrom.getIdentifier()}`, err));
+                }
+
+                CryptoSkills.applySkill(didFrom.getMethodName(), CryptoSkills.NAMES.ENCRYPT_MESSAGE, privateKeys, didFrom, didTo, message, callback);
+            });
+        }
+        if (typeof didFrom === "string") {
+            w3cDID.resolveDID(didFrom, (err, didDocument) => {
+                if (err) {
+                    return callback(err);
+                }
+
+                didFrom = didDocument;
+
+
+                if (typeof didTo === "string") {
+                    w3cDID.resolveDID(didTo, (err, didDocument) => {
+                        if (err) {
+                            return callback(err);
+                        }
+
+                        didTo = didDocument;
+                        __encryptMessage();
+                    })
+                } else {
+                    __encryptMessage();
+                }
+            })
+        } else {
+            __encryptMessage();
+        }
+    }
+
+    this.decryptMessage = (didTo, encryptedMessage, callback) => {
+        const __decryptMessage = (didTo, callback) => {
+            getPrivateInfoForDID(didTo.getIdentifier(), (err, privateKeys) => {
+                if (err) {
+                    return callback(createOpenDSUErrorWrapper(`Failed to get private info for did ${didTo.getIdentifier()}`, err));
+                }
+
+                CryptoSkills.applySkill(didTo.getMethodName(), CryptoSkills.NAMES.DECRYPT_MESSAGE, privateKeys, didTo, encryptedMessage, callback);
+            });
+        }
+        __ensureAreDIDDocumentsThenExecute(didTo, __decryptMessage, callback);
+    };
+
+    // --------------------------------------------------------------------
+    // LokiDB Methods (DEPRECATED)
+    // --------------------------------------------------------------------
+    /**
+     * @async
+     * @returns {Promise<void>}
+     * @deprecated This method is deprecated and will be removed in a future release. It does not perform any closing operations.
+     */
+    this.close = async () => {
+        return new Promise((resolve, reject) => {
+            logger.warn(`Deprecated method not implemented. LightDBAdapter.close called.`);
+            resolve();
+        });
+    }
+
+    /**
+     * @param {function(): void} callback
+     * @returns {void}
+     * @deprecated This method is deprecated and will be removed in a future release. It does not perform any refresh operation.
+     */
+    this.refresh = (callback) => {
+        logger.warn(`Deprecated method not implemented. LightDBAdapter.refresh called.`);
+        callback();
+    }
+
+    /**
+     * @returns {Promise<void>}
+     * @deprecated This method is deprecated and will be removed in a future release. It does not perform any refresh operation.
+     */
+    this.refreshAsync = () => {
+        return Promise.resolve();
+    }
+
+    /**
+     * @returns {boolean}
+     * @deprecated This method is deprecated and will be removed in a future release. It does not perform any refresh operation.
+     */
+    this.refreshInProgress = () => {
+        return false;
+    }
+
+    /**
+     * @param {string} forDID
+     * @param {function(undefined, {message: string}): void} callback
+     * @returns {void}
+     * @deprecated This method is deprecated and will be removed in a future release. It does not perform any operation.
+     */
+    this.saveDatabase = (forDID, callback) => {
+        if (!callback) {
+            callback = forDID;
+            forDID = undefined;
+        }
+        logger.warn(`Deprecated method. LightDBAdapter.saveDatabase called.`);
+        callback(undefined, {message: `Database ${baseConfig.uri} saved`});
+    }
+
+    this.allowedInReadOnlyMode = function (functionName) {
+        let readOnlyFunctions = [
+            "getCollections",
+            "listQueue",
+            "queueSize",
+            "count",
+            "hasReadAccess",
+            "getPrivateInfoForDID",
+            "getCapableOfSigningKeySSI",
+            "getPathKeyMapping",
+            "getDID",
+            "getPrivateKeyForSlot",
+            "getIndexedFields",
+            "getRecord",
+            "getAllTableNames",
+            "filter",
+            "readKey",
+            "getAllRecords",
+            "getReadForKeySSI",
+            "verifyForDID",
+            "encryptMessage",
+            "decryptMessage"];
+
+        return readOnlyFunctions.indexOf(functionName) !== -1;
+    }
+}
+
+LightDBAdapter.prototype.Adapters = {};
+module.exports = LightDBAdapter;
+
+}).call(this)}).call(this,{"isBuffer":require("../../../node_modules/is-buffer/index.js")})
+
+},{"../../../node_modules/is-buffer/index.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/is-buffer/index.js","../services":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/services/index.js","../services/utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/services/utils.js","../utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/index.js","acl-magic":"acl-magic","fs":false,"opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/lib/lokijs/src/loki-fs-structured-adapter.js":[function(require,module,exports){
 /*
   Loki (node) fs structured Adapter (need to require this script to instance and use it).
 
@@ -39877,7 +41087,1306 @@ module.exports = Adapters;
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./loki-indexed-adapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/lib/lokijs/src/loki-indexed-adapter.js","fs":false,"path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/anchoring/RemotePersistence.js":[function(require,module,exports){
+},{"./loki-indexed-adapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/lib/lokijs/src/loki-indexed-adapter.js","fs":false,"path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/services/DBClient.js":[function(require,module,exports){
+const {normalizeNumber, validateSort, buildSelector, DBKeys, pruneOpenDSUFields, remapObject} = require("../utils");
+let logger;
+const {OpenDSUKeys} = require("../utils/constants");
+const {processInChunks} = require("../utils/chunk");
+const {ensureAuth} = require("./utils");
+
+async function addIndex(client, database, properties) {
+    // database = this.changeDBNameToLowerCaseAndValidate(database);
+
+    if (!properties || (Array.isArray(properties) && properties.length === 0)) {
+        logger.info(`No indexes provided for table: ${database}. Skipping index creation.`);
+        return false;
+    }
+
+    // if (!await this.dbExists(database))
+    //     throw new Error(`Table "${database}" does not exist.`);
+
+    properties = Array.isArray(properties) ? properties : [properties];
+    for (let indexedProp of properties){
+        let index = `${indexedProp}_index`;
+        try {
+            await client.use(database).createIndex({
+                name: index,
+                index: {
+                    fields: [indexedProp]
+                },
+                type: "json" // default
+            });
+
+            logger.info(`Added index ${index} for table "${database}".`);
+
+            const asc_index = `${index}_ascending`;
+            await client.use(database).createIndex({
+                name: asc_index,
+                index: {
+                    fields: [{[indexedProp]: "asc"}]
+                },
+                type: "json" // default
+            });
+
+            logger.info(`Added index ${asc_index} for table "${database}" with ${indexedProp} asc.`);
+
+            const desc_index = `${index}_descending`;
+            await client.use(database).createIndex({
+                name: desc_index,
+                index: {
+                    fields: [{[indexedProp]: "desc"}]
+                },
+                type: "json" // default
+            });
+
+            logger.info(`Added index ${desc_index} for table "${database}" with ${indexedProp} desc.`);
+        } catch (err) {
+            throw new Error(`Could not add index ${index} on ${database}: ${err.message}`);
+        }
+    }
+    return true;
+}
+
+/**
+ *
+ */
+class DatabaseClient {
+    constructor(client, dbName) {
+        logger = $$.getLogger(`DatabaseClient -  ${dbName}`);
+        this.dbName = dbName;
+        this.client = client;
+
+        this.connection = this.client.use(dbName);
+        [
+            this.countDocs,
+            this.insertDocument,
+            this.readDocument,
+            this.updateDocument,
+            this.deleteDocument,
+            this.listDocuments,
+            this.filter,
+        ].forEach((m) => ensureAuth(this, logger, m));
+    }
+
+
+    /**
+     * Retrieves the document count for a specific table
+     *
+     * @returns {Promise<number>} - A promise that resolves to the document count of the specified table.
+     * @throws {Error} - Throws an error if retrieving the document count fails.
+     */
+    async countDocs() {
+        try {
+            const info = await this.connection.info();
+            return info.doc_count || 0;
+        } catch (error) {
+            if (error.statusCode === 404) {
+                logger.warn(`Database "${this.dbName}" does not exist. Unable to count documents.`);
+                return 0;
+            }
+            throw new Error(`Failed to retrieve document count for database ${this.dbName}: ${error}`);
+        }
+    }
+
+    /**
+     * Inserts a document into a specified database.
+     * @param {string} _id - The primary key for the record.
+     * @param {Object} document - The document to insert.
+     * @returns {Promise<{ [key: string]: any }>} - The inserted document.
+     * @throws {Error} - Throws an error if any operation fails, including checking if the record exists or inserting the record.
+     */
+    async insertDocument(_id, document) {
+        // TODO - Empty objects {} are not being validated.
+        _id = _id.toString();
+        try {
+            const record = await this.readDocument( _id);
+        } catch  (e) {
+            if (e.statusCode !== 404) {
+                throw e
+            }
+            try {
+
+                const insert = {
+                    ...pruneOpenDSUFields(document),
+                    [DBKeys.PK]: _id,
+                    [DBKeys.TIMESTAMP]: Date.now()
+                };
+
+                const {id} = await this.connection.insert(insert);
+                return await this.readDocument(id);
+            } catch (err) {
+                throw err;
+            }
+        }
+
+        throw new Error(`A record with PK "${_id}" already exists in ${this.dbName}`);
+    }
+
+    /**
+     * Retrieves a document by its ID from the specified databse.
+     * @param {string} _id - The ID of the document to retrieve.
+     * @returns {Promise<{ pk: string, [key: string]: any }>} - The retrieved document.
+     */
+    async readDocument(_id) {
+        try {
+            _id = _id.toString();
+            const document = await this.connection.get(_id);
+            return remapObject(document);
+        } catch (error) {
+            if (error.statusCode !== 404)
+                logger.error(`Failed to retrieve document ${_id} from database ${this.dbName}:`, error);
+            throw error;
+        }
+    }
+
+    /**
+     * Updates a record in the specified table.
+     * If the record does not exist and the `fallbackInsert` flag is set to true, it will insert the record instead.
+     *
+     * @param {string} _id - The ID of the document to update.
+     * @param {Object} document - The record data to update.
+     * @returns {Promise<{ [key: string]: any }>} - The updated or inserted record.
+     * @throws {Error} - If the operation fails.
+     */
+    async updateDocument(_id, document) {
+        try {
+            _id = _id.toString();
+            const dbRecord = await this.connection.get(_id);
+            const _rev = dbRecord[DBKeys.REV];
+            for (let prop in document) {
+                dbRecord[prop] = document[prop];
+            }
+
+            const update = {
+                ...pruneOpenDSUFields(dbRecord),
+                [DBKeys.PK]: _id,
+                [DBKeys.REV]: _rev,
+                [DBKeys.TIMESTAMP]: Date.now()
+            };
+
+            const response = await this.connection.insert(update);
+            return await this.readDocument(response.id);
+        } catch (error) {
+            if (error.statusCode === 404) {
+                if (document[OpenDSUKeys.FALLBACK_INSERT]) { // used by fixedURL
+                    delete document[OpenDSUKeys.FALLBACK_INSERT];
+                    return this.insertDocument(_id, document);
+                }
+                throw new Error(`Failed to update document "${_id}" from "${this.dbName}": Not found.`);
+            }
+            throw new Error(`Failed to update document "${_id}" from "${this.dbName}": ${error}`);
+        }
+    }
+
+    /**
+     * Deletes a record from the specified table.
+     * @param {string} _id - The primary key (ID) of the record to delete.
+     * @returns {Promise<{ pk: string }>} - The deleted record.
+     * @throws {Error} - If the operation fails.
+     */
+    async deleteDocument(_id) {
+        try {
+            _id = _id.toString();
+            const document = await this.connection.get(_id);
+            await this.connection.destroy(_id, document[DBKeys.REV]);
+            return {[OpenDSUKeys.PK]: _id};
+        } catch (error) {
+            if (error.statusCode === 404)
+                return {[OpenDSUKeys.PK]: _id};
+
+            throw new Error(`Error deleting document ${_id} from table ${this.dbName}: ${error}`);
+        }
+    }
+
+    /**
+     * Lists documents from a specified table.
+     *
+     * @param {Object} [options={}] - Optional configuration object for listing documents.
+     * @param {number} [options.limit] - The maximum number of documents to fetch (optional).
+     * @returns {Promise<Array<{ [key: string]: any }>>} - A promise that resolves to an array of document objects.
+     * @throws {Error} - Throws an error if the query fails.
+     */
+    async listDocuments(options = {}) {
+        const {limit} = options;
+
+        try {
+            const queryOptions = {
+                include_docs: true,
+                startkey: '',
+                endkey: '_design/',
+                inclusive_end: false // Exclude design docs
+            };
+
+            if (limit && Number.isInteger(limit) && limit > 0)
+                queryOptions.limit = limit;
+
+            const response = await this.connection.list(queryOptions);
+            return processInChunks(response.rows, 2, (row) => remapObject(row.doc));
+        } catch (error) {
+            throw new Error(`Error listing documents from database ${this.dbName}: ${error}`);
+        }
+    }
+
+    /**
+     * Filters documents from specified table.
+     *
+     * @async
+     * @param {Array<string>} query - The query object to filter documents.
+     * @param {Array<Object>} [sort=[]] - Sorting criteria for the results.
+     * @param {number} [limit=undefined] - Maximum number of documents to return.
+     * @param {number} [skip=0] - Number of documents to skip before returning results.
+     * @returns {Promise<Array<Object>>}g.
+     * @throws {Error} If there is an issue querying the database.
+     */
+    async filter(query, origSort = [], limit = undefined, skip = 0) {
+        limit = normalizeNumber(limit, 1, undefined);
+        skip = normalizeNumber(skip, 0, 0);
+        let sort = validateSort(origSort);
+
+        const selector = buildSelector(query);
+        const mangoQuery = {
+            selector,
+            // fields: [],
+            sort,
+            skip,
+            ...(limit ? {limit} : {})
+        };
+
+        try {
+            const result = await this.connection.find(mangoQuery);
+            return processInChunks(result.docs, 2, (doc) => remapObject(doc));
+        } catch (error) {
+            // TODO - Needs improvement. temporary quick fix:
+            if (error.error === "no_usable_index") {
+                try {
+                    await addIndex.call(this, this.client, this.dbName, origSort[0]);
+                } catch (e) {
+                    throw new Error(`Failed to add index to table ${this.dbName}: ${error}`);
+                }
+                return this.filter(query, origSort, limit, skip);
+            }
+            throw new Error(`Error filtering documents from table ${this.dbName}: ${error}`);
+        }
+    }
+}
+
+
+module.exports = {DatabaseClient};
+
+},{"../utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/index.js","../utils/chunk":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/chunk.js","../utils/constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/constants.js","./utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/services/utils.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/services/DBService.js":[function(require,module,exports){
+const {DBKeys} = require("../utils");
+const logger = $$.getLogger("DBService");
+const nano = require("nano");
+const {ensureAuth} = require("./utils");
+const {DatabaseClient} = require("./DBClient");
+const {ReadUser} = require("../utils/constants");
+
+let dbService;
+
+/**
+ * DBService for database operations.
+ * This class provides a generic interface to interact with any database.
+ * **Initially configured for CouchDB.**
+ */
+class DBService {
+    /**
+     * @param {{uri: string, username?: string, secret?: string}} config - Configuration object containing database connection details.
+     */
+    constructor(config) {
+        if (dbService)
+            return dbService;
+
+        dbService = this;
+        this.config = config;
+        this.client = this.__createConnection(config);
+        [
+            this.dbExists,
+            this.createDatabase,
+            this.openDatabase,
+            this.deleteDatabase,
+            this.listDatabases,
+            this.addIndex,
+        ].forEach((m) => ensureAuth(this, logger, m));
+
+        this.databases = {}
+    }
+
+    /**
+     * Creates and returns a database client based on the provided configuration.
+     * @param {{uri: string, username?: string, secret?: string}} config - Configuration object containing database connection details.
+     * @returns {nano.ServerScope} - A database client instance.
+     */
+    __createConnection(config) {
+        if (this.client)
+            return this.client;
+
+        const url = new URL(config.uri);
+        if (url.username && url.password)
+            logger.warn("Passing credentials in the URI is convenient but not secure. Consider pass them as parameters for cookie authentication for better security (https://guide.couchdb.org/editions/1/en/security.html#cookies).");
+
+        const username = config.username || url.username || "";
+        const password = config.secret || url.password || "";
+
+        this.client = nano({
+            url: config.uri,
+            requestDefaults: {auth: {username, password}}
+        });
+
+        return this.client;
+    }
+
+
+    /**
+     * Checks if DB Name is valid for couch db.
+     * @param {string} dbName
+     * @returns {boolean} - `true` if the database name is valid, `false` otherwise.
+     */
+    isValidCouchDbName (dbName) {
+        const couchDbNameRegex = /^[a-z][a-z0-9_\$\(\)\+\-]{0,254}$/;
+        return couchDbNameRegex.test(dbName);
+    }
+
+    /**
+     * Converts to lower case and checks if DB Name is valid for couch db.
+     * @param {string} dbName
+     * @param {string} [forDid]
+     * @returns {string} - dbName if the database name is valid, `false` otherwise.
+     */
+    changeDBNameToLowerCaseAndValidate(dbName){
+        dbName =  dbName.toLowerCase().replaceAll(':', '_').replaceAll(".", "-");
+
+        if(!this.isValidCouchDbName(dbName)) {
+            const message = `Invalid db name "${dbName}". Only lowercase characters (a-z), digits (0-9), and any of the characters _, $, (, ), +, -, and / are allowed. Must begin with a letter.`
+            logger.error(message);
+            throw new Error(message);
+        }
+
+        return dbName;
+    }
+    
+    /**
+     * Checks if a database exists.
+     * @param {string} dbName
+     * @returns {Promise<boolean>} - `true` if the database exists, `false` otherwise.
+     */
+    async dbExists(dbName) {
+        try {
+            dbName = this.changeDBNameToLowerCaseAndValidate(dbName);
+            const dbList = await this.client.db.list();
+            return dbList.includes(dbName);
+        } catch (error) {
+            throw new Error(`Failed to check if database "${dbName}" exists: ${error.message || error}`);
+        }
+    }
+
+    async createReadUser(){
+        const users = await this.client.use("_users");
+        let user = {_id: "org.couchdb.user:" + ReadUser, name: ReadUser, password: "readpw", roles: ["user"], type: "user"}
+        let created;
+
+        try {
+            logger.debug(`Checking user existence ${ReadUser}`)
+            created = await users.insert(user);
+            logger.info(`User created ${ReadUser}`)
+        } catch (e) {
+            if (e instanceof Error)
+                if(!e.message.includes("Document update conflict"))
+                    throw e;
+            else
+                throw e;
+        }
+
+        if (!created.ok)
+            throw new Error(`"Failed to create user ${ReadUser}: ${created.reason}`);
+
+    }
+
+    /**
+     *
+     * @param {string} dbName
+     * @returns {Promise<void>}
+     */
+    async assignReadUser(dbName) {
+        await this.client.request({
+            db: dbName,
+            method: "put",
+            path: "_security",
+            // headers: {
+            //
+            // },
+            body: {
+                admins: {
+                    names: [],
+                    roles: []
+                },
+                members: {
+                    names: [ReadUser],
+                    roles: []
+                }
+            }
+        })
+        logger.info(`Read User added in db "${dbName}"`);
+    }
+    /**
+     * @description Creates a read only policy on the specified database.
+     * @summary
+     *
+     * @param {DocumentScope} db
+     * @returns {Promise<void>}
+     */
+    async createReadOnlyPolicy(db){
+        await db.insert({
+            _id: "_design/read_only_policy",
+            validate_doc_update: `function(newDoc, oldDoc, userCtx, secObj) {
+  let ddoc = this;
+
+  secObj.admins = secObj.admins || {};
+  secObj.admins.names = secObj.admins.names || [];
+  secObj.admins.roles = secObj.admins.roles || [];
+
+  let IS_DB_ADMIN = false;
+  if(~ userCtx.roles.indexOf('_admin'))
+    IS_DB_ADMIN = true;
+  if(~ secObj.admins.names.indexOf(userCtx.name))
+    IS_DB_ADMIN = true;
+  for(let i = 0; i < userCtx.roles; i++)
+    if(~ secObj.admins.roles.indexOf(userCtx.roles[i]))
+      IS_DB_ADMIN = true;
+
+    if(!IS_DB_ADMIN)
+      throw {'forbidden':'This database is read-only'};
+}`
+        })
+    }
+
+    /**
+     * Creates a new database with the specified name and indexes if it doesn't already exist.
+     *
+     * @param {string} dbName - The name of the database to be created.
+     * @param {Array<string>} [indexes] - The fields to be indexed.
+     * @returns {Promise<boolean>}
+     * @throws {Error} - Throws an error if database creation already exists or database/indexes creation fails.
+     */
+    async createDatabase(dbName, indexes = []) {
+        try {
+            dbName = this.changeDBNameToLowerCaseAndValidate(dbName);
+            if (await this.dbExists(dbName)) {
+                logger.info(`Database "${dbName}" already exists. Skipping creation...`);
+                return true;
+            }
+
+            await this.client.db.create(dbName);
+            logger.info(`Database "${dbName}" created successfully.`);
+            const db = this.client.use(dbName)
+            await this.createReadOnlyPolicy(db);
+            logger.info(`Created Read-only policy in db "${dbName}"`);
+            // await this.createReadUser();
+            await this.assignReadUser(dbName);
+
+
+            const indexSet = new Set(Array.isArray(indexes) && indexes.length ? indexes : []);
+            indexSet.add(DBKeys.TIMESTAMP)
+            await this.addIndex(dbName, Array.from(indexSet));
+            return true;
+        } catch (err) {
+            if (err.message.includes("the file already exists"))
+                return true;
+            throw new Error(`Fail creating database or adding indexes for ${dbName}: ${err.message || err}`);
+        }
+    }
+
+    /**
+     * Retrieves an existing database, or creates it if it does not exist.
+     *
+     * @param {string} dbName - Database name to retrieve or create.
+     * @returns {Promise<DatabaseClient>} A Promise that resolves to database instance.
+     * @throws {Error} Throws an error if the database retrieval or creation process fails.
+     */
+    async openDatabase(dbName) {
+        const self = this;
+
+        try {
+            dbName = this.changeDBNameToLowerCaseAndValidate(dbName);
+
+            function openAndCache(){
+                if (!(dbName in self.databases)){
+                    self.databases[dbName] = new DatabaseClient(self.client, dbName);
+                }
+                return self.databases[dbName];
+            }
+
+            if (await this.dbExists(dbName))
+                return openAndCache()
+
+            logger.info(`Database does not exist. Creating new database "${dbName}".`);
+            await this.createDatabase(dbName);
+            // TODO - Remove, return DBService instance
+            return openAndCache()
+        } catch (error) {
+            throw new Error(`Error in openDatabase: ${error.message || error}`);
+        }
+    }
+
+    /**
+     * Deletes a database.
+     * @param {string} dbName - The name of the database to delete.
+     * @returns {Promise<boolean>} - True if the database was successfully deleted.
+     */
+    async deleteDatabase(dbName) {
+        try {
+            dbName = this.changeDBNameToLowerCaseAndValidate(dbName);
+            await this.client.db.destroy(dbName);
+            delete(this.databases[dbName]);
+            return true;
+        } catch (error) {
+            if (error.status === 404) {
+                logger.warn(`Database "${dbName}" does not exist. No deletion required.`);
+                return true;
+            }
+            throw new Error(`Error deleting database ${dbName}: ${error}`);
+        }
+    }
+
+    /**
+     * Lists all databases and optionally includes detailed information about each one.
+     *
+     * @param {boolean} verbose - If true, returns information about each database, including document count.
+     * @returns {Promise<Array<string> | Array<{ name: string, type: string, count: number }>>}
+     * @throws {Error} - Throws an error if fetching database information fails.
+     */
+    async listDatabases(verbose = false) {
+        const self = this;
+        try {
+            const list = await this.client.db.list();
+            if (!verbose)
+                return list;
+
+            const databaseInfoList = [];
+            for (const dbName of list) {
+                const metadata = await self.client.use(dbName).info(); // Get metadata of the database
+                databaseInfoList.push({
+                    name: dbName,
+                    type: "collection",
+                    count: metadata.doc_count || 0
+                });
+            }
+            return databaseInfoList;
+        } catch (error) {
+            throw new Error(`Error listing databases: ${error}`);
+        }
+    }
+
+    /**
+     * Retrieves the document count for a specific table
+     *
+     * @param {string} database - The table name to get the document count
+     * @returns {Promise<number>} - A promise that resolves to the document count of the specified table.
+     * @throws {Error} - Throws an error if retrieving the document count fails.
+     */
+    async countDocs(database) {
+        const db = await this.openDatabase(database);
+        return await db.countDocs()
+    }
+
+    /**
+     * Adds indexes to a specific table.
+     *
+     * @param {string} database - The name of the table to add the index to.
+     * @param {string | Array<string>} properties - The property or property list to be indexed.
+     * @returns {Promise<boolean>} - Resolves to `true` if the index was successfully created.
+     * @throws {Error} - Throws an error if the table doesn't exist or if adding the index fails.
+     */
+    async addIndex(database, properties) {
+        if (!properties || (Array.isArray(properties) && properties.length === 0)) {
+            logger.info(`No indexes provided for table: ${database}. Skipping index creation.`);
+            return false;
+        }
+
+        if (!await this.dbExists(database))
+            throw new Error(`Table "${database}" does not exist.`);
+
+        properties = Array.isArray(properties) ? properties : [properties];
+        for (let indexedProp of properties){
+            let index = `${indexedProp}_index`;
+            try {
+                await this.client.use(database).createIndex({
+                    name: index,
+                    index: {
+                        fields: [indexedProp]
+                    },
+                    type: "json" // default
+                });
+
+                logger.info(`Added index ${index} for table "${database}".`);
+
+                const asc_index = `${index}_ascending`;
+                await this.client.use(database).createIndex({
+                    name: asc_index,
+                    index: {
+                        fields: [{[indexedProp]: "asc"}]
+                    },
+                    type: "json" // default
+                });
+
+                logger.info(`Added index ${asc_index} for table "${database}" with ${indexedProp} asc.`);
+
+                const desc_index = `${index}_descending`;
+                await this.client.use(database).createIndex({
+                    name: desc_index,
+                    index: {
+                        fields: [{[indexedProp]: "desc"}]
+                    },
+                    type: "json" // default
+                });
+
+                logger.info(`Added index ${desc_index} for table "${database}" with ${indexedProp} desc.`);
+            } catch (err) {
+                throw new Error(`Could not add index ${index} on ${database}: ${err.message}`);
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Inserts a document into a specified table.
+     * @param {string} database
+     * @param {string} _id - The primary key for the record.
+     * @param {Object} document - The document to insert.
+     * @returns {Promise<{ [key: string]: any }>} - The inserted document.
+     * @throws {Error} - Throws an error if any operation fails, including checking if the record exists or inserting the record.
+     */
+    async insertDocument(database, _id, document) {
+        // TODO - Empty objects {} are not being validated.
+        const db = await this.openDatabase(database);
+        return await db.insertDocument(_id, document);
+    }
+
+    /**
+     * Retrieves a document by its ID from the specified table.
+     * @param {string} database
+     * @param {string} _id - The ID of the document to retrieve.
+     * @returns {Promise<{ pk: string, [key: string]: any }>} - The retrieved document.
+     */
+    async readDocument(database, _id) {
+        const db = await this.openDatabase(database);
+        return await db.readDocument(_id);
+    }
+
+    /**
+     * Updates a record in the specified table.
+     * If the record does not exist and the `fallbackInsert` flag is set to true, it will insert the record instead.
+     *
+     * @param {string} database
+     * @param {string} _id - The ID of the document to update.
+     * @param {Object} document - The record data to update.
+     * @returns {Promise<{ [key: string]: any }>} - The updated or inserted record.
+     * @throws {Error} - If the operation fails.
+     */
+    async updateDocument(database, _id, document) {
+        const db = await this.openDatabase(database);
+        return await db.updateDocument(_id,  document);
+    }
+
+    /**
+     * Deletes a record from the specified table.
+     * @param {string} database
+     * @param {string} _id - The primary key (ID) of the record to delete.
+     * @returns {Promise<{ pk: string }>} - The deleted record.
+     * @throws {Error} - If the operation fails.
+     */
+    async deleteDocument(database, _id) {
+        const db = await this.openDatabase(database);
+        return await db.deleteDocument(_id)
+    }
+
+    /**
+     * Lists documents from a specified table.
+     *
+     * @param {string} database - The name of the table to fetch documents from.
+     * @param {Object} [options={}] - Optional configuration object for listing documents.
+     * @param {number} [options.limit] - The maximum number of documents to fetch (optional).
+     * @returns {Promise<Array<{ [key: string]: any }>>} - A promise that resolves to an array of document objects.
+     * @throws {Error} - Throws an error if the query fails.
+     */
+    async listDocuments(database, options = {}) {
+        const db = await this.openDatabase(database);
+        return await db.listDocuments(options);
+    }
+
+    /**
+     * Filters documents from specified table.
+     *
+     * @async
+     * @param {string} database - The name of the table to query.
+     * @param {Array<string>} query - The query object to filter documents.
+     * @param {Array<Object>} [sort=[]] - Sorting criteria for the results.
+     * @param {number} [limit=undefined] - Maximum number of documents to return.
+     * @param {number} [skip=0] - Number of documents to skip before returning results.
+     * @returns {Promise<Array<Object>>}g.
+     * @throws {Error} If there is an issue querying the database.
+     */
+    async filter(database, query, sort = [], limit = undefined, skip = 0) {
+        const db = await this.openDatabase(database);
+        return await db.filter(query, sort, limit, skip);
+    }
+
+}
+
+module.exports = {DBService};
+
+
+},{"../utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/index.js","../utils/constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/constants.js","./DBClient":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/services/DBClient.js","./utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/services/utils.js","nano":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/services/index.js":[function(require,module,exports){
+const DBService = require('./DBService');
+
+module.exports = {
+    ...DBService,
+};
+},{"./DBService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/services/DBService.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/services/utils.js":[function(require,module,exports){
+const {DBKeys} = require("../utils/constants")
+
+/**
+ *
+ * @param {{client: nano, config: config}} self
+ * @param logger
+ * @param {Function} method
+ * @private
+ */
+function ensureAuth(self, logger, method){
+    const name = method.name
+    const original = self[name];
+    self[name] = async function(...args){
+        try {
+            return await original.apply(this, args);
+        } catch (e){
+            if (e.statusCode === 401 || e['status-code'] === 401) {
+                try {
+                    console.debug(`Cookie expired - Re-authenticating with CouchDB server`);
+                    await self.client.auth(self.config.username, self.config.secret);
+                } catch (err){
+                    throw new Error(`Failed to authenticate with CouchDB server to redo the ${name} operation. Error: ${err.message || err}. Original Error: ${e.message || e}`);
+                }
+                return await original.apply(self, args);
+            }
+            testErrorForShutdown(e, logger)
+            throw e;
+        }
+    }.bind(self)
+}
+
+
+/**
+ * Test is the error is worth shutting down the system for
+ * @param {Error} error
+ * @param logger
+ * @returns {void}
+ */
+function testErrorForShutdown(error, logger){
+    if (error.message.includes("ECONNREFUSED")){
+        logger.error("Failed to connect to couchdb instance. Shutting down the system...");
+        process.exit(1);
+    }
+}
+
+
+let filterOperationsMap = {
+    "!=": "$ne",
+    "==": "$eq",
+    ">": "$gt",
+    ">=": "$gte",
+    "<": "$lt",
+    "<=": "$lte",
+    "like": "$regex"
+}
+
+/**
+ * @description Converts OpenDSU query syntax to Couchdb mango query
+ * @param {string[]} conditions - The conditions to filter by
+ * @param {[string, "asc" | "desc"]} sort - The sorting criteria.
+ * @param {number} [limit] the query limit. defaults to 250
+ *
+ **/
+function parseConditionsToDBQuery(conditions, sort, limit = 250) {
+    const mQuery = {
+        selector: {},
+        limit: limit
+    }
+
+    if (sort){
+        mQuery.sort = {[sort[0]]: sort[1]}
+    }
+
+    if (!conditions || conditions.length === 0 || conditions === "") {
+        if (mQuery.sort) {
+            mQuery.selector[sort[0]] = {"$gt": null};
+        } else {
+            mQuery.selector = {[DBKeys.PK]: {"$gt": null}};
+        }
+    } else {
+        let isSortIncluded = false;
+        conditions.forEach(condition => {
+            // Update regex pattern to capture more complex patterns for LIKE
+            const match = condition.match(/^(\w+)\s*(>=|<=|==|!=|<>|>|<|like)\s*(.*)$/i);
+            if (!match) {
+                throw new Error(`Invalid condition: ${condition}`);
+            }
+
+            const [, field, operator, value] = match;
+            if (field === sort[0]) {
+                isSortIncluded = true;
+            }
+            const couchOperator = filterOperationsMap[operator.toLowerCase()];
+
+            let conditionObject = {};
+
+            if (operator.toLowerCase() === 'like') {
+                // Process LIKE condition, and allow complex regex patterns (no quotes required)
+                conditionObject[field] = {[couchOperator]: new RegExp(value.trim(), 'i')}; // case-insensitive regex
+            } else {
+
+                // Process other operators, handling numeric and string cases
+                const numericValue = /^[0-9]+$/.test(value) ? parseFloat(value) : value;
+                conditionObject[field] = {
+                    [couchOperator]: isNaN(numericValue) ? value.replace(/['"]/g, '').trim() : numericValue
+                };
+            }
+
+            mQuery.selector[field] = conditionObject;
+        });
+        if (!isSortIncluded && mQuery.sort) {
+            mQuery.selector[sort[0]] = {"$gt": null};
+        }
+    }
+
+    mQuery.selector = {$and: mQuery.selector};
+
+    return mQuery;
+}
+
+
+module.exports =  {
+    parseConditionsToDBQuery,
+    testErrorForShutdown,
+    ensureAuth
+}
+},{"../utils/constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/constants.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/chunk.js":[function(require,module,exports){
+/**
+ * Processes a chunk of rows by applying the provided function to each row.
+ * @param {Array} chunk - The chunk of rows to process.
+ * @param {Function} processFunction - The function to apply to each row.
+ * @returns {Promise<Array>} A promise that resolves with an array of processed results.
+ */
+async function processChunk(chunk, processFunction) {
+    return Promise.all(chunk.map(row => processFunction(row))); // Apply the function to each chunk
+}
+
+/**
+ * Processes the array in parallel using a specified number of workers.
+ * @param {Array} rows - The array of records to process.
+ * @param {number} workers - The number of workers.
+ * @param {Function} processFunction - The function to apply to each element in array.
+ * @returns {Promise<Array>} A promise that resolves with the combined processed results.
+ */
+async function processInChunks(rows, workers, processFunction) {
+    if (!Array.isArray(rows) || (Array.isArray(rows) && rows.length === 0))
+        return [];
+
+    const chunkSize = Math.ceil(rows.length / workers); // Divide into chunks
+    const promises = [];
+
+    for (let i = 0; i < workers; i++) {
+        const chunk = rows.slice(i * chunkSize, (i + 1) * chunkSize);
+        const promise = processChunk(chunk, processFunction); // Process each "chunk"
+        promises.push(promise);
+    }
+
+    return (await Promise.all(promises)).flat(); // Flat to merge arrays into one
+}
+
+module.exports = {processInChunks};
+
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/constants.js":[function(require,module,exports){
+const DBKeys = {
+    PK: "_id",
+    TIMESTAMP: "timestamp",
+    REV: "_rev",
+    LOKI_ID: "$loki", // LokiDB unique ID
+    META: "meta" // LokiDB property
+};
+
+const ReadUser = "reader"
+
+const SortOrder = {
+    ASC: "asc",
+    DESC: "desc",
+
+    /**
+     * @deprecated Use `SortOrder.DSC` instead.
+     * Kept for LokiDB compatibility. Will be removed in a future release.
+     */
+    DSC: "dsc"
+};
+
+const OpenDSUKeys = {
+    PK: "pk",
+    TIMESTAMP: "__timestamp",
+    FALLBACK_INSERT: "__fallbackToInsert",
+};
+
+const Permissions = {
+    WRITE_ACCESS: "write",
+    READ_ACCESS: "read",
+    WILDCARD: "*"
+};
+
+const Tables = {
+    READ_WRITE_KEY: "KeyValueTable",
+    KEY_SSIS_TABLE:"keyssis",
+    SEED_SSIS_TABLE : "seedssis",
+    DIDS_PRIVATE_KEYS : "dids_private"
+};
+
+const DBOperatorsMap = {
+    "!=": "$ne",
+    "==": "$eq",
+    ">": "$gt",
+    ">=": "$gte",
+    "<": "$lt",
+    "<=": "$lte",
+    "like": "$regex",
+    "||": "$or"
+};
+
+const DSUKeysToDBMapping = {
+    [OpenDSUKeys.PK]: DBKeys.PK,
+    [OpenDSUKeys.TIMESTAMP]: DBKeys.TIMESTAMP
+};
+
+const DBKeysToDSUMapping = Object.fromEntries(
+    Object.entries(DSUKeysToDBMapping).map(([key, value]) => [value, key])
+);
+
+module.exports = {
+    DBOperatorsMap,
+    DBKeys,
+    OpenDSUKeys,
+    Permissions,
+    Tables,
+    SortOrder,
+    DSUKeysToDBMapping,
+    DBKeysToDSUMapping,
+    ReadUser
+};
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/dsuUtils.js":[function(require,module,exports){
+/**
+ * Parses the provided keySSI or throws an error if it's invalid or undefined.
+ *
+ * @param {{getIdentifier: () => string} | string | undefined} keySSI - The keySSI to be parsed.
+ * @returns {{getIdentifier: () => string}} - Returns a promise that resolves with the parsed keySSI.
+ * @throws {Error} - Throws an error if the keySSI is undefined or cannot be parsed.
+ */
+function safeParseKeySSI(keySSI) {
+    if (typeof keySSI === "undefined")
+        throw new Error(`A keySSI should be specified.`);
+
+    if (typeof keySSI === "string") {
+        try {
+            return require("opendsu").loadAPI("keyssi").parse(keySSI);
+        } catch (e) {
+            throw new Error(`Failed to parse keySSI ${keySSI}: ${e.message || e}`);
+        }
+    }
+
+    if (typeof keySSI === "object" && keySSI?.getIdentifier)
+        return keySSI;
+
+    throw new Error(`Invalid keySSI.`);
+}
+
+
+/**
+ * Generates a unique ID based on an input object.
+ *
+ * @param {Object} inputObject - The input object to generate the hash from.
+ * @param {boolean} [ensureUniqueness=false] - Whether to ensure uniqueness by appending a timestamp and random string.
+ * @returns {string} - The generated unique ID.
+ */
+function generateUniqueId(inputObject, ensureUniqueness = false) {
+    const crypto = openDSU.loadApi("crypto");
+    const hash = crypto.sha256(inputObject);
+    if (!ensureUniqueness)
+        return hash;
+
+    const randomString = crypto.encodeBase58(crypto.generateRandom(10));
+    return `${hash}_${Date.now()}_${randomString}`;
+}
+
+module.exports = {
+    safeParseKeySSI,
+    generateUniqueId
+}
+},{"opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/index.js":[function(require,module,exports){
+const constants = require('./constants');
+const dsuUtils = require('./dsuUtils');
+const mapping = require('./mapping');
+const query = require('./query');
+const chunk = require('./chunk');
+
+module.exports = {
+    ...chunk,
+    ...constants,
+    ...dsuUtils,
+    ...mapping,
+    ...query
+};
+},{"./chunk":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/chunk.js","./constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/constants.js","./dsuUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/dsuUtils.js","./mapping":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/mapping.js","./query":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/query.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/mapping.js":[function(require,module,exports){
+const {DBKeys, OpenDSUKeys, DBOperatorsMap} = require("./constants");
+
+/**
+ * Extracts the sorting field from the filter conditions.
+ *
+ * @param {string[]} filterConditions - An array of conditions in the format "field operator value".
+ * @returns {string} - The field name used for sorting. Defaults to "__timestamp" if no conditions are provided.
+ */
+function getSortingKeyFromCondition(filterConditions) {
+    if (!Array.isArray(filterConditions) || !filterConditions.length)
+        return DBKeys.TIMESTAMP;
+
+    const splitCondition = filterConditions[0].split(" ");
+    return splitCondition[0].trim() || DBKeys.TIMESTAMP;
+}
+
+/**
+ * Removes DSUFields from an object to avoid different properties with same value.
+ * @param {Object} obj - The object from which fields will be removed.
+ * @param {string[]} [fieldsToRemove] - List of keys to be removed from the object.
+ * @returns {Object} - New object without the specified fields.
+ */
+function pruneOpenDSUFields(obj, fieldsToRemove = [
+    OpenDSUKeys.PK, OpenDSUKeys.TIMESTAMP, DBKeys.REV,
+    OpenDSUKeys.FALLBACK_INSERT, DBKeys.LOKI_ID, DBKeys.META
+]) {
+    return Object.keys(obj).reduce((acc, key) => {
+        if (!fieldsToRemove.includes(key))
+            acc[key] = obj[key];
+        return acc;
+    }, {});
+}
+
+/**
+ * Remaps an object, removing unwanted keys and renaming keys based on a mapping.
+ * @param {Object} obj - Original object
+ * @param {string[] | undefined} fieldsToRemove - List of keys to be removed.
+ * @returns {Object} - New object
+ */
+function remapObject(obj, fieldsToRemove = [
+    DBKeys.PK, DBKeys.TIMESTAMP, DBKeys.REV,
+    OpenDSUKeys.FALLBACK_INSERT, DBKeys.LOKI_ID, DBKeys.META
+]) {
+    // Key mapping: { original_key: new_key }
+    const mapping = {
+        [DBKeys.PK]: OpenDSUKeys.PK,
+        [DBKeys.TIMESTAMP]: OpenDSUKeys.TIMESTAMP,
+    };
+
+    return Object.keys(obj).reduce((acc, key) => {
+        // Check if the current key needs to be renamed
+        const newKey = mapping[key] || key;
+        if (!fieldsToRemove.includes(newKey))
+            acc[newKey] = obj[key];
+        return acc;
+    }, {});
+}
+
+
+module.exports = {
+    getSortingKeyFromCondition,
+    pruneOpenDSUFields,
+    remapObject
+}
+},{"./constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/constants.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/query.js":[function(require,module,exports){
+const {SortOrder, DBOperatorsMap, DSUKeysToDBMapping} = require("./constants");
+
+/**
+ * Normalizes a numeric value, ensuring it is an integer greater than or equal to the specified minimum.
+ * If the value is null or undefined, returns the provided default value.
+ * If the value is a valid integer but less than the minimum, returns the minimum value.
+ *
+ * @param {number|string|null|undefined} value - The value to normalize. Can be a number or a numeric string.
+ * @param {number} min - The minimum allowable value.
+ * @param {number|null} defaultValue - The default value to return if `value` is null or undefined.
+ * @returns {number|null|undefined} The normalized integer or the default value if applicable.
+ * @throws {Error} If the provided value is not a valid integer.
+ */
+function normalizeNumber(value, min, defaultValue) {
+    if (typeof min !== 'number')
+        throw new TypeError("min must be a number.");
+
+    if (defaultValue !== null && defaultValue !== undefined && typeof defaultValue !== 'number')
+        throw new TypeError("defaultValue must be a number if provided.");
+
+    if (value === null || value === undefined)
+        return (defaultValue < min) ? min : defaultValue;
+
+    let num = Number(value);
+    if (!Number.isInteger(num)) {
+        if (num === Infinity)
+            num = 250;
+        else
+            throw new Error(`The value must be an integer or null.`);
+    }
+
+    return num < min ? min : num;
+}
+
+
+/**
+ * Validates and normalizes a sorting object or array.
+ *
+ * @param {[string, string]} sort - Sorting criteria.
+ * @returns {Array<Object>} - Normalized sorting array.
+ * @throws {Error} - If the sort object contains invalid values.
+ */
+function validateSort(sort) {
+    // const field = DSUKeysToDBMapping[sort[0]] || sort[0];
+    // return [{[field]: sort[1]}];
+
+    if (!sort || (Array.isArray(sort) && sort.length === 0))
+        return [];
+
+    if (!Array.isArray(sort))
+        throw new Error(`Invalid sort format. Must be an array instead of ${JSON.stringify(sort)}.`);
+
+    const key = DSUKeysToDBMapping[sort[0]] || sort[0];
+    const value = sort[1] || SortOrder.DESC;
+
+    if (typeof value !== "string")
+        throw new Error(`Invalid sort value "${value}" for key "${key}".`);
+
+    const normalizedValue = value.toLowerCase();
+    if (!Object.values(SortOrder).includes(normalizedValue))
+        throw new Error(`Invalid sort order "${value}" for key "${key}". Use one of ${Object.values(SortOrder).join(", ")}.`);
+
+    return [{[key]: normalizedValue === SortOrder.DSC ? SortOrder.DESC : normalizedValue}];
+}
+
+/**
+ * Validates if a query string uses only valid operators from DBOperatorsMap.
+ * @param {string} query - The query string to validate (e.g., "field1 >= 100").
+ * @returns {boolean} - Returns true if the query is valid, false otherwise.
+ */
+function validateQueryOperators(query) {
+    const operatorRegex = Object.keys(DBOperatorsMap)
+        .map(op => op.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')) // Escape characters
+        .join("|");
+
+    const regex = new RegExp(`^(\\w+)\\s*(${operatorRegex})\\s*(.*)$`, "i");
+    return regex.test(query);
+}
+
+
+const isNumeric = (value) => !isNaN(value) && !isNaN(parseFloat(value));
+const isBoolean = (value) => typeof value === "string" && (value.toLowerCase() === "true" || value.toLowerCase() === "false");
+
+/**
+ * Parses a given value to its appropriate type.
+ * @param {string} value - The value to be parsed.
+ * @returns {number|string|boolean} - Parsed value
+ */
+function parseValue(value) {
+    value = typeof value === "string" ? value.trim() : value;
+    if (isNumeric(value))
+        return parseFloat(`${value}`)
+    if (isBoolean(value))
+        return `${value}`.toLowerCase() === "true";
+    return value;
+}
+
+
+/**
+ * Builds a condition object for a field, operator, and value.
+ * @param {string} field - The field name.
+ * @param {string} operator - The operator (e.g., ">=", "==", "like").
+ * @param {string} value - The value to compare.
+ * @returns {Object} - A condition object in the format { field: { operator: value } }.
+ * @throws {Error} - Throws an error if the operator is invalid or the value is invalid for regex.
+ */
+function buildCondition(field, operator, value) {
+    const mangoOperator = DBOperatorsMap[operator.toLowerCase().trim()];
+    if (!mangoOperator)
+        throw new Error(`Invalid operator: ${operator}`);
+
+    if (mangoOperator === DBOperatorsMap.like) {
+        try {
+            new RegExp(value.trim(), "i"); // Validate if the value is a valid regex
+        } catch (error) {
+            throw new Error(`Invalid regex value: ${value}`);
+        }
+    }
+
+    const fieldName = DSUKeysToDBMapping[field] || field;
+    return {
+        [fieldName]: {
+            [mangoOperator]: parseValue(value)
+        }
+    };
+}
+
+/**
+ * Parses a query part (e.g., "field >= 100") into a condition object.
+ * @param {string} queryPart - The query part (e.g., "field >= 100" || field2 <= 100").
+ * @returns {Object} - A condition object (can be $or or a simple condition).
+ * @throws {Error} - Throws an error if the query part is malformed.
+ */
+function parseQueryPart(queryPart) {
+    if (queryPart.includes("||")) {
+        console.warn(`Parsing OR query (${queryPart}).`);
+        // If it contains "||", treat it as an OR condition
+        const orConditions = queryPart
+            .split("||")
+            .map(part => {
+                part = part.trim();
+                const [field, operator, value] = part.split(/\s+/);
+                if (!field || !operator || !value)
+                    throw new Error(`Malformed query part: ${part}`);
+                return buildCondition(field, operator, value);
+            });
+        return {$or: orConditions};
+    } else {
+        // Otherwise, treat it as a simple AND condition
+        const [field, operator, value] = queryPart.split(/\s+/);
+        if (!field || !operator || !value)
+            throw new Error(`Malformed query part: ${queryPart}`);
+        return buildCondition(field, operator, value);
+    }
+}
+
+/**
+ * Converts an array of query strings into a selector object.
+ * @param {string[]} query - Array of strings in the format "field operator value" or "field1 operator value1 || field2 operator value2".
+ * @returns {Object} - A selector object in the format { $and: [...] } or an empty object if the array is empty.
+ * @throws {Error} - Throws an error if the input is not a valid array.
+ */
+function buildSelector(query) {
+    if (typeof query === "undefined" || query === null)
+        return {timestamp: {$gt: null}};
+
+    if (typeof query === "object" && Object.keys(query).length === 0)
+        return {timestamp: {$gt: null}}; // TODO
+
+    if (!Array.isArray(query) || !query.every(item => typeof item === "string" && validateQueryOperators(item)))
+        throw new Error("Query must be an array of valid condition strings");
+
+    if (query.length === 0)
+        return {};
+
+    const conditions = query.map(parseQueryPart);
+    return {$and: conditions};
+}
+
+
+module.exports = {normalizeNumber, validateSort, parseValue, buildSelector};
+
+},{"./constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/constants.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/anchoring/RemotePersistence.js":[function(require,module,exports){
 const {SmartUrl} = require("../utils");
 
 function RemotePersistence() {
@@ -57599,7 +60108,68 @@ function SecurityContext(target, PIN) {
 
 module.exports = SecurityContext;
 
-},{"../../error":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/error/index.js","../../moduleConstants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/moduleConstants.js","../../utils/BindAutoPendingFunctions":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/utils/BindAutoPendingFunctions.js","../../utils/ObservableMixin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/utils/ObservableMixin.js","opendsu":"opendsu","swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/storage/DSUStorage.js":[function(require,module,exports){
+},{"../../error":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/error/index.js","../../moduleConstants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/moduleConstants.js","../../utils/BindAutoPendingFunctions":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/utils/BindAutoPendingFunctions.js","../../utils/ObservableMixin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/utils/ObservableMixin.js","opendsu":"opendsu","swarmutils":"swarmutils"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/serverless/index.js":[function(require,module,exports){
+function createServerlessAPIClient(userId, endpoint, namespace, interfaceDefinition) {
+    if (!endpoint) {
+        throw new Error('Endpoint URL is required');
+    }
+    endpoint += "/executeCommand";
+
+    // Create the client instance
+    const client = {};
+
+    // Define the private execute command function
+    const __executeCommand = async (commandName, args) => {
+        args = args || [];
+
+        const command = {
+            forWhom: userId,
+            name: commandName,
+            namespace,
+            args: args
+        };
+
+        try {
+            const response = await fetch(endpoint, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(command)
+            });
+
+            // Handle unsuccessful responses
+            let res = await response.json()
+            if (!res || res.err) {
+                const errorMessage = res.err ? res.err : "Unknown error";
+                throw new Error(`Command ${commandName} execution failed: ${JSON.stringify(errorMessage)}` );
+            }
+
+            return res.result;
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    // Create methods based on interface definition
+    for (const methodName of interfaceDefinition) {
+        client[methodName] = async function (...args) {
+            // Execute the command with the specified configuration
+            return await __executeCommand(
+                methodName,
+                args
+            );
+        };
+    }
+
+    return client;
+}
+
+module.exports = {
+    createServerlessAPIClient
+}
+
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/storage/DSUStorage.js":[function(require,module,exports){
 const {fetch} = require("./utils");
 
 // helpers
@@ -81008,22 +83578,40 @@ module.exports = {
 },{"./sqlAdapter":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/lightDB-sql-adapter/sqlAdapter.js"}],"loki-enclave-facade":[function(require,module,exports){
 const LightDBServer = require("./LightDBServer");
 const LokiEnclaveFacade = require("./LokiEnclaveFacade");
+const CouchDBEnclaveFacade = require("./CouchDBEnclaveFacade");
+const LightDBAdapter = require("./adapters/LightDBAdapter");
+const CouchDBServer = require("./CouchDBServer");
+const {DBService} = require("./services/DBService");
 
 const createLokiEnclaveFacadeInstance = (storage, autoSaveInterval, adaptorConstructorFunction) => {
-    return new LokiEnclaveFacade(storage, autoSaveInterval, adaptorConstructorFunction);
+    // return new LokiEnclaveFacade(storage, autoSaveInterval, adaptorConstructorFunction);
+    return createCouchDBEnclaveFacadeInstance(storage, autoSaveInterval, adaptorConstructorFunction);
 }
 
 const createLightDBServerInstance = (config, callback) => {
-    return new LightDBServer(config, callback);
+    // return new LightDBServer(config, callback);
+    return createCouchDBServerInstance(config, callback);
+}
+
+const createCouchDBEnclaveFacadeInstance = (storage, autoSaveInterval, adaptorConstructorFunction) => {
+    return new CouchDBEnclaveFacade(storage, autoSaveInterval, adaptorConstructorFunction);
+}
+
+const createCouchDBServerInstance = (config, callback) => {
+    return new CouchDBServer(config, callback);
 }
 
 module.exports = {
+    DBService,
+    LightDBAdapter,
     createLokiEnclaveFacadeInstance,
     createLightDBServerInstance,
+    createCouchDBEnclaveFacadeInstance,
+    createCouchDBServerInstance,
     Adapters: require("./adapters")
 }
 
-},{"./LightDBServer":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LightDBServer.js","./LokiEnclaveFacade":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LokiEnclaveFacade.js","./adapters":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/adapters.js"}],"opendsu":[function(require,module,exports){
+},{"./CouchDBEnclaveFacade":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/CouchDBEnclaveFacade.js","./CouchDBServer":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/CouchDBServer.js","./LightDBServer":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LightDBServer.js","./LokiEnclaveFacade":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LokiEnclaveFacade.js","./adapters":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/adapters.js","./adapters/LightDBAdapter":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/adapters/LightDBAdapter.js","./services/DBService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/services/DBService.js"}],"opendsu":[function(require,module,exports){
 (function (global,setImmediate){(function (){
 /*
 html API space
@@ -81123,6 +83711,8 @@ if (!PREVENT_DOUBLE_LOADING_OF_OPENDSU.INITIALISED) {
                 return require("./credentials");
             case "lock":
                 return require("./lock");
+            case "serverless":
+                return require("./serverless");
             case "svd":
                 return require("./svd");
             default:
@@ -81199,7 +83789,7 @@ module.exports = PREVENT_DOUBLE_LOADING_OF_OPENDSU;
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("timers").setImmediate)
 
-},{"./anchoring":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/anchoring/index.js","./apiKey":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/apiKey/index.js","./bdns":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/bdns/index.js","./boot":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/boot/index.js","./bricking":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/bricking/index.js","./cache":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/cache/index.js","./config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/config/index.js","./config/autoConfig":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/config/autoConfig.js","./contracts":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/contracts/index.js","./credentials":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/credentials/index.js","./crypto":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/crypto/index.js","./db":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/db/index.js","./dc":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/dc/index.js","./dt":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/dt/index.js","./enclave":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/enclave/index.js","./error":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/error/index.js","./http":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/http/index.js","./keyssi":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/keyssi/index.js","./lock":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/lock/index.js","./m2dsu":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/m2dsu/index.js","./moduleConstants.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/moduleConstants.js","./mq/mqClient":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/mq/mqClient.js","./notifications":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/notifications/index.js","./oauth":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/oauth/index.js","./resolver":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/resolver/index.js","./sc":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/sc/index.js","./storage":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/storage/index.js","./svd":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/svd/index.js","./system":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/system/index.js","./utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/utils/index.js","./w3cdid":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/w3cdid/index.js","./workers":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/workers/index.js","timers":false}],"overwrite-require":[function(require,module,exports){
+},{"./anchoring":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/anchoring/index.js","./apiKey":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/apiKey/index.js","./bdns":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/bdns/index.js","./boot":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/boot/index.js","./bricking":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/bricking/index.js","./cache":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/cache/index.js","./config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/config/index.js","./config/autoConfig":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/config/autoConfig.js","./contracts":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/contracts/index.js","./credentials":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/credentials/index.js","./crypto":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/crypto/index.js","./db":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/db/index.js","./dc":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/dc/index.js","./dt":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/dt/index.js","./enclave":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/enclave/index.js","./error":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/error/index.js","./http":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/http/index.js","./keyssi":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/keyssi/index.js","./lock":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/lock/index.js","./m2dsu":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/m2dsu/index.js","./moduleConstants.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/moduleConstants.js","./mq/mqClient":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/mq/mqClient.js","./notifications":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/notifications/index.js","./oauth":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/oauth/index.js","./resolver":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/resolver/index.js","./sc":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/sc/index.js","./serverless":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/serverless/index.js","./storage":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/storage/index.js","./svd":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/svd/index.js","./system":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/system/index.js","./utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/utils/index.js","./w3cdid":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/w3cdid/index.js","./workers":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/opendsu/workers/index.js","timers":false}],"overwrite-require":[function(require,module,exports){
 (function (global){(function (){
 /*
  require and $$.require are overwriting the node.js defaults in loading modules for increasing security, speed and making it work to the privatesky runtime build with browserify.

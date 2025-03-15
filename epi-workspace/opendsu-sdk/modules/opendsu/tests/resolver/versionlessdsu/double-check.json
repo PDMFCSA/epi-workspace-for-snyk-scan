@@ -1,7 +1,0 @@
-{
-  "confFileName": "double-check.json",
-  "ignore": [
-    "utils.js",
-    "VersionlessDSU_mount_unmount_folders_test.js"
-  ]
-}
