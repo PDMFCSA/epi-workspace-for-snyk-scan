@@ -504,7 +504,7 @@ function getMainDomainStorageFile() {
 function getEnclave() {
     const storageFolder = require("path").join(getStorageFolder(), DATABASE_NAME);
     const lokiEnclaveFacadeModule = require("loki-enclave-facade");
-    const createLokiEnclaveFacadeInstance = lokiEnclaveFacadeModule.createLokiEnclaveFacadeInstance;
+    const createLokiEnclaveFacadeInstance = lokiEnclaveFacadeModule.createCouchDBEnclaveFacadeInstance;
     return createLokiEnclaveFacadeInstance(storageFolder, DATABASE_PERSISTENCE_TIMEOUT, lokiEnclaveFacadeModule.Adapters.FS);
 }
 
@@ -1449,7 +1449,7 @@ module.exports = {
 
 },{"./eth":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/eth/index.js","./fs":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/fs/index.js","./oba":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/oba/index.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/oba/ethereumSyncService.js":[function(require,module,exports){
 const {ALIAS_SYNC_ERR_CODE, ANCHOR_ALREADY_EXISTS_ERR_CODE} = require("../../utils");
-const {getLokiEnclaveFacade} = require("./lokiEnclaveFacadeSingleton");
+const {getCouchEnclaveFacade} = require("./lokiEnclaveFacadeSingleton");
 const {getLogFilePath} = require("./getLogFilePath");
 const {getDBFilePath} = require("./getDBFilePath");
 
@@ -1469,7 +1469,7 @@ function EthereumSyncService(server, config) {
     const openDSU = require("opendsu");
     const utils = openDSU.loadAPI("utils");
     const TaskCounter = require("swarmutils").TaskCounter;
-    let lokiEnclaveFacade = getLokiEnclaveFacade(DB_STORAGE_FILE);
+    let lokiEnclaveFacade = getCouchEnclaveFacade(DB_STORAGE_FILE);
     const ANCHORS_TABLE_NAME = "anchors_table";
     let syncInProgress = false;
     const {ETH} = require("../index");
@@ -1791,8 +1791,25 @@ const getLokiEnclaveFacade = (storageFile) => {
     return $$.lokiEnclaveFacade;
 }
 
+const getCouchEnclaveFacade = (storageFile) => {
+    if (typeof $$.couchEnclaveFacade === "undefined") {
+        try {
+            fs.accessSync(path.dirname(storageFile));
+        } catch (e) {
+            fs.mkdirSync(path.dirname(storageFile), {recursive: true});
+        }
+        const couchEnclaveFacadeModule = require("loki-enclave-facade");
+        const createCouchEnclaveFacadeInstance = couchEnclaveFacadeModule.createCouchDBEnclaveFacadeInstance;
+        $$.couchEnclaveFacade = createCouchEnclaveFacadeInstance(storageFile);
+    }
+
+    return $$.couchEnclaveFacade;
+}
+
+
 module.exports = {
-    getLokiEnclaveFacade
+    getLokiEnclaveFacade,
+    getCouchEnclaveFacade
 }
 
 },{"fs":false,"loki-enclave-facade":"loki-enclave-facade","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/anchoring/strategies/utils/AnchorPathResolver.js":[function(require,module,exports){
@@ -3313,9 +3330,74 @@ function MQAdapterMixin(target, server, prefix, domain, configuration) {
 module.exports = MQAdapterMixin;
 }).call(this)}).call(this,require("buffer").Buffer)
 
-},{"../../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","../../../http-wrapper/utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/index.js","buffer":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/lighDBEnclaveAdapter.js":[function(require,module,exports){
+},{"../../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","../../../http-wrapper/utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/index.js","buffer":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/couchMQAdapter.js":[function(require,module,exports){
+function CouchMQAdapter(server, prefix, domain, configuration) {
+    const logger = $$.getLogger("CouchMQAdapter", "apihub/mqHub");
+    const config = require("../../../http-wrapper/config");
+    let domainConfig = config.getDomainConfig(domain);
+    const path = require("path");
+    let storage = config.getConfig('componentsConfig', 'mqs', 'storage');
+    if (typeof storage === "undefined") {
+        storage = path.join(server.rootFolder, "external-volume", "mqs", domain, "messages");
+    } else {
+        storage = path.join(path.resolve(storage), domain);
+    }
+    const fs = require("fs");
+    try {
+        fs.accessSync(storage);
+    } catch (err) {
+        fs.mkdirSync(path.dirname(storage), {recursive: true});
+    }
+    const lokiEnclaveFacadeModule = require("loki-enclave-facade");
+    const lokiEnclaveFacadeInstance = lokiEnclaveFacadeModule.createCouchDBEnclaveFacadeInstance(storage);
+
+    const settings = {
+        mq_messageMaxSize: domainConfig["mq_messageMaxSize"] || 10 * 1024,
+        mq_queueLength: domainConfig["mq_queueLength"] || 10000
+    };
+
+    Object.assign(settings, configuration);
+
+    const MQAdapterMixin = require("./MQAdapterMixin");
+    MQAdapterMixin(this, server, prefix, domain, configuration);
+
+    this.loadQueue = (queueName, callback) => {
+        lokiEnclaveFacadeInstance.listQueue(undefined, queueName, callback);
+    }
+
+    this.storeMessage = (queueName, message, callback) => {
+        if (typeof message !== "object") {
+            message = {message};
+        }
+        lokiEnclaveFacadeInstance.addInQueue(undefined, queueName, message, true, callback);
+    }
+
+    this.getMessage = (queueName, messageId, callback) => {
+        lokiEnclaveFacadeInstance.getObjectFromQueue(undefined, queueName, messageId, (err, message) => {
+            if (err) {
+                return callback(err);
+            }
+            if (!message) {
+                return callback(Error(`Message ${messageId} not found in queue ${queueName}`));
+            }
+
+            message.messageId = messageId;
+            return callback(undefined, message);
+        });
+    }
+
+    this.deleteMessage = (queueName, messageId, callback) => {
+        lokiEnclaveFacadeInstance.deleteObjectFromQueue(undefined, queueName, messageId, callback);
+    }
+
+    logger.debug(`Loading Loki MQ Adapter for domain: ${domain}`);
+}
+
+module.exports = CouchMQAdapter;
+
+},{"../../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","./MQAdapterMixin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/MQAdapterMixin.js","fs":false,"loki-enclave-facade":"loki-enclave-facade","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/lighDBEnclaveAdapter.js":[function(require,module,exports){
 function LightDBEnclaveAdapter(server, prefix, domain, configuration) {
-    const logger = $$.getLogger("LokiMQAdapter", "apihub/mqHub");
+    const logger = $$.getLogger("LightDBMQAdapter", "apihub/mqHub");
     const config = require("../../../http-wrapper/config");
     let domainConfig = config.getDomainConfig(domain);
 
@@ -3762,6 +3844,7 @@ const adapterImpls = {
     local: require("./adapters/localMQAdapter.js"),
     solace: require("./adapters/solaceMQAdapter.js"),
     loki: require("./adapters/lokiMQAdapter.js"),
+    couch: require("./adapters/couchMQAdapter.js"),
     lightdb: require("./adapters/lighDBEnclaveAdapter.js")
 };
 
@@ -3969,7 +4052,7 @@ module.exports = {
     MQHub
 };
 
-},{"../../http-wrapper/config/index":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","./../../components/admin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/admin/index.js","./adapters/lighDBEnclaveAdapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/lighDBEnclaveAdapter.js","./adapters/localMQAdapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/localMQAdapter.js","./adapters/lokiMQAdapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/lokiMQAdapter.js","./adapters/solaceMQAdapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/solaceMQAdapter.js","./auth/JWTIssuer":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/auth/JWTIssuer.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/requestForwarder/index.js":[function(require,module,exports){
+},{"../../http-wrapper/config/index":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","./../../components/admin":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/admin/index.js","./adapters/couchMQAdapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/couchMQAdapter.js","./adapters/lighDBEnclaveAdapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/lighDBEnclaveAdapter.js","./adapters/localMQAdapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/localMQAdapter.js","./adapters/lokiMQAdapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/lokiMQAdapter.js","./adapters/solaceMQAdapter.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/adapters/solaceMQAdapter.js","./auth/JWTIssuer":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/mqHub/auth/JWTIssuer.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/requestForwarder/index.js":[function(require,module,exports){
 const registeredUrl = "/forwardRequestForAuthenticatedClient";
 const logger = $$.getLogger("requestForwarder", "apihub/requestForwarder");
 module.exports = function (server) {
@@ -8543,6 +8626,7 @@ function ClientCredentialsOauth(server) {
         util.validateAccessToken(jwksEndpoint, token, (err) => {
             if (err) {
                 res.statusCode = 401;
+                util.printDebugLog(`Failed to validate OAuth token: ${err}`)
                 return res.end("Invalid token");
             }
 
@@ -10597,8 +10681,10 @@ function decryptRefreshTokenCookie(encryptedRefreshToken, callback) {
 }
 
 function getPublicKeyFromJWKSEndpoint(jwksEndpoint, accessToken, callback) {
+    printDebugLog(`requesting new public key from ${jwksEndpoint} with access token ${accessToken}...`)
     http.doGet(jwksEndpoint, (err, rawData) => {
         if (err) {
+            printDebugLog(`Failed to retrieve new public key from ${jwksEndpoint}: ${err}`)
             return callback(err);
         }
 
@@ -10606,12 +10692,20 @@ function getPublicKeyFromJWKSEndpoint(jwksEndpoint, accessToken, callback) {
         try {
             parsedData = JSON.parse(rawData);
         } catch (e) {
+            printDebugLog(`Failed to parse response from ${jwksEndpoint}: ${err} - raw data: ${rawData}`)
+            return callback(e);
+        }
+        let parsedAccessToken;
+        try {
+            parsedAccessToken = parseAccessToken(accessToken);
+        } catch (e) {
+            printDebugLog(`Failed to parse access token: ${err} - raw token: ${accessToken}`)
             return callback(e);
         }
 
-        const parsedAccessToken = parseAccessToken(accessToken);
         publicKey = parsedData.keys.find(key => key.use === "sig" && key.kid === parsedAccessToken.header.kid);
         if (!publicKey) {
+            printDebugLog(`Could not get public key for the provided token's signature verification.`)
             return callback(Error(`Could not get public key for the provided token's signature verification.`))
         }
 
@@ -10621,6 +10715,7 @@ function getPublicKeyFromJWKSEndpoint(jwksEndpoint, accessToken, callback) {
 
 function getPublicKey(jwksEndpoint, rawAccessToken, callback) {
     if (publicKey) {
+        printDebugLog(`Retrieving cached public key`)
         return callback(undefined, publicKey);
     }
 
@@ -10635,17 +10730,25 @@ function validateAccessToken(jwksEndpoint, accessToken, callback) {
 
         crypto.jsonWebTokenAPI.verify(accessToken, publicKey, (err, verified) => {
             if (err || !verified) {
+                printDebugLog(`First validation of access token ${accessToken} with public key ${publicKey} failed. refreshing public key...`)
                 getPublicKeyFromJWKSEndpoint(jwksEndpoint, accessToken, (err, publicKey) => {
                     if (err) {
                         return callback(err);
                     }
 
-                    crypto.jsonWebTokenAPI.verify(accessToken, publicKey, callback);
+                    crypto.jsonWebTokenAPI.verify(accessToken, publicKey, (err, verified) => {
+                        if (err || !verified){
+                            printDebugLog(`Second validation of access token ${accessToken} with public key ${publicKey} failed.`)
+                            return callback(err || new Error(`Failed to validate access token: ${err || 'Invalid token'}`));
+                        }
+                        printDebugLog(`token validated`)
+                        callback()
+                    });
                 });
 
                 return;
             }
-
+            printDebugLog(`token validated`)
             callback();
         });
     })
@@ -29815,11 +29918,14 @@ function CouchDBEnclaveFacade(rootFolder, autosaveInterval, adaptorConstructorFu
         throw new Error(`Failed to read apihub. Error: ${e.message || e}}`);
     }
 
+    const readOnlyFlag = process.env.READ_ONLY_MODE || false;
+
     this.storageDB = new LightDBAdapter({
         uri: config.db.uri,
         username: config.db.user,
         secret: config.db.secret,
-        root: rootFolder
+        root: rootFolder,
+        readOnlyMode: readOnlyFlag
     }, this);
     this.finishInitialisation();
 }
@@ -29876,7 +29982,7 @@ function CouchDBServer(config, callback) {
             return new Promise((resolve, reject) => {
                 const enclaveName = entry.name;
                 const enclaveKey = getEnclaveKey(enclaveName);
-                enclaves[enclaveName] = LokiEnclaveFacade.createLokiEnclaveFacadeInstance(path.join(lightDBStorage, enclaveName, DATABASE));
+                enclaves[enclaveName] = LokiEnclaveFacade.createCouchDBEnclaveFacadeInstance(path.join(lightDBStorage, enclaveName, DATABASE));
                 resolve()
                 // dbAdapter.createCollection(undefined, enclaveKey, [], (err) => {
                 //     if (err) {
@@ -30137,7 +30243,7 @@ function CouchDBServer(config, callback) {
                         res.write("Already exists");
                         return res.end();
                     }
-                    enclaves[dbName] = LokiEnclaveFacade.createLokiEnclaveFacadeInstance(path.join(storage, DATABASE));
+                    enclaves[dbName] = LokiEnclaveFacade.createCouchDBEnclaveFacadeInstance(path.join(storage, DATABASE));
                     res.statusCode = 201;
                     res.end();
                 })
@@ -31467,7 +31573,7 @@ function createOpenDSUErrorWrapper(msg, error) {
 
 /**
  *
- * @param {username: string, secret: string, uri: string, root: string} config
+ * @param {username: string, secret: string, uri: string, root: string, readOnlyMode: boolean} config
  * @constructor
  */
 function LightDBAdapter(config) {
@@ -41233,8 +41339,16 @@ class DatabaseClient {
             const document = await this.connection.get(_id);
             return remapObject(document);
         } catch (error) {
-            if (error.statusCode !== 404)
-                logger.error(`Failed to retrieve document ${_id} from database ${this.dbName}:`, error);
+            if (error.statusCode !== 404) {
+                // Overwrite error response when the document is deleted.
+                error = {
+                    ...error,
+                    description: "missing",
+                    reason: "missing",
+                    message: "missing"
+                };
+                // logger.error(`Failed to retrieve document ${_id} from database ${this.dbName}:`, error);
+            }
             throw error;
         }
     }
@@ -41390,7 +41504,7 @@ let dbService;
  */
 class DBService {
     /**
-     * @param {{uri: string, username?: string, secret?: string}} config - Configuration object containing database connection details.
+     * @param {{uri: string, username?: string, secret?: string, readOnlyMode: boolean}} config - Configuration object containing database connection details.
      */
     constructor(config) {
         if (dbService)
@@ -41470,6 +41584,10 @@ class DBService {
      * @returns {Promise<boolean>} - `true` if the database exists, `false` otherwise.
      */
     async dbExists(dbName) {
+        if (this.config.readOnlyMode){
+            logger.debug(`Presuming existence of Database "${dbName}"`);
+            return true;
+        }
         try {
             dbName = this.changeDBNameToLowerCaseAndValidate(dbName);
             const dbList = await this.client.db.list();
@@ -41633,6 +41751,8 @@ class DBService {
      * @returns {Promise<boolean>} - True if the database was successfully deleted.
      */
     async deleteDatabase(dbName) {
+        if (this.config.readOnlyMode)
+            throw new Error(`DB service in read only mode. Cannot delete databases`)
         try {
             dbName = this.changeDBNameToLowerCaseAndValidate(dbName);
             await this.client.db.destroy(dbName);
@@ -41656,6 +41776,8 @@ class DBService {
      */
     async listDatabases(verbose = false) {
         const self = this;
+        if (this.config.readOnlyMode)
+            throw new Error(`DB service in read only mode. Cannot list databases`)
         try {
             const list = await this.client.db.list();
             if (!verbose)
@@ -83584,13 +83706,13 @@ const CouchDBServer = require("./CouchDBServer");
 const {DBService} = require("./services/DBService");
 
 const createLokiEnclaveFacadeInstance = (storage, autoSaveInterval, adaptorConstructorFunction) => {
-    // return new LokiEnclaveFacade(storage, autoSaveInterval, adaptorConstructorFunction);
-    return createCouchDBEnclaveFacadeInstance(storage, autoSaveInterval, adaptorConstructorFunction);
+    return new LokiEnclaveFacade(storage, autoSaveInterval, adaptorConstructorFunction);
+    // return createCouchDBEnclaveFacadeInstance(storage, autoSaveInterval, adaptorConstructorFunction);
 }
 
 const createLightDBServerInstance = (config, callback) => {
-    // return new LightDBServer(config, callback);
-    return createCouchDBServerInstance(config, callback);
+    return new LightDBServer(config, callback);
+    // return createCouchDBServerInstance(config, callback);
 }
 
 const createCouchDBEnclaveFacadeInstance = (storage, autoSaveInterval, adaptorConstructorFunction) => {
