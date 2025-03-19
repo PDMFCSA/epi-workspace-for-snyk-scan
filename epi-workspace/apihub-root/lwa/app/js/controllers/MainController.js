@@ -29,6 +29,10 @@ function MainController() {
         gifContainer.addEventListener('mouseenter', toggleAnimationState);
         gifContainer.addEventListener('mouseleave', toggleAnimationState);
         controlGifButton.addEventListener('click', toggleAnimationState);
+
+        const gifLoaderBar = document.querySelector('.jsgif_toolbar');
+        if(gifLoaderBar)
+            gifLoaderBar.remove();
     }
 
     this.toggleMenu = function () {
