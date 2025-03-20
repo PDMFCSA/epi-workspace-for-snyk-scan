@@ -8657,6 +8657,12 @@ const logger = $$.getLogger("FixedUrl", "apihub/logger");
 
 module.exports = function (server) {
 
+    function debug(...args){
+        if (server.config.db.debug){
+            logger.debug(...args);
+        }
+    }
+
     const workingDir = path.join(server.rootFolder, "external-volume", "fixed-urls");
     const storage = path.join(workingDir, "storage");
     let lightDBEnclaveClient = enclaveAPI.initialiseLightDBEnclave(DATABASE);
@@ -8756,12 +8762,20 @@ module.exports = function (server) {
         register: function (task, callback) {
             let newRecord = taskRegistry.createModel(task);
             newRecord.__fallbackToInsert = true
-            return lightDBEnclaveClient.updateRecord($$.SYSTEM_IDENTIFIER, HISTORY_TABLE, newRecord.pk, newRecord,  callback);
+            debug("Registering task in history table", JSON.stringify(newRecord));
+            return lightDBEnclaveClient.updateRecord($$.SYSTEM_IDENTIFIER, HISTORY_TABLE, newRecord.pk, newRecord,  (err, result) => {
+                if (err){
+                    debug("Error registering task in history table", err);
+                }
+                callback(err, result);
+            });
         },
         add: function (task, callback) {
             let newRecord = taskRegistry.createModel(task);
+            debug("Adding task to tasks table", JSON.stringify(newRecord));
             lightDBEnclaveClient.getRecord($$.SYSTEM_IDENTIFIER, TASKS_TABLE, newRecord.pk, function (err, record) {
                 if (err || !record) {
+                    debug("Task not found in tasks table, adding it", JSON.stringify(newRecord));
                     return lightDBEnclaveClient.insertRecord($$.SYSTEM_IDENTIFIER, TASKS_TABLE, newRecord.pk, newRecord, (insertError)=>{
                         //if we fail... could be that the task is ready register by another request due to concurrency
                         //we do another getRecord and if fails we return the original insert record error
@@ -8770,13 +8784,17 @@ module.exports = function (server) {
                             // and we hope to have enough invalidation of the task to don't have garbage
                             newRecord.counter = 2;
                             newRecord.__fallbackToInsert = true;
+                            debug("Failed to insert task in task table. trying to update", JSON.stringify(newRecord));
                             return lightDBEnclaveClient.updateRecord($$.SYSTEM_IDENTIFIER, TASKS_TABLE, newRecord.pk, newRecord, err => {
                                 if(err){
+                                    debug("Failed to update task in task table", err);
                                     return callback(err);
                                 }
+                                debug("Task added to tasks table", JSON.stringify(newRecord));
                                 callback(undefined);
                             });
                         }
+                        debug("Task added to tasks table", JSON.stringify(newRecord));
                         callback(undefined);
                     });
                 }
@@ -8785,36 +8803,46 @@ module.exports = function (server) {
                 }
                 record.counter++;
                 record.__fallbackToInsert = true;
+                debug("Task already exists in tasks table, updating", JSON.stringify(record));
                 return lightDBEnclaveClient.updateRecord($$.SYSTEM_IDENTIFIER, TASKS_TABLE, record.pk, record, callback);
             });
         },
         remove: function (task, callback) {
             let toBeRemoved = taskRegistry.createModel(task);
+            debug("Checking existence of task from tasks table before deleting", JSON.stringify(toBeRemoved));
             lightDBEnclaveClient.getRecord($$.SYSTEM_IDENTIFIER, TASKS_TABLE, toBeRemoved.pk, function (err, record) {
                 if (err || !record) {
+                    debug("Task not found in tasks table, ignoring deletion", JSON.stringify(toBeRemoved));
                     return callback(undefined);
                 }
                 if (record.counter && record.counter > 1) {
                     record.counter = 1;
                     record.__fallbackToInsert = true;
+                    debug("found record to delete from table tasks. updating instead", JSON.stringify(record));
                     return lightDBEnclaveClient.updateRecord($$.SYSTEM_IDENTIFIER, TASKS_TABLE, toBeRemoved.pk, record, callback);
                 }
 
+                debug("found record to delete from table tasks. updating instead", JSON.stringify(record));
                 lightDBEnclaveClient.deleteRecord($$.SYSTEM_IDENTIFIER, TASKS_TABLE, toBeRemoved.pk, err => {
                     if (err) {
+                        debug("Error deleting task from tasks table", err);
                         return callback(err);
                     }
                     const end = Date.now();
+                    debug(`Task ${task.url} deleted from tasks table`);
                     callback(undefined);
                 });
             });
         },
         getOneTask: function (callback) {
+            debug("Getting one task from tasks table");
             lightDBEnclaveClient.getOneRecord($$.SYSTEM_IDENTIFIER, TASKS_TABLE, function (err, task) {
                 if (err) {
+                    debug("Error getting task from tasks table", err);
                     return callback(err);
                 }
                 if (!task) {
+                    debug("No tasks found in tasks table, waiting for new tasks");
                     return callback(undefined);
                 }
                 if (taskRegistry.inProgress[task.url]) {
@@ -8824,6 +8852,7 @@ module.exports = function (server) {
                 }
                 taskRegistry.markInProgress(task.url);
                 const end = Date.now();
+                debug(`Task ${task.url} picked for processing. Took ${end - task.timestamp}ms.`);
                 callback(undefined, task);
             });
         },
@@ -8832,14 +8861,17 @@ module.exports = function (server) {
         },
         isScheduled: function (task, callback) {
             let tobeChecked = taskRegistry.createModel(task);
+            debug("Checking existence of task from tasks table (isScheduled)", JSON.stringify(tobeChecked));
             lightDBEnclaveClient.getRecord($$.SYSTEM_IDENTIFIER, TASKS_TABLE, tobeChecked.pk, function (err, task) {
                 if (err || !task) {
+                    debug("Task not found in tasks table", JSON.stringify(tobeChecked));
                     return callback(undefined, undefined);
                 }
                 callback(undefined, task);
             });
         },
         markInProgress: function (task) {
+            debug(`Marking task ${task} as in progress`);
             taskRegistry.inProgress[task] = true;
         },
         markAsDone: function (task, callback) {
@@ -8850,17 +8882,28 @@ module.exports = function (server) {
         },
         isKnown: function (task, callback) {
             let target = taskRegistry.createModel(task);
-            lightDBEnclaveClient.getRecord($$.SYSTEM_IDENTIFIER, HISTORY_TABLE, target.pk, callback);
+            debug("Checking existence of task from history table (isKnown)", JSON.stringify(target));
+            lightDBEnclaveClient.getRecord($$.SYSTEM_IDENTIFIER, HISTORY_TABLE, target.pk, (err, known) => {
+                if (err || !known) {
+                    logger.debug(`Task ${target.pk} not found in history`);
+                    return callback(err || new Error(`Task ${target.pk} not found in history`));
+                }
+                debug("Task found in history table", JSON.stringify(known));
+                callback(undefined, known);
+            });
         },
         schedule: function (criteria, callback) {
             if(server.readOnlyModeActive){
                 return callback(new Error("FixedURL scheduling is not possible when server is in readOnly mode"));
             }
+            debug("filtering history table to schedule task", JSON.stringify(criteria));
             lightDBEnclaveClient.filter($$.SYSTEM_IDENTIFIER, HISTORY_TABLE, criteria, function (err, records) {
                 if (err) {
                     if (err.code === 404) {
+                        debug("No tasks found in history table - table does not exist apparently");
                         return callback();
                     }
+                    debug("Error filtering history table", err);
                     return callback(err);
                 }
                 function createTask() {
@@ -8881,11 +8924,14 @@ module.exports = function (server) {
             });
         },
         cancel: function (criteria, callback) {
+            debug("filtering history table to cancel task", JSON.stringify(criteria));
             lightDBEnclaveClient.filter($$.SYSTEM_IDENTIFIER, HISTORY_TABLE, criteria, async function (err, tasks) {
                 if (err) {
                     if (err.code === 404) {
+                        debug("No tasks found in history table - table does not exist apparently");
                         return callback();
                     }
+                    debug("Error filtering history table", err);
                     return callback(err);
                 }
 
@@ -8906,9 +8952,10 @@ module.exports = function (server) {
                         }
                     }
                 } catch (err) {
+                    debug("Error canceling tasks", err);
                     return callback(err);
                 }
-
+                debug("Tasks cancelled successfully");
                 callback(undefined);
             });
         },
@@ -8969,6 +9016,7 @@ module.exports = function (server) {
             url = converter.toString().replace(urlBase, "");
 
             //executing the request
+            debug(`Executing task. making local request to ${url}`, JSON.stringify(task));
             server.makeLocalRequest("GET", url, "", {}, function (error, result) {
                 const end = Date.now();
                 if (error) {
@@ -8986,18 +9034,19 @@ module.exports = function (server) {
                         });
                         return taskRegistry.markAsDone(task.url, (err) => {
                             if (err) {
-                                logger.log("Failed to remove a task that we weren't able to resolve");
+                                logger.log("Failed to remove a task that we weren't able to resolve", err);
                                 return;
                             }
                         });
                     }
                     return taskRegistry.markAsDone(task.url, (err) => {
                         if (err) {
-                            logger.log("Failed to remove a task that we weren't able to resolve");
+                            logger.log("Failed to remove a task that we weren't able to resolve", err);
                             return;
                         }
                         //if failed we add the task back to the end of the queue...
                         setTimeout(() => {
+                            debug("Rescheduling the task", task.url);
                             taskRegistry.add(task.url, (err) => {
                                 if (err) {
                                     logger.log("Failed to reschedule the task", task.url, err.message, err.code, err);
@@ -9017,6 +9066,7 @@ module.exports = function (server) {
                         return;
                     }
 
+                    debug(`Persisting ${task.url}`)
                     indexer.persist(task.url, result, function (err) {
                         if (err) {
                             logger.error("Not able to persist fixed url", task, err);
@@ -9024,7 +9074,7 @@ module.exports = function (server) {
 
                         taskRegistry.markAsDone(task.url, (err) => {
                             if (err) {
-                                logger.warn("Failed to mark request as done in lightDBEnclaveClient", task);
+                                logger.warn("Failed to mark request as done in lightDBEnclaveClient", task, err);
                             }
                         });
 
@@ -9034,7 +9084,7 @@ module.exports = function (server) {
                 } else {
                     taskRegistry.markAsDone(task.url, (err) => {
                         if (err) {
-                            logger.warn("Failed to mark request as done in lightDBEnclaveClient", task);
+                            logger.warn("Failed to mark request as done in lightDBEnclaveClient", task, err);
                         }
                         taskRunner.resolvePendingReq(task.url, result, 204);
                     });
@@ -29925,7 +29975,8 @@ function CouchDBEnclaveFacade(rootFolder, autosaveInterval, adaptorConstructorFu
         username: config.db.user,
         secret: config.db.secret,
         root: rootFolder,
-        readOnlyMode: readOnlyFlag
+        readOnlyMode: readOnlyFlag,
+        debug: config.db.debug || false
     }, this);
     this.finishInitialisation();
 }
@@ -30176,7 +30227,10 @@ function CouchDBServer(config, callback) {
                         const cb = (err, result) => {
                             if (err) {
                                 res.statusCode = 500;
-                                logger.debug(`Error while executing command ${command.commandName}`, err);
+                                const minusCbArgs =  [...args];
+                                if(typeof args[args.length -1] === "function")
+                                    minusCbArgs.pop()
+                                logger.debug(`Error while executing command ${command.commandName} in database ${req.params.dbName} with args: ${minusCbArgs}`, err);
                                 res.write(`Error while executing command`);
                                 return res.end();
                             }
@@ -41191,10 +41245,11 @@ const {ensureAuth} = require("./utils");
  *
  */
 class DatabaseClient {
-    constructor(client, dbName) {
+    constructor(client, dbName, debug) {
         logger = $$.getLogger(`DatabaseClient -  ${dbName}`);
         this.dbName = dbName;
         this.client = client;
+        this._debug = debug;
 
         this.connection = this.client.use(dbName);
         [
@@ -41206,6 +41261,11 @@ class DatabaseClient {
             this.listDocuments,
             this.filter,
         ].forEach((m) => ensureAuth(this, logger, m));
+    }
+
+    debug(...args){
+        if (this._debug)
+            logger.debug(...args);
     }
 
 
@@ -41229,6 +41289,7 @@ class DatabaseClient {
                 logger.warn(`Database "${this.dbName}" does not exist. Unable to count documents.`);
                 return 0;
             }
+            this.debug(`Failed to retrieve document count for database ${this.dbName}: ${error}`)
             throw new Error(`Failed to retrieve document count for database ${this.dbName}: ${error}`);
         }
     }
@@ -41247,8 +41308,10 @@ class DatabaseClient {
             const record = await this.readDocument( _id);
         } catch  (e) {
             if (e.statusCode !== 404) {
+                this.debug(`Could not read PK "${_id}" from ${this.dbName}`, e)
                 throw e
             }
+            let id;
             try {
 
                 const insert = {
@@ -41257,13 +41320,20 @@ class DatabaseClient {
                     [DBKeys.TIMESTAMP]: Date.now()
                 };
 
-                const {id} = await this.connection.insert(insert);
-                return await this.readDocument(id);
+                id = (await this.connection.insert(insert)).id;
             } catch (err) {
+                this.debug(`A record with PK "${_id}" already exists in ${this.dbName}`)
                 throw err;
+            }
+            try {
+                return await this.readDocument(id);
+            } catch (e) {
+                this.debug(`Failed to read record with PK "${_id}"  in ${this.dbName} after inserting`, e)
+                throw e;
             }
         }
 
+        this.debug(`A record with PK "${_id}" already exists in ${this.dbName}`)
         throw new Error(`A record with PK "${_id}" already exists in ${this.dbName}`);
     }
 
@@ -41283,7 +41353,7 @@ class DatabaseClient {
                 error.description = `document with id '${_id}' not found.`;
                 error.message = `document with id '${_id}' not found.`;
                 error.reason = "missing";
-                // logger.error(`Failed to retrieve document ${_id} from database ${this.dbName}:`, error);
+                this.debug(`Failed to retrieve document ${_id} from database ${this.dbName}:`, error);
             }
             throw error
         }
@@ -41299,6 +41369,7 @@ class DatabaseClient {
      * @throws {Error} - If the operation fails.
      */
     async updateDocument(_id, document) {
+        let response;
         try {
             _id = _id.toString();
             const dbRecord = await this.connection.get(_id);
@@ -41314,17 +41385,26 @@ class DatabaseClient {
                 [DBKeys.TIMESTAMP]: Date.now()
             };
 
-            const response = await this.connection.insert(update);
-            return await this.readDocument(response.id);
+            response = await this.connection.insert(update);
         } catch (error) {
             if (error.statusCode === 404) {
                 if (document[OpenDSUKeys.FALLBACK_INSERT]) { // used by fixedURL
                     delete document[OpenDSUKeys.FALLBACK_INSERT];
+                    this.debug(`Falling back to inserting document "${_id}" from "${this.dbName}" after 404: ${error}`);
                     return this.insertDocument(_id, document);
                 }
+                this.debug(`Failed to retrieve document ${_id} from database ${this.dbName} after 404: ${error}`);
                 throw new Error(`Failed to update document "${_id}" from "${this.dbName}": Not found.`);
             }
+            this.debug(`Failed to update document "${_id}" from "${this.dbName}": ${error}`);
             throw new Error(`Failed to update document "${_id}" from "${this.dbName}": ${error}`);
+        }
+
+        try {
+            return await this.readDocument(response.id);
+        } catch (e) {
+            this.debug(`Failed to retrieve document ${_id} from database ${this.dbName} after updating`, e)
+            throw e;
         }
     }
 
@@ -41341,9 +41421,12 @@ class DatabaseClient {
             await this.connection.destroy(_id, document[DBKeys.REV]);
             return {[OpenDSUKeys.PK]: _id};
         } catch (error) {
-            if (error.statusCode === 404)
+            if (error.statusCode === 404){
+                this.debug(`Document ${_id} not found in database ${this.dbName}. Skipping deletion.`);
                 return {[OpenDSUKeys.PK]: _id};
+            }
 
+            this.debug(`Failed to delete document ${_id} from database ${this.dbName}: ${error}`);
             throw new Error(`Error deleting document ${_id} from table ${this.dbName}: ${error}`);
         }
     }
@@ -41369,10 +41452,11 @@ class DatabaseClient {
 
             if (limit && Number.isInteger(limit) && limit > 0)
                 queryOptions.limit = limit;
-
+            this.debug(`Listing documents from database ${this.dbName} with options: ${JSON.stringify(queryOptions)}`);
             const response = await this.connection.list(queryOptions);
             return processInChunks(response.rows, 2, (row) => remapObject(row.doc));
         } catch (error) {
+            this.debug(`Failed to list documents from database ${this.dbName}: ${error}`);
             throw new Error(`Error listing documents from database ${this.dbName}: ${error}`);
         }
     }
@@ -41401,7 +41485,7 @@ class DatabaseClient {
             skip,
             ...(limit ? {limit} : {})
         };
-
+        this.debug(`Filtering documents from database ${this.dbName} with options: ${JSON.stringify(mangoQuery)}`);
         const result = await this.connection.find(mangoQuery);
         return processInChunks(result.docs, 2, (doc) => remapObject(doc));
     }
@@ -41427,7 +41511,7 @@ let dbService;
  */
 class DBService {
     /**
-     * @param {{uri: string, username?: string, secret?: string, readOnlyMode: boolean}} config - Configuration object containing database connection details.
+     * @param {{uri: string, username?: string, secret?: string, readOnlyMode: boolean, debug: boolean}} config - Configuration object containing database connection details.
      */
     constructor(config) {
         if (dbService)
@@ -41446,6 +41530,13 @@ class DBService {
         ].forEach((m) => ensureAuth(this, logger, m));
 
         this.databases = {}
+
+
+    }
+
+    debug(...args){
+        if (this.config.debug)
+            logger.debug(...args);
     }
 
     /**
@@ -41486,19 +41577,17 @@ class DBService {
     /**
      * Converts to lower case and checks if DB Name is valid for couch db.
      * @param {string} dbName
-     * @param {string} [forDid]
      * @returns {string} - dbName if the database name is valid, `false` otherwise.
      */
     changeDBNameToLowerCaseAndValidate(dbName){
-        dbName =  dbName.toLowerCase().replaceAll(':', '_').replaceAll(".", "-");
+        const newDbName =  dbName.toLowerCase().replaceAll(':', '_').replaceAll(".", "-");
 
-        if(!this.isValidCouchDbName(dbName)) {
-            const message = `Invalid db name "${dbName}". Only lowercase characters (a-z), digits (0-9), and any of the characters _, $, (, ), +, -, and / are allowed. Must begin with a letter.`
+        if(!this.isValidCouchDbName(newDbName)) {
+            const message = `Invalid db name "${newDbName}". Only lowercase characters (a-z), digits (0-9), and any of the characters _, $, (, ), +, -, and / are allowed. Must begin with a letter.`
             logger.error(message);
             throw new Error(message);
         }
-
-        return dbName;
+        return newDbName;
     }
     
     /**
@@ -41511,11 +41600,16 @@ class DBService {
             logger.debug(`Presuming existence of Database "${dbName}"`);
             return true;
         }
+
         try {
             dbName = this.changeDBNameToLowerCaseAndValidate(dbName);
+            if (dbName in this.databases)
+                return true;
+            this.debug(`Checking existence of Database "${dbName}"`);
             const dbList = await this.client.db.list();
             return dbList.includes(dbName);
         } catch (error) {
+            this.debug(`Failed to check if database "${dbName}" exists: ${error.message || error}`);
             throw new Error(`Failed to check if database "${dbName}" exists: ${error.message || error}`);
         }
     }
@@ -41632,6 +41726,7 @@ class DBService {
         } catch (err) {
             if (err.message.includes("the file already exists"))
                 return true;
+            this.debug(`Fail creating database or adding indexes for ${dbName}: ${err.message || err}`)
             throw new Error(`Fail creating database or adding indexes for ${dbName}: ${err.message || err}`);
         }
     }
@@ -41651,7 +41746,8 @@ class DBService {
 
             function openAndCache(){
                 if (!(dbName in self.databases)){
-                    self.databases[dbName] = new DatabaseClient(self.client, dbName);
+                    self.databases[dbName] = new DatabaseClient(self.client, dbName, self.config.debug);
+                    self.debug(`Created new database instance for "${dbName}"`);
                 }
                 return self.databases[dbName];
             }
@@ -41664,6 +41760,7 @@ class DBService {
             // TODO - Remove, return DBService instance
             return openAndCache()
         } catch (error) {
+            this.debug(`Error in openDatabase: ${error.message || error}`)
             throw new Error(`Error in openDatabase: ${error.message || error}`);
         }
     }
@@ -41686,6 +41783,7 @@ class DBService {
                 logger.warn(`Database "${dbName}" does not exist. No deletion required.`);
                 return true;
             }
+            this.debug(`Error deleting database ${dbName}: ${error}`)
             throw new Error(`Error deleting database ${dbName}: ${error}`);
         }
     }
@@ -41717,6 +41815,7 @@ class DBService {
             }
             return databaseInfoList;
         } catch (error) {
+            this.debug(`Error listing databases: ${error}`)
             throw new Error(`Error listing databases: ${error}`);
         }
     }
@@ -41755,8 +41854,11 @@ class DBService {
         if (invalidType)
             throw new Error(`Failed to add an index on ${database}: All properties must be of type string.`);
 
+        const currentIndexes = await this.client.use(database).list({ startkey: '_design/', inclusive_end: false });
+
         for (let indexedProp of properties){
             let index = `${indexedProp}_index`;
+
             try {
                 await this.client.use(database).createIndex({
                     name: index,
@@ -41929,7 +42031,7 @@ function ensureAuth(self, logger, method){
         } catch (e){
             if (e.statusCode === 401 || e['status-code'] === 401) {
                 try {
-                    console.debug(`Cookie expired - Re-authenticating with CouchDB server`);
+                    logger.debug(`Cookie expired - Re-authenticating with CouchDB server`);
                     await self.client.auth(self.config.username, self.config.secret);
                 } catch (err){
                     throw new Error(`Failed to authenticate with CouchDB server to redo the ${name} operation. Error: ${err.message || err}. Original Error: ${e.message || e}`);
