@@ -5387,7 +5387,7 @@ function Batch(enclave, domain, subdomain, gtin, batchNumber, version) {
             }
             let fixedUrlUtils = require("./../../mappings/utils.js");
             await fixedUrlUtils.registerLeafletFixedUrlByDomainAsync(domain, subdomain, "leaflet", gtin, langs, instance.batchNumber, undefined, instance.epiProtocol);
-        }
+            await fixedUrlUtils.registerLeafletMetadataFixedUrlByDomainAsync(domain,subdomain, gtin, instance.batchNumber);        }
 
         try{
             //we don't wait for the request to be finalized because of the delays between fixedUrl and lightDB
@@ -12763,139 +12763,14 @@ module.exports.getPromisifiedSharedObject = function (dsuStorage) {
   return instance;
 };
 
-},{"opendsu":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/XMLDisplayService/Acodis_StyleSheet.js":[function(require,module,exports){
-const acordisXslContent = `<?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0"
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:xs="urn:hl7-org:v3"
-                xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xsi:schemaLocation="urn:hl7-org:v3 https://www.accessdata.fda.gov/spl/schema/spl.xsd">
-
-    <xsl:output method="html" version="1.0"
-                encoding="UTF-8" indent="yes" doctype-public="-//W3C//DTD XHTML 1.1//EN"/>
-
-    <!--setting identity transformation-->
-    <xsl:template match="@*|node()">
-        <xsl:copy>
-            <xsl:apply-templates select="@*|node()"/>
-        </xsl:copy>
-    </xsl:template>
-
-    <xsl:template match="document">
-            <div><xsl:apply-templates select="@*|node()"/></div>
-    </xsl:template>
-    
-    <xsl:param name="quote">"</xsl:param>
-    <xsl:param name="space">\\0020</xsl:param>
-    <xsl:template match="//ul">
-        <ul> <xsl:apply-templates select="node()" /></ul>
-    </xsl:template>
-
-    <xsl:template match="//ul/li">
-        <li>
-          <xsl:attribute name="style"> list-style-type: <xsl:value-of select="$quote"/><xsl:value-of select="@data-enum"/><xsl:value-of select="$space"/><xsl:value-of select="$quote"/>; </xsl:attribute>
-        <xsl:apply-templates select="node()" /></li>
-    </xsl:template>
-
-    <xsl:template match="//ol">
-        <ol><xsl:apply-templates select="node()" /></ol>
-    </xsl:template>
-
-    <xsl:template match="//ol/li">
-        <li>
-         <xsl:attribute name="style"> list-style-type: <xsl:value-of select="$quote"/><xsl:value-of select="@data-enum"/><xsl:value-of select="$space"/><xsl:value-of select="$quote"/>; </xsl:attribute>
-        <xsl:apply-templates select="node()" /></li>
-    </xsl:template>
-
-    <xsl:template match="//section//p">
-        <p><xsl:apply-templates select="node()" /></p>
-    </xsl:template>
-    
-    <xsl:template match="//figure">
-        <figure><xsl:apply-templates select="node()" /></figure>
-    </xsl:template>
-
-    <xsl:template match="//figure/*[not(self::img)]">
-        <section style="display:none;" class="ignore_from_ui"><xsl:apply-templates select="node()" /></section>
-    </xsl:template>
-    
-    
-    <xsl:template match="//figure/img">
-        <xsl:variable name="_src">
-            <xsl:value-of select="@src"/>
-        </xsl:variable>
-        <img>
-            <xsl:attribute name="src">
-                <xsl:value-of select="concat($resources_path, $_src)"/>
-            </xsl:attribute>
-            <xsl:apply-templates select="node()"/>
-        </img>
-    </xsl:template>
-    
-    <xsl:template match="//table">
-        <table><xsl:apply-templates select="node()" /></table>
-    </xsl:template>
-
-    <xsl:template match="//tr">
-        <tr><xsl:apply-templates select="node()" /></tr>
-    </xsl:template>
-      
-     <xsl:template match="//*[@class='Table of Content']" priority="9">
-        <div style="display:none;" class="leaflet_hidden_section ignore_from_ui"><xsl:apply-templates select="@class|node()"/></div>
-    </xsl:template>
-    
-      <xsl:template match="//*[@class='Type']" priority="9">
-        <div style="display:none;" class="leaflet_hidden_section ignore_from_ui"><xsl:apply-templates select="@class|node()"/></div>
-    </xsl:template>
-   
-    <xsl:template match="//*[@class='Product_Name']" priority="9">
-        <div style="display:none;" class="leaflet_hidden_section ignore_from_ui"><xsl:apply-templates select="@class|node()"/></div>
-    </xsl:template>
-   <xsl:template match="//*[@class='Ingredient Substance']" priority="9">
-        <div style="display:none;" class="leaflet_hidden_section ignore_from_ui"><xsl:apply-templates select="@class|node()"/></div>
-    </xsl:template>
-   <xsl:template match="//*[@class='Read Instructions']" priority="9">
-        <div style="display:none;" class="leaflet_hidden_section ignore_from_ui"><xsl:apply-templates select="@class|node()"/></div>
-    </xsl:template>
-    <xsl:template match="//*[@class='ignore_from_ui']" priority="9">
-        <div style="display:none;" class="leaflet_hidden_section ignore_from_ui"><xsl:apply-templates select="@class|node()"/></div>
-    </xsl:template>
-    <xsl:template match="document/section">
-        <div class="section leaflet-accordion-item">
-            <xsl:apply-templates select="header"/>
-                <div class="leaflet-accordion-item-content">
-                     <xsl:apply-templates select="*[not(self::header)]"/>
-                </div>
-        </div>
-    </xsl:template>
-    
-    <xsl:template match="document/section/header">
-        <h2>
-            <xsl:apply-templates select="node()" />
-        </h2>
-    </xsl:template>
-
-    <xsl:template match="video">
-        <video>
-            <xsl:copy-of select="@*"/>
-            <xsl:if test="not(@controls)">
-                <xsl:attribute name="controls">true</xsl:attribute>
-            </xsl:if>
-
-            <xsl:apply-templates/>
-        </video>
-    </xsl:template>
-</xsl:stylesheet>`;
-
-module.exports = acordisXslContent;
-
-},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/XMLDisplayService/XMLDisplayService.js":[function(require,module,exports){
+},{"opendsu":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/XMLDisplayService/XMLDisplayService.js":[function(require,module,exports){
 const languageUtils = require("../../utils/Languages.js");
 const constants = require("../../constants/constants.js");
 const {createGTIN_SSI} = require("../../GTIN_SSI");
 const utils = require("../../utils/CommonUtils.js");
-const accordis_xslContent = require("./Acodis_StyleSheet.js");
-const default_xslContent = require("./leafletXSL.js");
+const { defaultXslContent, acodisXslContent, observerVideos, fixHTML } = require("./lwaLeafletXSL.js");
+// const accordis_xslContent = require("./Acodis_StyleSheet.js");
+// const default_xslContent = require("./leafletXSL.js");
 const {sanitize} = require("../../utils/htmlSanitize");
 const openDSU = require("opendsu");
 const {LEAFLET_XML_FILE_NAME, EPI_TYPES} = require("../../constants/constants");
@@ -13180,14 +13055,14 @@ class XmlDisplayService {
                     return this.displayError(securityErrorMessage);
                 }
                 xmlDoc = newXmlDoc;
-                xslContent = accordis_xslContent;
+                xslContent = acodisXslContent;
                 break
             case "document":
                 if (xmlDoc.documentElement.hasAttribute("type") && xmlDoc.documentElement.getAttribute("type") === "pharmaledger-1.0") {
-                    xslContent = accordis_xslContent;
+                    xslContent = acodisXslContent;
                     break;
                 }
-                xslContent = default_xslContent;
+                xslContent = defaultXslContent;
                 break
         }
 
@@ -13201,6 +13076,8 @@ class XmlDisplayService {
 
         try {
             resultDocument = xsltProcessor.transformToFragment(xmlDoc, document);
+            if(resultDocument)
+                resultDocument = fixHTML(resultDocument);
         } catch (e){
             console.error("Error transforming XML to HTML: ", e);
             throw e;
@@ -13495,6 +13372,8 @@ class XmlDisplayService {
         accordionItems.forEach((accItem, index) => {
             accItem.addEventListener("click", (evt) => {
                 accItem.classList.toggle("active");
+                const isActive = accItem.classList.contains("active");
+                observerVideos(accItem, isActive);
                 accItem.querySelector(".leaflet-accordion-item-content").addEventListener("click", (event) => {
                     event.stopImmediatePropagation();
                     event.stopPropagation();
@@ -13507,8 +13386,126 @@ class XmlDisplayService {
 
 module.exports = XmlDisplayService;
 
-},{"../../GTIN_SSI":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/GTIN_SSI.js","../../constants/constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/constants/constants.js","../../constants/constants.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/constants/constants.js","../../utils/CommonUtils.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/CommonUtils.js","../../utils/Languages.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/Languages.js","../../utils/htmlSanitize":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/htmlSanitize.js","./Acodis_StyleSheet.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/XMLDisplayService/Acodis_StyleSheet.js","./leafletXSL.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/XMLDisplayService/leafletXSL.js","opendsu":false,"swarmutils":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/XMLDisplayService/leafletXSL.js":[function(require,module,exports){
-const xslContent = `<?xml version="1.0" encoding="UTF-8"?>
+},{"../../GTIN_SSI":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/GTIN_SSI.js","../../constants/constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/constants/constants.js","../../constants/constants.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/constants/constants.js","../../utils/CommonUtils.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/CommonUtils.js","../../utils/Languages.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/Languages.js","../../utils/htmlSanitize":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/htmlSanitize.js","./lwaLeafletXSL.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/XMLDisplayService/lwaLeafletXSL.js","opendsu":false,"swarmutils":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/XMLDisplayService/lwaLeafletXSL.js":[function(require,module,exports){
+let currentVideoPlaying = "";
+
+/**
+ * Observer for play/pause video
+ *
+ * @param {object} htmlContent
+ * @return {object} 
+ * @memberof leafletXSL
+ */
+const observerVideos = function(section, sectionActive) {
+    const videos = document.querySelectorAll('video');
+    if(videos) {
+        function pauseVideo(video) {
+            if(!video.paused && !video.ended && video.readyState > 2)
+                video.pause();
+        }
+
+        const options = {
+            root: null, 
+            rootMargin: "0px",
+            threshold: 1, // Trigger when 50% of the video is in view
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                const video = entry.target;
+                if (entry.isIntersecting) {
+                    currentVideoPlaying = video.id;
+                    if(!video.ended)
+                        video.play();
+                    setTimeout(() => {
+                        videos.forEach((v) => {
+                            if(currentVideoPlaying !== v.id)
+                                pauseVideo(v);
+                        });
+                    }, 200)
+                }  
+            });
+        }, options);
+
+        const sectionVideos = section.querySelectorAll('video');
+        if(sectionActive) {
+            sectionVideos.forEach((video) => observer.observe(video));
+        } else {
+            sectionVideos.forEach((video) => {
+                pauseVideo(video);
+                observer.unobserve(video)
+            });
+        }
+       
+
+        // const sectionVideos = section.querySelectorAll("video");
+        // sectionVideos.forEach((video) => {
+        //     if(sectionActive) {
+        //         observer.observe(video);
+        //     } else {
+        //         pauseVideo(video);
+        //         observer.unobserve(video)
+        //     }
+        // });
+    }
+};
+
+/**
+ * Some fixes on html content
+ *
+ * @param {object} htmlContent
+ * @return {object} 
+ * @memberof leafletXSL
+ */
+const fixHTML = function(htmlContent) {
+    fixTables(htmlContent);
+    fixTitles(htmlContent);
+
+    return htmlContent
+}
+
+/**
+ * Fix tables containers 
+ *
+ * @param {object} htmlContent
+ * @return {void} 
+ * @memberof leafletXSL
+ */
+const fixTables = function(htmlContent) {
+    const tables = htmlContent.querySelectorAll('table');
+    if(tables) 
+        tables.forEach(table => table.outerHTML = `<div class="table-container">${table.outerHTML}</div>`)
+}
+
+  
+/**
+ * Fix tab index on section titles
+ *
+ * @param {object} xmlContent
+ * @return {void} 
+ * @memberof leafletXSL
+ */
+const fixTitles = function(htmlContent) {
+    const sections = htmlContent.querySelectorAll(".leaflet-accordion-item");
+    for(let section of sections) {
+        const title = section.querySelector('h2');
+        if(title) {
+            // const regex = /\.{2}$|[:.]$/;
+            // // check ponctuation
+            // if(regex.test(title.textContent)) {
+            //     console.log('has ' + title.textContent)
+            //     title.querySelector('span.invisible').remove();
+
+            // }  
+            // fixing tab index
+            if(title.hasAttribute('tabindex')) {
+                title.removeAttribute('tabindex');
+                section.setAttribute('tabindex', 0);
+            }
+        }     
+    }
+}
+
+const defaultXslContent = `<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="urn:hl7-org:v3"
@@ -13542,32 +13539,21 @@ const xslContent = `<?xml version="1.0" encoding="UTF-8"?>
     </xsl:template>
 
     <xsl:template match="xs:paragraph">
-        <p>
+        <p tabindex="0">
             <xsl:apply-templates select="@*|node()"/>
         </p>
     </xsl:template>
 
     <xsl:template match="xs:list">
-        <ul>
+        <ul role="list">
             <xsl:apply-templates select="@*|node()"/>
         </ul>
     </xsl:template>
 
     <xsl:template match="xs:item">
-        <li>
+        <li role="list-item" tabindex="0">
             <xsl:apply-templates select="@*|node()"/>
         </li>
-    </xsl:template>
-
-    <xsl:template match="video">
-        <video>
-            <xsl:copy-of select="@*"/>
-            <xsl:if test="not(@controls)">
-                <xsl:attribute name="controls">true</xsl:attribute>
-            </xsl:if>
-
-            <xsl:apply-templates/>
-        </video>
     </xsl:template>
 
     <xsl:template match="xs:linkHtml">
@@ -13585,7 +13571,7 @@ const xslContent = `<?xml version="1.0" encoding="UTF-8"?>
                 </a>
             </xsl:when>
             <xsl:otherwise>
-                <span class="leaflet-link">
+                <span class="leaflet-link" role="link" tabindex="0">
                     <xsl:attribute name="linkUrl">
                         <xsl:value-of select="@href"/>
                     </xsl:attribute>
@@ -13599,11 +13585,11 @@ const xslContent = `<?xml version="1.0" encoding="UTF-8"?>
     <xsl:template match="xs:section">
         <xsl:choose>
             <xsl:when test="xs:code/@displayName != 'SPL LISTING DATA ELEMENTS SECTION'">
-                <div class="leaflet-accordion-item">
+                <div class="leaflet-accordion-item" role="button" aria-expanded="false">
                     <xsl:attribute name="sectionCode">
                         <xsl:value-of select="xs:code/@code"/>
                     </xsl:attribute>
-                    <h2>
+                    <h2 tabindex="0">
                         <!--<xsl:value-of select="xs:code/@displayName"/>-->
                         <xsl:variable name="partialTitle" select="substring(xs:code/@displayName,2)"/>
                         <xsl:variable name="firstLetter" select="substring(xs:code/@displayName,1,1)"/>
@@ -13612,6 +13598,8 @@ const xslContent = `<?xml version="1.0" encoding="UTF-8"?>
                                     select="concat($firstLetter,translate($partialTitle,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz'))"/>
                         </xsl:variable>
                         <xsl:value-of select="$modifiedTitle"/>
+                        <span class="invisible"><xsl:value-of select="'.'"/></span>
+
                     </h2>
                     <div class="leaflet-accordion-item-content">
                         <xsl:apply-templates select="@*|node()"/>
@@ -13624,7 +13612,7 @@ const xslContent = `<?xml version="1.0" encoding="UTF-8"?>
 
     <xsl:template match="xs:section/xs:component/xs:section">
         <div>
-            <h3>
+            <h3 tabindex="0">
                 <!--<xsl:value-of select="xs:code/@displayName"/>-->
                 <xsl:variable name="partialTitle" select="substring(xs:code/@displayName,2)"/>
                 <xsl:variable name="firstLetter" select="substring(xs:code/@displayName,1,1)"/>
@@ -13657,7 +13645,11 @@ const xslContent = `<?xml version="1.0" encoding="UTF-8"?>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-    
+
+    <xsl:template match="xs:renderMultiMedia">
+        <xsl:apply-templates select="//xs:observationMedia[@ID=current()/@referencedObject]"/>
+    </xsl:template>
+
     <xsl:template match="xs:observationMedia">
         <img>
             <xsl:attribute name="src">
@@ -13684,16 +13676,170 @@ const xslContent = `<?xml version="1.0" encoding="UTF-8"?>
         </accordion-item>
     </xsl:template>
 
+    <xsl:template match="video">
+        <video id="{generate-id()}">
+            <xsl:copy-of select="@*[name() != 'autoplay']"/>
+            <xsl:if test="not(@controls)">
+                <xsl:attribute name="controls">true</xsl:attribute>
+            </xsl:if>
+            <xsl:attribute name="muted"></xsl:attribute>
+            <xsl:attribute name="playsinline"></xsl:attribute>
+            <xsl:attribute name="preload">metadata</xsl:attribute>
+            <xsl:apply-templates/>
+        </video>
+    </xsl:template>
+
     <!--nodes or attributes that we need to hide for a cleaner output-->
     <xsl:template
             match="xs:author|xs:id|xs:document/xs:code|xs:document/xs:effectiveTime|xs:document/xs:setId|xs:document/xs:versionNumber">
         <!--hide selected nodes-->
     </xsl:template>
-
-    
 </xsl:stylesheet>`
 
-module.exports = xslContent;
+const acodisXslContent =  `<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:xs="urn:hl7-org:v3"
+                xmlns="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="urn:hl7-org:v3 https://www.accessdata.fda.gov/spl/schema/spl.xsd">
+
+    <xsl:output method="html" version="1.0"
+                encoding="UTF-8" indent="yes" doctype-public="-//W3C//DTD XHTML 1.1//EN"/>
+
+    <!--setting identity transformation-->
+    <xsl:template match="@*|node()">
+        <xsl:copy>
+            <xsl:apply-templates select="@*|node()"/>
+        </xsl:copy>
+    </xsl:template>
+
+    <xsl:template match="document">
+            <div><xsl:apply-templates select="@*|node()"/></div>
+    </xsl:template>
+    
+    <xsl:param name="quote">"</xsl:param>
+    <xsl:param name="space">\\0020</xsl:param>
+    <xsl:template match="//ul">
+        <ul role="list"> <xsl:apply-templates select="node()" /></ul>
+    </xsl:template>
+
+    <xsl:template match="//ul/li">
+        <li role="list-item" tabindex="0">
+          <xsl:attribute name="style"> list-style-type: <xsl:value-of select="$quote"/><xsl:value-of select="@data-enum"/><xsl:value-of select="$space"/><xsl:value-of select="$quote"/>; </xsl:attribute>
+        <xsl:apply-templates select="node()" /></li>
+    </xsl:template>
+
+    <xsl:template match="//ol">
+        <ol role="list"><xsl:apply-templates select="node()" /></ol>
+    </xsl:template>
+
+    <xsl:template match="//ol/li">
+        <li role="list-item" tabindex="0">
+         <xsl:attribute name="style"> list-style-type: <xsl:value-of select="$quote"/><xsl:value-of select="@data-enum"/><xsl:value-of select="$space"/><xsl:value-of select="$quote"/>; </xsl:attribute>
+        <xsl:apply-templates select="node()" /></li>
+    </xsl:template>
+
+    <xsl:template match="//section//p">
+        <p tabindex="0"><xsl:apply-templates select="node()" /></p>
+    </xsl:template>
+    
+    <xsl:template match="//figure">
+        <figure><xsl:apply-templates select="node()" /></figure>
+    </xsl:template>
+
+    <xsl:template match="//figure/*[not(self::img)]">
+        <section style="display:none;" class="ignore_from_ui"><xsl:apply-templates select="node()" /></section>
+    </xsl:template>
+    
+    
+    <xsl:template match="//figure/img">
+        <xsl:variable name="_src">
+            <xsl:value-of select="@src"/>
+        </xsl:variable>
+        <img>
+            <xsl:attribute name="src">
+                <xsl:value-of select="concat($resources_path, $_src)"/>
+            </xsl:attribute>
+            <xsl:choose>
+                <xsl:when test="@alt">
+                    <xsl:attribute name="alt">
+                        <xsl:value-of select="@alt"/>
+                    </xsl:attribute>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="alt">
+                        <xsl:value-of select="following-sibling::*[1]"/>
+                    </xsl:attribute>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:apply-templates select="node()"/>
+        </img>
+    </xsl:template>
+
+    <xsl:template match="video">
+        <video id="{generate-id()}">
+            <xsl:copy-of select="@*[name() != 'autoplay']"/>
+            <xsl:if test="not(@controls)">
+                <xsl:attribute name="controls">true</xsl:attribute>
+            </xsl:if>
+            <xsl:attribute name="muted"></xsl:attribute>
+            <xsl:attribute name="playsinline"></xsl:attribute>
+            <xsl:attribute name="preload">metadata</xsl:attribute>
+            <xsl:apply-templates/>
+        </video>
+    </xsl:template>
+    
+    <xsl:template match="//table">
+        <table><xsl:apply-templates select="node()" /></table>
+    </xsl:template>
+
+    <xsl:template match="//tr">
+        <tr><xsl:apply-templates select="node()" /></tr>
+    </xsl:template>
+      
+     <xsl:template match="//*[@class='Table of Content']" priority="9">
+        <div style="display:none;" class="leaflet_hidden_section ignore_from_ui"><xsl:apply-templates select="@class|node()"/></div>
+    </xsl:template>
+    
+      <xsl:template match="//*[@class='Type']" priority="9">
+        <div style="display:none;" class="leaflet_hidden_section ignore_from_ui"><xsl:apply-templates select="@class|node()"/></div>
+    </xsl:template>
+   
+    <xsl:template match="//*[@class='Product_Name']" priority="9">
+        <div style="display:none;" class="leaflet_hidden_section ignore_from_ui"><xsl:apply-templates select="@class|node()"/></div>
+    </xsl:template>
+   <xsl:template match="//*[@class='Ingredient Substance']" priority="9">
+        <div style="display:none;" class="leaflet_hidden_section ignore_from_ui"><xsl:apply-templates select="@class|node()"/></div>
+    </xsl:template>
+   <xsl:template match="//*[@class='Read Instructions']" priority="9">
+        <div style="display:none;" class="leaflet_hidden_section ignore_from_ui"><xsl:apply-templates select="@class|node()"/></div>
+    </xsl:template>
+    <xsl:template match="//*[@class='ignore_from_ui']" priority="9">
+        <div style="display:none;" class="leaflet_hidden_section ignore_from_ui"><xsl:apply-templates select="@class|node()"/></div>
+    </xsl:template>
+    <xsl:template match="document/section">
+        <div class="section leaflet-accordion-item" role="button" aria-expanded="false">
+            <xsl:apply-templates select="header"/>
+                <div class="leaflet-accordion-item-content">
+                     <xsl:apply-templates select="*[not(self::header)]"/>
+                </div>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="document/section/header">
+        <h2 tabindex="0">
+            <xsl:apply-templates select="node()" />
+            <span class="invisible"><xsl:value-of select="'.'"/></span>
+        </h2>
+    </xsl:template>
+</xsl:stylesheet>`;
+
+module.exports = {
+  defaultXslContent,
+  acodisXslContent,
+  observerVideos,
+  fixHTML
+};
 
 },{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/index.js":[function(require,module,exports){
 module.exports = {

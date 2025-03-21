@@ -1,6 +1,7 @@
 import XMLDisplayService from "../services/XMLDisplayService/XMLDisplayService.js";
 import constants from "../../../constants.js";
 import {setTextDirectionForLanguage} from "../../../utils.js";
+import {observerVideos} from "../services/XMLDisplayService/leafletXSL.js"
 
 
 const TITLES = {
@@ -27,13 +28,16 @@ let showIncorrectDate = function () {
 function handleLeafletAccordion() {
   let accordionItems = document.querySelectorAll("div.leaflet-accordion-item");
   accordionItems.forEach((accItem, index) => {
+    const sectionContent = accItem.querySelector('.leaflet-accordion-item-content');
     accItem.addEventListener("click", (evt) => {
       accItem.classList.toggle("active");
-      if (accItem.classList.contains("active")) {
+      const isActive = accItem.classList.contains("active");
+      if (isActive) {
         accItem.setAttribute('aria-expanded', "true");
       } else {
         accItem.setAttribute('aria-expanded', "false");
       }
+      observerVideos(accItem, isActive)
       accItem.querySelector(".leaflet-accordion-item-content").addEventListener("click", (event) => {
         event.stopImmediatePropagation();
         event.stopPropagation();
@@ -42,12 +46,14 @@ function handleLeafletAccordion() {
     accItem.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") {
         accItem.classList.toggle("active");
-        if (accItem.classList.contains("active")) {
+        const isActive = accItem.classList.contains("active");
+        if (isActive) {
           accItem.setAttribute('aria-expanded', "true");
         } else {
           accItem.setAttribute('aria-expanded', "false");
         }
       }
+      observerVideos(accItem, isActive);
       accItem.querySelector(".leaflet-accordion-item-content").addEventListener("keydown", (event) => {
         event.stopImmediatePropagation();
         event.stopPropagation();

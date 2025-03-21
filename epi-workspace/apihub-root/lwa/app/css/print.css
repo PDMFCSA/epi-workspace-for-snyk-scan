@@ -116,6 +116,9 @@
         margin: 0 auto;
     }
 
+    .invisible {
+        visibility: hidden;
+    }
     
     .container::-webkit-scrollbar {
         display: none;  /* Safari and Chrome */

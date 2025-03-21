@@ -1,4 +1,4 @@
-import {defaultXslContent, acodisXslContent} from "./leafletXSL.js"
+import {defaultXslContent, acodisXslContent, fixHTML} from "./leafletXSL.js"
 import CustomError from "../../utils/CustomError.js";
 import constants from "../../../../constants.js";
 import {escapeHTML} from "../../../../utils.js"
@@ -123,65 +123,11 @@ class XMLDisplayService {
     const ownerDocument = document.implementation.createDocument("", "epi", null);
     let resultDocument = xsltProcessor.transformToFragment(xmlDoc, ownerDocument);
 
-    return resultDocument ? 
-        this.fixHtml(resultDocument) : resultDocument;
+    return resultDocument ?     
+        fixHTML(resultDocument) : resultDocument;
   }
 
-  /**
-   * Parsing html content
-   *
-   * @param {object} htmlContent
-   * @return {object} 
-   * @memberof XMLDisplayService
-   */
-  fixHtml(htmlContent) {
-    this.fixTables(htmlContent);
-    this.fixTitles(htmlContent);
-
-    return htmlContent
-  }
-
-  /**
-   * Fix tables containers 
-   *
-   * @param {object} htmlContent
-   * @return {void} 
-   * @memberof XMLDisplayService
-   */
-  fixTables(htmlContent) {
-    const tables = htmlContent.querySelectorAll('table');
-    if(tables) 
-        tables.forEach(table => table.outerHTML = `<div class="table-container">${table.outerHTML}</div>`)
-  }
-
-  
-  /**
-   * Fix tab index on section titles
-   *
-   * @param {object} xmlContent
-   * @return {void} 
-   * @memberof XMLDisplayService
-   */
-  fixTitles(htmlContent){
-        const sections = htmlContent.querySelectorAll(".leaflet-accordion-item");
-        for(let section of sections) {
-            const title = section.querySelector('h2');
-            if(title) {
-                // const regex = /\.{2}$|[:.]$/;
-                // // check ponctuation
-                // if(regex.test(title.textContent)) {
-                //     console.log('has ' + title.textContent)
-                //     title.querySelector('span.invisible').remove();
-
-                // }  
-                // fixing tab index
-                if(title.hasAttribute('tabindex')) {
-                    title.removeAttribute('tabindex');
-                    section.setAttribute('tabindex', 0);
-                }
-            }     
-        }
-    }
+ 
 
   searchInHtml = function (searchQuery) {
     let domElement = document.querySelector(this.containerIdSelector);

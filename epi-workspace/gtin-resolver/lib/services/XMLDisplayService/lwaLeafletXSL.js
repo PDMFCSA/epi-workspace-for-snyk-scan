@@ -445,7 +445,7 @@ const acodisXslContent =  `<?xml version="1.0" encoding="UTF-8"?>
     </xsl:template>
 </xsl:stylesheet>`;
 
-export {
+module.exports = {
   defaultXslContent,
   acodisXslContent,
   observerVideos,
