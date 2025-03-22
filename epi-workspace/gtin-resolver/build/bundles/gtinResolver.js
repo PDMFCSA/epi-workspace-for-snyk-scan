@@ -5386,8 +5386,9 @@ function Batch(enclave, domain, subdomain, gtin, batchNumber, version) {
                 langs.push(code);
             }
             let fixedUrlUtils = require("./../../mappings/utils.js");
-            await fixedUrlUtils.registerLeafletFixedUrlByDomainAsync(domain, subdomain, "leaflet", gtin, langs, instance.batchNumber, undefined, instance.epiProtocol);
-            await fixedUrlUtils.registerLeafletMetadataFixedUrlByDomainAsync(domain,subdomain, gtin, instance.batchNumber);        }
+            await fixedUrlUtils.registerLeafletFixedUrlByDomainAsync(domain, subdomain, "leaflet", gtin, langs, instance.batchNumber, undefined, instance.epiProtocol, undefined);
+            await fixedUrlUtils.registerLeafletMetadataFixedUrlByDomainAsync(domain,subdomain, gtin, instance.batchNumber);        
+        }
 
         try{
             //we don't wait for the request to be finalized because of the delays between fixedUrl and lightDB
@@ -5566,7 +5567,7 @@ function ModelBase(enclave, domain, subdomain, gtin) {
         return {mutableDSU, immutableDSU, batchId};
     }
 
-    this.registerFixedUrl = async (language, epiType, ensureGtinOwner = true, ensureMetadata = true) => {
+    this.registerFixedUrl = async (language, epiType, epiMarket = undefined, ensureGtinOwner = true, ensureMetadata = true) => {
         try {
             let fixedUrlUtils = require("./../../mappings/utils.js");
             if(ensureGtinOwner){
@@ -5576,9 +5577,9 @@ function ModelBase(enclave, domain, subdomain, gtin) {
                 await fixedUrlUtils.registerLeafletMetadataFixedUrlByDomainAsync(domain, subdomain, gtin, this.batchNumber || undefined)
             }
             if (this.batchNumber) {
-                await fixedUrlUtils.registerLeafletFixedUrlByDomainAsync(domain, subdomain, epiType, gtin, language, this.batchNumber, undefined, this.epiProtocol);
+                await fixedUrlUtils.registerLeafletFixedUrlByDomainAsync(domain, subdomain, epiType, gtin, language, this.batchNumber, undefined, this.epiProtocol, undefined);
             }else{
-                await fixedUrlUtils.registerLeafletFixedUrlByDomainAsync(domain, subdomain, epiType, gtin, language, undefined, this.expiryDate, this.epiProtocol);
+                await fixedUrlUtils.registerLeafletFixedUrlByDomainAsync(domain, subdomain, epiType, gtin, language, undefined, this.expiryDate, this.epiProtocol, epiMarket);
             }
             await fixedUrlUtils.deactivateLeafletFixedUrlAsync(undefined, domain, gtin);
         } catch (err) {
@@ -5598,7 +5599,7 @@ function ModelBase(enclave, domain, subdomain, gtin) {
             epiMarket = "";
         }
 
-        await this.registerFixedUrl(language, epiType);
+        await this.registerFixedUrl(language, epiType, epiMarket);
         const epiPath = this.getLeafletFilePath(language, epiType, epiMarket);
         const storagePath = this.getLeafletStoragePath(language, epiType, epiMarket);
         const eventRecorder = await this.getEventRecorderInstance(this.getGTINSSI());
@@ -5973,13 +5974,27 @@ function Product(enclave, domain, subdomain, gtin, version) {
     let persist = instance.persist;
     instance.persist = async (auditContext) => {
         let diffs = await persist.call(instance, auditContext);
+        if(auditContext && auditContext.operation === "Created Product"){
+            let languages = require("./../../utils/Languages.js").getList();
+            let langs = [];
+            for(let lang of languages){
+                let {code} = lang;
+                langs.push(code);
+            }
+            let fixedUrlUtils = require("./../../mappings/utils.js");
+            await fixedUrlUtils.registerLeafletFixedUrlByDomainAsync(domain, subdomain, "leaflet", gtin, langs, undefined, undefined, instance.epiProtocol, undefined);
+            await fixedUrlUtils.registerLeafletMetadataFixedUrlByDomainAsync(domain,subdomain, gtin, undefined);  
+        }
+        
         try{
             //we don't wait for the request to be finalized because of the delays between fixedUrl and lightDB
             $$.promisify(require("./../../mappings/utils.js").activateGtinOwnerFixedUrl)(undefined, domain, gtin);
             $$.promisify(require("./../../mappings/utils.js").activateLeafletFixedUrl)(undefined, domain, gtin);
         }catch(err){
+            console.log("FAILED TO ACTIVATE FIXED URLS: ", err)
             //ignore them for the moment.
         }
+        
         return diffs;
     }
 
@@ -6033,7 +6048,7 @@ function Product(enclave, domain, subdomain, gtin, version) {
 
 module.exports = Product;
 
-},{"../../GTIN_SSI.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/GTIN_SSI.js","../../constants/constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/constants/constants.js","../../constants/constants.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/constants/constants.js","../../services/XMLDisplayService/XMLDisplayService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/XMLDisplayService/XMLDisplayService.js","../../services/XMLDisplayService/XMLDisplayService.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/XMLDisplayService/XMLDisplayService.js","../utils/Events":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/integrationAPIs/utils/Events.js","../utils/constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/integrationAPIs/utils/constants.js","./../../mappings/utils.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/mappings/utils.js","./ModelBase.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/integrationAPIs/models/ModelBase.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/integrationAPIs/schemas/AuditDemiurgeUserActionSchema.js":[function(require,module,exports){
+},{"../../GTIN_SSI.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/GTIN_SSI.js","../../constants/constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/constants/constants.js","../../constants/constants.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/constants/constants.js","../../services/XMLDisplayService/XMLDisplayService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/XMLDisplayService/XMLDisplayService.js","../../services/XMLDisplayService/XMLDisplayService.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/XMLDisplayService/XMLDisplayService.js","../utils/Events":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/integrationAPIs/utils/Events.js","../utils/constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/integrationAPIs/utils/constants.js","./../../mappings/utils.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/mappings/utils.js","./../../utils/Languages.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/Languages.js","./ModelBase.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/integrationAPIs/models/ModelBase.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/integrationAPIs/schemas/AuditDemiurgeUserActionSchema.js":[function(require,module,exports){
 const messageHeaderSchema = require("./../../mappings/messageHeaderSchema.js");
 let auditDemiurgeUserActionSchema = {
     "type": "object",
@@ -7581,6 +7596,7 @@ const LeafletInfoService = require("./../services/LeafletInfoService");
 const {EPI_TYPES} = require("../constants/constants");
 const {getCountry} = require("../utils/Countries");
 const utils = require("./leafletUtils");
+const {buildQueryParams} = require("../utils/buildQueryParams");
 const languageServiceUtils = require("../utils/Languages");
 const GTIN_SSI = require("../GTIN_SSI");
 
@@ -7676,7 +7692,7 @@ function getWebLeaflet(server) {
       for (let param of queryParams) {
         if (!knownParams.includes(param)) {
           logger.debug(`Query contains invalid param`, param);
-          return server.makeLocalRequest("GET", `/leaflets/${domainName}?gtin=${gtin}&lang=${lang}&leaflet_type=${leaflet_type}&batch=${batchNumber}&epiMarket=${epiMarket}`, (err, content) => {
+          return server.makeLocalRequest("GET", `/leaflets/${domainName}?${buildQueryParams(gtin, batchNumber, lang, leaflet_type, epiMarket)}`, (err, content) => {
             if (err) {
               logger.error(0x100, "Error Object", err);
               return sendResponse(response, 529, "Server busy reading gtin-only leaflet");
@@ -7742,8 +7758,7 @@ function getWebLeaflet(server) {
       if(!batchExists || (batchNumber && !preventProductFallback) ){
         let content;
         try{
-          let uri = `/leaflets/${domainName}?gtin=${gtin}&lang=${lang}&leaflet_type=${leaflet_type}`;
-          uri = epiMarket ? uri + `&epiMarket=${epiMarket}` : uri;
+          let uri = `/leaflets/${domainName}?${buildQueryParams(gtin, undefined, lang, leaflet_type, epiMarket)}`;
           content = await $$.promisify(server.makeLocalRequest, server)("GET", uri);
         }catch(err){ 
           if(err.httpCode && err.httpCode === 404){
@@ -7940,7 +7955,7 @@ function sendResponse(response, statusCode, message) {
 
 module.exports.getWebLeaflet = getWebLeaflet;
 
-},{"../GTIN_SSI":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/GTIN_SSI.js","../constants/constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/constants/constants.js","../utils/Countries":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/Countries.js","../utils/Languages":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/Languages.js","../utils/ValidationUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/ValidationUtils.js","./../services/LeafletInfoService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/LeafletInfoService.js","./../services/XMLDisplayService/XMLDisplayService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/XMLDisplayService/XMLDisplayService.js","./../utils/Languages":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/Languages.js","./leafletUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/leaflet-web-api/leafletUtils.js","swarmutils":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/leaflet-web-api/leafletUtils.js":[function(require,module,exports){
+},{"../GTIN_SSI":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/GTIN_SSI.js","../constants/constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/constants/constants.js","../utils/Countries":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/Countries.js","../utils/Languages":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/Languages.js","../utils/ValidationUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/ValidationUtils.js","../utils/buildQueryParams":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/buildQueryParams.js","./../services/LeafletInfoService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/LeafletInfoService.js","./../services/XMLDisplayService/XMLDisplayService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/XMLDisplayService/XMLDisplayService.js","./../utils/Languages":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/Languages.js","./leafletUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/leaflet-web-api/leafletUtils.js","swarmutils":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/leaflet-web-api/leafletUtils.js":[function(require,module,exports){
 const XMLDisplayService = require("../services/XMLDisplayService/XMLDisplayService");
 const GTIN_SSI = require("../GTIN_SSI");
 const {EPI_TYPES} = require("../constants/constants");
@@ -8629,7 +8644,7 @@ module.exports.getEPIMappingEngine = function (options, callback) {
   })
 }
 
-// module.exports.utils = require("./utils.js");
+// module.exports.utils = require("./oauth.js");
 module.exports.getMappingLogs = function (storageService) {
   return require("../utils/LogUtils").createInstance(storageService).getMappingLogs;
 }
@@ -9712,27 +9727,11 @@ function generate(n) {
 },{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/mappings/utils.js":[function(require,module,exports){
 const constants = require("../constants/constants");
 const SmartUrl = require("opendsu").loadApi("utils").SmartUrl;
+const {buildQueryParams} = require("../utils/buildQueryParams");
 
-function buildLeafletUrl(domain, leaflet_type, gtin, language, batchNumber){
-  //query params are sort on the fixedURL middleware when checking for any entry....
-  //so we need to create the url that will be "hashed" with base64 into the same order and thus why
-  //we will use URLSearchParams.sort function will provide the same sort mechanism on client and server
-  let converter = new URL("https://non.relevant.url.com");
-  //let create a wrapper over append method to ensure that no undefined variable will be added to the query
-  let append = converter.searchParams.append;
-  converter.searchParams.append = (name, value)=>{
-    if(typeof value === "undefined"){
-      return;
-    }
-    append.call(converter.searchParams, name, value);
-  }
-
-  converter.searchParams.append("batch",  batchNumber);
-  converter.searchParams.append("lang",  language);
-  converter.searchParams.append("gtin",  gtin);
-  converter.searchParams.append("leaflet_type",  leaflet_type);
-  converter.searchParams.sort();
-  return `/leaflets/${domain}?${converter.searchParams.toString()}`;
+function buildLeafletUrl(domain, leaflet_type, gtin, language, batchNumber, expiry, epiVersion, epiMarket){
+  const queryParams = buildQueryParams(gtin, batchNumber, language, leaflet_type, epiMarket);
+  return `/leaflets/${domain}?${queryParams}`;
 }
 
 function buildGtinOwnerURL(domain, gtin){
@@ -9835,7 +9834,12 @@ function registerLeafletMetadataFixedUrlByDomain(domain, subdomain, gtin, batchN
   });
 }
 
-function registerLeafletFixedUrlByDomain(domain, subdomain,  leaflet_type, gtin, language, batchNumber, expiry, epiVersion, callback){
+function registerLeafletFixedUrlByDomain(domain, subdomain,  leaflet_type, gtin, language, batchNumber, expiry, epiVersion, market, callback){
+  if (!callback) {  
+    callback = market;  
+    market = undefined;
+  }
+
   getReplicasAsSmartUrls(subdomain, (err, replicas)=>{
     if(replicas.length === 0){
       const msg = `Not able to fix the url for Leaflet`;
@@ -9847,11 +9851,11 @@ function registerLeafletFixedUrlByDomain(domain, subdomain,  leaflet_type, gtin,
     if(Array.isArray(language)){
       let urls = [];
       for(let lang of language){
-        urls.push(buildLeafletUrl(domain, leaflet_type, gtin, lang, batchNumber, expiry, epiVersion));
+        urls.push(buildLeafletUrl(domain, leaflet_type, gtin, lang, batchNumber, expiry, epiVersion, undefined));
       }
       body = JSON.stringify(urls);
     }else{
-      body = JSON.stringify([buildLeafletUrl(domain, leaflet_type, gtin, language, batchNumber, expiry, epiVersion)]);
+      body = JSON.stringify([buildLeafletUrl(domain, leaflet_type, gtin, language, batchNumber, expiry, epiVersion, market)]);
     }
 
     let targets = [];
@@ -9925,6 +9929,7 @@ function getBatchJSONIndication(message){
 }
 
 let expose = {
+  buildQueryParams,
   getProductJSONIndication,
   getBatchJSONIndication,
   registerLeafletFixedUrlByDomain,
@@ -9944,7 +9949,7 @@ expose.deactivateGtinOwnerFixedUrlAsync = $$.promisify(expose.deactivateGtinOwne
 
 module.exports = expose;
 
-},{"../constants/constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/constants/constants.js","opendsu":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/metadata/index.js":[function(require,module,exports){
+},{"../constants/constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/constants/constants.js","../utils/buildQueryParams":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/buildQueryParams.js","opendsu":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/metadata/index.js":[function(require,module,exports){
 const GTIN_SSI = require("../GTIN_SSI");
 const path = require("path");
 const fs = require('fs');
@@ -12768,7 +12773,7 @@ const languageUtils = require("../../utils/Languages.js");
 const constants = require("../../constants/constants.js");
 const {createGTIN_SSI} = require("../../GTIN_SSI");
 const utils = require("../../utils/CommonUtils.js");
-const { defaultXslContent, acodisXslContent, observerVideos, fixHTML } = require("./lwaLeafletXSL.js");
+const { defaultXslContent, acodisXslContent, observerVideos, fixHTML, mediaUrlRegex } = require("./lwaLeafletXSL.js");
 // const accordis_xslContent = require("./Acodis_StyleSheet.js");
 // const default_xslContent = require("./leafletXSL.js");
 const {sanitize} = require("../../utils/htmlSanitize");
@@ -12779,12 +12784,15 @@ let errorMessage = "This is a valid product. However, more information about thi
 let securityErrorMessage = "Due to security concerns, the leaflet cannot be displayed";
 
 class XmlDisplayService {
+
+
     constructor(element, gtinSSI, model, xmlType, htmlContainerId) {
         this.element = element;
         this.gtinSSI = gtinSSI;
         this.xmlType = xmlType;
         this.model = model;
         this.htmlContainerId = htmlContainerId || "#leaflet-content";
+        this.mediaRegex = mediaUrlRegex;
     }
 
     static async init(element, gtinSSI, model, xmlType, htmlContainerId) {
@@ -13002,8 +13010,7 @@ class XmlDisplayService {
         for (let image of leafletImages) {
             //imageSrc will contain the name of the imageFile form XML
             let imageSrc = image.getAttribute("src");
-            let dataUrlRegex = new RegExp(/^\s*data:([a-z]+\/[a-z]+(;[a-z-]+=[a-z-]+)?)?(;base64)?,[a-z0-9!$&',()*+;=\-._~:@/?%\s]*\s*$/i);
-            if (!!imageSrc.match(dataUrlRegex) || imageSrc.startsWith("data:")) {
+            if (!!imageSrc.match(mediaUrlRegex) || imageSrc.startsWith("data:")) {
                 //we don't alter already embedded images
                 continue;
             }
@@ -13388,6 +13395,7 @@ module.exports = XmlDisplayService;
 
 },{"../../GTIN_SSI":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/GTIN_SSI.js","../../constants/constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/constants/constants.js","../../constants/constants.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/constants/constants.js","../../utils/CommonUtils.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/CommonUtils.js","../../utils/Languages.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/Languages.js","../../utils/htmlSanitize":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/htmlSanitize.js","./lwaLeafletXSL.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/XMLDisplayService/lwaLeafletXSL.js","opendsu":false,"swarmutils":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/XMLDisplayService/lwaLeafletXSL.js":[function(require,module,exports){
 let currentVideoPlaying = "";
+const mediaUrlRegex = new RegExp(/^\s*data:([a-z]+\/[a-z4]+(;[a-z-]+=[a-z-]+)?)?(;base64)?,[a-z0-9!$&',()*+;=\-._~:@/?%\s]*\s*$/i);
 
 /**
  * Observer for play/pause video
@@ -13838,7 +13846,8 @@ module.exports = {
   defaultXslContent,
   acodisXslContent,
   observerVideos,
-  fixHTML
+  fixHTML,
+  mediaUrlRegex
 };
 
 },{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/services/index.js":[function(require,module,exports){
@@ -15591,7 +15600,35 @@ module.exports = {
 }
 
 
-},{"../mappings/errors/errorUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/mappings/errors/errorUtils.js","./../DSUFabricFeatureManager.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/DSUFabricFeatureManager.js","opendsu":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/htmlSanitize.js":[function(require,module,exports){
+},{"../mappings/errors/errorUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/mappings/errors/errorUtils.js","./../DSUFabricFeatureManager.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/DSUFabricFeatureManager.js","opendsu":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/buildQueryParams.js":[function(require,module,exports){
+function buildQueryParams(gtin, batchNumber, lang, leafletType, epiMarket) {
+    //query params are sort on the fixedURL middleware when checking for any entry....
+    //so we need to create the url that will be "hashed" with base64 into the same order and thus why
+    //we will use URLSearchParams.sort function will provide the same sort mechanism on client and server
+    let converter = new URL("https://non.relevant.url.com");
+
+    //let create a wrapper over append method to ensure that NO UNDEFINED variable will be added to the query
+    let append = converter.searchParams.append;
+    converter.searchParams.append = (name, value)=>{
+        if(typeof value === "undefined" || value === null){
+            return;
+        }
+        append.call(converter.searchParams, name, value);
+    }
+
+    if(!epiMarket)
+        converter.searchParams.append("batch", batchNumber);
+    converter.searchParams.append("lang", lang);
+    converter.searchParams.append("gtin", gtin);
+    converter.searchParams.append("leaflet_type", leafletType);
+    converter.searchParams.append("epiMarket",  epiMarket);
+    converter.searchParams.sort();
+    return converter.searchParams.toString();
+}
+
+module.exports = {buildQueryParams};
+
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/gtin-resolver/lib/utils/htmlSanitize.js":[function(require,module,exports){
 const checkIfBase64 = (str) => {
     const regex = /^[A-Za-z0-9+/]+={0,2}$/g;
     return regex.test(str);

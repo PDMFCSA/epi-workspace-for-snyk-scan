@@ -1,7 +1,7 @@
 import XMLDisplayService from "../services/XMLDisplayService/XMLDisplayService.js";
 import constants from "../../../constants.js";
 import {setTextDirectionForLanguage} from "../../../utils.js";
-import {observerVideos} from "../services/XMLDisplayService/leafletXSL.js"
+import {observerVideos, mediaUrlRegex} from "../services/XMLDisplayService/leafletXSL.js"
 
 
 const TITLES = {
@@ -97,8 +97,9 @@ let validateLeafletFiles = function (htmlContent, leafletImages, uploadedImages)
   let htmlImageNames = Array.from(leafletImages).map(img => img.getAttribute("src"));
   //removing from validation image src that are data URLs ("data:....")
   htmlImageNames = htmlImageNames.filter((imageSrc) => {
-    let dataUrlRegex = new RegExp(/^\s*data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,[a-z0-9\!\$\&\'\,\(\)\*\+\,\;\=\-\.\_\~\:\@\/\?\%\s]*\s*$/i);
-    if (!!imageSrc.match(dataUrlRegex) || imageSrc.startsWith("data:")) {
+
+    // new RegExp(/^\s*data:([a-z]+\/[a-z]+(;[a-z\-]+\=[a-z\-]+)?)?(;base64)?,[a-z0-9\!\$\&\'\,\(\)\*\+\,\;\=\-\.\_\~\:\@\/\?\%\s]*\s*$/i);
+    if (!!imageSrc.match(mediaUrlRegex) || imageSrc.startsWith("data:")) {
       return false;
     }
     return true;
@@ -139,7 +140,7 @@ let renderLeaflet = function (leafletData) {
    /* document.querySelector(".leaflet-title-icon").classList.remove("hiddenElement");*/
   let xmlService = new XMLDisplayService("#leaflet-content");
   let resultDocument = xmlService.getHTMLFromXML(leafletData.xmlContent);
-  let leafletImages = resultDocument.querySelectorAll("img");
+  let leafletImages = resultDocument.querySelectorAll("img,source");
   for (let image of leafletImages) {
     let imageSrc = image.getAttribute("src");
 
