@@ -11,40 +11,80 @@ function getLangSubtypesMap(languageCodesMap) {
     return result
 }
 
-export const supportedLanguageCodesMap = {
-    'ar': ["ar-ae", "ar-bh", "ar-dz", "ar-eg", "ar-iq", "ar-jo", "ar-kw", "ar-lb", "ar-ly", "ar-ma", "ar-om", "ar-qa", "ar-sa", "ar-sy", "ar-tn", "ar-ye"],
-    'bg': ["bg-bg"],
-    'cs': ["cs-cz"],
-    'da': ["da-dk"],
-    'de': ["de-de", "de-li", "de-at", "de-ch", "de-be"],
-    'el': ["el-gr"],
-    'en': ["en-au", "en-bz", "en-ca", "en-gb", "en-ie", "en-jm", "en-nz", "en-ph", "en-tt", "en-us", "en-za", "en-zw", "en-in", "en-sg"],
-    'es': ["es-es"],
+// export const supportedLanguageCodesMap = {
+//     'ar': ["ar-ae", "ar-bh", "ar-dz", "ar-eg", "ar-iq", "ar-jo", "ar-kw", "ar-lb", "ar-ly", "ar-ma", "ar-om", "ar-qa", "ar-sa", "ar-sy", "ar-tn", "ar-ye"],
+//     'bg': ["bg-bg"],
+//     'cs': ["cs-cz"],
+//     'da': ["da-dk"],
+//     'de': ["de-de", "de-li", "de-at", "de-ch", "de-be"],
+//     'el': ["el-gr"],
+//     'en': ["en-au", "en-bz", "en-ca", "en-gb", "en-ie", "en-jm", "en-nz", "en-ph", "en-tt", "en-us", "en-za", "en-zw", "en-in", "en-sg"],
+//     'es': ["es-es"],
+//     'es-419': ["es-419", "es-ar", "es-bo", "es-cl", "es-co", "es-cr", "es-do", "es-ec", "es-gt", "es-mx", "es-ni", "es-pa", "es-pe", "es-pr", "es-py", "es-sv", "es-us", "es-uy", "es-ve"],
+//     'et': ["et-ee"],
+//     'fi': ["fi-fi"],
+//     'fr': ["fr-be", "fr-ca", "fr-fr","fr-ch"],
+//     'hr': ["hr-ba", "hr-hr"],
+//     'hu': ["hu-hu"],
+//     'it': ["it-ch", "it-it"],
+//     'ko': ["ko-kr"],
+//     'lt': ["lt-lt"],
+//     'lv': ["lv-lv"],
+//     'nl': ["nl-nl","nl-be"],
+//     'no': ["nb", "nb-no", "nn", "nn-no"],
+//     'pl': ["pl-pl"],
+//     'pt': ["pt", "pt-pt"],
+//     'pt-br': [],
+//     'ro': ["ro-md", "ro-ro"],
+//     'sk': ["sk-sk"],
+//     'sl': ["sl-si"],
+//     'sv': ["sv-fi", "sv-se"],
+//     'tr': ["tr-tr"],
+//     'uk': ["uk-ua"]
+//     // 'zh': ["zh-cn", "zh-hans", "zh-hant", "zh-hk"]
+// }
+
+export const specialLanguageCodesMap = {
     'es-419': ["es-419", "es-ar", "es-bo", "es-cl", "es-co", "es-cr", "es-do", "es-ec", "es-gt", "es-mx", "es-ni", "es-pa", "es-pe", "es-pr", "es-py", "es-sv", "es-us", "es-uy", "es-ve"],
-    'et': ["et-ee"],
-    'fi': ["fi-fi"],
-    'fr': ["fr-be", "fr-ca", "fr-fr","fr-ch"],
-    'hr': ["hr-ba", "hr-hr"],
-    'hu': ["hu-hu"],
-    'it': ["it-ch", "it-it"],
-    'ko': ["ko-kr"],
-    'lt': ["lt-lt"],
-    'lv': ["lv-lv"],
-    'nl': ["nl-nl","nl-be"],
     'no': ["nb", "nb-no", "nn", "nn-no"],
-    'pl': ["pl-pl"],
-    'pt': ["pt", "pt-pt"],
-    'pt-br': [],
-    'ro': ["ro-md", "ro-ro"],
-    'sk': ["sk-sk"],
-    'sl': ["sl-si"],
-    'sv': ["sv-fi", "sv-se"],
-    'tr': ["tr-tr"],
-    'uk': ["uk-ua"]
-    // 'zh': ["zh-cn", "zh-hans", "zh-hant", "zh-hk"]
 }
 
-export const langSubtypesMap = getLangSubtypesMap(supportedLanguageCodesMap);
+export const supportedLanguages = [
+    'ar',
+    'bg',
+    'cs',
+    'da',
+    'de',
+    'el',
+    'en',
+    'es',
+    'es-419',
+    'et',
+    'fi',
+    'fr',
+    'hr',
+    'hu',
+    'it',
+    'ko',
+    'lt',
+    'lv',
+    'nl',
+    'no',,
+    'pl',
+    'pt',
+    'pt-br',
+    'ro',
+    'sk',
+    'sl',
+    'sv',
+    'tr',
+    'uk'
+]
+
+// export const langSubtypesMap = getLangSubtypesMap(supportedLanguageCodesMap);
+
+
+export const specialLangSubtypesMap = getLangSubtypesMap(specialLanguageCodesMap);
 
 
 export function transformToISOStandardLangCode(code) {
@@ -74,12 +114,11 @@ function setDefaultLanguage() {
     const urlParams = new URLSearchParams(queryString);
     let appLang = urlParams.get("lang") || window.navigator.language.toLowerCase() || localStorage.getItem(constants.APP_LANG);
     appLang = transformToISOStandardLangCode(appLang);
-    appLang = langSubtypesMap[appLang.toLowerCase()] || appLang;
-    appLang = Object.keys(supportedLanguageCodesMap).includes(appLang) ? appLang : "en";
-    localStorage.setItem(constants.APP_LANG, appLang);
-    document.querySelector("body").setAttribute("app-lang", appLang);
-    document.documentElement.lang = appLang;
-    setTextDirectionForLanguage(appLang);
+    let lang = getLanguageFallback(appLang);
+    localStorage.setItem(constants.APP_LANG, lang);
+    document.querySelector("body").setAttribute("app-lang", lang);
+    document.documentElement.lang = lang;
+    setTextDirectionForLanguage(lang);
 }
 
 export async function translate() {
@@ -136,4 +175,21 @@ export function translateAcessabilityAttributes(){
             }
         });
     })
+}
+
+export function getLanguageFallback(appLang) {
+     
+    let specialLang = specialLangSubtypesMap[appLang.toLowerCase()];
+    if(specialLang){
+        return specialLang;
+    }
+    if(supportedLanguages.includes(appLang)){
+        return appLang;
+    }
+    if(supportedLanguages.includes(appLang.split("-")[0])){
+        return appLang.split("-")[0];
+    }
+    return "en";
+
+
 }

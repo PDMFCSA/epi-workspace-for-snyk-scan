@@ -8665,7 +8665,8 @@ module.exports = function (server) {
 
     const workingDir = path.join(server.rootFolder, "external-volume", "fixed-urls");
     const storage = path.join(workingDir, "storage");
-    let lightDBEnclaveClient = enclaveAPI.initialiseLightDBEnclave(DATABASE);
+    const dbPath = path.join(workingDir, "..", "lightDB", "FixedUrls.db", "datatabase");
+    let lightDBEnclaveClient = require("loki-enclave-facade").createCouchDBEnclaveFacadeInstance(dbPath);
 
     let watchedUrls = [];
     //we inject a helper function that can be called by different components or middleware to signal that their requests
@@ -9144,7 +9145,7 @@ module.exports = function (server) {
             if (err) {
                 logger.error("Failed to ensure folder structure due to", err);
             }
-            lightDBEnclaveClient.createDatabase(DATABASE, (err) => {
+            lightDBEnclaveClient.createDatabase(undefined, DATABASE, (err) => {
                 if (err) {
                     logger.debug("Failed to create database", err.message, err.code, err.rootCause);
                 }
@@ -9420,7 +9421,7 @@ module.exports = function (server) {
 }
 }).call(this)}).call(this,require("buffer").Buffer)
 
-},{"../../http-wrapper/utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/middlewares/index.js","buffer":false,"opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/genericErrorMiddleware/index.js":[function(require,module,exports){
+},{"../../http-wrapper/utils/middlewares":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/middlewares/index.js","buffer":false,"loki-enclave-facade":"loki-enclave-facade","opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/genericErrorMiddleware/index.js":[function(require,module,exports){
 function setupGenericErrorMiddleware(server) {
     const constants = require("./../../moduleConstants");
     const logger = $$.getLogger("setupGenericErrorMiddleware", "apihub/genericErrorMiddleware");
@@ -29939,6 +29940,8 @@ function CouchDBEnclaveFacade(rootFolder, autosaveInterval, adaptorConstructorFu
         this.storageDB.createCollection(tableName, indicesList, callback);
     }
 
+    this.createDatabase = this.createCollection;
+
     this.allowedInReadOnlyMode = function (functionName) {
         let readOnlyFunctions = ["getCollections",
             "listQueue",
@@ -31566,6 +31569,8 @@ function LokiEnclaveFacade(rootFolder, autosaveInterval, adaptorConstructorFunct
         }
         this.storageDB.createCollection(tableName, indicesList, callback);
     }
+
+    this.createDatabase = this.createCollection.bind(this)
 
     this.allowedInReadOnlyMode = function (functionName){
         let readOnlyFunctions = ["getCollections",

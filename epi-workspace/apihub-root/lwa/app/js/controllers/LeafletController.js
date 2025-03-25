@@ -5,7 +5,7 @@ import constants from "../../../constants.js";
 import LeafletService from "../services/LeafletService.js";
 import environment from "../../../environment.js";
 import {focusModalHeader, renderLeaflet, showExpired, renderProductInformation} from "../utils/leafletUtils.js"
-import {translate, getTranslation, transformToISOStandardLangCode, langSubtypesMap, translateAcessabilityAttributes} from "../translationUtils.js";
+import {translate, getTranslation, transformToISOStandardLangCode, getLanguageFallback,translateAcessabilityAttributes} from "../translationUtils.js";
 import {getCountry} from "../countriesUtils.js";
 
 const DocumentsTypes = {
@@ -394,7 +394,7 @@ function LeafletController() {
      */
     this.getLanguageFromBrowser = function(){
         let browserLang = transformToISOStandardLangCode(navigator.language);
-        browserLang = langSubtypesMap[browserLang.toLowerCase()] || browserLang;
+        browserLang = getLanguageFallback(browserLang.toLowerCase()) || browserLang;
         return browserLang.toLowerCase();
     }
 
