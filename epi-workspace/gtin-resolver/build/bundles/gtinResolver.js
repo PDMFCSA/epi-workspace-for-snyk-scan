@@ -5627,7 +5627,11 @@ function ModelBase(enclave, domain, subdomain, gtin) {
                 if (file.endsWith("xml")) {
                     epiResult.xmlFileContent = fileContent.toString("base64");
                 } else {
-                    epiResult.otherFilesContent.push({filename: file, fileContent: getImageAsBase64(fileContent)})
+                    if(file.endsWith("mp4")){
+                        epiResult.otherFilesContent.push({filename: file, fileContent: getImageAsBase64(fileContent, "video/mp4")})
+                    } else {
+                        epiResult.otherFilesContent.push({filename: file, fileContent: getImageAsBase64(fileContent)})
+                    }
                 }
             }
         }
@@ -7513,6 +7517,10 @@ const migrateDataToLightDB = async (walletDBEnclave, lightDBEnclave, sourceTable
     console.log(tables);
     console.log("====================================================================================================");
 
+    console.log("====================================================================================================");
+    console.log(`Trying to migrate records from table ${sourceTableName} to table ${targetTableName}`);
+    console.log("====================================================================================================");
+
     let records;
     try {
         records = await $$.promisify(walletDBEnclave.getAllRecords)(undefined, sourceTableName);
@@ -7638,7 +7646,7 @@ function getWebLeaflet(server) {
     }
 
     // Validate lang to allow only alphanumeric or hyphen (language code format)
-    if (lang && !/^[a-zA-Z-]+$/.test(lang)) {
+    if (lang && !/^[a-zA-Z-0-9-]+$/.test(lang)) {
       logger.info(0x103, `Invalid language format: ${lang}`);
       return sendResponse(response, 400, "Invalid language format. Please check API documentation.");
     }
@@ -12887,7 +12895,11 @@ class XmlDisplayService {
                     for (let i = 0; i < anyOtherFiles.length; i++) {
                         let filePath = `${pathToLeafletLanguage}/${anyOtherFiles[i]}`;
                         let imgFile = await $$.promisify(dsu.readFile)(filePath);
-                        leafletImagesObj[anyOtherFiles[i]] = this.images[filePath] = utils.getImageAsBase64(imgFile);
+                        if(anyOtherFiles[i].endsWith("mp4")){
+                            leafletImagesObj[anyOtherFiles[i]] = this.images[filePath] = utils.getImageAsBase64(imgFile, "video/mp4");
+                        } else {
+                            leafletImagesObj[anyOtherFiles[i]] = this.images[filePath] = utils.getImageAsBase64(imgFile);
+                        }
                     }
                     dsuResponseAvailable = true;
                     callback(undefined, textDecoder.decode(xmlContent), `${pathToLeafletLanguage}/`, leafletImagesObj);
@@ -12986,7 +12998,11 @@ class XmlDisplayService {
                 for (let i = 0; i < anyOtherFiles.length; i++) {
                     let filePath = `${marketFolderPath}/${anyOtherFiles[i]}`;
                     let imgFile = await $$.promisify(dsu.readFile)(filePath);
-                    leafletImagesObj[anyOtherFiles[i]] = this.images[filePath] = utils.getImageAsBase64(imgFile);
+                    if(anyOtherFiles[i].endsWith("mp4")){
+                        leafletImagesObj[anyOtherFiles[i]] = this.images[filePath] = utils.getImageAsBase64(imgFile, "video/mp4");
+                    } else {
+                        leafletImagesObj[anyOtherFiles[i]] = this.images[filePath] = utils.getImageAsBase64(imgFile);
+                    }
                 }
                 dsuResponseAvailable = true;
                 callback(undefined, textDecoder.decode(xmlContent), `${marketFolderPath}/`, leafletImagesObj);
@@ -13005,7 +13021,7 @@ class XmlDisplayService {
 
     displayXmlContent(pathBase, xmlContent, images) {
         let resultDocument = this.getHTMLFromXML(pathBase, xmlContent);
-        let leafletImages = resultDocument.querySelectorAll("img");
+        let leafletImages = resultDocument.querySelectorAll("img,source");
         this.images = this.images || images;
         for (let image of leafletImages) {
             //imageSrc will contain the name of the imageFile form XML
@@ -13415,7 +13431,7 @@ const observerVideos = function(section, sectionActive) {
         const options = {
             root: null, 
             rootMargin: "0px",
-            threshold: 1, // Trigger when 50% of the video is in view
+            threshold: 1, // Trigger when of all video component is in view
         };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
@@ -13793,6 +13809,21 @@ const acodisXslContent =  `<?xml version="1.0" encoding="UTF-8"?>
             <xsl:attribute name="muted"></xsl:attribute>
             <xsl:attribute name="playsinline"></xsl:attribute>
             <xsl:attribute name="preload">metadata</xsl:attribute>
+           <xsl:choose>
+                <xsl:when test="@aria-label">
+                    <xsl:attribute name="aria-label">
+                        <xsl:value-of select="@aria-label"/>
+                    </xsl:attribute>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:attribute name="aria-label">
+                        <xsl:value-of select="@title"/>
+                    </xsl:attribute>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:attribute name="title">
+                <xsl:value-of select="@title"/>
+            </xsl:attribute>
             <xsl:apply-templates/>
         </video>
     </xsl:template>
@@ -14011,7 +14042,7 @@ const bytesToBase64 = (bytes) => {
     return result;
 }
 
-function getImageAsBase64(imageData) {
+function getImageAsBase64(imageData,type) {
     if (typeof imageData === "string") {
         return imageData;
     }
@@ -14032,7 +14063,8 @@ function getImageAsBase64(imageData) {
         }
         base64Image = btoa(binary);
     }
-
+    if(type)
+        return `data:${type};base64,${base64Image}`;
     return `data:image/png;base64,${base64Image}`;
 }
 

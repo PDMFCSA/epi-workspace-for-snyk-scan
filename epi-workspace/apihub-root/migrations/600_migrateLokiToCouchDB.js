@@ -30,7 +30,6 @@ const mapRecordToCouchDB = (record) => {
     delete record.meta;
     delete record.$loki;
     record["timestamp"] = record.__timestamp;
-    record["_rev"] = record.__version || 0;
     delete record.__timestamp;
     delete record.__version;
 
@@ -97,28 +96,6 @@ const getDbName = async (dbPath, tableName) => {
 
     return ["db", prefix, tableName].filter(e => !!e).join("_");
 }
-
-// const migrateGtinResolver = async (dbPath) => {
-//     const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
-//     const tables = db.collections
-  
-//     const readStream = fs.createReadStream(dbPath + ".0", 'utf8');
-//     const rl = readline.createInterface({ input: readStream });
-
-//     let records = [];
-
-//     if(tables.length > 1)
-//         throw new Error("GTIN OWNER should only contain 1 table")
-
-//     for await (const line of rl) {
-//         let cleanedLine = line;
-//         cleanedLine = cleanedLine.replaceAll('$<', ''); // Remove words
-//         records.push(JSON.parse(cleanedLine));
-//     }
-
-//     await createCollection(dbPath, tables[0].name, ["pk", "timestamp"]);
-//     await migrateTable(dbPath, tables[0].name, records);
-// }
 
 const extractRecords = async (dbPath, index) => {
     try {
