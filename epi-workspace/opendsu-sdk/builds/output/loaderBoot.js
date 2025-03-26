@@ -26686,6 +26686,7 @@ module.exports = {
     HAS_READ_ACCESS: "hasReadAccess",
     HAS_ADMIN_ACCESS: "hasAdminAccess",
     INSERT_RECORD: "insertRecord",
+    INSERT_MANY: "insertMany",
     UPDATE_RECORD: "updateRecord",
     GET_RECORD: "getRecord",
     DELETE_RECORD: "deleteRecord",
@@ -28613,6 +28614,18 @@ function ProxyMixin(target) {
             encryptedRecord = plainRecord;
         }
         target.__putCommandObject(commandNames.INSERT_RECORD, forDID, table, pk, encryptedRecord, callback);
+    };
+
+    target.insertMany = (forDID, table, pks, plainRecords, encryptedRecords, callback) => {
+        if (typeof encryptedRecords === "function") {
+            callback = encryptedRecords;
+            encryptedRecords = undefined;
+        }
+
+        if (!encryptedRecords) {
+            encryptedRecords= plainRecords;
+        }
+        target.__putCommandObject(commandNames.INSERT_MANY, forDID, table, pks, encryptedRecords, callback);
     };
 
     target.updateRecord = (forDID, table, pk, plainRecord, encryptedRecord, callback) => {

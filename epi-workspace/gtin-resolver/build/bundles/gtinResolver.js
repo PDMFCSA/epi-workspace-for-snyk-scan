@@ -7530,9 +7530,24 @@ const migrateDataToLightDB = async (walletDBEnclave, lightDBEnclave, sourceTable
         throw e;
     }
 
+    const mapRecordToCouchDB = async (record) => {
+        delete record.meta;
+        delete record.$loki;
+        record["timestamp"] = record.__timestamp;
+        delete record.__timestamp;
+        delete record.__version;
+    
+        if(!record.timestamp)
+            delete record.timestamp;
+    
+        return record
+    }
+
     let counter = 0;
     for (let record of records) {
         const transformedRecord = await transformRecord(record);
+        const couchRecord = await mapRecordToCouchDB(transformedRecord)
+
         let existingRecord;
         try {
             existingRecord = await $$.promisify(lightDBEnclave.getRecord)($$.SYSTEM_IDENTIFIER, targetTableName, generatePK(record));
@@ -7543,9 +7558,9 @@ const migrateDataToLightDB = async (walletDBEnclave, lightDBEnclave, sourceTable
         if (!existingRecord) {
             try {
                 counter++;
-                await $$.promisify(lightDBEnclave.insertRecord)($$.SYSTEM_IDENTIFIER, targetTableName, generatePK(record), transformedRecord);
+                await $$.promisify(lightDBEnclave.insertRecord)($$.SYSTEM_IDENTIFIER, targetTableName, generatePK(record), couchRecord);
             } catch (e) {
-                console.error("Failed to insert record", transformedRecord, "in table", targetTableName, e);
+                console.error("Failed to insert record", couchRecord, "in table", targetTableName, e);
                 throw e;
             }
         }

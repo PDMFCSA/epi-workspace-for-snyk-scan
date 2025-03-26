@@ -13,6 +13,26 @@ const DocumentsTypes = {
   PRESCRIBING_INFO: "prescribingInfo"
 };
 
+const buildMetadataQueryParams = function (gtin, batchNumber) {
+  // Copy of fixedUrls "URL Builder" that constructs and orders parameters in a specific sequence.
+  let converter = new URL("https://non.relevant.url.com");
+
+  //let create a wrapper over append method to ensure that NO UNDEFINED variable will be added to the query
+  let append = converter.searchParams.append;
+  converter.searchParams.append = (name, value)=>{
+    if(typeof value === "undefined"){
+      return;
+    }
+    append.call(converter.searchParams, name, value);
+  }
+
+  converter.searchParams.append("batch", batchNumber);
+  converter.searchParams.append("gtin", gtin);
+
+  converter.searchParams.sort();
+  return converter.searchParams.toString();
+}
+
 const buildQueryParams = function (gtin, batchNumber, lang, leafletType, epiMarket) {
   // Copy of fixedUrls "URL Builder" that constructs and orders parameters in a specific sequence.
   let converter = new URL("https://non.relevant.url.com");
@@ -31,7 +51,8 @@ const buildQueryParams = function (gtin, batchNumber, lang, leafletType, epiMark
   converter.searchParams.append("lang", lang);
   converter.searchParams.append("gtin", gtin);
   converter.searchParams.append("leaflet_type", leafletType);
-  converter.searchParams.append("epiMarket",  epiMarket);
+  if(!!epiMarket)
+    converter.searchParams.append("epiMarket",  epiMarket);
   converter.searchParams.sort();
   return converter.searchParams.toString();
 }
@@ -224,7 +245,7 @@ class LeafletService {
       urlPart += `/${subDomain}`;
     }
 
-    const queryParams = buildQueryParams(this.gtin, this.batch);
+    const queryParams = buildMetadataQueryParams(this.gtin, this.batch);
     smartUrl = smartUrl.concatWith(`${urlPart}?${queryParams}`);
 
     const header = {"epiProtocolVersion": environment.epiProtocolVersion || "1"};
