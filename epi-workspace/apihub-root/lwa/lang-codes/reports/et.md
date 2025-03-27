@@ -53,15 +53,15 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_print_title | Trükiteave |  | 61 |
 | leaflet_print_description | Praegune valitud teave trükitakse PDF -na. |  | 62 |
 | leaflet_print_description2 | Kas soovite jätkata? |  | 63 |
-| leaflet_print_button | Harima |  | 64 |
-| leaflet_print_button_back | Tagasi minema |  | 65 |
+| leaflet_print_button | Jätka |  | 64 |
+| leaflet_print_button_back | Tagasi |  | 65 |
 | document_modal_title | Palun valige |  | 66 |
 | document_modal_message | Palun valige, millist dokumenti kuvada |  | 67 |
 | document_patient_info | Patsientide teave |  | 68 |
 | document_product_info | Tooteteave patsientidele |  | 69 |
 | document_lang_select_message | Tooteteave on saadaval ainult inglise keeles |  | 70 |
 | document_lang_select_title | Teade |  | 71 |
-| document_prescribing_info | Tervishoiutöötajatele mõeldud teabe väljakirjutamine |  | 72 |
+| document_prescribing_info | Tervishoiutöötajatele mõeldud ravimi väljakirjutamise alane teave |  | 72 |
 | epi_markets_modal_title | Vali riik |  | 73 |
 | epi_markets_modal_message | Valige oma riik |  | 74 |
 | epi_markets_modal_no_market | Riik |  | 75 |
@@ -223,7 +223,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_si | Sloveenia |  | 273 |
 | country_sb | Saalomoni saared |  | 274 |
 | country_so | Somaalia |  | 275 |
-| country_za | Lõuna -Aafrika Vabariik |  | 276 |
+| country_za | Lõuna-Aafrika Vabariik |  | 276 |
 | country_es | Hispaania |  | 278 |
 | country_lk | Sri Lanka |  | 279 |
 | country_sd | Sudaan |  | 280 |

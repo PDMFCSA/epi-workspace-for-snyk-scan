@@ -1,6 +1,6 @@
 code,text,status,key
 1,Dobrodošli v PharmaLedger,ok,welcome
-2,Poiščite DataMatrix na svojem zdravilu. Glej primer zgoraj.,,scan_explain
+2,Poiščite DataMatrix na svojem zdravilu. Glejte primer zgoraj.,,scan_explain
 3,Skenirajte DataMatrix,ok,scan_button
 4,Zamenjajte kamero,ok,change_camera
 5,Prekliči,ok,cancel
@@ -48,16 +48,16 @@ code,text,status,key
 61,Informacije o tiskanju,,leaflet_print_title
 62,Trenutni izbrani podatki bodo natisnjeni kot PDF.,,leaflet_print_description
 63,Ali želite nadaljevati?,,leaflet_print_description2
-64,Nadaljevati,,leaflet_print_button
-65,Pojdi nazaj,,leaflet_print_button_back
-66,Prosim izberite,,document_modal_title
-67,"Izberite, kateri dokument za prikaz",,document_modal_message
-68,Podatki o bolniku,,document_patient_info
-69,Informacije o izdelku za bolnike,,document_product_info
-70,Informacije o izdelku so na voljo samo v angleščini,,document_lang_select_message
+64,Nadaljujte,,leaflet_print_button
+65,Pojdite nazaj,,leaflet_print_button_back
+66,Prosimo izberite,,document_modal_title
+67,Prosimo izberite dokument za prikaz,,document_modal_message
+68,Informacije za bolnika,,document_patient_info
+69,Navodilo za uporabo za bolnike,,document_product_info
+70,Navodilo za uporabo je na voljo samo v angleščini,,document_lang_select_message
 71,Obvestilo,,document_lang_select_title
-72,Predpisovanje informacij za zdravstvene delavce,,document_prescribing_info
-73,Izberi državo,,epi_markets_modal_title
+72,Informacije o predpisovanju za zdravstvene delavce,,document_prescribing_info
+73,Izberite državo,,epi_markets_modal_title
 74,Izberite svojo državo,,epi_markets_modal_message
 75,Nobena država,,epi_markets_modal_no_market
 76,Afganistan,,country_af

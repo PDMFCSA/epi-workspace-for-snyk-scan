@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | Laipni lūgti PharmaLedger | ok | 1 |
-| scan_explain | Atrodiet savu medicīnu datuatrrix. Skatīt piemēru iepriekš. |  | 2 |
+| scan_explain | Atrodiet DataMatrix uz savām zālēm. Skatīt piemēru iepriekš. |  | 2 |
 | scan_button | DataMatrix skenēšana | ok | 3 |
 | change_camera | Mainīt kameru | ok | 4 |
 | cancel | Atcelt | ok | 5 |
@@ -57,11 +57,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_print_button_back | Atgriezties |  | 65 |
 | document_modal_title | Lūdzu, izvēlieties |  | 66 |
 | document_modal_message | Lūdzu, atlasiet, kuru dokumentu parādīt |  | 67 |
-| document_patient_info | Informācija par pacientu |  | 68 |
+| document_patient_info | Informācija pacientam |  | 68 |
 | document_product_info | Informācija par produktu pacientiem |  | 69 |
 | document_lang_select_message | Informācija par produktu ir pieejama tikai angļu valodā |  | 70 |
 | document_lang_select_title | Pamanīt |  | 71 |
-| document_prescribing_info | Informācijas izrakstīšana veselības aprūpes speciālistiem |  | 72 |
+| document_prescribing_info | Zāļu informācija veselības aprūpes speciālistiem |  | 72 |
 | epi_markets_modal_title | Izvēlēties valsti |  | 73 |
 | epi_markets_modal_message | Lūdzu, atlasiet savu valsti |  | 74 |
 | epi_markets_modal_no_market | Nav valsts |  | 75 |
@@ -241,7 +241,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_to | Tonga |  | 294 |
 | country_tt | Trinidāda un Tobāgo |  | 295 |
 | country_tn | Tunisija |  | 296 |
-| country_tr | Tītars |  | 297 |
+| country_tr | Turcija |  | 297 |
 | country_tm | Turkmenistāna |  | 298 |
 | country_tv | Tuvalu |  | 300 |
 | country_ug | Uganda |  | 301 |

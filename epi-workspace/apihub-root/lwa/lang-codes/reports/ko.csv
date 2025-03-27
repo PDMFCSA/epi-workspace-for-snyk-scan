@@ -1,6 +1,6 @@
 code,text,status,key
 1,PharmaLedger에 오신 것을 환영합니다,ok,welcome
-2,약에서 Datamatrix를 찾으십시오. 위의 예를 참조하십시오.,,scan_explain
+2,상기 예시를 참조하여 제품 상의 DataMatrix를 확인해 주십시오.,,scan_explain
 3,데이터 매트릭스 스캔하기,ok,scan_button
 4,카메라를 바꾸세요,ok,change_camera
 5,취소,ok,cancel
@@ -55,18 +55,18 @@ code,text,status,key
 61,인쇄 정보,,leaflet_print_title
 62,현재 선택된 정보는 PDF로 인쇄됩니다.,,leaflet_print_description
 63,진행 하시겠습니까?,,leaflet_print_description2
-64,진행하다,,leaflet_print_button
-65,돌아 가라,,leaflet_print_button_back
+64,진행하기,,leaflet_print_button
+65,돌아가기,,leaflet_print_button_back
 66,선택하십시오,,document_modal_title
 67,표시 할 문서를 선택하십시오,,document_modal_message
 68,환자 정보,,document_patient_info
 69,환자를위한 제품 정보,,document_product_info
 70,제품 정보는 영어로만 제공됩니다,,document_lang_select_message
-71,알아채다,,document_lang_select_title
-72,의료 전문가를위한 처방 정보,,document_prescribing_info
+71,알림,,document_lang_select_title
+72,보건의료전문가를 위한 처방 정보,,document_prescribing_info
 73,국가 선택,,epi_markets_modal_title
 74,국가를 선택하십시오,,epi_markets_modal_message
-75,나라도 없습니다,,epi_markets_modal_no_market
+75,해당 국가 없음,,epi_markets_modal_no_market
 76,아프가니스탄,,country_af
 78,알바니아,,country_al
 79,알제리,,country_dz
@@ -144,7 +144,7 @@ code,text,status,key
 174,헝가리,,country_hu
 175,아이슬란드,,country_is
 176,인도,,country_in
-177,인도네시아 공화국,,country_id
+177,인도네시아,,country_id
 178,이란,,country_ir
 179,이라크,,country_iq
 180,아일랜드,,country_ie
@@ -243,12 +243,12 @@ code,text,status,key
 294,통가,,country_to
 295,트리니다드 토바고,,country_tt
 296,튀니지,,country_tn
-297,칠면조,,country_tr
+297,튀르키예,,country_tr
 298,투르크 메니스탄,,country_tm
 300,투발루,,country_tv
 301,우간다,,country_ug
 302,우크라이나,,country_ua
-303,아랍 에미리트 연합,,country_ae
+303,아랍 에미리트 연합국,,country_ae
 304,영국,,country_gb
 305,미국,,country_us
 307,우루과이,,country_uy
@@ -256,7 +256,7 @@ code,text,status,key
 309,바누아투,,country_vu
 310,베네수엘라,,country_ve
 311,베트남,,country_vn
-316,예멘 아랍 공화국,,country_ye
+316,예멘,,country_ye
 317,잠비아,,country_zm
 318,짐바브웨,,country_zw
 319,몬테네그로,,country_me

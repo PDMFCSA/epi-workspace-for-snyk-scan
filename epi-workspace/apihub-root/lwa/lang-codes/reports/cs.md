@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | Vítejte na PharmaLedger | ok | 1 |
-| scan_explain | Najděte datamatrix na lék. Viz příklad výše. |  | 2 |
+| scan_explain | Najděte datamatrix kód na léku. Viz příklad výše |  | 2 |
 | scan_button | Naskenujte DataMatrix | ok | 3 |
 | change_camera | Zvolit jiný fotoaparát | ok | 4 |
 | cancel | Zrušit | ok | 5 |
@@ -50,7 +50,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | error_subtitle | Neověřený produkt |  | 49 |
 | leaflet_incorrect_date_title | Nesprávné datum |  | 50 |
 | leaflet_incorrect_date_subtitle | Naskanované datum je nesprávné |  | 51 |
-| leaflet_print_title | Informace o tisku |  | 61 |
+| leaflet_print_title | Informace pro tisk |  | 61 |
 | leaflet_print_description | Aktuální vybrané informace budou vytištěny jako PDF. |  | 62 |
 | leaflet_print_description2 | Chcete pokračovat? |  | 63 |
 | leaflet_print_button | Pokračovat |  | 64 |
@@ -61,7 +61,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | document_product_info | Informace o produktu pro pacienty |  | 69 |
 | document_lang_select_message | Informace o produktu jsou k dispozici pouze v angličtině |  | 70 |
 | document_lang_select_title | Oznámení |  | 71 |
-| document_prescribing_info | Předepisování informací pro zdravotnické pracovníky |  | 72 |
+| document_prescribing_info | Informace o předepisování pro zdravotnické pracovníky |  | 72 |
 | epi_markets_modal_title | Vyberte zemi |  | 73 |
 | epi_markets_modal_message | Vyberte prosím svou zemi |  | 74 |
 | epi_markets_modal_no_market | Žádná země |  | 75 |

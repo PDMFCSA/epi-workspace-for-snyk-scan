@@ -45,19 +45,19 @@ code,text,status,key
 50,Date incorrecte,,leaflet_incorrect_date_title
 51,La date numérisée est incorrecte,,leaflet_incorrect_date_subtitle
 52,<b> </b>.,,leaflet_incorrect_date_message
-61,Imprimer des informations,,leaflet_print_title
-62,Les informations sélectionnées actuelles seront imprimées sous forme de PDF.,,leaflet_print_description
+61,Imprimer les informations,,leaflet_print_title
+62,Les informations sélectionnées seront imprimées sous forme de PDF.,,leaflet_print_description
 63,Voulez-vous continuer?,,leaflet_print_description2
-64,Procéder,,leaflet_print_button
-65,Remonter,,leaflet_print_button_back
+64,Continuer,,leaflet_print_button
+65,Retourner,,leaflet_print_button_back
 66,Veuillez choisir,,document_modal_title
 67,Veuillez sélectionner le document à afficher,,document_modal_message
 68,Informations sur les patients,,document_patient_info
-69,Informations sur les produits pour les patients,,document_product_info
+69,Informations sur le produit pour les patients,,document_product_info
 70,Les informations sur les produits sont uniquement disponibles en anglais,,document_lang_select_message
 71,Avis,,document_lang_select_title
-72,Prescription des informations pour les professionnels de la santé,,document_prescribing_info
-73,Pays de sélection,,epi_markets_modal_title
+72,Informations pour les professionnels de la santé,,document_prescribing_info
+73,Sélection de pays,,epi_markets_modal_title
 74,Veuillez sélectionner votre pays,,epi_markets_modal_message
 75,Pas de pays,,epi_markets_modal_no_market
 76,Afghanistan,,country_af
@@ -138,7 +138,7 @@ code,text,status,key
 175,Islande,,country_is
 176,Inde,,country_in
 177,Indonésie,,country_id
-178,L'Iran,,country_ir
+178,Iran,,country_ir
 179,Irak,,country_iq
 180,Irlande,,country_ie
 182,Israël,,country_il

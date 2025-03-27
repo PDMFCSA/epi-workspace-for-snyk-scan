@@ -45,17 +45,17 @@ code,text,status,key
 50,Netočan datum,,leaflet_incorrect_date_title
 51,Datum skeniranja je netočan,,leaflet_incorrect_date_subtitle
 61,Informacije o ispisu,,leaflet_print_title
-62,Trenutne odabrane informacije bit će ispisane kao PDF.,,leaflet_print_description
+62,Trenutno odabrane informacije bit će ispisane kao PDF.,,leaflet_print_description
 63,Želite li nastaviti?,,leaflet_print_description2
 64,Nastaviti,,leaflet_print_button
-65,Vratiti se,,leaflet_print_button_back
+65,Vrati se,,leaflet_print_button_back
 66,Molimo odaberite,,document_modal_title
-67,Odaberite koji dokument za prikaz,,document_modal_message
-68,Informacije o pacijentu,,document_patient_info
+67,Odaberite koji dokument želite prikazati,,document_modal_message
+68,Informacije za pacijenta,,document_patient_info
 69,Informacije o proizvodu za pacijente,,document_product_info
-70,Podaci o proizvodu dostupni su samo na engleskom jeziku,,document_lang_select_message
+70,Informacije o proizvodu dostupne su samo na engleskom jeziku,,document_lang_select_message
 71,Obavijest,,document_lang_select_title
-72,Propisivanje informacija zdravstvenim radnicima,,document_prescribing_info
+72,Informacije o propisivanju za zdravstvene radnike,,document_prescribing_info
 73,Odaberite zemlju,,epi_markets_modal_title
 74,Odaberite svoju zemlju,,epi_markets_modal_message
 75,Nijedna zemlja,,epi_markets_modal_no_market

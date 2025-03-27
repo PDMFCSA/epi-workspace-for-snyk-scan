@@ -1,6 +1,6 @@
 code,text,status,key
 1,Добре дошли във PharmaLedger,ok,welcome
-2,Намерете Datamatrix на вашето лекарство. Вижте пример по -горе.,,scan_explain
+2,Намерете Datamatrix-баркода на Вашето лекарство. Вижте примера по-горе.,,scan_explain
 3,Сканирайте DataMatrix,ok,scan_button
 4,Сменете камерата,ok,change_camera
 5,Отказ,ok,cancel
@@ -44,20 +44,20 @@ code,text,status,key
 49,Непроверен продукт,,error_subtitle
 50,Неправилна дата,,leaflet_incorrect_date_title
 51,Сканираната дата е неправилна,,leaflet_incorrect_date_subtitle
-61,Информация за отпечатване,,leaflet_print_title
-62,Текущата избрана информация ще бъде отпечатана като PDF.,,leaflet_print_description
+61,Печатане на информацията,,leaflet_print_title
+62,Избраната в момента информация ще бъде отпечатана като PDF.,,leaflet_print_description
 63,Искате ли да продължите?,,leaflet_print_description2
 64,Продължете,,leaflet_print_button
-65,Върнете се,,leaflet_print_button_back
+65,Назад,,leaflet_print_button_back
 66,"Моля, изберете",,document_modal_title
-67,"Моля, изберете кой документ да се покаже",,document_modal_message
-68,Информация за пациента,,document_patient_info
+67,Изберете кой документ да се покаже,,document_modal_message
+68,Информация за пациенти,,document_patient_info
 69,Информация за продукта за пациенти,,document_product_info
 70,Информацията за продукта е достъпна само на английски,,document_lang_select_message
-71,Забележете,,document_lang_select_title
-72,Предписване на информация за здравни специалисти,,document_prescribing_info
+71,Бележка,,document_lang_select_title
+72,Кратка характеристика на продукта (за медицински специалисти),,document_prescribing_info
 73,Изберете държава,,epi_markets_modal_title
-74,"Моля, изберете вашата страна",,epi_markets_modal_message
+74,Изберете своята държава,,epi_markets_modal_message
 75,Няма държава,,epi_markets_modal_no_market
 76,Афганистан,,country_af
 78,Албания,,country_al

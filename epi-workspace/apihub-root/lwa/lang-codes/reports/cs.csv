@@ -1,6 +1,6 @@
 code,text,status,key
 1,Vítejte na PharmaLedger,ok,welcome
-2,Najděte datamatrix na lék. Viz příklad výše.,,scan_explain
+2,Najděte datamatrix kód na léku. Viz příklad výše,,scan_explain
 3,Naskenujte DataMatrix,ok,scan_button
 4,Zvolit jiný fotoaparát,ok,change_camera
 5,Zrušit,ok,cancel
@@ -44,7 +44,7 @@ code,text,status,key
 49,Neověřený produkt,,error_subtitle
 50,Nesprávné datum,,leaflet_incorrect_date_title
 51,Naskanované datum je nesprávné,,leaflet_incorrect_date_subtitle
-61,Informace o tisku,,leaflet_print_title
+61,Informace pro tisk,,leaflet_print_title
 62,Aktuální vybrané informace budou vytištěny jako PDF.,,leaflet_print_description
 63,Chcete pokračovat?,,leaflet_print_description2
 64,Pokračovat,,leaflet_print_button
@@ -55,7 +55,7 @@ code,text,status,key
 69,Informace o produktu pro pacienty,,document_product_info
 70,Informace o produktu jsou k dispozici pouze v angličtině,,document_lang_select_message
 71,Oznámení,,document_lang_select_title
-72,Předepisování informací pro zdravotnické pracovníky,,document_prescribing_info
+72,Informace o předepisování pro zdravotnické pracovníky,,document_prescribing_info
 73,Vyberte zemi,,epi_markets_modal_title
 74,Vyberte prosím svou zemi,,epi_markets_modal_message
 75,Žádná země,,epi_markets_modal_no_market

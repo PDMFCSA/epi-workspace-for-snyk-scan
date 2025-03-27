@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | Vitajte vo PharmaLedger | ok | 1 |
-| scan_explain | Nájdite Datamatrix vo svojom lieku. Pozri príklad vyššie. |  | 2 |
+| scan_explain | Nájdite DataMatrix kód na svojom lieku. Pozrite príklad vyššie. |  | 2 |
 | scan_button | Naskenovať DataMatrix | ok | 3 |
 | change_camera | Zmeniť fotoaparát | ok | 4 |
 | cancel | Zrušiť | ok | 5 |
@@ -51,20 +51,20 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_incorrect_date_title | Nesprávny dátum |  | 50 |
 | leaflet_incorrect_date_subtitle | Naskenovaný dátum je nesprávny |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; This product's date is incorrect&lt;/b&gt;. |  | 52 |
-| leaflet_print_title | Výtlačok |  | 61 |
-| leaflet_print_description | Aktuálne vybrané informácie budú vytlačené ako PDF. |  | 62 |
-| leaflet_print_description2 | Chceš pokračovať? |  | 63 |
-| leaflet_print_button | Pokračovať |  | 64 |
-| leaflet_print_button_back | Vrátiť sa |  | 65 |
-| document_modal_title | Vyberte si prosím |  | 66 |
-| document_modal_message | Vyberte, ktorý dokument sa má zobraziť |  | 67 |
+| leaflet_print_title | Vytlačiť informáciu |  | 61 |
+| leaflet_print_description | Aktuálne vybraté informácie sa vytlačia vo formáte PDF. |  | 62 |
+| leaflet_print_description2 | Chcete pokračovať? |  | 63 |
+| leaflet_print_button | Pokračujte |  | 64 |
+| leaflet_print_button_back | Späť |  | 65 |
+| document_modal_title | Vyberte, prosím |  | 66 |
+| document_modal_message | Prosím vyberte, ktorý dokument sa má zobraziť |  | 67 |
 | document_patient_info | Informácie o pacientovi |  | 68 |
-| document_product_info | Informácie o produkte pre pacientov |  | 69 |
-| document_lang_select_message | Informácie o produkte sú k dispozícii iba v angličtine |  | 70 |
-| document_lang_select_title | Oznámenie |  | 71 |
-| document_prescribing_info | Predpisovanie informácií pre zdravotníckych pracovníkov |  | 72 |
-| epi_markets_modal_title | Vyberacia krajina |  | 73 |
-| epi_markets_modal_message | Vyberte svoju krajinu |  | 74 |
+| document_product_info | Informácie o lieku pre pacientov |  | 69 |
+| document_lang_select_message | Informácie o lieku sú k dispozícii iba v angličtine |  | 70 |
+| document_lang_select_title | Poznámka |  | 71 |
+| document_prescribing_info | Informácie o predpisovaní pre zdravotníckych pracovníkov |  | 72 |
+| epi_markets_modal_title | Vyberte krajinu |  | 73 |
+| epi_markets_modal_message | Prosím, vyberte svoju krajinu |  | 74 |
 | epi_markets_modal_no_market | Žiadna krajina |  | 75 |
 | country_af | Afganistan |  | 76 |
 | country_al | Albánsko |  | 78 |

@@ -47,7 +47,7 @@ code,text,status,key
 61,Udskriv information,,leaflet_print_title
 62,De aktuelle valgte oplysninger udskrives som PDF.,,leaflet_print_description
 63,Vil du fortsætte?,,leaflet_print_description2
-64,Fortsætte,,leaflet_print_button
+64,Fortsæt,,leaflet_print_button
 65,Gå tilbage,,leaflet_print_button_back
 66,Vælg venligst,,document_modal_title
 67,Vælg hvilket dokument der skal vises,,document_modal_message
@@ -55,7 +55,7 @@ code,text,status,key
 69,Produktoplysninger til patienter,,document_product_info
 70,Produktoplysninger er kun tilgængelige på engelsk,,document_lang_select_message
 71,Meddelelse,,document_lang_select_title
-72,Ordinering af oplysninger til sundhedspersonale,,document_prescribing_info
+72,Ordinationsoplysninger til sundhedspersoner,,document_prescribing_info
 73,Vælg land,,epi_markets_modal_title
 74,Vælg dit land,,epi_markets_modal_message
 75,Intet land,,epi_markets_modal_no_market
@@ -208,7 +208,7 @@ code,text,status,key
 263,Samoa,,country_ws
 264,San Marino,,country_sm
 265,Sao Tome og Principe,,country_st
-266,Saudi -Arabien,,country_sa
+266,Saudi-Arabien,,country_sa
 267,Senegal,,country_sn
 269,Seychellerne,,country_sc
 270,Sierra Leone,,country_sl
@@ -235,7 +235,7 @@ code,text,status,key
 294,Tonga,,country_to
 295,Trinidad og Tobago,,country_tt
 296,Tunesien,,country_tn
-297,Kalkun,,country_tr
+297,Tyrkiet,,country_tr
 298,Turkmenistan,,country_tm
 300,Tuvalu,,country_tv
 301,Uganda,,country_ug

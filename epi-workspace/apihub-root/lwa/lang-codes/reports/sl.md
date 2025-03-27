@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | Dobrodošli v PharmaLedger | ok | 1 |
-| scan_explain | Poiščite DataMatrix na svojem zdravilu. Glej primer zgoraj. |  | 2 |
+| scan_explain | Poiščite DataMatrix na svojem zdravilu. Glejte primer zgoraj. |  | 2 |
 | scan_button | Skenirajte DataMatrix | ok | 3 |
 | change_camera | Zamenjajte kamero | ok | 4 |
 | cancel | Prekliči | ok | 5 |
@@ -54,16 +54,16 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_print_title | Informacije o tiskanju |  | 61 |
 | leaflet_print_description | Trenutni izbrani podatki bodo natisnjeni kot PDF. |  | 62 |
 | leaflet_print_description2 | Ali želite nadaljevati? |  | 63 |
-| leaflet_print_button | Nadaljevati |  | 64 |
-| leaflet_print_button_back | Pojdi nazaj |  | 65 |
-| document_modal_title | Prosim izberite |  | 66 |
-| document_modal_message | Izberite, kateri dokument za prikaz |  | 67 |
-| document_patient_info | Podatki o bolniku |  | 68 |
-| document_product_info | Informacije o izdelku za bolnike |  | 69 |
-| document_lang_select_message | Informacije o izdelku so na voljo samo v angleščini |  | 70 |
+| leaflet_print_button | Nadaljujte |  | 64 |
+| leaflet_print_button_back | Pojdite nazaj |  | 65 |
+| document_modal_title | Prosimo izberite |  | 66 |
+| document_modal_message | Prosimo izberite dokument za prikaz |  | 67 |
+| document_patient_info | Informacije za bolnika |  | 68 |
+| document_product_info | Navodilo za uporabo za bolnike |  | 69 |
+| document_lang_select_message | Navodilo za uporabo je na voljo samo v angleščini |  | 70 |
 | document_lang_select_title | Obvestilo |  | 71 |
-| document_prescribing_info | Predpisovanje informacij za zdravstvene delavce |  | 72 |
-| epi_markets_modal_title | Izberi državo |  | 73 |
+| document_prescribing_info | Informacije o predpisovanju za zdravstvene delavce |  | 72 |
+| epi_markets_modal_title | Izberite državo |  | 73 |
 | epi_markets_modal_message | Izberite svojo državo |  | 74 |
 | epi_markets_modal_no_market | Nobena država |  | 75 |
 | country_af | Afganistan |  | 76 |

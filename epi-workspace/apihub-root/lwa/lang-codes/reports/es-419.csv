@@ -1,6 +1,6 @@
 code,text,status,key
 1,Bienvenido a PharmaLedger,ok,welcome
-2,Encuentre la DataMatrix en su medicamento. Ver ejemplo de arriba.,,scan_explain
+2,Encuentre el código DataMatrix en su medicamento. Ver ejemplo arriba,,scan_explain
 3,Escanea el código DataMatrix,ok,scan_button
 4,Permitir acceso a la cámara,ok,change_camera
 5,Cancelar,ok,cancel
@@ -44,8 +44,8 @@ code,text,status,key
 49,Producto no verificado,,error_subtitle
 50,Fecha incorrecta,,leaflet_incorrect_date_title
 51,La fecha escaneada es incorrecta,,leaflet_incorrect_date_subtitle
-61,Información de impresión,,leaflet_print_title
-62,La información seleccionada actual se imprimirá como PDF.,,leaflet_print_description
+61,Información para imprimir,,leaflet_print_title
+62,La información seleccionada se imprimirá como PDF,,leaflet_print_description
 63,¿Quieres continuar?,,leaflet_print_description2
 64,Proceder,,leaflet_print_button
 65,Volver,,leaflet_print_button_back
@@ -55,10 +55,10 @@ code,text,status,key
 69,Información del producto para pacientes,,document_product_info
 70,La información del producto solo está disponible en inglés,,document_lang_select_message
 71,Aviso,,document_lang_select_title
-72,Prescribir información para profesionales de la salud,,document_prescribing_info
-73,País seleccionado,,epi_markets_modal_title
-74,Seleccione su país,,epi_markets_modal_message
-75,No hay país,,epi_markets_modal_no_market
+72,Información para prescribir para profesionales de la salud,,document_prescribing_info
+73,Seleccione el país,,epi_markets_modal_title
+74,Por favor seleccione su país,,epi_markets_modal_message
+75,Ninguno,,epi_markets_modal_no_market
 76,Afganistán,,country_af
 78,Albania,,country_al
 79,Argelia,,country_dz
@@ -198,7 +198,7 @@ code,text,status,key
 248,Filipinas,,country_ph
 250,Polonia,,country_pl
 251,Portugal,,country_pt
-253,Katar,,country_qa
+253,Catar,,country_qa
 255,Rumania,,country_ro
 256,Rusia,,country_ru
 257,Ruanda,,country_rw
@@ -235,7 +235,7 @@ code,text,status,key
 294,Tonga,,country_to
 295,Trinidad y Tobago,,country_tt
 296,Túnez,,country_tn
-297,Pava,,country_tr
+297,Turquía,,country_tr
 298,Turkmenistán,,country_tm
 300,Tuvalu,,country_tv
 301,Uganda,,country_ug

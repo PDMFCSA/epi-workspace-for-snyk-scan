@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | مرحبا بك في فارما ليدجر | ok | 1 |
-| scan_explain | ابحث عن Datamatrix على الطب الخاص بك. انظر المثال أعلاه. |  | 2 |
+| scan_explain | ابحث ابحث عن Datamatrix على  الدواء الخاص بك. انظر المثال أعلاه. |  | 2 |
 | scan_button | امسح الداتا ماتركس | ok | 3 |
 | change_camera | بدل الكاميرا | ok | 4 |
 | cancel | الغاء | ok | 5 |
@@ -61,8 +61,8 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | document_patient_info | معلومات المريض |  | 68 |
 | document_product_info | معلومات المنتج للمرضى |  | 69 |
 | document_lang_select_message | معلومات المنتج متوفرة فقط باللغة الإنجليزية |  | 70 |
-| document_lang_select_title | يلاحظ |  | 71 |
-| document_prescribing_info | وصف المعلومات لأخصائيي الرعاية الصحية |  | 72 |
+| document_lang_select_title | ملاحظة |  | 71 |
+| document_prescribing_info | معلومات لأخصائيي الرعاية الصحية |  | 72 |
 | epi_markets_modal_title | حدد البلد |  | 73 |
 | epi_markets_modal_message | الرجاء تحديد بلدك |  | 74 |
 | epi_markets_modal_no_market | لا بلد |  | 75 |
@@ -242,7 +242,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_to | تونغا |  | 294 |
 | country_tt | ترينيداد وتوباغو |  | 295 |
 | country_tn | تونس |  | 296 |
-| country_tr | ديك رومى |  | 297 |
+| country_tr | تركيا |  | 297 |
 | country_tm | تركمانستان |  | 298 |
 | country_tv | توفالو |  | 300 |
 | country_ug | أوغندا |  | 301 |

@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | Добре дошли във PharmaLedger | ok | 1 |
-| scan_explain | Намерете Datamatrix на вашето лекарство. Вижте пример по -горе. |  | 2 |
+| scan_explain | Намерете Datamatrix-баркода на Вашето лекарство. Вижте примера по-горе. |  | 2 |
 | scan_button | Сканирайте DataMatrix | ok | 3 |
 | change_camera | Сменете камерата | ok | 4 |
 | cancel | Отказ | ok | 5 |
@@ -50,20 +50,20 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | error_subtitle | Непроверен продукт |  | 49 |
 | leaflet_incorrect_date_title | Неправилна дата |  | 50 |
 | leaflet_incorrect_date_subtitle | Сканираната дата е неправилна |  | 51 |
-| leaflet_print_title | Информация за отпечатване |  | 61 |
-| leaflet_print_description | Текущата избрана информация ще бъде отпечатана като PDF. |  | 62 |
+| leaflet_print_title | Печатане на информацията |  | 61 |
+| leaflet_print_description | Избраната в момента информация ще бъде отпечатана като PDF. |  | 62 |
 | leaflet_print_description2 | Искате ли да продължите? |  | 63 |
 | leaflet_print_button | Продължете |  | 64 |
-| leaflet_print_button_back | Върнете се |  | 65 |
+| leaflet_print_button_back | Назад |  | 65 |
 | document_modal_title | Моля, изберете |  | 66 |
-| document_modal_message | Моля, изберете кой документ да се покаже |  | 67 |
-| document_patient_info | Информация за пациента |  | 68 |
+| document_modal_message | Изберете кой документ да се покаже |  | 67 |
+| document_patient_info | Информация за пациенти |  | 68 |
 | document_product_info | Информация за продукта за пациенти |  | 69 |
 | document_lang_select_message | Информацията за продукта е достъпна само на английски |  | 70 |
-| document_lang_select_title | Забележете |  | 71 |
-| document_prescribing_info | Предписване на информация за здравни специалисти |  | 72 |
+| document_lang_select_title | Бележка |  | 71 |
+| document_prescribing_info | Кратка характеристика на продукта (за медицински специалисти) |  | 72 |
 | epi_markets_modal_title | Изберете държава |  | 73 |
-| epi_markets_modal_message | Моля, изберете вашата страна |  | 74 |
+| epi_markets_modal_message | Изберете своята държава |  | 74 |
 | epi_markets_modal_no_market | Няма държава |  | 75 |
 | country_af | Афганистан |  | 76 |
 | country_al | Албания |  | 78 |

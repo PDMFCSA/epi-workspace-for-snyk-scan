@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | PharmaLedger에 오신 것을 환영합니다 | ok | 1 |
-| scan_explain | 약에서 Datamatrix를 찾으십시오. 위의 예를 참조하십시오. |  | 2 |
+| scan_explain | 상기 예시를 참조하여 제품 상의 DataMatrix를 확인해 주십시오. |  | 2 |
 | scan_button | 데이터 매트릭스 스캔하기 | ok | 3 |
 | change_camera | 카메라를 바꾸세요 | ok | 4 |
 | cancel | 취소 | ok | 5 |
@@ -54,18 +54,18 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_print_title | 인쇄 정보 |  | 61 |
 | leaflet_print_description | 현재 선택된 정보는 PDF로 인쇄됩니다. |  | 62 |
 | leaflet_print_description2 | 진행 하시겠습니까? |  | 63 |
-| leaflet_print_button | 진행하다 |  | 64 |
-| leaflet_print_button_back | 돌아 가라 |  | 65 |
+| leaflet_print_button | 진행하기 |  | 64 |
+| leaflet_print_button_back | 돌아가기 |  | 65 |
 | document_modal_title | 선택하십시오 |  | 66 |
 | document_modal_message | 표시 할 문서를 선택하십시오 |  | 67 |
 | document_patient_info | 환자 정보 |  | 68 |
 | document_product_info | 환자를위한 제품 정보 |  | 69 |
 | document_lang_select_message | 제품 정보는 영어로만 제공됩니다 |  | 70 |
-| document_lang_select_title | 알아채다 |  | 71 |
-| document_prescribing_info | 의료 전문가를위한 처방 정보 |  | 72 |
+| document_lang_select_title | 알림 |  | 71 |
+| document_prescribing_info | 보건의료전문가를 위한 처방 정보 |  | 72 |
 | epi_markets_modal_title | 국가 선택 |  | 73 |
 | epi_markets_modal_message | 국가를 선택하십시오 |  | 74 |
-| epi_markets_modal_no_market | 나라도 없습니다 |  | 75 |
+| epi_markets_modal_no_market | 해당 국가 없음 |  | 75 |
 | country_af | 아프가니스탄 |  | 76 |
 | country_al | 알바니아 |  | 78 |
 | country_dz | 알제리 |  | 79 |
@@ -143,7 +143,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_hu | 헝가리 |  | 174 |
 | country_is | 아이슬란드 |  | 175 |
 | country_in | 인도 |  | 176 |
-| country_id | 인도네시아 공화국 |  | 177 |
+| country_id | 인도네시아 |  | 177 |
 | country_ir | 이란 |  | 178 |
 | country_iq | 이라크 |  | 179 |
 | country_ie | 아일랜드 |  | 180 |
@@ -242,12 +242,12 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_to | 통가 |  | 294 |
 | country_tt | 트리니다드 토바고 |  | 295 |
 | country_tn | 튀니지 |  | 296 |
-| country_tr | 칠면조 |  | 297 |
+| country_tr | 튀르키예 |  | 297 |
 | country_tm | 투르크 메니스탄 |  | 298 |
 | country_tv | 투발루 |  | 300 |
 | country_ug | 우간다 |  | 301 |
 | country_ua | 우크라이나 |  | 302 |
-| country_ae | 아랍 에미리트 연합 |  | 303 |
+| country_ae | 아랍 에미리트 연합국 |  | 303 |
 | country_gb | 영국 |  | 304 |
 | country_us | 미국 |  | 305 |
 | country_uy | 우루과이 |  | 307 |
@@ -255,7 +255,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_vu | 바누아투 |  | 309 |
 | country_ve | 베네수엘라 |  | 310 |
 | country_vn | 베트남 |  | 311 |
-| country_ye | 예멘 아랍 공화국 |  | 316 |
+| country_ye | 예멘 |  | 316 |
 | country_zm | 잠비아 |  | 317 |
 | country_zw | 짐바브웨 |  | 318 |
 | country_me | 몬테네그로 |  | 319 |

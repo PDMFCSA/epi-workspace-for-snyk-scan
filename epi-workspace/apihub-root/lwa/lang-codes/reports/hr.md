@@ -51,17 +51,17 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_incorrect_date_title | Netočan datum |  | 50 |
 | leaflet_incorrect_date_subtitle | Datum skeniranja je netočan |  | 51 |
 | leaflet_print_title | Informacije o ispisu |  | 61 |
-| leaflet_print_description | Trenutne odabrane informacije bit će ispisane kao PDF. |  | 62 |
+| leaflet_print_description | Trenutno odabrane informacije bit će ispisane kao PDF. |  | 62 |
 | leaflet_print_description2 | Želite li nastaviti? |  | 63 |
 | leaflet_print_button | Nastaviti |  | 64 |
-| leaflet_print_button_back | Vratiti se |  | 65 |
+| leaflet_print_button_back | Vrati se |  | 65 |
 | document_modal_title | Molimo odaberite |  | 66 |
-| document_modal_message | Odaberite koji dokument za prikaz |  | 67 |
-| document_patient_info | Informacije o pacijentu |  | 68 |
+| document_modal_message | Odaberite koji dokument želite prikazati |  | 67 |
+| document_patient_info | Informacije za pacijenta |  | 68 |
 | document_product_info | Informacije o proizvodu za pacijente |  | 69 |
-| document_lang_select_message | Podaci o proizvodu dostupni su samo na engleskom jeziku |  | 70 |
+| document_lang_select_message | Informacije o proizvodu dostupne su samo na engleskom jeziku |  | 70 |
 | document_lang_select_title | Obavijest |  | 71 |
-| document_prescribing_info | Propisivanje informacija zdravstvenim radnicima |  | 72 |
+| document_prescribing_info | Informacije o propisivanju za zdravstvene radnike |  | 72 |
 | epi_markets_modal_title | Odaberite zemlju |  | 73 |
 | epi_markets_modal_message | Odaberite svoju zemlju |  | 74 |
 | epi_markets_modal_no_market | Nijedna zemlja |  | 75 |

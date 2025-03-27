@@ -1,6 +1,6 @@
 code,text,status,key
 1,Laipni lūgti PharmaLedger,ok,welcome
-2,Atrodiet savu medicīnu datuatrrix. Skatīt piemēru iepriekš.,,scan_explain
+2,Atrodiet DataMatrix uz savām zālēm. Skatīt piemēru iepriekš.,,scan_explain
 3,DataMatrix skenēšana,ok,scan_button
 4,Mainīt kameru,ok,change_camera
 5,Atcelt,ok,cancel
@@ -51,11 +51,11 @@ code,text,status,key
 65,Atgriezties,,leaflet_print_button_back
 66,"Lūdzu, izvēlieties",,document_modal_title
 67,"Lūdzu, atlasiet, kuru dokumentu parādīt",,document_modal_message
-68,Informācija par pacientu,,document_patient_info
+68,Informācija pacientam,,document_patient_info
 69,Informācija par produktu pacientiem,,document_product_info
 70,Informācija par produktu ir pieejama tikai angļu valodā,,document_lang_select_message
 71,Pamanīt,,document_lang_select_title
-72,Informācijas izrakstīšana veselības aprūpes speciālistiem,,document_prescribing_info
+72,Zāļu informācija veselības aprūpes speciālistiem,,document_prescribing_info
 73,Izvēlēties valsti,,epi_markets_modal_title
 74,"Lūdzu, atlasiet savu valsti",,epi_markets_modal_message
 75,Nav valsts,,epi_markets_modal_no_market
@@ -235,7 +235,7 @@ code,text,status,key
 294,Tonga,,country_to
 295,Trinidāda un Tobāgo,,country_tt
 296,Tunisija,,country_tn
-297,Tītars,,country_tr
+297,Turcija,,country_tr
 298,Turkmenistāna,,country_tm
 300,Tuvalu,,country_tv
 301,Uganda,,country_ug

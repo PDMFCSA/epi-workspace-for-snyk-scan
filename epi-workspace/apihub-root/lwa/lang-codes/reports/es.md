@@ -6,11 +6,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | Bienvenido a PharmaLedger | ok | 1 |
-| scan_explain | Encuentre la DataMatrix en su medicamento. Ver ejemplo de arriba. |  | 2 |
+| scan_explain | Encuentre el DataMatrix en su medicamento. Ver ejemplo de arriba. |  | 2 |
 | scan_button | Escanear DataMatrix | ok | 3 |
 | change_camera | Cambiar cámara | ok | 4 |
 | cancel | Cancelar | ok | 5 |
-| scan_again | Escanear nuevamente | ok | 6 |
+| scan_again | Escanear de nuevo | ok | 6 |
 | product_not_found_title | No reconocido | ok | 7 |
 | product_not_found | Este producto no se puede encontrar. | ok | 9 |
 | leaflet_expired_title | Caducado | ok | 10 |
@@ -19,10 +19,10 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | select_lang_title | Idioma no disponible | ok | 13 |
 | about_modal_subtitle | Acerca de | ok | 14 |
 | about_modal_title | PharmaLedger | ok | 15 |
-| about_content | &lt;h2&gt;Sobre esta aplicación&lt;/h2&gt;&lt;p&gt;Esta aplicación le es proporcionada por PharmaLedger®. Fue desarrollada conjuntamente por organizaciones de representación de pacientes, compañías farmacéuticas y expertos en tecnología.&lt;/p&gt;&lt;p&gt;Permite a los usuarios de la aplicación ver información sobre su medicamento escaneando el código de barras en el paquete del producto.&lt;/p&gt;&lt;p&gt;La información mostrada es proporcionada por el titular de la Autorización de Comercialización del producto.&lt;/p&gt;&lt;h2&gt;Sobre PharmaLedger&lt;/h2&gt;&lt;p&gt;PharmaLedger® es la marca de PharmaLedger Association (PLA).&lt;/p&gt;&lt;p&gt;PLA es una asociación global sin fines de lucro y neutral. El propósito de la Asociación es crear y promover un ecosistema digital de confianza en la atención sanitaria.&lt;/p&gt;&lt;p&gt;La Asociación promueve la cooperación en los sectores de la salud y ciencias de la vida y promueve innovaciones y su implementación para el beneficio mutuo de los pacientes y otras partes interesadas.&lt;/p&gt; | ok | 16 |
+| about_content | &lt;h2&gt;Sobre esta aplicación&lt;/h2&gt;&lt;p&gt;Esta aplicación ha sido proporcionada por PharmaLedger®. Fue desarrollada conjuntamente por organizaciones de representación de pacientes, compañías farmacéuticas y expertos en tecnología.&lt;/p&gt;&lt;p&gt;Permite a los usuarios de la aplicación ver información sobre su medicamento escaneando el código de barras en el paquete del producto.&lt;/p&gt;&lt;p&gt;La información mostrada es proporcionada por el titular de la Autorización de Comercialización del producto.&lt;/p&gt;&lt;h2&gt;Sobre PharmaLedger&lt;/h2&gt;&lt;p&gt;PharmaLedger® es una marca de PharmaLedger Association (PLA).&lt;/p&gt;&lt;p&gt;PLA es una asociación global sin ánimo de lucro y neutral. El propósito de la Asociación es crear y promover un ecosistema digital de confianza en la atención sanitaria.&lt;/p&gt;&lt;p&gt;La Asociación promueve la cooperación en los sectores de la salud y ciencias de la vida y promueve innovaciones y su implementación para el beneficio mutuo de los pacientes y otras partes interesadas.&lt;/p&gt; | ok | 16 |
 | scan_error_title | Error de escaneo | ok | 18 |
-| camera_error_message | Algo salió mal y no se tiene un correcto acceso a la cámara seleccionada. Compruebe la configuración de la cámara de su dispositivo o intente cambiar la cámara desde el menú. | ok | 20 |
-| leaflet_lang_select_message | La información del medicamento no está disponible en su idioma. Puede elegir otro idioma disponible de la lista. | ok | 21 |
+| camera_error_message | Algo salió mal y no se tiene acceso a la cámara seleccionada. Compruebe la configuración de su dispositivo o intente cambiar la cámara desde el menú. | ok | 20 |
+| leaflet_lang_select_message | El prospecto del medicamento no está disponible en su idioma. Puede elegir otro idioma disponible de la lista. | ok | 21 |
 | lang_proceed | Continuar | ok | 22 |
 | go_home | Volver al Inicio | ok | 24 |
 | onboarding_welcome | ¡Ya casi está! Por favor, lea y acepte los términos y condiciones. | ok | 25 |
@@ -41,31 +41,39 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | terms_content | &lt;h2&gt;Términos y Condiciones para el sitio web y la aplicación de información electrónica de productos de la Asociación PharmaLedger &lt;/h2&gt;&lt;p&gt;Al entrar o utilizar el sitio web y la aplicación de información electrónica de productos de la Asociación PharmaLedger (los "Servicios"), usted acepta estar sujeto a estos términos y condiciones (los "Términos"). No puede tener acceso ni utilizar los Servicios si no está de acuerdo con estos Términos. Los Servicios son realizados por la Asociación PharmaLedger (la "Asociación") y están destinados a ser utilizados por personas que buscan información sobre su medicamento. Una red multiparte ofrece los Servicios, y el fabricante de su medicamento suministra la información del producto que se muestra a través de los Servicios. La Asociación actúa como controlador de datos para esta información. &lt;/p&gt;&lt;h2&gt; Uso de los Servicios &lt;/h2&gt;&lt;p&gt;Usted acepta utilizar los Servicios solo para fines legales y de una manera que no infrinja los derechos de, o restrinja o inhiba el uso y disfrute de los Servicios por parte de terceros. Dicha restricción o inhibición incluye, sin limitarse a, conductas que son ilegales, o que pueden acosar o causar angustia o inconvenientes a cualquier persona, y la transmisión de contenido obsceno u ofensivo o la interrupción del flujo normal de diálogo dentro de los Servicios. &lt;/p&gt;&lt;h2&gt;Propiedad intelectual &lt;/h2&gt;&lt;p&gt;El contenido de los Servicios, incluidos, entre otros, texto, gráficos, imágenes y software, es propiedad de la Asociación o sus licenciantes y compañías miembros y está protegido por derechos de autor y otras leyes de propiedad intelectual. No puede utilizar ningún contenido de los Servicios para ningún propósito comercial sin el consentimiento expreso por escrito de la Asociación. &lt;/p&gt;&lt;h2&gt;Responsabilidad&lt;/h2&gt;&lt;p&gt;La Asociación no hace ninguna representación o garantía de ningún tipo, expresa o implícita, en cuanto al funcionamiento de los Servicios o la información, contenido, materiales o productos incluidos en los Servicios. La Asociación no será responsable de ningún daño de ningún tipo que surja del uso de los Servicios, incluidos, entre otros, daños directos, indirectos, fortuitos, punitivos y consecuentes. &lt;/p&gt;&lt;h2&gt;Legislación Aplicable &lt;/h2&gt; &lt;p&gt;Estos Términos y el uso de los Servicios se regirán e interpretarán de acuerdo con las leyes de Suiza y cualquier disputa se resolverá en los tribunales de Basilea, Suiza. &lt;/p&gt;&lt;h2&gt;Cambios en los Términos &lt;/h2&gt;&lt;p&gt;La Asociación se reserva el derecho de cambiar estos Términos en cualquier momento, y usted es responsable de verificar estos Términos periódicamente para detectar cualquier cambio. Su uso continuado de los Servicios después de que se hayan realizado cambios en los Términos constituirá su aceptación de los Términos revisados.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt; | ok | 38 |
 | help_modal_title | Ayuda | ok | 39 |
 | help_modal_subtitle | Preguntas frecuentes | ok | 40 |
-| help_content | &lt;div&gt;&lt;p&gt;&lt;b&gt;&lt;h2&gt;¿Qué es EPI?&lt;/h2&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;EPI&lt;/b&gt; es la abreviatura de &lt;b&gt;información de producto electrónica&lt;/b&gt;. Es una versión electrónica del prospecto de información del producto en papel que normalmente se encuentra dentro del envase de un medicamento. En algunos casos, la &lt;b&gt;EPI&lt;/b&gt; puede haber reemplazado a el prospecto de papel.&lt;/p&gt;&lt;p&gt;&lt;b&gt;&lt;h2&gt;¿Qué es PharmaLedger?&lt;/h2&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;La Asociación PharmaLedger (PLA) es una asociación sin fines de lucro con sede en Suiza con el propósito de habilitar y fomentar un ecosistema de confianza digital en la atención médica a través de una plataforma de código abierto estandarizada y confiable. PLA promueve la colaboración y acelera la innovación y la adopción para lograr beneficios mutuos en los dominios de la salud y las ciencias de la vida para los pacientes y otras partes interesadas. PLA se formó en 2022 para continuar el trabajo del proyecto PharmaLedger, un proyecto de 3 años financiado por la Comisión Europea y la industria farmacéutica destinado a demostrar el valor de las soluciones de blockchain. Más información disponible en https://pharmaledger.org.&lt;/p&gt;&lt;p&gt;&lt;b&gt;&lt;h2&gt;¿Qué es el DataMatrix?&lt;/h2&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Es un tipo de código de barras en el envase de su medicamento. Es un código de barras de caja cuadrada en blanco y negro, que se verá similar a esto:&lt;br&gt; &lt;img src="./images/barcode_example.png"&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;&lt;h2&gt;¿Cómo usar la aplicación?&lt;/h2&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Siga las instrucciones en la página de inicio de la &lt;b&gt;Aplicación...&lt;/b&gt; muestra una imagen de dónde encontrar el &lt;b&gt;DataMatrix&lt;/b&gt; en el envase de su medicamento. Una vez que haya encontrado el &lt;b&gt;DataMatrix&lt;/b&gt;, haga clic en el botón 'Escanear &lt;b&gt;DataMatrix&lt;/b&gt;'. Permita que la aplicación use la cámara para que se pueda escanear el &lt;b&gt;DataMatrix&lt;/b&gt;. Utilice la cámara para enfocar el &lt;b&gt;DataMatrix&lt;/b&gt;. Una vez que el envase se escanea con éxito, se mostrará la &lt;b&gt;EPI&lt;/b&gt;. Puede hacer clic en el botón ‘+’ para obtener más detalles.&lt;/p&gt;&lt;p&gt;&lt;b&gt;&lt;h2&gt;¿Por qué mi escaneo del DataMatrix no da un resultado?&lt;/h2&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt; Hay varias razones por las que el &lt;b&gt;DataMatrix&lt;/b&gt; en su envase puede no dar una EPI. Una de las razones podría ser el enfoque de la cámara. Por favor, intente escanear el código en un lugar bien iluminado y que el código se encuentre claramente visible en la pantalla. Si usted está teniendo problemas para mantener su mano firme, podría tratar de usar una mesa para apoyar sus manos. &lt;/p&gt;&lt;/div&gt; | ok | 41 |
+| help_content | &lt;div&gt;&lt;p&gt;&lt;b&gt;&lt;h2&gt;¿Qué es EPI?&lt;/h2&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;EPI&lt;/b&gt; es la abreviatura inglesa de &lt;b&gt;información de producto electrónica (Electronic Product Information)&lt;/b&gt;. Es una versión electrónica del prospecto de información del producto en papel que normalmente se encuentra dentro del envase de un medicamento. En algunos casos, la &lt;b&gt;EPI&lt;/b&gt; puede haber reemplazado al prospecto en papel.&lt;/p&gt;&lt;p&gt;&lt;b&gt;&lt;h2&gt;¿Qué es PharmaLedger?&lt;/h2&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;La Asociación PharmaLedger (PLA) es una asociación sin fines de lucro con sede en Suiza cuyo propósito es habilitar y fomentar un ecosistema de confianza digital en la atención médica a través de una plataforma de código abierto estandarizada y confiable. PLA promueve la colaboración y acelera la innovación y la adopción para lograr beneficios mutuos en los dominios de la salud y las ciencias de la vida para los pacientes y otras partes interesadas. PLA se formó en 2022 para continuar el trabajo del proyecto PharmaLedger, un proyecto de 3 años financiado por la Comisión Europea y la industria farmacéutica destinado a demostrar el valor de las soluciones de blockchain. Más información disponible en https://pharmaledger.org.&lt;/p&gt;&lt;p&gt;&lt;b&gt;&lt;h2&gt;¿Qué es el DataMatrix?&lt;/h2&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Es un tipo de código de barras en el envase de su medicamento. Es un código de barras de caja cuadrada en blanco y negro, que se verá similar a esto:&lt;br&gt;  &lt;img src="./images/barcode_example.png"&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;&lt;h2&gt;¿Cómo usar la aplicación?&lt;/h2&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Siga las instrucciones en la página de inicio de la &lt;b&gt;Aplicación...&lt;/b&gt; muestra una imagen de dónde encontrar el &lt;b&gt;DataMatrix&lt;/b&gt; en el envase de su medicamento. Una vez que haya encontrado el &lt;b&gt;DataMatrix&lt;/b&gt;, haga clic en el botón 'Escanear &lt;b&gt;DataMatrix&lt;/b&gt;'. Permita que la aplicación use la cámara para que se pueda escanear el &lt;b&gt;DataMatrix&lt;/b&gt;. Utilice la cámara para enfocar el &lt;b&gt;DataMatrix&lt;/b&gt;. Una vez que el envase se escanea con éxito, se mostrará la &lt;b&gt;EPI&lt;/b&gt;. Puede hacer clic en el botón ‘+’ para obtener más detalles.&lt;/p&gt;&lt;p&gt;&lt;b&gt;&lt;h2&gt;¿Por qué mi escaneo del DataMatrix no da un resultado?&lt;/h2&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt; Hay varias razones por las que el &lt;b&gt;DataMatrix&lt;/b&gt; en su envase puede no dar una EPI. Una de las razones podría ser el enfoque de la cámara. Por favor, intente escanear el código en un lugar bien iluminado y que el código se encuentre claramente visible en la pantalla. Si usted está teniendo problemas para mantener su mano firme, podría tratar de usar una mesa para apoyar sus manos. &lt;/p&gt;&lt;/div&gt; | ok | 41 |
 | product_not_loaded_title | Información del producto no disponible. | ok | 44 |
 | product_not_loaded | Lamentablemente, no se ha cargado ninguna información del producto. | ok | 45 |
 | err_code | Código de error | ok | 46 |
-| system_busy | Sobrecarga del sistema. Por favor, vuelva a intentarlo más tarde. | ok | 47 |
+| system_busy | Sistema ocupado. Por favor, vuelva a intentarlo más tarde. | ok | 47 |
 | leaflet_print | Imprimir |  | 48 |
 | error_subtitle | Producto no verificado |  | 49 |
 | leaflet_incorrect_date_title | Fecha incorrecta |  | 50 |
 | leaflet_incorrect_date_subtitle | La fecha escaneada es incorrecta |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; La fecha de este producto es incorrecta&lt;/b&gt;. |  | 52 |
-| leaflet_print_title | Información de impresión |  | 61 |
-| leaflet_print_description | La información seleccionada actual se imprimirá como PDF. |  | 62 |
-| leaflet_print_description2 | ¿Quieres continuar? |  | 63 |
+| leaflet_recalled_product | ¡Product retirado! |  | 53 |
+| leaflet_recalled_batch | ¡Lote retirado! |  | 54 |
+| recalled_product_title | Producto retirado |  | 55 |
+| recalled_product_message | Este producto {0} ha sido retirado, por favor retorne el producto a su farmacia o póngase en contacto con atención al cliente - consulte en número de teléfono en el envase. |  | 56 |
+| recalled_product_name | Producto: {0} |  | 57 |
+| recalled_batch_title | Lote Retirado |  | 58 |
+| recalled_batch_name | Nombre del Lote: {0} |  | 59 |
+| recalled_batch_message | Este lote {0} ha sido retirado, por favor retorne el producto a su farmacia o póngase en contacto con atención al cliente - consulte en número de teléfono en el envase. |  | 60 |
+| leaflet_print_title | Imprimir información |  | 61 |
+| leaflet_print_description | La información seleccionada se imprimirá como PDF. |  | 62 |
+| leaflet_print_description2 | ¿Quiere continuar? |  | 63 |
 | leaflet_print_button | Proceder |  | 64 |
 | leaflet_print_button_back | Volver |  | 65 |
-| document_modal_title | Por favor elija |  | 66 |
+| document_modal_title | Seleccione |  | 66 |
 | document_modal_message | Seleccione qué documento mostrar |  | 67 |
 | document_patient_info | Información del paciente |  | 68 |
 | document_product_info | Información del producto para pacientes |  | 69 |
 | document_lang_select_message | La información del producto solo está disponible en inglés |  | 70 |
 | document_lang_select_title | Aviso |  | 71 |
-| document_prescribing_info | Prescribir información para profesionales de la salud |  | 72 |
+| document_prescribing_info | Información de prescripción para profesionales de la salud |  | 72 |
 | epi_markets_modal_title | País seleccionado |  | 73 |
 | epi_markets_modal_message | Seleccione su país |  | 74 |
-| epi_markets_modal_no_market | No hay país |  | 75 |
+| epi_markets_modal_no_market | Sin país |  | 75 |
 | country_af | Afganistán |  | 76 |
 | country_al | Albania |  | 78 |
 | country_dz | Argelia |  | 79 |
@@ -101,13 +109,13 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_cf | República Centroafricana |  | 117 |
 | country_td | Chad |  | 118 |
 | country_cl | Chile |  | 119 |
-| country_cn | Porcelana |  | 120 |
+| country_cn | China |  | 120 |
 | country_co | Colombia |  | 123 |
 | country_km | Comoras |  | 124 |
 | country_cg | Congo, República del |  | 125 |
-| country_cd | Congo, la República Democrática del |  | 126 |
+| country_cd | Congo, República Democrática del |  | 126 |
 | country_cr | Costa Rica |  | 128 |
-| country_ci | Costa marfil |  | 129 |
+| country_ci | Costa de Marfil |  | 129 |
 | country_hr | Croacia |  | 130 |
 | country_cu | Cuba |  | 131 |
 | country_cy | Chipre |  | 132 |
@@ -150,7 +158,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_il | Israel |  | 182 |
 | country_it | Italia |  | 183 |
 | country_jm | Jamaica |  | 184 |
-| country_jp | Japona |  | 185 |
+| country_jp | Japon |  | 185 |
 | country_jo | Jordán |  | 187 |
 | country_kz | Kazajstán |  | 188 |
 | country_ke | Kenia |  | 189 |
@@ -180,7 +188,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_mu | Mauricio |  | 215 |
 | country_mx | México |  | 217 |
 | country_fm | Micronesia, estados federados de |  | 218 |
-| country_md | Moldava |  | 219 |
+| country_md | Moldavia |  | 219 |
 | country_mc | Mónaco |  | 220 |
 | country_mn | Mongolia |  | 221 |
 | country_ma | Marruecos |  | 223 |
@@ -238,11 +246,11 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_tz | Tanzania |  | 289 |
 | country_th | Tailandia |  | 290 |
 | country_tl | Timor este |  | 291 |
-| country_tg | Ir |  | 292 |
+| country_tg | Togo |  | 292 |
 | country_to | Tonga |  | 294 |
 | country_tt | Trinidad y Tobago |  | 295 |
 | country_tn | Túnez |  | 296 |
-| country_tr | Pava |  | 297 |
+| country_tr | Turquia |  | 297 |
 | country_tm | Turkmenistán |  | 298 |
 | country_tv | Tuvalu |  | 300 |
 | country_ug | Uganda |  | 301 |

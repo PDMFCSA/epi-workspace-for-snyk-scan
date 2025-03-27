@@ -51,19 +51,19 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_incorrect_date_title | Date incorrecte |  | 50 |
 | leaflet_incorrect_date_subtitle | La date numérisée est incorrecte |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; &lt;/b&gt;. |  | 52 |
-| leaflet_print_title | Imprimer des informations |  | 61 |
-| leaflet_print_description | Les informations sélectionnées actuelles seront imprimées sous forme de PDF. |  | 62 |
+| leaflet_print_title | Imprimer les informations |  | 61 |
+| leaflet_print_description | Les informations sélectionnées seront imprimées sous forme de PDF. |  | 62 |
 | leaflet_print_description2 | Voulez-vous continuer? |  | 63 |
-| leaflet_print_button | Procéder |  | 64 |
-| leaflet_print_button_back | Remonter |  | 65 |
+| leaflet_print_button | Continuer |  | 64 |
+| leaflet_print_button_back | Retourner |  | 65 |
 | document_modal_title | Veuillez choisir |  | 66 |
 | document_modal_message | Veuillez sélectionner le document à afficher |  | 67 |
 | document_patient_info | Informations sur les patients |  | 68 |
-| document_product_info | Informations sur les produits pour les patients |  | 69 |
+| document_product_info | Informations sur le produit pour les patients |  | 69 |
 | document_lang_select_message | Les informations sur les produits sont uniquement disponibles en anglais |  | 70 |
 | document_lang_select_title | Avis |  | 71 |
-| document_prescribing_info | Prescription des informations pour les professionnels de la santé |  | 72 |
-| epi_markets_modal_title | Pays de sélection |  | 73 |
+| document_prescribing_info | Informations pour les professionnels de la santé |  | 72 |
+| epi_markets_modal_title | Sélection de pays |  | 73 |
 | epi_markets_modal_message | Veuillez sélectionner votre pays |  | 74 |
 | epi_markets_modal_no_market | Pas de pays |  | 75 |
 | country_af | Afghanistan |  | 76 |
@@ -144,7 +144,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_is | Islande |  | 175 |
 | country_in | Inde |  | 176 |
 | country_id | Indonésie |  | 177 |
-| country_ir | L'Iran |  | 178 |
+| country_ir | Iran |  | 178 |
 | country_iq | Irak |  | 179 |
 | country_ie | Irlande |  | 180 |
 | country_il | Israël |  | 182 |

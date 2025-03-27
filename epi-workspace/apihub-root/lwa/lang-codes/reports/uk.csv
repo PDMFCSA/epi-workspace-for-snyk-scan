@@ -1,6 +1,6 @@
 code,text,status,key
 1,Вітаємо в PharmaLedger,ok,welcome
-2,Знайдіть датаматрикс на своєму ліку. Див. Приклад вище.,,scan_explain
+2,Знайдіть  датаматрикс код на своїх ліках. Див. приклад вище.,,scan_explain
 3,Відсканувати DataMatrix,ok,scan_button
 4,Змінити камеру,ok,change_camera
 5,Відмінити,ok,cancel
@@ -48,17 +48,17 @@ code,text,status,key
 61,Інформація про друк,,leaflet_print_title
 62,Поточна вибрана інформація буде надрукована як PDF.,,leaflet_print_description
 63,Ви хочете продовжити?,,leaflet_print_description2
-64,Тривати,,leaflet_print_button
+64,Продовжити,,leaflet_print_button
 65,Повернутися,,leaflet_print_button_back
 66,"Будь ласка, виберіть",,document_modal_title
-67,"Будь ласка, виберіть, який документ для відображення",,document_modal_message
+67,"Будь ласка, виберіть документ для відображення",,document_modal_message
 68,Інформація про пацієнта,,document_patient_info
-69,Інформація про товар для пацієнтів,,document_product_info
-70,Інформація про товар доступна лише англійською мовою,,document_lang_select_message
-71,Ув'язнення,,document_lang_select_title
-72,Призначення інформації для медичних працівників,,document_prescribing_info
-73,Вибір країни,,epi_markets_modal_title
-74,"Будь ласка, виберіть свою країну",,epi_markets_modal_message
+69,Інформація про лікарський засіб для пацієнтів,,document_product_info
+70,Інформація про лікарський засіб  доступна лише англійською мовою,,document_lang_select_message
+71,Примітки,,document_lang_select_title
+72,Інформації для медичних працівників,,document_prescribing_info
+73,Оберіть країну,,epi_markets_modal_title
+74,"Будь ласка, оиберіть свою країну",,epi_markets_modal_message
 75,Жодної країни,,epi_markets_modal_no_market
 76,Афганістан,,country_af
 78,Албанія,,country_al
@@ -145,7 +145,7 @@ code,text,status,key
 183,Італія,,country_it
 184,Ямайка,,country_jm
 185,Японія,,country_jp
-187,Йордан,,country_jo
+187,Йорданія,,country_jo
 188,Казахстан,,country_kz
 189,Кенія,,country_ke
 190,Кірібаті,,country_ki
@@ -189,7 +189,7 @@ code,text,status,key
 234,Нігер,,country_ne
 235,Нігерія,,country_ng
 239,Норвегія,,country_no
-240,Оманський,,country_om
+240,Оман,,country_om
 241,Пакистан,,country_pk
 242,Палау,,country_pw
 244,Панама,,country_pa
@@ -236,7 +236,7 @@ code,text,status,key
 294,Тонга,,country_to
 295,Тринідад і Тобаго,,country_tt
 296,Туніс,,country_tn
-297,Індичка,,country_tr
+297,Туреччина,,country_tr
 298,Туркменістан,,country_tm
 300,Тувалу,,country_tv
 301,Уганда,,country_ug

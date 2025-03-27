@@ -48,15 +48,15 @@ code,text,status,key
 61,Trükiteave,,leaflet_print_title
 62,Praegune valitud teave trükitakse PDF -na.,,leaflet_print_description
 63,Kas soovite jätkata?,,leaflet_print_description2
-64,Harima,,leaflet_print_button
-65,Tagasi minema,,leaflet_print_button_back
+64,Jätka,,leaflet_print_button
+65,Tagasi,,leaflet_print_button_back
 66,Palun valige,,document_modal_title
 67,"Palun valige, millist dokumenti kuvada",,document_modal_message
 68,Patsientide teave,,document_patient_info
 69,Tooteteave patsientidele,,document_product_info
 70,Tooteteave on saadaval ainult inglise keeles,,document_lang_select_message
 71,Teade,,document_lang_select_title
-72,Tervishoiutöötajatele mõeldud teabe väljakirjutamine,,document_prescribing_info
+72,Tervishoiutöötajatele mõeldud ravimi väljakirjutamise alane teave,,document_prescribing_info
 73,Vali riik,,epi_markets_modal_title
 74,Valige oma riik,,epi_markets_modal_message
 75,Riik,,epi_markets_modal_no_market
@@ -218,7 +218,7 @@ code,text,status,key
 273,Sloveenia,,country_si
 274,Saalomoni saared,,country_sb
 275,Somaalia,,country_so
-276,Lõuna -Aafrika Vabariik,,country_za
+276,Lõuna-Aafrika Vabariik,,country_za
 278,Hispaania,,country_es
 279,Sri Lanka,,country_lk
 280,Sudaan,,country_sd

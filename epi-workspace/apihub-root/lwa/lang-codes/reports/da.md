@@ -53,7 +53,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_print_title | Udskriv information |  | 61 |
 | leaflet_print_description | De aktuelle valgte oplysninger udskrives som PDF. |  | 62 |
 | leaflet_print_description2 | Vil du fortsætte? |  | 63 |
-| leaflet_print_button | Fortsætte |  | 64 |
+| leaflet_print_button | Fortsæt |  | 64 |
 | leaflet_print_button_back | Gå tilbage |  | 65 |
 | document_modal_title | Vælg venligst |  | 66 |
 | document_modal_message | Vælg hvilket dokument der skal vises |  | 67 |
@@ -61,7 +61,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | document_product_info | Produktoplysninger til patienter |  | 69 |
 | document_lang_select_message | Produktoplysninger er kun tilgængelige på engelsk |  | 70 |
 | document_lang_select_title | Meddelelse |  | 71 |
-| document_prescribing_info | Ordinering af oplysninger til sundhedspersonale |  | 72 |
+| document_prescribing_info | Ordinationsoplysninger til sundhedspersoner |  | 72 |
 | epi_markets_modal_title | Vælg land |  | 73 |
 | epi_markets_modal_message | Vælg dit land |  | 74 |
 | epi_markets_modal_no_market | Intet land |  | 75 |
@@ -214,7 +214,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_ws | Samoa |  | 263 |
 | country_sm | San Marino |  | 264 |
 | country_st | Sao Tome og Principe |  | 265 |
-| country_sa | Saudi -Arabien |  | 266 |
+| country_sa | Saudi-Arabien |  | 266 |
 | country_sn | Senegal |  | 267 |
 | country_sc | Seychellerne |  | 269 |
 | country_sl | Sierra Leone |  | 270 |
@@ -241,7 +241,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_to | Tonga |  | 294 |
 | country_tt | Trinidad og Tobago |  | 295 |
 | country_tn | Tunesien |  | 296 |
-| country_tr | Kalkun |  | 297 |
+| country_tr | Tyrkiet |  | 297 |
 | country_tm | Turkmenistan |  | 298 |
 | country_tv | Tuvalu |  | 300 |
 | country_ug | Uganda |  | 301 |

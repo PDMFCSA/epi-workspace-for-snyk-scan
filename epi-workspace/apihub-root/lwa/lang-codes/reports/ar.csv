@@ -1,6 +1,6 @@
 code,text,status,key
 1,مرحبا بك في فارما ليدجر,ok,welcome
-2,ابحث عن Datamatrix على الطب الخاص بك. انظر المثال أعلاه.,,scan_explain
+2,ابحث ابحث عن Datamatrix على  الدواء الخاص بك. انظر المثال أعلاه.,,scan_explain
 3,امسح الداتا ماتركس,ok,scan_button
 4,بدل الكاميرا,ok,change_camera
 5,الغاء,ok,cancel
@@ -55,8 +55,8 @@ code,text,status,key
 68,معلومات المريض,,document_patient_info
 69,معلومات المنتج للمرضى,,document_product_info
 70,معلومات المنتج متوفرة فقط باللغة الإنجليزية,,document_lang_select_message
-71,يلاحظ,,document_lang_select_title
-72,وصف المعلومات لأخصائيي الرعاية الصحية,,document_prescribing_info
+71,ملاحظة,,document_lang_select_title
+72,معلومات لأخصائيي الرعاية الصحية,,document_prescribing_info
 73,حدد البلد,,epi_markets_modal_title
 74,الرجاء تحديد بلدك,,epi_markets_modal_message
 75,لا بلد,,epi_markets_modal_no_market
@@ -236,7 +236,7 @@ code,text,status,key
 294,تونغا,,country_to
 295,ترينيداد وتوباغو,,country_tt
 296,تونس,,country_tn
-297,ديك رومى,,country_tr
+297,تركيا,,country_tr
 298,تركمانستان,,country_tm
 300,توفالو,,country_tv
 301,أوغندا,,country_ug

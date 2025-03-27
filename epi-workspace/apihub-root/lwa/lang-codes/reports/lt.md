@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | Sveiki atvykę į „PharmaLedger“ | ok | 1 |
-| scan_explain | Raskite „Datamatrix“ apie savo vaistą. Žr. Aukščiau pateiktą pavyzdį. |  | 2 |
+| scan_explain | Raskite „Datamatrix“ ant savo vaisto. Žiūrėkite aukščiau pateiktą pavyzdį. |  | 2 |
 | scan_button | Nuskaityti „DataMatrix“ | ok | 3 |
 | change_camera | Keisti kamerą | ok | 4 |
 | cancel | Atšaukti | ok | 5 |
@@ -54,18 +54,18 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_print_title | Spausdinti informaciją |  | 61 |
 | leaflet_print_description | Dabartinė pasirinkta informacija bus atspausdinta kaip PDF. |  | 62 |
 | leaflet_print_description2 | Ar norite tęsti? |  | 63 |
-| leaflet_print_button | Tęsk |  | 64 |
-| leaflet_print_button_back | Grįžk atgal |  | 65 |
-| document_modal_title | Prašau pasirinkti |  | 66 |
+| leaflet_print_button | Tęsti |  | 64 |
+| leaflet_print_button_back | Grįžti atgal |  | 65 |
+| document_modal_title | Prašome pasirinkti |  | 66 |
 | document_modal_message | Pasirinkite, kurį dokumentą rodyti |  | 67 |
-| document_patient_info | Informacija apie pacientą |  | 68 |
-| document_product_info | Informacija apie produktą pacientams |  | 69 |
-| document_lang_select_message | Informacija apie produktą galima tik anglų kalba |  | 70 |
-| document_lang_select_title | Pranešimas |  | 71 |
-| document_prescribing_info | Informacijos skyrimas sveikatos priežiūros specialistams |  | 72 |
-| epi_markets_modal_title | Pasirinkite Šalis |  | 73 |
-| epi_markets_modal_message | Pasirinkite savo šalį |  | 74 |
-| epi_markets_modal_no_market | Nėra šalies |  | 75 |
+| document_patient_info | Informacija pacientui |  | 68 |
+| document_product_info | Informacija apie vaistą pacientams |  | 69 |
+| document_lang_select_message | Informacija apie vaistą galima tik anglų kalba |  | 70 |
+| document_lang_select_title | Atkreipkite dėmesį Svarbu |  | 71 |
+| document_prescribing_info | Informacija apie vaistinį preparatą  sveikatos priežiūros specialistams |  | 72 |
+| epi_markets_modal_title | Pasirinkite šalį |  | 73 |
+| epi_markets_modal_message | Prašome pasirinkti savo šalį |  | 74 |
+| epi_markets_modal_no_market | Šalis nerasta |  | 75 |
 | country_af | Afganistanas |  | 76 |
 | country_al | Albanija |  | 78 |
 | country_dz | Alžyras |  | 79 |

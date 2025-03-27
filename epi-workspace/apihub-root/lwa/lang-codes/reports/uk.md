@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | Вітаємо в PharmaLedger | ok | 1 |
-| scan_explain | Знайдіть датаматрикс на своєму ліку. Див. Приклад вище. |  | 2 |
+| scan_explain | Знайдіть  датаматрикс код на своїх ліках. Див. приклад вище. |  | 2 |
 | scan_button | Відсканувати DataMatrix | ok | 3 |
 | change_camera | Змінити камеру | ok | 4 |
 | cancel | Відмінити | ok | 5 |
@@ -54,17 +54,17 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_print_title | Інформація про друк |  | 61 |
 | leaflet_print_description | Поточна вибрана інформація буде надрукована як PDF. |  | 62 |
 | leaflet_print_description2 | Ви хочете продовжити? |  | 63 |
-| leaflet_print_button | Тривати |  | 64 |
+| leaflet_print_button | Продовжити |  | 64 |
 | leaflet_print_button_back | Повернутися |  | 65 |
 | document_modal_title | Будь ласка, виберіть |  | 66 |
-| document_modal_message | Будь ласка, виберіть, який документ для відображення |  | 67 |
+| document_modal_message | Будь ласка, виберіть документ для відображення |  | 67 |
 | document_patient_info | Інформація про пацієнта |  | 68 |
-| document_product_info | Інформація про товар для пацієнтів |  | 69 |
-| document_lang_select_message | Інформація про товар доступна лише англійською мовою |  | 70 |
-| document_lang_select_title | Ув'язнення |  | 71 |
-| document_prescribing_info | Призначення інформації для медичних працівників |  | 72 |
-| epi_markets_modal_title | Вибір країни |  | 73 |
-| epi_markets_modal_message | Будь ласка, виберіть свою країну |  | 74 |
+| document_product_info | Інформація про лікарський засіб для пацієнтів |  | 69 |
+| document_lang_select_message | Інформація про лікарський засіб  доступна лише англійською мовою |  | 70 |
+| document_lang_select_title | Примітки |  | 71 |
+| document_prescribing_info | Інформації для медичних працівників |  | 72 |
+| epi_markets_modal_title | Оберіть країну |  | 73 |
+| epi_markets_modal_message | Будь ласка, оиберіть свою країну |  | 74 |
 | epi_markets_modal_no_market | Жодної країни |  | 75 |
 | country_af | Афганістан |  | 76 |
 | country_al | Албанія |  | 78 |
@@ -151,7 +151,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_it | Італія |  | 183 |
 | country_jm | Ямайка |  | 184 |
 | country_jp | Японія |  | 185 |
-| country_jo | Йордан |  | 187 |
+| country_jo | Йорданія |  | 187 |
 | country_kz | Казахстан |  | 188 |
 | country_ke | Кенія |  | 189 |
 | country_ki | Кірібаті |  | 190 |
@@ -195,7 +195,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_ne | Нігер |  | 234 |
 | country_ng | Нігерія |  | 235 |
 | country_no | Норвегія |  | 239 |
-| country_om | Оманський |  | 240 |
+| country_om | Оман |  | 240 |
 | country_pk | Пакистан |  | 241 |
 | country_pw | Палау |  | 242 |
 | country_pa | Панама |  | 244 |
@@ -242,7 +242,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_to | Тонга |  | 294 |
 | country_tt | Тринідад і Тобаго |  | 295 |
 | country_tn | Туніс |  | 296 |
-| country_tr | Індичка |  | 297 |
+| country_tr | Туреччина |  | 297 |
 | country_tm | Туркменістан |  | 298 |
 | country_tv | Тувалу |  | 300 |
 | country_ug | Уганда |  | 301 |

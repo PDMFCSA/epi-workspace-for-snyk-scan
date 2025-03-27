@@ -1,6 +1,6 @@
 code,text,status,key
 1,Vitajte vo PharmaLedger,ok,welcome
-2,Nájdite Datamatrix vo svojom lieku. Pozri príklad vyššie.,,scan_explain
+2,Nájdite DataMatrix kód na svojom lieku. Pozrite príklad vyššie.,,scan_explain
 3,Naskenovať DataMatrix,ok,scan_button
 4,Zmeniť fotoaparát,ok,change_camera
 5,Zrušiť,ok,cancel
@@ -45,20 +45,20 @@ code,text,status,key
 50,Nesprávny dátum,,leaflet_incorrect_date_title
 51,Naskenovaný dátum je nesprávny,,leaflet_incorrect_date_subtitle
 52,<b> This product's date is incorrect</b>.,,leaflet_incorrect_date_message
-61,Výtlačok,,leaflet_print_title
-62,Aktuálne vybrané informácie budú vytlačené ako PDF.,,leaflet_print_description
-63,Chceš pokračovať?,,leaflet_print_description2
-64,Pokračovať,,leaflet_print_button
-65,Vrátiť sa,,leaflet_print_button_back
-66,Vyberte si prosím,,document_modal_title
-67,"Vyberte, ktorý dokument sa má zobraziť",,document_modal_message
+61,Vytlačiť informáciu,,leaflet_print_title
+62,Aktuálne vybraté informácie sa vytlačia vo formáte PDF.,,leaflet_print_description
+63,Chcete pokračovať?,,leaflet_print_description2
+64,Pokračujte,,leaflet_print_button
+65,Späť,,leaflet_print_button_back
+66,"Vyberte, prosím",,document_modal_title
+67,"Prosím vyberte, ktorý dokument sa má zobraziť",,document_modal_message
 68,Informácie o pacientovi,,document_patient_info
-69,Informácie o produkte pre pacientov,,document_product_info
-70,Informácie o produkte sú k dispozícii iba v angličtine,,document_lang_select_message
-71,Oznámenie,,document_lang_select_title
-72,Predpisovanie informácií pre zdravotníckych pracovníkov,,document_prescribing_info
-73,Vyberacia krajina,,epi_markets_modal_title
-74,Vyberte svoju krajinu,,epi_markets_modal_message
+69,Informácie o lieku pre pacientov,,document_product_info
+70,Informácie o lieku sú k dispozícii iba v angličtine,,document_lang_select_message
+71,Poznámka,,document_lang_select_title
+72,Informácie o predpisovaní pre zdravotníckych pracovníkov,,document_prescribing_info
+73,Vyberte krajinu,,epi_markets_modal_title
+74,"Prosím, vyberte svoju krajinu",,epi_markets_modal_message
 75,Žiadna krajina,,epi_markets_modal_no_market
 76,Afganistan,,country_af
 78,Albánsko,,country_al

@@ -1,6 +1,6 @@
 code,text,status,key
 1,Sveiki atvykę į „PharmaLedger“,ok,welcome
-2,Raskite „Datamatrix“ apie savo vaistą. Žr. Aukščiau pateiktą pavyzdį.,,scan_explain
+2,Raskite „Datamatrix“ ant savo vaisto. Žiūrėkite aukščiau pateiktą pavyzdį.,,scan_explain
 3,Nuskaityti „DataMatrix“,ok,scan_button
 4,Keisti kamerą,ok,change_camera
 5,Atšaukti,ok,cancel
@@ -49,18 +49,18 @@ code,text,status,key
 61,Spausdinti informaciją,,leaflet_print_title
 62,Dabartinė pasirinkta informacija bus atspausdinta kaip PDF.,,leaflet_print_description
 63,Ar norite tęsti?,,leaflet_print_description2
-64,Tęsk,,leaflet_print_button
-65,Grįžk atgal,,leaflet_print_button_back
-66,Prašau pasirinkti,,document_modal_title
+64,Tęsti,,leaflet_print_button
+65,Grįžti atgal,,leaflet_print_button_back
+66,Prašome pasirinkti,,document_modal_title
 67,"Pasirinkite, kurį dokumentą rodyti",,document_modal_message
-68,Informacija apie pacientą,,document_patient_info
-69,Informacija apie produktą pacientams,,document_product_info
-70,Informacija apie produktą galima tik anglų kalba,,document_lang_select_message
-71,Pranešimas,,document_lang_select_title
-72,Informacijos skyrimas sveikatos priežiūros specialistams,,document_prescribing_info
-73,Pasirinkite Šalis,,epi_markets_modal_title
-74,Pasirinkite savo šalį,,epi_markets_modal_message
-75,Nėra šalies,,epi_markets_modal_no_market
+68,Informacija pacientui,,document_patient_info
+69,Informacija apie vaistą pacientams,,document_product_info
+70,Informacija apie vaistą galima tik anglų kalba,,document_lang_select_message
+71,Atkreipkite dėmesį Svarbu,,document_lang_select_title
+72,Informacija apie vaistinį preparatą  sveikatos priežiūros specialistams,,document_prescribing_info
+73,Pasirinkite šalį,,epi_markets_modal_title
+74,Prašome pasirinkti savo šalį,,epi_markets_modal_message
+75,Šalis nerasta,,epi_markets_modal_no_market
 76,Afganistanas,,country_af
 78,Albanija,,country_al
 79,Alžyras,,country_dz
