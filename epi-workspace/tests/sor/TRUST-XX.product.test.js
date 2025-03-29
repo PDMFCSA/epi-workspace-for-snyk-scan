@@ -25,9 +25,9 @@ describe(`TRUST-001 Product`, () => {
         fixedUrl.setSharedToken(token);
     });
 
-    beforeEach(async () => {
-        await fixedUrl.waitForCompletion();
-    });
+    // beforeEach(async () => {
+    //     await fixedUrl.waitForCompletion();
+    // });
 
     describe(`${productUrl} (POST)`, () => {
 
@@ -68,6 +68,20 @@ describe(`TRUST-001 Product`, () => {
             expect(getProductResponse.data.strengths.length).toEqual(2);
         });
 
+        it("FAIL 422 - Should throw if GTIN in parameter and body mismatch on create", async () => {
+            const {ticket} = UtilsService.getTicketId(expect.getState().currentTestName);
+            const product = await ModelFactory.product(ticket);
+            const product2 = await ModelFactory.product(ticket);
+
+            try {
+                await client.addProduct(product.productCode, product2);
+            } catch (e) {
+                const response = e?.response || {};
+                expect(response.status).toEqual(422);
+                expect(response.statusText).toEqual("Unprocessable Entity");
+            }
+        });
+
         it("FAIL 422 - Should throw Unprocessable Entity when mandatory fields are empty", async () => {
             const {ticket} = UtilsService.getTicketId(expect.getState().currentTestName);
             const product = await ModelFactory.product(ticket);
@@ -76,16 +90,17 @@ describe(`TRUST-001 Product`, () => {
 
             for (const field of mandatoryFields) {
                 const invalidProduct = {...product};
-                invalidProduct[field] = getRandomNumber().toString();
+                invalidProduct[field] = undefined; // getRandomNumber().toString();
 
                 try {
                     await client.addProduct(invalidProduct.productCode, invalidProduct);
-                    throw new Error(`Request should have failed with 422 status code when ${field} is empty`);
                 } catch (e) {
                     const response = e?.response || {};
                     expect(response.status).toEqual(422);
                     expect(response.statusText).toEqual("Unprocessable Entity");
+                    continue;
                 }
+                throw new Error(`Request should have failed with 422 status code when ${field} is empty`);
             }
         });
 
@@ -214,6 +229,19 @@ describe(`TRUST-001 Product`, () => {
             responses.forEach((response, index) => {
                 expect(response).toEqual(expect.objectContaining(expectedUpdates[index]));
             });
+        });
+
+        it("FAIL 422 - Should throw if GTIN in parameter and body mismatch on update", async () => {
+            const {ticket} = UtilsService.getTicketId(expect.getState().currentTestName);
+            const diffProductPayload = await ModelFactory.product(ticket);
+
+            try {
+                await client.updateProduct(product.productCode, diffProductPayload);
+            } catch (e) {
+                const response = e?.response || {};
+                expect(response.status).toEqual(422);
+                expect(response.statusText).toEqual("Unprocessable Entity");
+            }
         });
 
         it("FAIL 422 - Should not update productCode field", async () => {

@@ -259,7 +259,7 @@ function LeafletController() {
         try {
             if (this.selectedDocument === DocumentsTypes.INFO) {
                 this.showModal("product-modal");
-                renderProductInformation(result);
+                renderProductInformation(result, this.metadata?.productData?.batchData);
                 this.loadPrintContent("product-modal");
                 return;
             }

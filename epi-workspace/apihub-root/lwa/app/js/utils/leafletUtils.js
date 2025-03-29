@@ -181,7 +181,7 @@ const upperCaseProductDescriptionProductName = function (text , searchText) {
 }
 
 
-const renderProductInformation = function (result) {
+const renderProductInformation = function (result, batch) {
     const modal = document.querySelector('#product-modal');
 
     modal.querySelector(".product-name").innerText = result.productData.inventedName || result.productData.name;
@@ -221,7 +221,7 @@ const renderProductInformation = function (result) {
     excipientsContainer.closest('.data-wrapper').hidden = true;
     genericNameContainer.hidden = true;
     const {productData} = result;
-    const {batchData} = productData;
+    const batchData = batch;
 
     excipientsContainer.closest('.data-wrapper').hidden = false;
 

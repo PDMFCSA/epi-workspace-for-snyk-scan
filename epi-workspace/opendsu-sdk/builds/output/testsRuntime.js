@@ -8859,7 +8859,7 @@ module.exports = function (server) {
             const pk = createBulkPK(task)
             lightDBEnclaveClient.getRecord($$.SYSTEM_IDENTIFIER, TASKS_TABLE, pk, function (err, record) {
                 if (err || !record) {
-                    newRecord = newRecord.map(remap)
+                    newRecord =  Array.isArray(newRecord) ? newRecord.map(remap) : [newRecord].map(remap);
                     debug("Task not found in tasks table, adding it", JSON.stringify(newRecord));
                     return lightDBEnclaveClient.insertRecord($$.SYSTEM_IDENTIFIER, TASKS_TABLE, pk, newRecord, (insertError)=>{
                         //if we fail... could be that the task is ready register by another request due to concurrency
@@ -9136,6 +9136,7 @@ module.exports = function (server) {
                 //executing the request
                 debug(`Executing task. making local request to ${url}`, JSON.stringify(task));
 
+                taskRegistry.markInProgress(url);
 
                 try {
                     const result = await new Promise((resolve, reject) => {
@@ -9152,23 +9153,29 @@ module.exports = function (server) {
                 }
             }
 
+            if (!taskRegistry.isInProgress(masterPk)) {
+                logger.info(`Looks that somebody canceled the task before we were able to resolve. master pk ${masterPk}`);
+                //if somebody canceled the task before we finished the request we stop!
+                return;
+            }
+
             const successes = new Promise(async (resolve) => {
                 for (const result of results) {
-                    if (!taskRegistry.isInProgress(masterPk || tasks.url)) {
-                        logger.info("Looks that somebody canceled the task before we were able to resolve.");
-                        //if somebody canceled the task before we finished the request we stop!
-                        return resolve();
-                    }
+                    // if (!taskRegistry.isInProgress(result.url)) {
+                    //     logger.info(`Looks that somebody canceled the task before we were able to resolve. ${result.url}`);
+                    //     //if somebody canceled the task before we finished the request we stop!
+                    //     continue;
+                    // }
 
                     if (result.content) {
                         //let's resolve as fast as possible any pending request for the current task
                         taskRunner.resolvePendingReq(result.url, result.content);
-
-                        if (!taskRegistry.isInProgress(masterPk || result.url)) {
-                            logger.info("Looks that somebody canceled the task before we were able to resolve.");
-                            //if somebody canceled the task before we finished the request we stop!
-                            return;
-                        }
+                        //
+                        // if (!taskRegistry.isInProgress(result.url)) {
+                        //     logger.info("Looks that somebody canceled the task before we were able to resolve.");
+                        //     //if somebody canceled the task before we finished the request we stop!
+                        //     continue;
+                        // }
 
                         debug(`Persisting ${result.url}`)
                         try {
