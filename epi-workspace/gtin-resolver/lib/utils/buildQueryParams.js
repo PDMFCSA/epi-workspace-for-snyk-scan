@@ -23,4 +23,8 @@ function buildQueryParams(gtin, batchNumber, lang, leafletType, epiMarket) {
     return converter.searchParams.toString();
 }
 
-module.exports = {buildQueryParams};
+
+
+module.exports = {
+    buildQueryParams
+};

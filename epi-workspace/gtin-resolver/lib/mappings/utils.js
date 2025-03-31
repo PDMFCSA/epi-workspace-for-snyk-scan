@@ -1,6 +1,32 @@
 const constants = require("../constants/constants");
 const SmartUrl = require("opendsu").loadApi("utils").SmartUrl;
-const {buildQueryParams} = require("../utils/buildQueryParams");
+const {buildQueryParams } = require("../utils/buildQueryParams");
+
+function escapeRegExp(string) {
+  if(!string)
+    return ".+?";
+
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
+
+
+function createURLQuery(type, domain, gtin, batchNumber, lang, leaflet_type, epiMarket){
+  let text;
+  switch (type) {
+    case "leaflet":
+      text = buildLeafletUrl(domain, leaflet_type, gtin, lang, batchNumber, epiMarket);
+      break;
+    case "gtinOwner":
+      text =  buildGtinOwnerURL(domain, gtin);
+      break;
+    case "metadata":
+      return  `\\/metadata\\/leaflet\\/${escapeRegExp(domain)}\\?(?:batch=${escapeRegExp(batchNumber)}&)gtin=${escapeRegExp(gtin)}`;
+    default:
+      throw new Error(`Unsupported URL type: ${type}`);
+  }
+  return text.replaceAll("?", "\\?")
+      .replaceAll("\/", "\\/");
+}
 
 function buildLeafletUrl(domain, leaflet_type, gtin, language, batchNumber, expiry, epiVersion, epiMarket){
   const queryParams = buildQueryParams(gtin, batchNumber, language, leaflet_type, epiMarket);
@@ -12,6 +38,7 @@ function buildGtinOwnerURL(domain, gtin){
 }
 
 function buildLeafletMetadataURL(domain, gtin, batchNumber){
+
   //query params are sort on the fixedURL middleware when checking for any entry....
   //so we need to create the url that will be "hashed" with base64 into the same order and thus why
   //we will use URLSearchParams.sort function will provide the same sort mechanism on client and server
@@ -141,7 +168,7 @@ function registerLeafletFixedUrlByDomain(domain, subdomain,  leaflet_type, gtin,
 }
 
 function getActivateRelatedFixedURLHandler(getReplicasFnc){
-  return function activateRelatedFixedUrl(dsu, domain, gtin, callback){
+  return function activateRelatedFixedUrl(dsu, type, domain, gtin, batchNumber, lang, leaflet_type, epiMarket, callback){
     if(typeof callback === "undefined"){
       callback = (err)=>{
         if(err){
@@ -163,7 +190,8 @@ function getActivateRelatedFixedURLHandler(getReplicasFnc){
           targets.push(replica.concatWith("/activateFixedURL"));
         }
 
-        call(targets, `url like (${gtin})`, callback);
+        const query = createURLQuery(type, domain, gtin, batchNumber, lang, leaflet_type, epiMarket);
+        call(targets, `url like (${query})`, callback);
       });
     }
 
@@ -176,7 +204,7 @@ function getActivateRelatedFixedURLHandler(getReplicasFnc){
 }
 
 function getDeactivateRelatedFixedURLHandler(getReplicasFnc){
-  return function deactivateRelatedFixedUrl(dsu, domain, gtin, callback){
+  return function deactivateRelatedFixedUrl(dsu, type, domain, gtin, batchNumber, lang, leaflet_type, epiMarket, callback){
     getReplicasFnc(domain, function(err, replicas){
       if(replicas.length === 0){
         const msg = `Not able to deactivate fixedUrls`;
@@ -187,8 +215,8 @@ function getDeactivateRelatedFixedURLHandler(getReplicasFnc){
       for(let replica of replicas){
         targets.push(replica.concatWith("/deactivateFixedURL"));
       }
-
-      call(targets, `url like (${gtin})`, callback);
+      const query = createURLQuery(type, domain, gtin, batchNumber, lang, leaflet_type, epiMarket);
+      call(targets, `url like (${query})`, callback);
     });
   }
 }
@@ -208,10 +236,12 @@ let expose = {
   registerLeafletFixedUrlByDomain,
   registerLeafletMetadataFixedUrlByDomain,
   registerGtinOwnerFixedUrlByDomain,
-  activateLeafletFixedUrl:getActivateRelatedFixedURLHandler(getReplicasAsSmartUrls),
-  deactivateLeafletFixedUrl:getDeactivateRelatedFixedURLHandler(getReplicasAsSmartUrls),
-  activateGtinOwnerFixedUrl:getActivateRelatedFixedURLHandler(getReplicasAsSmartUrls),
-  deactivateGtinOwnerFixedUrl:getDeactivateRelatedFixedURLHandler(getReplicasAsSmartUrls)
+  activateMetadataFixedUrl: $$.promisify(getActivateRelatedFixedURLHandler(getReplicasAsSmartUrls)),
+  deactivateMetadataFixedUrl: $$.promisify(getDeactivateRelatedFixedURLHandler(getReplicasAsSmartUrls)),
+  activateLeafletFixedUrl: $$.promisify(getActivateRelatedFixedURLHandler(getReplicasAsSmartUrls)),
+  deactivateLeafletFixedUrl: getDeactivateRelatedFixedURLHandler(getReplicasAsSmartUrls),
+  activateGtinOwnerFixedUrl: $$.promisify(getActivateRelatedFixedURLHandler(getReplicasAsSmartUrls)),
+  deactivateGtinOwnerFixedUrl: getDeactivateRelatedFixedURLHandler(getReplicasAsSmartUrls)
 }
 
 expose.registerLeafletMetadataFixedUrlByDomainAsync = $$.promisify(expose.registerLeafletMetadataFixedUrlByDomain); 

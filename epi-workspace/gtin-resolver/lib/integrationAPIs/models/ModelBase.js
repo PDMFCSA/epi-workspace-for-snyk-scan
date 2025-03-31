@@ -139,6 +139,8 @@ function ModelBase(enclave, domain, subdomain, gtin) {
         return {mutableDSU, immutableDSU, batchId};
     }
 
+
+
     this.registerFixedUrl = async (language, epiType, epiMarket = undefined, ensureGtinOwner = true, ensureMetadata = true) => {
         try {
             let fixedUrlUtils = require("./../../mappings/utils.js");
@@ -153,7 +155,7 @@ function ModelBase(enclave, domain, subdomain, gtin) {
             }else{
                 await fixedUrlUtils.registerLeafletFixedUrlByDomainAsync(domain, subdomain, epiType, gtin, language, undefined, this.expiryDate, this.epiProtocol, epiMarket);
             }
-            await fixedUrlUtils.deactivateLeafletFixedUrlAsync(undefined, domain, gtin);
+            // await fixedUrlUtils.deactivateLeafletFixedUrlAsync(undefined, domain, gtin);
         } catch (err) {
             //if cleanup fails mapping needs to fail...
             console.log("Failed to trigger FixedUrl", err);
@@ -183,6 +185,30 @@ function ModelBase(enclave, domain, subdomain, gtin) {
                 let filePath = `${storagePath}/${otherFilesContent[i].filename}`;
                 eventRecorder.register(EVENTS.WRITE, filePath, $$.Buffer.from(otherFilesContent[i].fileContent, "base64"));
             }
+        }
+    }
+
+    this.createCache = async (language, leafletType, epiMarket, skipLeaflet = false) => {
+        try {
+            let fixedUrlUtils = require("./../../mappings/utils.js");
+
+            if(!skipLeaflet){
+                await fixedUrlUtils.deactivateLeafletFixedUrlAsync(undefined, "leaflet", domain, this.productCode, this.batchNumber, language, leafletType, epiMarket);
+                await fixedUrlUtils.activateLeafletFixedUrl(undefined, "leaflet", domain, this.productCode, this.batchNumber, language, leafletType, epiMarket);
+            }
+
+            await fixedUrlUtils.deactivateGtinOwnerFixedUrlAsync(undefined, "gtinOwner", domain, this.productCode, this.batchNumber, undefined, undefined, undefined);
+            await fixedUrlUtils.deactivateMetadataFixedUrl(undefined, "metadata", domain, this.productCode, this.batchNumber, undefined, undefined, undefined);
+
+            await fixedUrlUtils.activateGtinOwnerFixedUrl(undefined, "gtinOwner", domain, this.productCode, this.batchNumber, undefined, undefined, undefined);
+            await fixedUrlUtils.activateMetadataFixedUrl(undefined, "metadata", domain, this.productCode, this.batchNumber, undefined, undefined, undefined);
+        } catch (err) {
+            //if cleanup fails mapping needs to fail...
+            console.log("Failed to trigger FixedUrl", err);
+            // const errMap = require("opendsu").loadApi("m2dsu").getErrorsMap();
+            // const errorUtils = require("../../mappings/errors/errorUtils.js");
+            // errorUtils.addMappingError("NOT_ABLE_TO_ENSURE_DATA_CONSISTENCY_ON_SERVER");
+            // throw errMap.newCustomError(errMap.errorTypes.NOT_ABLE_TO_ENSURE_DATA_CONSISTENCY_ON_SERVER, epiType);
         }
     }
 
