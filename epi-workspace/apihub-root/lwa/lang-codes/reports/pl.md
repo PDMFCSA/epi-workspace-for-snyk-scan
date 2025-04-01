@@ -6,7 +6,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | Key | Text | Status | Code |
 | --- | ---- | ------ | ---- |
 | welcome | Witaj w PharmaLedger | ok | 1 |
-| scan_explain | Znajdź datamatrix w swoim leku. Patrz przykład powyżej. |  | 2 |
+| scan_explain | Znajdź kod datamatrix na swoim leku. Patrz przykład powyżej. |  | 2 |
 | scan_button | Skanuj kod DataMatrix | ok | 3 |
 | change_camera | Zmień aparat | ok | 4 |
 | cancel | Anuluj | ok | 5 |
@@ -51,17 +51,17 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_incorrect_date_title | Niepoprawna data |  | 50 |
 | leaflet_incorrect_date_subtitle | Skanowana data jest nieprawidłowa |  | 51 |
 | leaflet_print_title | Drukuj informacje |  | 61 |
-| leaflet_print_description | Obecne wybrane informacje zostaną wydrukowane jako PDF. |  | 62 |
+| leaflet_print_description | Obecnie wybrane informacje zostaną wydrukowane jako PDF. |  | 62 |
 | leaflet_print_description2 | Chcesz kontynuować? |  | 63 |
-| leaflet_print_button | Przystępować |  | 64 |
-| leaflet_print_button_back | Wracać |  | 65 |
+| leaflet_print_button | Kontynuuj |  | 64 |
+| leaflet_print_button_back | Wróć |  | 65 |
 | document_modal_title | Wybierz |  | 66 |
-| document_modal_message | Wybierz, który dokument do wyświetlenia |  | 67 |
-| document_patient_info | Informacje o pacjencie |  | 68 |
-| document_product_info | Informacje o produkcie dla pacjentów |  | 69 |
+| document_modal_message | Wybierz dokument do wyświetlenia |  | 67 |
+| document_patient_info | Informacje dla pacjenta |  | 68 |
+| document_product_info | Informacje o produkcie dla pacjenta |  | 69 |
 | document_lang_select_message | Informacje o produkcie są dostępne tylko w języku angielskim |  | 70 |
 | document_lang_select_title | Ogłoszenie |  | 71 |
-| document_prescribing_info | Przeznaczenie informacji dla pracowników służby zdrowia |  | 72 |
+| document_prescribing_info | Informacje przeznaczone dla pracowników służby zdrowia |  | 72 |
 | epi_markets_modal_title | Wybierz kraj |  | 73 |
 | epi_markets_modal_message | Wybierz swój kraj |  | 74 |
 | epi_markets_modal_no_market | Brak kraju |  | 75 |
@@ -241,12 +241,12 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_to | Tonga |  | 294 |
 | country_tt | Trynidad i Tobago |  | 295 |
 | country_tn | Tunezja |  | 296 |
-| country_tr | Indyk |  | 297 |
+| country_tr | Turcja |  | 297 |
 | country_tm | Turkmenia |  | 298 |
 | country_tv | Tuvalu |  | 300 |
 | country_ug | Uganda |  | 301 |
 | country_ua | Ukraina |  | 302 |
-| country_ae | Emiraty Arabskie |  | 303 |
+| country_ae | Zjednoczone Emiraty Arabskie |  | 303 |
 | country_gb | Zjednoczone Królestwo |  | 304 |
 | country_us | Stany Zjednoczone |  | 305 |
 | country_uy | Urugwaj |  | 307 |

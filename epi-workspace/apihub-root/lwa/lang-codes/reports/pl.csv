@@ -1,6 +1,6 @@
 code,text,status,key
 1,Witaj w PharmaLedger,ok,welcome
-2,Znajdź datamatrix w swoim leku. Patrz przykład powyżej.,,scan_explain
+2,Znajdź kod datamatrix na swoim leku. Patrz przykład powyżej.,,scan_explain
 3,Skanuj kod DataMatrix,ok,scan_button
 4,Zmień aparat,ok,change_camera
 5,Anuluj,ok,cancel
@@ -46,17 +46,17 @@ papierowej ulotki dla pacjenta z informacjami o produkcie, którą zwykle można
 50,Niepoprawna data,,leaflet_incorrect_date_title
 51,Skanowana data jest nieprawidłowa,,leaflet_incorrect_date_subtitle
 61,Drukuj informacje,,leaflet_print_title
-62,Obecne wybrane informacje zostaną wydrukowane jako PDF.,,leaflet_print_description
+62,Obecnie wybrane informacje zostaną wydrukowane jako PDF.,,leaflet_print_description
 63,Chcesz kontynuować?,,leaflet_print_description2
-64,Przystępować,,leaflet_print_button
-65,Wracać,,leaflet_print_button_back
+64,Kontynuuj,,leaflet_print_button
+65,Wróć,,leaflet_print_button_back
 66,Wybierz,,document_modal_title
-67,"Wybierz, który dokument do wyświetlenia",,document_modal_message
-68,Informacje o pacjencie,,document_patient_info
-69,Informacje o produkcie dla pacjentów,,document_product_info
+67,Wybierz dokument do wyświetlenia,,document_modal_message
+68,Informacje dla pacjenta,,document_patient_info
+69,Informacje o produkcie dla pacjenta,,document_product_info
 70,Informacje o produkcie są dostępne tylko w języku angielskim,,document_lang_select_message
 71,Ogłoszenie,,document_lang_select_title
-72,Przeznaczenie informacji dla pracowników służby zdrowia,,document_prescribing_info
+72,Informacje przeznaczone dla pracowników służby zdrowia,,document_prescribing_info
 73,Wybierz kraj,,epi_markets_modal_title
 74,Wybierz swój kraj,,epi_markets_modal_message
 75,Brak kraju,,epi_markets_modal_no_market
@@ -236,12 +236,12 @@ papierowej ulotki dla pacjenta z informacjami o produkcie, którą zwykle można
 294,Tonga,,country_to
 295,Trynidad i Tobago,,country_tt
 296,Tunezja,,country_tn
-297,Indyk,,country_tr
+297,Turcja,,country_tr
 298,Turkmenia,,country_tm
 300,Tuvalu,,country_tv
 301,Uganda,,country_ug
 302,Ukraina,,country_ua
-303,Emiraty Arabskie,,country_ae
+303,Zjednoczone Emiraty Arabskie,,country_ae
 304,Zjednoczone Królestwo,,country_gb
 305,Stany Zjednoczone,,country_us
 307,Urugwaj,,country_uy

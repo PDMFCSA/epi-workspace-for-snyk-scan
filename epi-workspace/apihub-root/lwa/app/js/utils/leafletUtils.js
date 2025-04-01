@@ -131,7 +131,10 @@ let validateLeafletFiles = function (htmlContent, leafletImages, uploadedImages)
 
 }
 
-let renderLeaflet = function (leafletData) {
+let renderLeaflet = function (leafletData, metadata) {
+
+  if(metadata)
+    leafletData.productData = metadata.productData;
     
   document.querySelector(".product-name").innerText = leafletData.productData.inventedName || leafletData.productData.name;
   let productDescriptionName = upperCaseProductDescriptionProductName(leafletData.productData.nameMedicinalProduct || leafletData.productData.description, leafletData.productData.inventedName || leafletData.productData.name);

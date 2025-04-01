@@ -35,7 +35,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | fwd_about | Over | ok | 32 |
 | privacy_modal_subtitle | Ons Privacy- en veiligheidsbeleid | ok | 33 |
 | privacy_modal_title | Privacybeleid | ok | 34 |
-| privacy_content | &lt;h2&gt;Privacy Notice&lt;/h2&gt;&lt;p&gt;Deze privacyverklaring is van toepassing op het gebruik van het product PharmaLedger Association Electronic Product Information.&lt;/p&gt;&lt;h2&gt;Contactpersonen&lt;/h2&gt;&lt;ul class="list-space" role="list"&gt;&lt;li role="listitem"&gt;&lt;b&gt;a) Identiteit en contacten van de verantwoordelijke voor de verwerking of gezamenlijke verantwoordelijken&lt;/b&gt;&lt;p&gt;De verantwoordelijke voor de verwerking van uw gegevens is de PharmaLedger Association.&lt;/p&gt;&lt;/li&gt;&lt;li role="listitem"&gt;&lt;b&gt;b) Contacten van de functionaris voor gegevensbescherming&lt;/b&gt;&lt;p&gt;De gegevensbeschermingsdienst van PharmaLedger Association is bereikbaar op dpo@pharmaledger.org.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Welke persoonlijke gegevens we gebruiken&lt;/h2&gt;&lt;p&gt;Wij verzamelen alleen de technische gegevens die nodig zijn om uw elektronische folder te bezorgen. Dit omvat uw IP-adres en technische identificatiegegevens van het apparaat en de browser die u gebruikt om toegang te krijgen tot onze applicatie.&lt;/p&gt;&lt;p&gt;&lt;em&gt;In detail verzamelen wij de volgende gegevens:&lt;/em&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;p&gt;&lt;em&gt;Toegang tot mobiele apparaten.&lt;/em&gt; Wij kunnen toegang of toestemming vragen voor bepaalde functies van uw mobiele apparaat, waaronder de camera van uw mobiele apparaat en andere functies. Als u onze toegang of toestemming wilt wijzigen, kunt u dit doen in de instellingen van uw apparaat.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;ul&gt;&lt;li&gt;&lt;p&gt;&lt;em&gt;Mobiele apparaatgegevens.&lt;/em&gt; Wij verzamelen automatisch apparaatgegevens (zoals uw mobiele apparaat ID, model en fabrikant), besturingssysteem, versiegegevens, systeemconfiguratiegegevens, apparaat- en applicatieidentificatienummers, browsertype en -versie, hardwaremodel Internet service provider, en/of mobiele provider, en Internet Protocol (IP) adres (of proxy server). Als u onze applicatie(s) gebruikt, kunnen wij ook informatie verzamelen over het telefoonnetwerk dat aan uw mobiele apparaat is gekoppeld, het besturingssysteem of platform van uw mobiele apparaat, het type mobiel apparaat dat u gebruikt, de unieke apparaat-ID van uw mobiele apparaat en informatie over de functies van onze applicatie(s) die u hebt geopend.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Waarom wij uw persoonsgegevens verzamelen&lt;/h2&gt;&lt;h3&gt;Doeleinden&lt;/h3&gt;&lt;p&gt;Wij verzamelen uw technische gegevens om u een elektronische productbijsluiter voor uw medicatie te verstrekken.&lt;/p&gt;&lt;p&gt;Als zodanig kunnen wij ons beroepen op de volgende rechtsgronden om uw persoonsgegevens te verwerken:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;p&gt;&lt;b&gt;Uitvoering van een contract.&lt;/b&gt; Wij kunnen uw persoonsgegevens verwerken wanneer wij van mening zijn dat dit noodzakelijk is om contractuele verplichtingen jegens u na te komen, waaronder het leveren van onze Diensten of op uw verzoek voorafgaand aan het aangaan van een contract met u.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;ul&gt;&lt;li&gt;&lt;p&gt;&lt;b&gt;Wettelijke verplichtingen.&lt;/b&gt; Wij kunnen uw gegevens verwerken wanneer wij van mening zijn dat dit noodzakelijk is om te voldoen aan onze wettelijke verplichtingen, zoals het nakomen van onze verplichtingen in het kader van regelgeving op het gebied van gezondheidszorg en wetgeving inzake volksgezondheid.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Met wie wij uw persoonlijke gegevens delen&lt;/h2&gt;&lt;p&gt;Ledenbedrijven en derden-dienstverleners.&lt;/p&gt;&lt;p&gt;Wij delen uw gegevens met derden verkopers, dienstverleners, aannemers of agenten ("derden") die diensten voor ons of namens ons uitvoeren en toegang tot dergelijke informatie nodig hebben om dat werk te doen. Wij hebben contracten afgesloten met onze derden, die bedoeld zijn om uw persoonsgegevens te helpen beschermen. Dit betekent dat zij niets met uw persoonsgegevens kunnen doen, tenzij wij hen daartoe opdracht hebben gegeven. Zij zullen uw persoonsgegevens ook niet delen met andere organisaties dan wij. Zij verbinden zich er ook toe de gegevens die zij namens ons bewaren te beschermen en te bewaren gedurende de periode die wij hen opdragen. De categorieën van derden waarmee wij persoonsgegevens kunnen delen zijn de volgende:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;p&gt;Fabrikanten van geneesmiddelen (lidbedrijven)&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;ul&gt;&lt;li&gt;&lt;p&gt;Technische dienstverleners&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Hoe lang we uw persoonlijke gegevens bewaren&lt;/h2&gt;&lt;p&gt;De PharmaLedger Association bewaart uw technische gegevens alleen zo lang als nodig is om uw bijsluiter aanvraag te verwerken tot 30 dagen.&lt;/p&gt;&lt;p&gt;Uw geneesmiddelenfabrikant bewaart uw gegevens ook gedurende een bepaalde periode zoals bepaald door hun beleid inzake gegevensbewaring, neem voor meer informatie over deze bewaring contact op met uw geneesmiddelenfabrikant.&lt;/p&gt;&lt;h2&gt;Als u ons uw persoonlijke gegevens niet verstrekt&lt;/h2&gt;&lt;p&gt;Als u ervoor kiest ons uw technische gegevens niet te verstrekken, kunnen wij niet aan uw folderverzoek voldoen.&lt;/p&gt;&lt;h2&gt;Uw rechten&lt;/h2&gt;&lt;p&gt;Als u verzoeken hebt met betrekking tot uw persoonlijke gegevens onder de GDPR, zoals een verzoek om toegang tot of verwijdering van uw gegevens, kunt u contact met ons opnemen via dpo@pharmaledger.org.&lt;/p&gt;&lt;p&gt;Wij zullen dergelijke verzoeken binnen 30 dagen behandelen.&lt;/p&gt;&lt;h2&gt;Intrekking van toestemming&lt;/h2&gt;&lt;p&gt;Als u verzoeken hebt met betrekking tot uw persoonlijke gegevens onder de GDPR, zoals een verzoek om toegang tot of verwijdering van uw gegevens, kunt u contact met ons opnemen via&nbsp;dpo@pharmaledger.org.&lt;/p&gt;&lt;p&gt;Wij zullen dergelijke verzoeken binnen 30 dagen behandelen.&lt;/p&gt;&lt;h2&gt;Geautomatiseerde besluitvorming&lt;/h2&gt;&lt;p&gt;Wij maken geen gebruik van geautomatiseerde besluitvorming bij het verlenen van deze dienst aan u.&lt;/p&gt;&lt;h2&gt;Internationale overdracht van persoonsgegevens&lt;/h2&gt;&lt;p&gt;Wanneer uw geneesmiddelenfabrikant vereist dat wij uw gegevens buiten de Europese Unie overdragen, maken wij gebruik van standaardcontractbepalingen om uw gegevens te beschermen.&lt;/p&gt;&lt;h2&gt;Hoe een klacht in te dienen&lt;/h2&gt;&lt;p&gt;Als u verzoeken hebt met betrekking tot uw persoonsgegevens onder de GDPR, zoals een verzoek om toegang tot of verwijdering van uw gegevens, kunt u contact met ons opnemen via dpo@pharmaledger.org.&lt;/p&gt;&lt;p&gt;Wij zullen dergelijke verzoeken binnen 30 dagen behandelen. Daarnaast kunt u contact opnemen met uw lokale toezichthoudende autoriteit als u vindt dat uw rechten niet worden voldaan.&lt;/p&gt; | ok | 35 |
+| privacy_content | &lt;h2&gt;Privacy Notice&lt;/h2&gt;&lt;p&gt;Deze privacyverklaring is van toepassing op het gebruik van het product PharmaLedger Association Electronic Product Information.&lt;/p&gt;&lt;h2&gt;Contactpersonen&lt;/h2&gt;&lt;ul class="list-space" role="list"&gt;&lt;li role="listitem"&gt;&lt;b&gt;a) Identiteit en contacten van de verantwoordelijke voor de verwerking of gezamenlijke verantwoordelijken&lt;/b&gt;&lt;p&gt;De verantwoordelijke voor de verwerking van uw gegevens is de PharmaLedger Association.&lt;/p&gt;&lt;/li&gt;&lt;li role="listitem"&gt;&lt;b&gt;b) Contacten van de functionaris voor gegevensbescherming&lt;/b&gt;&lt;p&gt;De gegevensbeschermingsdienst van PharmaLedger Association is bereikbaar op dpo@pharmaledger.org.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Welke persoonlijke gegevens we gebruiken&lt;/h2&gt;&lt;p&gt;Wij verzamelen alleen de technische gegevens die nodig zijn om uw elektronische folder te bezorgen. Dit omvat uw IP-adres en technische identificatiegegevens van het apparaat en de browser die u gebruikt om toegang te krijgen tot onze applicatie.&lt;/p&gt;&lt;p&gt;&lt;em&gt;In detail verzamelen wij de volgende gegevens:&lt;/em&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;p&gt;&lt;em&gt;Toegang tot mobiele apparaten.&lt;/em&gt; Wij kunnen toegang of toestemming vragen voor bepaalde functies van uw mobiele apparaat, waaronder de camera van uw mobiele apparaat en andere functies. Als u onze toegang of toestemming wilt wijzigen, kunt u dit doen in de instellingen van uw apparaat.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;ul&gt;&lt;li&gt;&lt;p&gt;&lt;em&gt;Mobiele apparaatgegevens.&lt;/em&gt; Wij verzamelen automatisch apparaatgegevens (zoals uw mobiele apparaat ID, model en fabrikant), besturingssysteem, versiegegevens, systeemconfiguratiegegevens, apparaat- en applicatieidentificatienummers, browsertype en-versie, hardwaremodel Internet service provider, en/of mobiele provider, en Internet Protocol (IP) adres (of proxy server). Als u onze applicatie(s) gebruikt, kunnen wij ook informatie verzamelen over het telefoonnetwerk dat aan uw mobiele apparaat is gekoppeld, het besturingssysteem of platform van uw mobiele apparaat, het type mobiel apparaat dat u gebruikt, de unieke apparaat-ID van uw mobiele apparaat en informatie over de functies van onze applicatie(s) die u hebt geopend.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Waarom wij uw persoonsgegevens verzamelen&lt;/h2&gt;&lt;h3&gt;Doeleinden&lt;/h3&gt;&lt;p&gt;Wij verzamelen uw technische gegevens om u een elektronische productbijsluiter voor uw medicatie te verstrekken.&lt;/p&gt;&lt;p&gt;Als zodanig kunnen wij ons beroepen op de volgende rechtsgronden om uw persoonsgegevens te verwerken:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;p&gt;&lt;b&gt;Uitvoering van een contract.&lt;/b&gt; Wij kunnen uw persoonsgegevens verwerken wanneer wij van mening zijn dat dit noodzakelijk is om contractuele verplichtingen jegens u na te komen, waaronder het leveren van onze Diensten of op uw verzoek voorafgaand aan het aangaan van een contract met u.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;ul&gt;&lt;li&gt;&lt;p&gt;&lt;b&gt;Wettelijke verplichtingen.&lt;/b&gt; Wij kunnen uw gegevens verwerken wanneer wij van mening zijn dat dit noodzakelijk is om te voldoen aan onze wettelijke verplichtingen, zoals het nakomen van onze verplichtingen in het kader van regelgeving op het gebied van gezondheidszorg en wetgeving inzake volksgezondheid.&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Met wie wij uw persoonlijke gegevens delen&lt;/h2&gt;&lt;p&gt;Ledenbedrijven en derden-dienstverleners.&lt;/p&gt;&lt;p&gt;Wij delen uw gegevens met derden verkopers, dienstverleners, aannemers of agenten ("derden") die diensten voor ons of namens ons uitvoeren en toegang tot dergelijke informatie nodig hebben om dat werk te doen. Wij hebben contracten afgesloten met onze derden, die bedoeld zijn om uw persoonsgegevens te helpen beschermen. Dit betekent dat zij niets met uw persoonsgegevens kunnen doen, tenzij wij hen daartoe opdracht hebben gegeven. Zij zullen uw persoonsgegevens ook niet delen met andere organisaties dan wij. Zij verbinden zich er ook toe de gegevens die zij namens ons bewaren te beschermen en te bewaren gedurende de periode die wij hen opdragen. De categorieën van derden waarmee wij persoonsgegevens kunnen delen zijn de volgende:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;p&gt;Fabrikanten van geneesmiddelen (lidbedrijven)&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;ul&gt;&lt;li&gt;&lt;p&gt;Technische dienstverleners&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;Hoe lang we uw persoonlijke gegevens bewaren&lt;/h2&gt;&lt;p&gt;De PharmaLedger Association bewaart uw technische gegevens alleen zo lang als nodig is om uw bijsluiter aanvraag te verwerken tot 30 dagen.&lt;/p&gt;&lt;p&gt;Uw geneesmiddelenfabrikant bewaart uw gegevens ook gedurende een bepaalde periode zoals bepaald door hun beleid inzake gegevensbewaring, neem voor meer informatie over deze bewaring contact op met uw geneesmiddelenfabrikant.&lt;/p&gt;&lt;h2&gt;Als u ons uw persoonlijke gegevens niet verstrekt&lt;/h2&gt;&lt;p&gt;Als u ervoor kiest ons uw technische gegevens niet te verstrekken, kunnen wij niet aan uw folderverzoek voldoen.&lt;/p&gt;&lt;h2&gt;Uw rechten&lt;/h2&gt;&lt;p&gt;Als u verzoeken hebt met betrekking tot uw persoonlijke gegevens onder de GDPR, zoals een verzoek om toegang tot of verwijdering van uw gegevens, kunt u contact met ons opnemen via dpo@pharmaledger.org.&lt;/p&gt;&lt;p&gt;Wij zullen dergelijke verzoeken binnen 30 dagen behandelen.&lt;/p&gt;&lt;h2&gt;Intrekking van toestemming&lt;/h2&gt;&lt;p&gt;Als u verzoeken hebt met betrekking tot uw persoonlijke gegevens onder de GDPR, zoals een verzoek om toegang tot of verwijdering van uw gegevens, kunt u contact met ons opnemen via&nbsp;dpo@pharmaledger.org.&lt;/p&gt;&lt;p&gt;Wij zullen dergelijke verzoeken binnen 30 dagen behandelen.&lt;/p&gt;&lt;h2&gt;Geautomatiseerde besluitvorming&lt;/h2&gt;&lt;p&gt;Wij maken geen gebruik van geautomatiseerde besluitvorming bij het verlenen van deze dienst aan u.&lt;/p&gt;&lt;h2&gt;Internationale overdracht van persoonsgegevens&lt;/h2&gt;&lt;p&gt;Wanneer uw geneesmiddelenfabrikant vereist dat wij uw gegevens buiten de Europese Unie overdragen, maken wij gebruik van standaardcontractbepalingen om uw gegevens te beschermen.&lt;/p&gt;&lt;h2&gt;Hoe een klacht in te dienen&lt;/h2&gt;&lt;p&gt;Als u verzoeken hebt met betrekking tot uw persoonsgegevens onder de GDPR, zoals een verzoek om toegang tot of verwijdering van uw gegevens, kunt u contact met ons opnemen via dpo@pharmaledger.org.&lt;/p&gt;&lt;p&gt;Wij zullen dergelijke verzoeken binnen 30 dagen behandelen. Daarnaast kunt u contact opnemen met uw lokale toezichthoudende autoriteit als u vindt dat uw rechten niet worden voldaan.&lt;/p&gt; | ok | 35 |
 | terms_modal_title | Algemene voorwaarden | ok | 36 |
 | terms_modal_subtitle | De voorwaarden die van toepassing zijn bij het gebruik van de PharmaLedger Applicatie | ok | 37 |
 | terms_content | &lt;h2&gt;Gebruiksvoorwaarden voor de Pharmaledger Association’s Elektronische Product Informatie Website en Applicatie&lt;/h2&gt;&lt;p&gt;Door de PharmaLedger Association’s Elektronische Product Informatie website en applicatie (de “Diensten”) te bezoeken en te gebruiken, stemt u ermee in om gebonden te zijn aan deze gebruiksvoorwaarden (de “Voorwaarden”). U mag de Diensten niet bezoeken of gebruiken als u niet met deze Voorwaarden instemt. De Diensten worden beheerd door de PharmaLedger Association (de “Associatie”) en zijn bedoeld voor gebruik door individuen die op zoek zijn naar informatie over hun medicatie. Een meerpartijennetwerk levert de Diensten, en uw medicatiefabrikant voorziet de productinformatie getoond op de Diensten. De Associatie treedt op als de gegevensbeheerder van deze informatie.&lt;/p&gt;&lt;h2&gt;Gebruik van de Diensten&lt;/h2&gt;&lt;p&gt;U stemt ermee in om de Diensten enkel te gebruiken voor wettelijke doeleinden, en op een manier die geen inbreuk doet op de rechten van, of het gebruik en genot van de Diensten door enige andere derde partij beperkt of belemmert. Zulke beperking of belemmering omvat, zonder limitatie, gedrag dat onwettelijk is of dat intimiderend kan zijn of leed of ongemak kan veroorzaken aan enig welke persoon, alsook de transmissie van obscene of beledigende inhoud of storing van het normale verloop van dialoog binnen de Diensten.&lt;/p&gt;&lt;h2&gt;Intellectuele Eigendom&lt;/h2&gt;&lt;p&gt;De inhoud van de Diensten, inclusief, maar niet beperkt tot, tekst, afbeeldingen en software, is het eigendom van de Associatie of haar licentieverstrekkers en deelnemende bedrijven en is beschermd door het auteursrecht en andere wetten in verband met intellectueel eigendom. U mag geen enkele inhoud van de Diensten gebruiken voor commerciële doeleinden zonder de expliciete geschreven toestemming van de Associatie.&lt;/p&gt;&lt;h2&gt;Aansprakelijkheid&lt;/h2&gt;&lt;p&gt;De Associatie biedt geen representaties of garanties van welke aard dan ook, expliciet of geïmpliceerd, voor de werking van de Diensten of de informatie, inhoud, materialen of producten die in de Diensten omvat zijn. De Associatie zal niet aansprakelijk zijn voor schade van welke aard dan ook die resulteren uit het gebruik van de Diensten, inclusief, maar niet beperkt tot, rechtstreekse, onrechtstreekse, incidentele, punitieve en voortvloeiende schade.&lt;/p&gt;&lt;h2&gt;Geldend Recht&lt;/h2&gt;&lt;p&gt;Deze Voorwaarden en uw gebruik van de Diensten vallen onder en zullen geïnterpreteerd worden door de wetten van Zwitserland en enige disputen zullen opgelost worden in de rechtbanken van Bazel, Zwitserland.&lt;/p&gt;&lt;h2&gt;Aanpassingen van de Voorwaarden&lt;/h2&gt;&lt;p&gt;De Associatie behoudt zich het recht voor om deze Voorwaarden op ieder moment aan te passen, en u bent verantwoordelijk voor het periodisch nakijken van deze Voorwaarden op enige aanpassingen. Uw doorgaand gebruik van de Diensten nadat de Voorwaarden aangepast werden zal betekenen dat u de herziene Voorwaarden aanvaardt.&lt;/p&gt; | ok | 38 |
@@ -47,22 +47,22 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | err_code | Foutmelding | ok | 46 |
 | system_busy | Systeem is bezet, probeer het later nog eens. | ok | 47 |
 | leaflet_print | Afdrukken |  | 48 |
-| error_subtitle | Niet -geverifieerd product |  | 49 |
+| error_subtitle | Niet-geverifieerd product |  | 49 |
 | leaflet_incorrect_date_title | Onjuiste datum |  | 50 |
 | leaflet_incorrect_date_subtitle | Gescande datum is onjuist |  | 51 |
 | leaflet_incorrect_date_message | &lt;b&gt; &lt;/b&gt;. |  | 52 |
 | leaflet_print_title | Informatie afdrukken |  | 61 |
 | leaflet_print_description | De huidige geselecteerde informatie wordt afgedrukt als PDF. |  | 62 |
-| leaflet_print_description2 | Wil je doorgaan? |  | 63 |
+| leaflet_print_description2 | Wilt u doorgaan? |  | 63 |
 | leaflet_print_button | Doorgaan |  | 64 |
-| leaflet_print_button_back | Teruggaan |  | 65 |
+| leaflet_print_button_back | Terug |  | 65 |
 | document_modal_title | Kies alstublieft |  | 66 |
 | document_modal_message | Selecteer welk document moet worden weergegeven |  | 67 |
 | document_patient_info | Patiëntinformatie |  | 68 |
 | document_product_info | Productinformatie voor patiënten |  | 69 |
 | document_lang_select_message | Productinformatie is alleen beschikbaar in het Engels |  | 70 |
 | document_lang_select_title | Kennisgeving |  | 71 |
-| document_prescribing_info | Informatie voorschrijven voor professionals in de gezondheidszorg |  | 72 |
+| document_prescribing_info | Voorschrijfinformatie voor professionals in de gezondheidszorg |  | 72 |
 | epi_markets_modal_title | Selecteer land |  | 73 |
 | epi_markets_modal_message | Selecteer uw land |  | 74 |
 | epi_markets_modal_no_market | Geen land |  | 75 |
@@ -81,7 +81,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_bh | Bahrein |  | 93 |
 | country_bd | Bangladesh |  | 94 |
 | country_bb | Barbados |  | 95 |
-| country_by | Wit -Rusland |  | 96 |
+| country_by | Wit-Rusland |  | 96 |
 | country_be | België |  | 97 |
 | country_bz | Belize |  | 98 |
 | country_bj | Benin |  | 99 |
@@ -98,7 +98,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_cm | Kameroen |  | 113 |
 | country_ca | Canada |  | 114 |
 | country_cv | Cape Verde |  | 115 |
-| country_cf | Centraal -Afrikaanse Republiek |  | 117 |
+| country_cf | Centraal-Afrikaanse Republiek |  | 117 |
 | country_td | Tsjaad |  | 118 |
 | country_cl | Chili |  | 119 |
 | country_cn | China |  | 120 |
@@ -119,7 +119,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_ec | Ecuador |  | 138 |
 | country_eg | Egypte |  | 139 |
 | country_sv | El Salvador |  | 140 |
-| country_gq | Equatoriaal -Guinea |  | 141 |
+| country_gq | Equatoriaal-Guinea |  | 141 |
 | country_er | Eritrea |  | 142 |
 | country_ee | Estland |  | 143 |
 | country_et | Ethiopië |  | 144 |
@@ -155,8 +155,8 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_kz | Kazachstan |  | 188 |
 | country_ke | Kenia |  | 189 |
 | country_ki | Kiribati |  | 190 |
-| country_kp | Noord -Korea |  | 191 |
-| country_kr | Zuid -Korea |  | 192 |
+| country_kp | Noord-Korea |  | 191 |
+| country_kr | Zuid-Korea |  | 192 |
 | country_kw | Koeweit |  | 193 |
 | country_kg | Kirgizisch |  | 194 |
 | country_la | Laos |  | 195 |
@@ -168,7 +168,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_li | Liechtenstein |  | 201 |
 | country_lt | Litouwen |  | 202 |
 | country_lu | Luxemburg |  | 203 |
-| country_mk | Noord -Macedonië |  | 205 |
+| country_mk | Noord-Macedonië |  | 205 |
 | country_mg | Madagascar |  | 206 |
 | country_mw | Malawi |  | 207 |
 | country_my | Maleisië |  | 208 |
@@ -190,7 +190,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_nr | Nauru |  | 227 |
 | country_np | Nepal |  | 228 |
 | country_nl | Nederland |  | 229 |
-| country_nz | Nieuw -Zeeland |  | 232 |
+| country_nz | Nieuw-Zeeland |  | 232 |
 | country_ni | Nicaragua |  | 233 |
 | country_ne | Niger |  | 234 |
 | country_ng | Nigeria |  | 235 |
@@ -199,7 +199,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_pk | Pakistan |  | 241 |
 | country_pw | Palau |  | 242 |
 | country_pa | Panama |  | 244 |
-| country_pg | Papoea -Nieuw -Guinea |  | 245 |
+| country_pg | Papoea-Nieuw-Guinea |  | 245 |
 | country_py | Paraguay |  | 246 |
 | country_pe | Peru |  | 247 |
 | country_ph | Filippijnen |  | 248 |
@@ -215,7 +215,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_ws | Samoa |  | 263 |
 | country_sm | San Marino |  | 264 |
 | country_st | Sao Tome en Principe |  | 265 |
-| country_sa | Saoedi -Arabië |  | 266 |
+| country_sa | Saoedi-Arabië |  | 266 |
 | country_sn | Senegal |  | 267 |
 | country_sc | Seychellen |  | 269 |
 | country_sl | Sierra Leone |  | 270 |
@@ -224,7 +224,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_si | Slovenië |  | 273 |
 | country_sb | Solomon Islands |  | 274 |
 | country_so | Somalië |  | 275 |
-| country_za | Zuid -Afrika |  | 276 |
+| country_za | Zuid-Afrika |  | 276 |
 | country_es | Spanje |  | 278 |
 | country_lk | Sri Lanka |  | 279 |
 | country_sd | Soedan |  | 280 |
@@ -237,12 +237,12 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_tj | Tadzjikistan |  | 288 |
 | country_tz | Tanzania |  | 289 |
 | country_th | Thailand |  | 290 |
-| country_tl | Oost -Timor |  | 291 |
+| country_tl | Oost-Timor |  | 291 |
 | country_tg | Togo |  | 292 |
 | country_to | Tonga |  | 294 |
 | country_tt | Trinidad en Tobago |  | 295 |
 | country_tn | Tunesië |  | 296 |
-| country_tr | Kalkoen |  | 297 |
+| country_tr | Turkije |  | 297 |
 | country_tm | Turkmenistan |  | 298 |
 | country_tv | Tuvalu |  | 300 |
 | country_ug | Oeganda |  | 301 |
@@ -261,7 +261,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | country_me | Montenegro |  | 319 |
 | country_rs | Servië |  | 321 |
 | country_xk | Kosovo |  | 322 |
-| country_ss | Zuid -Soedan |  | 324 |
+| country_ss | Zuid-Soedan |  | 324 |
 | alert_icon | Alert pictogram |  | 325 |
 | scan_gif | Hoe te scannen, geanimeerde gif |  | 326 |
 | gif_play | Toneelstuk |  | 327 |
@@ -269,6 +269,6 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | play_pause_gif | Speel / pauzeer animatieknop |  | 329 |
 | top_close | Dichtbij |  | 330 |
 | close_error_message | Sluit het foutbericht |  | 331 |
-| menu_button | Menu -knop |  | 332 |
+| menu_button | Menu-knop |  | 332 |
 | leaflet_available_doc | De beschikbare documenten van folder |  | 333 |
 | leaflet_available_lang | De beschikbare talen van folder |  | 334 |
