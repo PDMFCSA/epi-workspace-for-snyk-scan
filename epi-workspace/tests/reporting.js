@@ -79,7 +79,7 @@ class Reporter {
                 default:
                     console.log(`Unsupported type ${type}. assuming text`);
             }
-            fs.writeFileSync(path.join(dir, `${reference}${extension}`), data, 'utf8');
+            fs.writeFileSync(path.join(dir, new Date().toISOString().replace(/[-:.]/g, '').slice(0, 17) + `-${reference}${extension}`), data, 'utf8');
         } catch (e){
             throw new Error(`Could not store Reporting artifact ${reference} under ${dir} - ${e.message}`);
         }
@@ -87,6 +87,15 @@ class Reporter {
 
     generatePath(step) {
         return path.join(this._basePath, step);
+    }
+
+    retrievePayload(step, reference, extension = ".json") {
+        const p = path.join(this._basePath, step, `${reference}${extension}`);
+
+        const data = fs.readFileSync(p, "utf8"); // Read file
+        const jsonData = JSON.parse(data); // Parse JSON
+
+        return jsonData;
     }
 
     async outputPayload(step, reference, data, type = "json", trim = false) {

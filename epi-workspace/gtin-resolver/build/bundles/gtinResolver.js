@@ -5434,7 +5434,7 @@ function Batch(enclave, domain, subdomain, gtin, batchNumber, version) {
         instance.nameMedicinalProduct = instance.nameMedicinalProduct || instance.productName;
         instance.productCode = instance.productCode || instance.gtin;
         instance.expiryDate = instance.expiryDate || instance.expiry;
-        instance.batchRecall = instance.batchRecall || "";
+        instance.batchRecall = instance.batchRecall || false;
         instance.importLicenseNumber = instance.importLicenseNumber || "";
         instance.dateOfManufacturing = instance.dateOfManufacturing || "";
         instance.manufacturerName = instance.manufacturerName || "";
@@ -6096,7 +6096,7 @@ function Product(enclave, domain, subdomain, gtin, version) {
         await loadMetadata.call(instance);
         instance.inventedName = instance.inventedName || instance.name;
         instance.nameMedicinalProduct = instance.nameMedicinalProduct || instance.description;
-        instance.productRecall = instance.productRecall || "";
+        instance.productRecall = instance.productRecall || false;
     }
     return instance;
 }
