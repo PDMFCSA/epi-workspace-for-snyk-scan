@@ -4272,6 +4272,7 @@ const {EPI_TYPES} = require("../constants/constants");
 const {constants} = require("../../index");
 
 module.exports = function (server) {
+    const logger = $$.getLogger("MainController", "integrationAPIs");
     const lightDBEnclaveFactory = LightDBEnclaveFactory.getLightDBEnclaveFactoryInstance();
     const EPI_DOMAIN = process.env.EPI_DOMAIN;
     const EPI_SUBDOMAIN = process.env.EPI_SUBDOMAIN;
@@ -6174,7 +6175,7 @@ function AuditService(enclave) {
     const validationService = require("../services/ValidationService.js").getInstance();
 
     const generatePK = () => {
-        return crypto.generateRandom(32).toString("base64url");
+        return crypto.generateRandom(32).toString("hex");
     }
 
     const generateAuditEntry = (context) => {

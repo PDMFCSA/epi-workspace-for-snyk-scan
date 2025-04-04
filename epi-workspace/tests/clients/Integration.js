@@ -22,6 +22,10 @@ class IntegrationClient extends ApiClient {
         this.step = step;
     }
 
+    async get (endpoint, type){
+        return this.send(`${this.getBaseURL()}${endpoint}`, 'GET', undefined, type);
+    }
+
     getEpiProductUrl(gtin, language, epiType, ePIMarket) {
         const baseEndpoint = `${this.getBaseURL()}/epi/${gtin}/${language}/${epiType}`;
         return ePIMarket ? `${baseEndpoint}/${ePIMarket}` : baseEndpoint;
@@ -153,11 +157,19 @@ class IntegrationClient extends ApiClient {
         return this.send(`${this.getBaseURL()}/batch/${gtin}/${batchNumber}`, 'GET');
     };
 
+    async getObjectStatus(productCode, batchNumber) {
+        let endpoint = `${this.getBaseURL()}/integration/objectStatus/${productCode}`;
+        if (batchNumber) {
+            endpoint += `/${encodeURIComponent(batchNumber)}`;
+        }
+        return this.send(endpoint, 'GET');
+    };
+
     getBaseURL() {
         return `${this.config.sor_endpoint}/integration`;
     }
 
-    async send(endpoint, method, data, responseType = "json") {
+    async send(endpoint, method, data = undefined, responseType = "json") {
         //add domain and subdomain as query parameters
         //check if the endpoint already has query parameters
 
@@ -194,7 +206,7 @@ class IntegrationClient extends ApiClient {
                 const self = this;
 
                 function referenceFromUrl(url, response = false) {
-                    const name = [method, response ? "response" : "payload", ...url.split('/')].join('-');
+                    const name = [method, response ? "response" : "payload", url].join(' ');
                     const cached = Object.keys(self.cached)
                         .filter(k => k.includes(name));
 
