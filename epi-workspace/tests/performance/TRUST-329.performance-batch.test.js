@@ -96,7 +96,7 @@ describe(`${testName} - Performance tests for batches`, () => {
                     index: i + 1,
                     batchNumber: el.batchNumber,
                     timeTaken: el.timeTaken / 1000,
-                    errors: el.errors
+                    errors: el.errors || "none"
                 }
 
             }), [
@@ -116,6 +116,7 @@ describe(`${testName} - Performance tests for batches`, () => {
 
         for (let i = 0; i < SEQUENTIAL_REQUESTS; i++) {
             it(`Creates batch #${i + 1} in sequence with timeout between requests ${SLEEP_INTERVAL}`, async () => {
+                console.log(`STATUS: ${i}/${SEQUENTIAL_REQUESTS}`);
                 const batchNumber = Date.now().toString(36).replace(".", "").toUpperCase()
 
                 startTime = Date.now()
@@ -152,36 +153,36 @@ describe(`${testName} - Performance tests for batches`, () => {
     })
 
     describe("Second pass. Retries failures and retrieves object status for repeat failures", () => {
-
-        afterAll(async() => {
-            if (Stats2.length)
-                await reporter.outputMDTable("Retry", "performance-results", Stats2.reduce((accum, [key, val]) => {
-                    accum[key] = {
-                        batchNumber: val.batchNumber,
-                        timeTaken: val.timeTaken / 1000,
-                        errors: val.errors
-                    }
-                    return accum;
-                }, {}), [
-                    `Performance Results for ${SEQUENTIAL_REQUESTS} batch creation - Retry failures`,
-                    `For product ${productCode} with no leaflets`
-                ], [
-                    "index",
-                    "Batch Number",
-                    "Time Taken (s)",
-                    "Errors"
-                ], [
-                    "batchNumber",
-                    "timeTaken",
-                    "errors"
-                ]);
-        })
-
         const filteredStats = Stats.filter(el =>!!el.error);
+
+        if(filteredStats.length > 0)
+            afterAll(async() => {
+                if (Stats2.length)
+                    await reporter.outputMDTable("Retry", "performance-results", Stats2.reduce((accum, [key, val]) => {
+                        accum[key] = {
+                            batchNumber: val.batchNumber,
+                            timeTaken: val.timeTaken / 1000,
+                            errors: val.errors
+                        }
+                        return accum;
+                    }, {}), [
+                        `Performance Results for ${SEQUENTIAL_REQUESTS} batch creation - Retry failures`,
+                        `For product ${productCode} with no leaflets`
+                    ], [
+                        "index",
+                        "Batch Number",
+                        "Time Taken (s)",
+                        "Errors"
+                    ], [
+                        "batchNumber",
+                        "timeTaken",
+                        "errors"
+                    ]);
+            })
 
         for (let i = 0; i < filteredStats.length; i++) {
             it(`Retries batch #${filteredStats[i].batchNumber} in sequence with timeout between requests ${SLEEP_INTERVAL}`, async () => {
-
+                console.log(`STATUS: ${i}/${filteredStats.length}`);
                 startTime = Date.now()
                 let timeTaken;
 
