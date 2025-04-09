@@ -1,5 +1,18 @@
 @import "prerequisites.css";
 
+
+fieldset {
+    border: none;
+    margin-top: .5rem;
+    padding: 0px;
+}
+
+.heading3 {  
+    font-size: var(--font-size--basic);
+    font-weight: 700;
+    margin: 0;
+}
+
 [class*="-button"],
 button:not([disabled]) {
     cursor: pointer !important;
@@ -220,7 +233,7 @@ button:not([disabled]) {
     z-index: 10000;
 }
 
-/* Blur leaft left of recalled product/batch until user confirm  */
+/* Blur leaft left of recalled product/batch until user confirm  */ 
 #settings-modal.recalled {
     filter: blur(5px) !important;
 }

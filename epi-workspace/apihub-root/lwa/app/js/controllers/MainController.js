@@ -19,6 +19,7 @@ function MainController() {
         function toggleAnimationState() {
             const playing = animatedGif.get_playing();
             controlGifButton.classList.toggle('playing');
+            controlGifButton.setAttribute('aria-pressed', playing);
             if(playing) {
                 animatedGif.pause();
             } else {

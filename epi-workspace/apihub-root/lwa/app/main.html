@@ -38,40 +38,40 @@
                 </button>
                 <ul class="app-menu-container hidden" id="menu-items-list" role="list" 
                     aria-labelledby="hamburger-menu-button">
-                    <li id="terms-link" class="forward-to-page" modal-name="terms" role="listitem" tabindex="2">
+                    <li id="terms-link" class="forward-to-page" modal-name="terms" role="listitem" tabindex="0">
                         <a role="link" class="label" translate="fwd_terms"></a>
                         <div class="fwd-icon"></div>
                     </li>
                     <li id="privacy-link" class="forward-to-page" modal-name="privacy" role="listitem"
-                        tabindex="3">
+                        tabindex="0">
                         <a role="link" class="label" translate="fwd_privacy"></a>
                         <div class="fwd-icon"></div>
                     </li>
                     <li id="about-link" class="forward-to-page" modal-name="about" role="listitem"
-                        tabindex="4">
+                        tabindex="0">
                         <a role="link" class="label" translate="fwd_about"></a>
                         <div class="fwd-icon"></div>
                     </li>
                     <li id="help-link" class="forward-to-page" modal-name="help" role="listitem"
-                        tabindex="5">
+                        tabindex="0">
                         <a role="link" class="label" translate="fwd_help"></a>
                         <div class="fwd-icon"></div>
                     </li>
-                    <li class="more-options-link app-version-item" role="listitem" tabindex="6">
+                    <li class="more-options-link app-version-item" role="listitem">
                         <span translate="app_version"></span> <span id="app_version_number"></span>
                     </li>
                 </ul>
             </nav>
         </div>
     </header>
-    <section class="page-content-section">
-        <div class="welcome-container" role="main" tabindex="0">
+    <main class="page-content-section">
+        <section class="welcome-container">
             <div role="heading" aria-level="1" id="welcome-text" translate="welcome" class="hiddenElement"></div>
             <div role="heading" aria-level="1" id="onbording-text" translate="onboarding_welcome"
                  class="hiddenElement"></div>
             <span class="system-env"></span>
-        </div>
-        <div class="terms-content-container" role="contentinfo">
+        </section>
+        <section class="terms-content-container" role="region">
             <div class="terms-container">
                 <div class="extra-text" translate="disagree_extra_text"></div>
                 <div class="terms-content" translate="terms_content"></div>
@@ -82,9 +82,9 @@
                             translate="agree"></button>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="content-container">
+        <div class="content-container" role="region">
             <div>
                 <img id="pack-gif" src="images/medicine-pack.gif" 
                 rel:auto_play="1"
@@ -92,7 +92,7 @@
                 <!-- "How to scan animated gif" -->
 
                 <div class="control-container">
-                    <button class="playing" aria-label="play_pause_gif" id="control-gif" type="button">
+                    <button class="playing" aria-label="play_pause_gif" id="control-gif" type="button" aria-pressed="false">
                     <img class="play" src="images/play.svg" alt="gif_play" title="gif_play"/>
                     <img class="pause" src="images/pause.svg" alt="gif_pause" title="gif_pause"/>
                     </button>
@@ -100,7 +100,7 @@
             </div>
         </div>
       
-        <div class="explain-container" tabindex="0">
+        <div class="explain-container">
             <div translate="scan_explain"></div>
         </div>
         <div class="scan-button-container">
@@ -108,7 +108,7 @@
                 <div translate="scan_button"></div>
             </button>
         </div>
-    </section>
+    </main>
 </div>
 
 </div>

@@ -17,6 +17,100 @@ function getDateForDisplay(date) {
     return date;
 }
 
+/**
+ * Opens a modal and sets up focus management within it.
+ * 
+ * This function removes the 'hiddenElement' class from the modal, making it visible.
+ * It also sets up a MutationObserver to manage focus when the modal's visibility changes.
+ * When the modal becomes visible, it focuses on a specified element and sets up keyboard trap.
+ * When the modal is hidden, it removes the keyboard trap and disconnects the observer.
+ *
+ * @param {HTMLElement} modal - The modal element to be opened and observed.
+ * @param {string} [elementToFocus='.close-modal'] - Selector for the element to receive focus when the modal opens. If not found, focuses on the modal itself.
+ * @param {HTMLElement} [triggerElement=null] - The element that triggered the modal opening (not used in the current implementation).
+ * @returns {HTMLElement} The modal element that was opened.
+ */
+function modalOpen(modal, elementToFocus = '.close-modal', triggerElement = null) {
+    console.log(`Opening modal ${modal.id}`)
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            const {target} = mutation;
+            const element = !elementToFocus ? target : (target.querySelector(elementToFocus) || target);
+            if(!target.classList.contains("hiddenElement")) {
+                element.focus(); 
+                console.info("Element in focus is", document.activeElement);
+                target.addEventListener("keydown", (event) => modalTrapFocus(event, target));
+            } else {
+                observer.disconnect();
+            }
+        });
+    });
+
+    modal.setAttribute("aria-hidden", "false");
+    observer.observe(modal, {attributes: true }); 
+    modal.classList.remove("hiddenElement");
+    return modal;
+};
+
+
+/**
+ * Closes a modal dialog and handles associated cleanup tasks.
+ * 
+ * This function hides the modal, updates its ARIA attributes, removes event listeners,
+ * and attempts to return focus to the element that originally triggered the modal.
+ *
+ * @param {HTMLElement} modal - The modal element to be closed.
+ * @returns {void}
+ */
+function modalClose(modal) {
+    console.log(`Closing modal ${modal.id}`)
+    modal.classList.add("hiddenElement");
+    modal.removeEventListener("keydown", modalTrapFocus);
+    const activeModal = getActiveModal();
+    if(!modal.id === 'print-modal') {
+        activeModal ? activeModal.focus() : document.body.focus()
+    } else {
+        const printButton = activeModal.querySelector('#print-modal-button');
+        if(printButton)
+            printButton.focus();
+        console.info("Element in focus is", document.activeElement);
+    }
+    modal.setAttribute("aria-hidden", "true");
+}
+  
+function getActiveModal() {
+    return document.querySelector(".page-container:not(.hiddenElement), .popup-modal:not(.hiddenElement)");
+};
+
+/**
+ * Traps focus within a modal dialog when the Tab key is pressed.
+ * This function ensures that focus stays within the modal by redirecting
+ * focus to the first focusable element when tabbing from the last element.
+ *
+ * @param {KeyboardEvent} event - The keyboard event object.
+ * @param {HTMLElement} modal - The modal element containing focusable elements.
+ * @returns {void}
+ */
+function modalTrapFocus(event, modal) {
+
+    const focusableElements = modal.querySelectorAll("button, a, [tabindex='0']");
+    const firstElement = focusableElements[0];
+    const lastElement  = focusableElements[focusableElements.length - 1];
+    const {keyCode, key, code, shiftKey} = event;
+    const {activeElement} = document;
+
+    if (keyCode === 9 || key.toLowerCase() === "tab" || code.toLowerCase() === "tab") {
+        // case last element, back to the first element
+        if (!shiftKey && activeElement === lastElement) {
+            event.preventDefault();
+            firstElement.focus(); 
+        } else if (shiftKey && activeElement === firstElement) {
+            // case first element, back to the last element
+            event.preventDefault();
+            lastElement.focus(); 
+        }
+    }
+}
 
 function getExpiryTime(expiry) {
     let normalizedExpiryDate;
@@ -416,5 +510,8 @@ export {
     parseGS1Code,
     escapeHTML,
     escapeHTMLAttribute,
-    sanitizeLogMessage
+    sanitizeLogMessage,
+    modalOpen,
+    modalClose,
+    getActiveModal
 }

@@ -1,5 +1,5 @@
 import {
-    goToErrorPage, goToPage, isExpired, setTextDirectionForLanguage, enableConsolePersistence, escapeHTML, escapeHTMLAttribute
+    goToErrorPage, goToPage, isExpired, setTextDirectionForLanguage, enableConsolePersistence, escapeHTML, escapeHTMLAttribute, modalOpen, modalClose, getActiveModal
 } from "../../../utils.js"
 import constants from "../../../constants.js";
 import LeafletService from "../services/LeafletService.js";
@@ -46,7 +46,6 @@ function LeafletController() {
     this.gto_TotalWaitTime = environment.gto_TotalWaitTime || 15000;
 
     this.loader = document.querySelector(".loader-container");
-    this.activeModal;
     this.defaultLanguage;
     this.selectedLanguage;
     this.selectedDocument;
@@ -67,23 +66,19 @@ function LeafletController() {
     }
 
     this.getActiveModal = function() {
-        if(!this.activeModal)
-            this.activeModal = document.querySelector(".page-container:not(.hiddenElement), .popup-modal:not(.hiddenElement)");
-        return this.activeModal;
+       return getActiveModal();
     };
 
-    this.showModal = function (modalId)  {
-        const body = document.body;
-        const activeModal = this.getActiveModal();
+    this.showModal = function (modalId, stackModal = false)  {
         const modal = document.querySelector(`#${modalId}`);
         this.showLoader(false);
-        if(activeModal)
-            activeModal.classList.add("hiddenElement");
-        setTimeout(() => {
-            modal.classList.remove("hiddenElement");
-            modal.querySelector('.modal-body').focus();
-        }, 0);
-        return this.activeModal = modal;
+        if(!stackModal) {
+            const activeModal = this.getActiveModal();
+            if(activeModal)
+                activeModal.classList.add("hiddenElement");    
+        }
+        modalOpen(modal, null);
+        return modal;
     };
 
     this.showLoader = function (show) {
@@ -159,8 +154,7 @@ function LeafletController() {
         const modalId = (typeof evt === "string") ? evt : evt.currentTarget.getAttribute("modal-id")
         if (['leaflet-lang-select', 'documents-modal', 'epi-markets-modal'].includes(modalId))
             return goToPage("/main.html");
-        document.querySelector("#" + modalId).classList.add("hiddenElement");
-        // document.getElementById("settings-modal").classList.remove("hiddenElement");
+        modalClose(document.querySelector("#" + modalId)); 
     }
 
     /**
@@ -198,6 +192,7 @@ function LeafletController() {
             radioInput.setAttribute("name", "epi-market");
             radioInput.setAttribute("value", escapeHTMLAttribute(item));
             radioInput.setAttribute("id", escapeHTMLAttribute(item));
+            radioInput.setAttribute("tabindex", "-1");
             radioInput.defaultChecked = index === 0;
 
             // Create the div element for the label
@@ -210,10 +205,10 @@ function LeafletController() {
 
             const radioFragment = document.createElement('label');
             radioFragment.classList.add("radio-item-container");
-            radioFragment.setAttribute("role", "radio");
+            // radioFragment.setAttribute("role", "radio");
             radioFragment.setAttribute("tabindex", "0");
             radioFragment.setAttribute("aria-checked", new Boolean(index === 0).toString());
-            radioFragment.setAttribute("aria-label", escapeHTMLAttribute(label));
+            // radioFragment.setAttribute("aria-label", escapeHTMLAttribute(label));
 
             // Append the radioInput and label elements to the container
             radioFragment.appendChild(radioInput);
@@ -268,7 +263,7 @@ function LeafletController() {
             renderLeaflet(result, this.metadata);
             this.loadPrintContent("settings-modal");
             if (isExpired(this.expiry))
-                showExpired(this.selectedLanguage);  
+                modalOpen(document.querySelector("#expired-modal"));
             
         } catch (e) {
             console.error(e);
@@ -311,15 +306,18 @@ function LeafletController() {
 
         const modal = document.querySelector('#documents-modal');
         const container = modal.querySelector("#content-container");
-        container.innerHTML = "";
+        const radioParent = container.querySelector("#documents-radio-container") || document.createElement('div');
+        radioParent.id = "documents-radio-container";
+        radioParent.innerHTML = "";
         let selectedItem = null;
-        const radionParent = document.createElement('div');
+        
         documents.forEach((item, index) => {
             const radioInput = document.createElement('input');
             radioInput.setAttribute("type", "radio");
             radioInput.setAttribute("name", "documents");
             radioInput.setAttribute("value", escapeHTMLAttribute(item.value));
             radioInput.setAttribute("id", escapeHTMLAttribute(item.value));
+            radioInput.setAttribute("tabindex", "-1");
             radioInput.defaultChecked = index === 0;
 
             // Create the div element for the label
@@ -332,10 +330,10 @@ function LeafletController() {
 
             const radioFragment = document.createElement('label');
             radioFragment.classList.add("radio-item-container");
-            radioFragment.setAttribute("role", "radio");
+            // radioFragment.setAttribute("role", "radio");
             radioFragment.setAttribute("tabindex", "0");
             radioFragment.setAttribute("aria-checked", new Boolean(index === 0).toString());
-            radioFragment.setAttribute("aria-label", escapeHTMLAttribute(label));
+            // radioFragment.setAttribute("aria-label", escapeHTMLAttribute(label));
 
             // Append the radioInput and label elements to the container
             radioFragment.appendChild(radioInput);
@@ -356,9 +354,9 @@ function LeafletController() {
                     radioFragment.querySelector("input").checked = true;
             })
 
-            radionParent.appendChild(radioFragment);
+            radioParent.appendChild(radioFragment);
         })
-        container.appendChild(radionParent);
+        container.appendChild(radioParent);
         this.showModal('documents-modal');
     };
 
@@ -449,6 +447,7 @@ function LeafletController() {
                 radioInput.setAttribute("type", "radio");
                 radioInput.setAttribute("name", "languages");
                 radioInput.setAttribute("value", escapeHTMLAttribute(lang.value));
+                radioInput.setAttribute("tabindex", "-1");
                 radioInput.setAttribute("id", escapeHTMLAttribute(lang.value));
                 radioInput.defaultChecked = index === 0;
 
@@ -460,10 +459,10 @@ function LeafletController() {
 
                 let radioFragment = document.createElement('label');
                 radioFragment.classList.add("radio-item-container");
-                radioFragment.setAttribute("role", "radio");
+                // radioFragment.setAttribute("role", "radio");
                 radioFragment.setAttribute("tabindex", "0");
                 radioFragment.setAttribute("aria-checked", new Boolean(index === 0).toString());
-                radioFragment.setAttribute("aria-label", escapeHTMLAttribute(lang.label) + " language");
+                // radioFragment.setAttribute("aria-label", escapeHTMLAttribute(lang.label) + " language");
 
                 // Append the radioInput and label elements to the container
                 radioFragment.appendChild(radioInput);
@@ -516,7 +515,6 @@ function LeafletController() {
 
             activeModal.classList.add('recalled');
             recalledBar.classList.add('visible');
-            recalledContainer.classList.remove("hiddenElement");
 
 
             if (batchRecalled) {
@@ -539,18 +537,18 @@ function LeafletController() {
             recalledContainer.querySelector("#recalled-modal-exit").onclick = function() {
                 goToPage("/main.html")
             };
-
-            recalledContainer.querySelector(".modal-body").focus();
+            
+            modalOpen(recalledContainer, null);
         }
 
     }
 
     this.showPrintModal = () => {
-        this.showLoader(false)
-        const modal = document.querySelector("#print-modal")
-        modal.classList.remove("hiddenElement");
-        document.querySelector(".proceed-button.no-leaflet").classList.add("hiddenElement");
-        modal.querySelector('.modal-body').focus();
+      this.showModal('print-modal', true);
+    };
+
+    this.closePrintModal = async () => {
+        modalClose(document.querySelector("#print-modal"));
     }
 
     this.loadPrintContent= (modal = 'settings-modal') => {
@@ -645,7 +643,7 @@ function LeafletController() {
             // removing html attributes to make table not responsive
         }
         window.print();
-        window.onafterprint = (evt) => {
+        window.onafterprint = async (evt) => {
             if(!evt.target.document)
                 evt.target.document = {title: ""};
             evt.target.document.title = windowName;
@@ -659,7 +657,7 @@ function LeafletController() {
         document.querySelectorAll("#print-modal-button").forEach(button => button.addEventListener("click", this.showPrintModal));
         document.getElementById("modal-scan-again-button").addEventListener("click", this.scanAgainHandler);
         document.querySelectorAll("#go-back-button").forEach(button =>  button.addEventListener("click", this.goHome));
-        document.getElementById("modal-print-go-back-button").addEventListener("click", this.closeModal);
+        document.getElementById("modal-print-go-back-button").addEventListener("click", this.closePrintModal);
         document.querySelectorAll(".modal-container.popup-modal .close-modal").forEach(item => {
             item.addEventListener("click", this.closeModal);
         });

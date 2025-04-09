@@ -2,6 +2,8 @@ import {
   goToErrorPage,
   goToPage,
   enableConsolePersistence,
+  modalOpen,
+  modalClose,
   parseGS1Code, sanitizeLogMessage
 } from "../../../utils.js";
 import ScanService from "../services/ScanService.js";
@@ -36,11 +38,13 @@ function ScanController() {
   }
 
   this.closeModal = function (modalId) {
-    document.querySelector("#" + modalId).classList.add("hiddenElement");
-    if (document.querySelector("#scan-error").classList.contains("hiddenElement")) {
-      document.querySelector(".scan-cancel").setAttribute("tabindex", "1");
-      document.querySelector(".camera-switch").setAttribute("tabindex", "2");
-    }
+    const modal = document.querySelector("#" + modalId);
+    modalClose(modal);  
+    // modal.classList.add("hiddenElement");
+    // if (document.querySelector("#scan-error").classList.contains("hiddenElement")) {
+    //   document.querySelector(".scan-cancel").setAttribute("tabindex", "1");
+    //   document.querySelector(".camera-switch").setAttribute("tabindex", "2");
+    // }
   }
 
   this.redirectToError = function (err) {
@@ -53,8 +57,7 @@ function ScanController() {
       modal.querySelector(".modal-title").innerHTML = getTranslation("scan_parse_error");
       modal.querySelector(".modal-content").innerHTML = `<div>${getTranslation("scan_parse_error_message")}  ${err.scanResult}</div>`;
     }
-    modal.classList.remove("hiddenElement");
-    modal.focus();
+    modalOpen(modal, null);
     //  goToPage("error.html")
   }
 

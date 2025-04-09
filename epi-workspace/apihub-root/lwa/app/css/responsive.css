@@ -325,6 +325,10 @@ b {
 .terms-button.agree {
     background: var(--olivegreen);
     color: white;
+   
+}
+.terms-button.agree:focus {
+    border-color: var(--mintgreen);
 }
 
 .terms-button.disagree {
@@ -457,6 +461,7 @@ b {
 
 .popup-modal {
     position: absolute;
+    top: 0;
 }
 
 .modal-content {

@@ -44,6 +44,7 @@ function handleLeafletAccordion() {
       })
     })
     accItem.addEventListener("keydown", (event) => {
+      const isActive = accItem.classList.contains("active");
       if (event.key === "Enter" || event.key === " ") {
         accItem.classList.toggle("active");
         const isActive = accItem.classList.contains("active");
@@ -133,7 +134,7 @@ let validateLeafletFiles = function (htmlContent, leafletImages, uploadedImages)
 
 let renderLeaflet = function (leafletData, metadata) {
 
-  if(metadata)
+  if(!!metadata && !!metadata.productData)
     leafletData.productData = metadata.productData;
     
   document.querySelector(".product-name").innerText = leafletData.productData.inventedName || leafletData.productData.name;

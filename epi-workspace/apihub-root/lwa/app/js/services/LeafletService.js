@@ -19,7 +19,7 @@ const buildMetadataQueryParams = function (gtin, batchNumber) {
 
   //let create a wrapper over append method to ensure that NO UNDEFINED variable will be added to the query
   let append = converter.searchParams.append;
-  converter.searchParams.append = (name, value)=>{
+  converter.searchParams.append = (name, value) => {
     if(typeof value === "undefined"){
       return;
     }
