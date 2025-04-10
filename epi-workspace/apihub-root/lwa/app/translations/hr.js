@@ -258,10 +258,10 @@ const data = {
   "scan_gif": "Kako skenirati, animirani gif",
   "gif_play": "Igrati",
   "gif_pause": "Pauza",
-  "play_pause_gif": "Gumb za animaciju reproduciraj / pauzu",
+  "play_pause_gif": "Igranje animacije",
   "top_close": "Zatvoriti",
   "close_error_message": "Zatvorite poruku o pogrešci",
-  "menu_button": "Gumb",
+  "menu_button": "Jelovnik",
   "alert_icon": "Ikona upozorenja",
   "leaflet_available_doc": "Dostupni dokumenti Leaflet",
   "leaflet_available_lang": "Dostupni jezici Leaflet"

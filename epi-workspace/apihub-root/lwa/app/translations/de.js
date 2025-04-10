@@ -259,10 +259,10 @@ const data = {
   "scan_gif": "So scannen, animierte GIF",
   "gif_play": "Spielen",
   "gif_pause": "Pause",
-  "play_pause_gif": "Animationstaste abspielen / pausieren",
+  "play_pause_gif": "Animation abspielen",
   "top_close": "Schließen",
   "close_error_message": "Schließen Sie die Fehlermeldung",
-  "menu_button": "Menüschaltfläche",
+  "menu_button": "Speisekarte",
   "alert_icon": "Alarm -Symbol",
   "leaflet_available_doc": "Die verfügbaren Dokumente von Broschüren",
   "leaflet_available_lang": "Die verfügbaren Sprachen von Broschüren"

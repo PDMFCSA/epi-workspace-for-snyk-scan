@@ -16,29 +16,22 @@
 
 </head>
 <body>
-
-<div class="loader-container main-page-loader">
-    <div class="loader"></div>
-</div>
-
-<div id="settings-modal" class="modal-container info-modal">
-    <div class="modal-body help">
-        <div class="modal-header left-aligned-header">
-            <a class="close-modal" aria-label="top_close" role="link" tabindex="1"></a>
-            <div class="icon-title-container">
-                <div role="heading" aria-level="1" class="modal-title bold-title" tabindex="2"
-                     translate="help_modal_title"></div>
-            </div>
-            <div role="heading" aria-level="2" class="modal-subtitle" tabindex="3"
-                 translate="help_modal_subtitle"></div>
-        </div>
-        <div class="modal-content" tabindex="4" translate="help_content"></div>
+    <div class="loader-container main-page-loader">
+        <div class="loader"></div>
     </div>
-    <button id="go-home-button" class="scan-button go-home-button" translate="go_home"></button>
-</div>
 
-</div>
-
+    <main id="settings-modal" class="modal-container info-modal" aria-labelledby="modal-title">
+        <div class="modal-body help">
+            <div class="modal-header left-aligned-header">
+                <button class="close-modal" aria-label="top_close"></button>
+                <div class="icon-title-container">
+                    <div role="heading" aria-level="1" id="modal-title" class="modal-title bold-title" translate="help_modal_title"></div>
+                </div>
+                <div class="modal-subtitle" translate="help_modal_subtitle"></div>
+            </div>
+            <div class="modal-content" translate="help_content"></div>
+        </div>
+        <button id="go-home-button" class="scan-button go-home-button" translate="go_home"></button>
+    </main>
 </body>
-
 </html>

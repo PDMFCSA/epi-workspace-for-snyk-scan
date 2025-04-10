@@ -265,9 +265,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | scan_gif | Kuidas skannida, animeeritud gif |  | 326 |
 | gif_play | Näidend |  | 327 |
 | gif_pause | Paus |  | 328 |
-| play_pause_gif | Play / pausi animatsiooni nupp |  | 329 |
+| play_pause_gif | Animatsiooni mängima |  | 329 |
 | top_close | Sulgur |  | 330 |
 | close_error_message | Sulgege veateade |  | 331 |
-| menu_button | Menüünupp |  | 332 |
+| menu_button | Menüü |  | 332 |
 | leaflet_available_doc | Voldiku saadaolevad dokumendid |  | 333 |
 | leaflet_available_lang | Voldiku saadaolevad keeled |  | 334 |

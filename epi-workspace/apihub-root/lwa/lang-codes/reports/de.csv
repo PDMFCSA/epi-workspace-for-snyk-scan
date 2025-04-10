@@ -260,9 +260,9 @@ code,text,status,key
 326,"So scannen, animierte GIF",,scan_gif
 327,Spielen,,gif_play
 328,Pause,,gif_pause
-329,Animationstaste abspielen / pausieren,,play_pause_gif
+329,Animation abspielen,,play_pause_gif
 330,Schließen,,top_close
 331,Schließen Sie die Fehlermeldung,,close_error_message
-332,Menüschaltfläche,,menu_button
+332,Speisekarte,,menu_button
 333,Die verfügbaren Dokumente von Broschüren,,leaflet_available_doc
 334,Die verfügbaren Sprachen von Broschüren,,leaflet_available_lang

@@ -258,10 +258,10 @@ const data = {
   "scan_gif": "Jak skenovat, animovaný gif",
   "gif_play": "Hrát",
   "gif_pause": "Pauza",
-  "play_pause_gif": "Tlačítko Přehrát / pozastavit animaci",
+  "play_pause_gif": "Hrát animaci",
   "top_close": "Blízko",
   "close_error_message": "Zavřete chybovou zprávu",
-  "menu_button": "Tlačítko nabídky",
+  "menu_button": "Menu",
   "alert_icon": "Ikona výstrahy",
   "leaflet_available_doc": "Dostupné dokumenty letáku",
   "leaflet_available_lang": "Dostupné jazyky letáku"

@@ -259,9 +259,9 @@ code,text,status,key
 326,"Kako skenirati, animirani gif",,scan_gif
 327,Igrati,,gif_play
 328,Pauza,,gif_pause
-329,Gumb za animaciju reproduciraj / pauzu,,play_pause_gif
+329,Igranje animacije,,play_pause_gif
 330,Zatvoriti,,top_close
 331,Zatvorite poruku o pogrešci,,close_error_message
-332,Gumb,,menu_button
+332,Jelovnik,,menu_button
 333,Dostupni dokumenti Leaflet,,leaflet_available_doc
 334,Dostupni jezici Leaflet,,leaflet_available_lang

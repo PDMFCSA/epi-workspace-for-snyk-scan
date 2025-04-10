@@ -266,9 +266,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | scan_gif | Hogyan szkenneljünk, animált gif |  | 326 |
 | gif_play | Játék |  | 327 |
 | gif_pause | Szünet |  | 328 |
-| play_pause_gif | Lejátszás / szünet animációs gomb |  | 329 |
+| play_pause_gif | Animációt játszani |  | 329 |
 | top_close | Közeli |  | 330 |
 | close_error_message | Zárja be a hibaüzenetet |  | 331 |
-| menu_button | Menügomb |  | 332 |
+| menu_button | Menü |  | 332 |
 | leaflet_available_doc | A szórólap rendelkezésre álló dokumentumai |  | 333 |
 | leaflet_available_lang | A szórólap rendelkezésre álló nyelvei |  | 334 |

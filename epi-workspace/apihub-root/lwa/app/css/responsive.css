@@ -179,9 +179,11 @@ b {
 }
 
 .system-env {
+    /* color: var(--yellow-200); */
     color: red;
     text-align: center;
     font-size: 18px;
+    margin-top: 1rem;
 }
 
 .icon-container {
@@ -225,6 +227,7 @@ b {
     right: 0;
     top: max(5vh, 5vw);
     padding-inline: 0;
+  
 }
 
 .app-menu-container:before {
@@ -238,6 +241,12 @@ b {
     border-bottom: 10px solid #fff;
     right: 0px;
     top: -19px;
+}
+
+@media (orientation: landscape) {
+    .app-menu-container {
+        left: min(50vw, 100vh);
+    }
 }
 
 .app-menu-container > div {
@@ -736,16 +745,16 @@ b {
 .control-container button .play {
     transform: translateX(3px);
 }
-.control-container button:not(.playing) .play {
+.control-container button[aria-pressed="true"] .play {
     display: inline-block;
 }
-.control-container button:not(.playing) .pause {
+.control-container button[aria-pressed="false"] .play {
     display: none !important;
 }
-.control-container button.playing .play {
+.control-container button[aria-pressed="true"] .pause {
     display: none !important;
 }
-.control-container button.playing .pause {
+.control-container button[aria-pressed="false"] .pause {
     display: inline-block;
 }
 .control-container button img {
@@ -1095,6 +1104,6 @@ body[dir="RTL"] .modal-content .languages-container .language-item-container .la
     padding: min(3vh, 3vw);
 }
 
-.proceed-button.print-button {
+/* .proceed-button.print-button {
     width: unset;
-}
+} */

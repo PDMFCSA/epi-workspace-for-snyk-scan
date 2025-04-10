@@ -1,4 +1,4 @@
-import {setTextDirectionForLanguage} from "../../utils.js";
+import {setTextDirectionForLanguage, setPageTitle} from "../../utils.js";
 import constants from "../../constants.js";
 
 function getLangSubtypesMap(languageCodesMap) {
@@ -130,6 +130,8 @@ export async function translate() {
     matches.forEach((item) => {
         item.innerHTML = currentAppTranslation[item.getAttribute('translate')] || fallbackTranslation[item.getAttribute('translate')];
     });
+
+    setPageTitle();
 }
 
 export function getTranslation(key, ...args) {
@@ -156,6 +158,13 @@ function parseResult(result, key, ...args) {
     
 };
 
+/**
+ * Formats a string by replacing placeholders with provided arguments.
+ * 
+ * @param {string} text - The string containing placeholders to be replaced.
+ * @param {...*} args - The values to replace the placeholders with.
+ * @returns {string} The formatted string with placeholders replaced by the provided arguments.
+ */
 export function stringFormat(text, ...args) {
     return (text || "").replace(/{(\d+)}/g, function(match, number) {
         return typeof args[number] !== 'undefined'
@@ -164,7 +173,7 @@ export function stringFormat(text, ...args) {
     });
 };
 
-export function translateAcessabilityAttributes(){
+export function translateAccessibilityAttributes(){
     ["alt", "title", "aria-label"].forEach((attr) => {
         let altElements = document.querySelectorAll(`[${attr}]`);
         altElements.forEach((element) => {

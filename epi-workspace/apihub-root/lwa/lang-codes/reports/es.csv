@@ -268,9 +268,9 @@ code,text,status,key
 326,"Cómo escanear, animado gif",,scan_gif
 327,Jugar,,gif_play
 328,Pausa,,gif_pause
-329,Botón de animación reproducir / pausa,,play_pause_gif
+329,Play Animation,,play_pause_gif
 330,Cerca,,top_close
 331,Cierre el mensaje de error,,close_error_message
-332,Botón de menú,,menu_button
+332,Menú,,menu_button
 333,Documentos disponibles del folleto,,leaflet_available_doc
 334,Idiomas disponibles del folleto,,leaflet_available_lang

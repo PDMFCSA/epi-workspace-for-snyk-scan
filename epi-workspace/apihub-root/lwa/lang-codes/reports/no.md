@@ -265,9 +265,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | scan_gif | Hvordan skanne, animerte gif |  | 326 |
 | gif_play | Spille |  | 327 |
 | gif_pause | Pause |  | 328 |
-| play_pause_gif | Spill / pause animasjonsknapp |  | 329 |
+| play_pause_gif | Spill animasjon |  | 329 |
 | top_close | Lukke |  | 330 |
 | close_error_message | Lukk feilmeldingen |  | 331 |
-| menu_button | Menyknapp |  | 332 |
+| menu_button | Meny |  | 332 |
 | leaflet_available_doc | Brosjyrens tilgjengelige dokumenter |  | 333 |
 | leaflet_available_lang | Brosjyrens tilgjengelige språk |  | 334 |

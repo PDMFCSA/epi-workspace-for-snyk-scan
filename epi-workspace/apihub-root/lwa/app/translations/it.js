@@ -258,10 +258,10 @@ const data = {
   "scan_gif": "Come scansionare, GIF animata",
   "gif_play": "Giocare",
   "gif_pause": "Pausa",
-  "play_pause_gif": "Pulsante di riproduzione / pausa",
+  "play_pause_gif": "Riprodurre animazione",
   "top_close": "Vicina",
   "close_error_message": "Chiudi il messaggio di errore",
-  "menu_button": "Pulsante menu",
+  "menu_button": "Menu",
   "alert_icon": "Icona di allerta",
   "leaflet_available_doc": "Documenti disponibili del volantino",
   "leaflet_available_lang": "Le lingue disponibili del volantino"

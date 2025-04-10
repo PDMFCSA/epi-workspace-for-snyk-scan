@@ -17,27 +17,24 @@
 </head>
 
 <body>
-<div class="page-container fill-available-width error-page">
-    <div class="page-header modal-header left-aligned-header">
-        <div class="icon-title-container">
-            <h1 class="modal-title header-title bold-title" translate="product_not_found_title"></h1>
-            <div class="modal-icon" aria-hidden="true"></div>
-        </div>
-        <div class="modal-subtitle header-subtitle hiddenElement" translate="error_subtitle"></div>
-    </div>
-
-    <div class="modal-content">
-        <div class="error-text">
-            Oops! It seems there was a problem with your request. <br/>
-            Please double-check the information you provided and try again. <br/>
-            If the issue persists, feel free to contact our support team for assistance. <br/>
-            We apologize for any inconvenience this may have caused.
+    <div class="page-container fill-available-width error-page" role="main" aria-labelledby="modal-title" tabindex="0">
+        <div class="page-header modal-header left-aligned-header">
+            <div class="icon-title-container">
+                <h1 class="modal-title header-title bold-title" id="modal-title" translate="product_not_found_title"></h1>
+                <div class="modal-icon" aria-hidden="true"></div>
+            </div>
+            <div class="modal-subtitle header-subtitle hiddenElement" translate="error_subtitle"></div>
         </div>
 
-        <button id="go-home-button" class="scan-button go-home-button" translate="go_home"
-                tabindex="0"></button>
+        <div class="modal-content">
+            <div class="error-text">
+                Oops! It seems there was a problem with your request. <br/>
+                Please double-check the information you provided and try again. <br/>
+                If the issue persists, feel free to contact our support team for assistance. <br/>
+                We apologize for any inconvenience this may have caused.
+            </div>
+            <button id="go-home-button" class="scan-button go-home-button" translate="go_home"></button>
+        </div>
     </div>
-</div>
-
 </body>
 </html>

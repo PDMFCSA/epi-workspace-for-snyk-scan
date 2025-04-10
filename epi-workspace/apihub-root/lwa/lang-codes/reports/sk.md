@@ -266,9 +266,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | scan_gif | Ako skenovať, animovaný gif |  | 326 |
 | gif_play | Hračka |  | 327 |
 | gif_pause | Pozastaviť |  | 328 |
-| play_pause_gif | Tlačidlo prehrať / pozastaviť animáciu |  | 329 |
+| play_pause_gif | Animácia |  | 329 |
 | top_close | Zatvoriť |  | 330 |
 | close_error_message | Zatvorte chybovú správu |  | 331 |
-| menu_button | Tlačidlo ponuky |  | 332 |
+| menu_button | Ponuka |  | 332 |
 | leaflet_available_doc | Dostupné dokumenty letákov |  | 333 |
 | leaflet_available_lang | Dostupné jazyky letákov |  | 334 |

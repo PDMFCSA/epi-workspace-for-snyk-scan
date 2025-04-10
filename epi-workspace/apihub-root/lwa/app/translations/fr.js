@@ -259,10 +259,10 @@ const data = {
   "scan_gif": "Comment scanner, gif animé",
   "gif_play": "Jouer",
   "gif_pause": "Pause",
-  "play_pause_gif": "Bouton d'animation de lecture / pause",
+  "play_pause_gif": "Jouer à l'animation",
   "top_close": "Fermer",
   "close_error_message": "Fermez le message d'erreur",
-  "menu_button": "Bouton de menu",
+  "menu_button": "Menu",
   "alert_icon": "Icône d'alerte",
   "leaflet_available_doc": "Documents disponibles de la dépliante",
   "leaflet_available_lang": "Langues disponibles de la dépliante"

@@ -259,10 +259,10 @@ const data = {
   "scan_gif": "Як сканувати, анімований gif",
   "gif_play": "Гра",
   "gif_pause": "Пауза",
-  "play_pause_gif": "Кнопка анімації гри / паузи",
+  "play_pause_gif": "Грайте анімацію",
   "top_close": "Закривати",
   "close_error_message": "Закрийте повідомлення про помилку",
-  "menu_button": "Кнопка меню",
+  "menu_button": "Меню",
   "alert_icon": "Піктограма оповіщення",
   "leaflet_available_doc": "Доступні документи листівки",
   "leaflet_available_lang": "Наявні мови листівки"

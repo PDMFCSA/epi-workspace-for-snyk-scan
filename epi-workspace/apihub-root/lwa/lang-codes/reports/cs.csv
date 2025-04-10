@@ -259,9 +259,9 @@ code,text,status,key
 326,"Jak skenovat, animovaný gif",,scan_gif
 327,Hrát,,gif_play
 328,Pauza,,gif_pause
-329,Tlačítko Přehrát / pozastavit animaci,,play_pause_gif
+329,Hrát animaci,,play_pause_gif
 330,Blízko,,top_close
 331,Zavřete chybovou zprávu,,close_error_message
-332,Tlačítko nabídky,,menu_button
+332,Menu,,menu_button
 333,Dostupné dokumenty letáku,,leaflet_available_doc
 334,Dostupné jazyky letáku,,leaflet_available_lang

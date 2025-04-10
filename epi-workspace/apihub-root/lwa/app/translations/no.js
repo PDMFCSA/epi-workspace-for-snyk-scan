@@ -258,10 +258,10 @@ const data = {
   "scan_gif": "Hvordan skanne, animerte gif",
   "gif_play": "Spille",
   "gif_pause": "Pause",
-  "play_pause_gif": "Spill / pause animasjonsknapp",
+  "play_pause_gif": "Spill animasjon",
   "top_close": "Lukke",
   "close_error_message": "Lukk feilmeldingen",
-  "menu_button": "Menyknapp",
+  "menu_button": "Meny",
   "alert_icon": "Varslingsikon",
   "leaflet_available_doc": "Brosjyrens tilgjengelige dokumenter",
   "leaflet_available_lang": "Brosjyrens tilgjengelige språk"

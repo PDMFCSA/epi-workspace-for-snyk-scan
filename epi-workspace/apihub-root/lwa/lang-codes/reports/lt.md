@@ -266,9 +266,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | scan_gif | Kaip nuskaityti, animuoti GIF |  | 326 |
 | gif_play | Žaisk |  | 327 |
 | gif_pause | Pauzė |  | 328 |
-| play_pause_gif | Žaisk / pristabdykite animacijos mygtuką |  | 329 |
+| play_pause_gif | Žaisk animaciją |  | 329 |
 | top_close | Uždaryti |  | 330 |
 | close_error_message | Uždarykite klaidos pranešimą |  | 331 |
-| menu_button | Meniu mygtukas |  | 332 |
+| menu_button | Meniu |  | 332 |
 | leaflet_available_doc | Lankstinukas turimi dokumentai |  | 333 |
 | leaflet_available_lang | Lankstinukas turimas kalbas |  | 334 |

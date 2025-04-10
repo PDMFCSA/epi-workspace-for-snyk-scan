@@ -260,9 +260,9 @@ code,text,status,key
 326,"Hoe te scannen, geanimeerde gif",,scan_gif
 327,Toneelstuk,,gif_play
 328,Pauze,,gif_pause
-329,Speel / pauzeer animatieknop,,play_pause_gif
+329,Speel animatie,,play_pause_gif
 330,Dichtbij,,top_close
 331,Sluit het foutbericht,,close_error_message
-332,Menu-knop,,menu_button
+332,Menu,,menu_button
 333,De beschikbare documenten van folder,,leaflet_available_doc
 334,De beschikbare talen van folder,,leaflet_available_lang

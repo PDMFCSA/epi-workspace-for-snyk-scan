@@ -258,10 +258,10 @@ const data = {
   "scan_gif": "Kuidas skannida, animeeritud gif",
   "gif_play": "Näidend",
   "gif_pause": "Paus",
-  "play_pause_gif": "Play / pausi animatsiooni nupp",
+  "play_pause_gif": "Animatsiooni mängima",
   "top_close": "Sulgur",
   "close_error_message": "Sulgege veateade",
-  "menu_button": "Menüünupp",
+  "menu_button": "Menüü",
   "alert_icon": "Hoiatusikoon",
   "leaflet_available_doc": "Voldiku saadaolevad dokumendid",
   "leaflet_available_lang": "Voldiku saadaolevad keeled"

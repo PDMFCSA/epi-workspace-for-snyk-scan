@@ -258,10 +258,10 @@ const data = {
   "scan_gif": "Cum să scanați, GIF animat",
   "gif_play": "Juca",
   "gif_pause": "Pauză",
-  "play_pause_gif": "Butonul de animație de redare / pauză",
+  "play_pause_gif": "Joacă animație",
   "top_close": "Aproape",
   "close_error_message": "Închideți mesajul de eroare",
-  "menu_button": "Butonul de meniu",
+  "menu_button": "Meniu",
   "alert_icon": "Pictogramă de alertă",
   "leaflet_available_doc": "Documentele disponibile ale prospectului",
   "leaflet_available_lang": "Limbile disponibile ale prospectului"

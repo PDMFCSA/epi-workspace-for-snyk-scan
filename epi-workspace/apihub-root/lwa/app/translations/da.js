@@ -258,10 +258,10 @@ const data = {
   "scan_gif": "Hvordan man scanner, animeret gif",
   "gif_play": "Spil",
   "gif_pause": "Pause",
-  "play_pause_gif": "Play / Pause Animation -knap",
+  "play_pause_gif": "Spil animation",
   "top_close": "Tæt",
   "close_error_message": "Luk fejlmeddelelsen",
-  "menu_button": "Menu -knap",
+  "menu_button": "Menu",
   "alert_icon": "Alertikon",
   "leaflet_available_doc": "Poles ledige dokumenter",
   "leaflet_available_lang": "Poles ledige sprog"

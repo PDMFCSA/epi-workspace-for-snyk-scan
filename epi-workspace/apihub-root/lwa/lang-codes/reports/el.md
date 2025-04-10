@@ -265,7 +265,7 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | scan_gif | Πώς να σαρώσετε, κινούμενο gif |  | 326 |
 | gif_play | Παιχνίδι |  | 327 |
 | gif_pause | Παύση |  | 328 |
-| play_pause_gif | Κουμπί αναπαραγωγής / παύσης |  | 329 |
+| play_pause_gif | Παίζω κινούμενα σχέδια |  | 329 |
 | top_close | Κοντά |  | 330 |
 | close_error_message | Κλείστε το μήνυμα σφάλματος |  | 331 |
 | menu_button | Μενού |  | 332 |

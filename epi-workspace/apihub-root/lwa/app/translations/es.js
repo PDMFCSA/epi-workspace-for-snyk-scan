@@ -259,10 +259,10 @@ const data = {
   "scan_gif": "Cómo escanear, animado gif",
   "gif_play": "Jugar",
   "gif_pause": "Pausa",
-  "play_pause_gif": "Botón de animación reproducir / pausa",
+  "play_pause_gif": "Play Animation",
   "top_close": "Cerca",
   "close_error_message": "Cierre el mensaje de error",
-  "menu_button": "Botón de menú",
+  "menu_button": "Menú",
   "alert_icon": "Icono de alerta",
   "leaflet_available_doc": "Documentos disponibles del folleto",
   "leaflet_available_lang": "Idiomas disponibles del folleto",
@@ -274,8 +274,6 @@ const data = {
   "recalled_batch_title": "Lote Retirado",
   "recalled_batch_name": "Nombre del Lote: {0}",
   "recalled_batch_message": "Este lote {0} ha sido retirado, por favor retorne el producto a su farmacia o póngase en contacto con atención al cliente - consulte en número de teléfono en el envase."
-
-
 }
 
 export default data;

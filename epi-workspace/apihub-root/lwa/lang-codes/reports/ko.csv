@@ -267,9 +267,9 @@ code,text,status,key
 326,"스캔하는 방법, 애니메이션 GIF",,scan_gif
 327,놀다,,gif_play
 328,정지시키다,,gif_pause
-329,플레이 / 일시 중지 애니메이션 버튼,,play_pause_gif
+329,애니메이션을 재생하십시오,,play_pause_gif
 330,닫다,,top_close
 331,오류 메시지를 닫습니다,,close_error_message
-332,메뉴 버튼,,menu_button
+332,메뉴,,menu_button
 333,리플렛의 사용 가능한 문서,,leaflet_available_doc
 334,리플렛의 사용 가능한 언어,,leaflet_available_lang

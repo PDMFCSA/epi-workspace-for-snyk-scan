@@ -260,9 +260,9 @@ code,text,status,key
 326,كيفية مسح ، الرسوم المتحركة gif,,scan_gif
 327,يلعب,,gif_play
 328,يوقف,,gif_pause
-329,زر التشغيل / الإيقاف المؤقت للرسوم المتحركة,,play_pause_gif
+329,لعب الرسوم المتحركة,,play_pause_gif
 330,يغلق,,top_close
 331,أغلق رسالة الخطأ,,close_error_message
-332,زر القائمة,,menu_button
+332,قائمة طعام,,menu_button
 333,مستندات النشرة المتاحة,,leaflet_available_doc
 334,اللغات المتاحة للنشرة,,leaflet_available_lang

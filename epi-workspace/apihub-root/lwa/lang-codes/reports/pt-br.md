@@ -274,9 +274,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | scan_gif | Como digitalizar, GIF animado |  | 326 |
 | gif_play | Começar |  | 327 |
 | gif_pause | Pausa |  | 328 |
-| play_pause_gif | Botão de reprodução / pausa da animação |  | 329 |
+| play_pause_gif | Jogue animação |  | 329 |
 | top_close | Fechar |  | 330 |
 | close_error_message | Fechar a mensagem de erro |  | 331 |
-| menu_button | Botão de menu |  | 332 |
+| menu_button | Menu |  | 332 |
 | leaflet_available_doc | Documentos disponíveis do folheto |  | 333 |
 | leaflet_available_lang | Línguas disponíveis do folheto |  | 334 |

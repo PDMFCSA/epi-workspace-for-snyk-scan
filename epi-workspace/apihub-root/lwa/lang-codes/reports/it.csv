@@ -259,9 +259,9 @@ code,text,status,key
 326,"Come scansionare, GIF animata",,scan_gif
 327,Giocare,,gif_play
 328,Pausa,,gif_pause
-329,Pulsante di riproduzione / pausa,,play_pause_gif
+329,Riprodurre animazione,,play_pause_gif
 330,Vicina,,top_close
 331,Chiudi il messaggio di errore,,close_error_message
-332,Pulsante menu,,menu_button
+332,Menu,,menu_button
 333,Documenti disponibili del volantino,,leaflet_available_doc
 334,Le lingue disponibili del volantino,,leaflet_available_lang

@@ -258,7 +258,7 @@ const data = {
   "scan_gif": "Πώς να σαρώσετε, κινούμενο gif",
   "gif_play": "Παιχνίδι",
   "gif_pause": "Παύση",
-  "play_pause_gif": "Κουμπί αναπαραγωγής / παύσης",
+  "play_pause_gif": "Παίζω κινούμενα σχέδια",
   "top_close": "Κοντά",
   "close_error_message": "Κλείστε το μήνυμα σφάλματος",
   "menu_button": "Μενού",

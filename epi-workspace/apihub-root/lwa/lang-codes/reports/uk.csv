@@ -260,9 +260,9 @@ code,text,status,key
 326,"Як сканувати, анімований gif",,scan_gif
 327,Гра,,gif_play
 328,Пауза,,gif_pause
-329,Кнопка анімації гри / паузи,,play_pause_gif
+329,Грайте анімацію,,play_pause_gif
 330,Закривати,,top_close
 331,Закрийте повідомлення про помилку,,close_error_message
-332,Кнопка меню,,menu_button
+332,Меню,,menu_button
 333,Доступні документи листівки,,leaflet_available_doc
 334,Наявні мови листівки,,leaflet_available_lang

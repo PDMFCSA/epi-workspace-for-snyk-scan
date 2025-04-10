@@ -260,9 +260,9 @@ papierowej ulotki dla pacjenta z informacjami o produkcie, którą zwykle można
 326,"Jak skanować, animowany GIF",,scan_gif
 327,Grać,,gif_play
 328,Pauza,,gif_pause
-329,Przycisk odtwarzania / pauzy,,play_pause_gif
+329,Odtwarzaj animację,,play_pause_gif
 330,Zamknąć,,top_close
 331,Zamknij komunikat o błędzie,,close_error_message
-332,Przycisk menu,,menu_button
+332,Menu,,menu_button
 333,Dostępne dokumenty ulotki,,leaflet_available_doc
 334,Dostępne języki ulotki,,leaflet_available_lang

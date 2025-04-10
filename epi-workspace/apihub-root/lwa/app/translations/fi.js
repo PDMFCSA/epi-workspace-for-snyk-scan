@@ -258,10 +258,10 @@ const data = {
   "scan_gif": "Kuinka skannata, animoitu gif",
   "gif_play": "Pelata",
   "gif_pause": "Tauko",
-  "play_pause_gif": "Toista / keskeyttää animaatiopainike",
+  "play_pause_gif": "Toistaa animaatiota",
   "top_close": "Lähellä",
   "close_error_message": "Sulje virheilmoitus",
-  "menu_button": "Valikkopainike",
+  "menu_button": "Valikko",
   "alert_icon": "Hälytyskuvake",
   "leaflet_available_doc": "Lehtisen käytettävissä olevat asiakirjat",
   "leaflet_available_lang": "Lehteisen kielet"

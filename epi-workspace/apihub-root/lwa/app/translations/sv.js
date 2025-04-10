@@ -259,10 +259,10 @@ const data = {
   "scan_gif": "Hur man skannar, animerad gif",
   "gif_play": "Spela",
   "gif_pause": "Paus",
-  "play_pause_gif": "Spela / Paus Animation -knappen",
+  "play_pause_gif": "Spela animering",
   "top_close": "Nära",
   "close_error_message": "Stäng felmeddelandet",
-  "menu_button": "Menyknapp",
+  "menu_button": "Meny",
   "alert_icon": "Varna ikon",
   "leaflet_available_doc": "Broschyrens tillgängliga dokument",
   "leaflet_available_lang": "Broschyrens tillgängliga språk"

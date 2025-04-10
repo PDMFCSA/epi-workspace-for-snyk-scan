@@ -259,9 +259,9 @@ code,text,status,key
 326,"Kuinka skannata, animoitu gif",,scan_gif
 327,Pelata,,gif_play
 328,Tauko,,gif_pause
-329,Toista / keskeyttää animaatiopainike,,play_pause_gif
+329,Toistaa animaatiota,,play_pause_gif
 330,Lähellä,,top_close
 331,Sulje virheilmoitus,,close_error_message
-332,Valikkopainike,,menu_button
+332,Valikko,,menu_button
 333,Lehtisen käytettävissä olevat asiakirjat,,leaflet_available_doc
 334,Lehteisen kielet,,leaflet_available_lang

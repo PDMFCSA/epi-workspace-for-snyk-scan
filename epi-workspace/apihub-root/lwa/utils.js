@@ -2,20 +2,31 @@ import constants from "./constants.js"
 import environment from "./environment.js";
 import interpretGS1scan from "./interpretGS1scan/interpretGS1scan.js";
 
-function convertToLastMonthDay(date) {
-    let expireDateConverted = date.replace("00", "01");
-    expireDateConverted = new Date(expireDateConverted.replaceAll(' ', ''));
-    expireDateConverted.setFullYear(expireDateConverted.getFullYear(), expireDateConverted.getMonth() + 1, 0);
-    expireDateConverted = expireDateConverted.getTime();
-    return expireDateConverted;
+
+const APP_NAME = "PharmaLedger";
+
+/**
+ * Sets the page title for the document.
+ * 
+ * This function sets the document's title based on the provided title parameter
+ * or the content of the first h1 element or element with role="heading" and aria-level="1".
+ * It prepends the APP_NAME to the title if not already present.
+ *
+ * @param {string} [title] - The title to set. If not provided, the function will use the content of the first heading element.
+ * @returns {void}
+ */
+function setPageTitle(title) {
+    const heading = document.querySelector('h1, [role="heading"][aria-level="1"]').textContent || "";
+    if(title) {
+        title = `${APP_NAME} - ${title}`
+    } else {
+        title = !heading ? 
+        APP_NAME : heading.includes(APP_NAME) ? 
+            heading : `${APP_NAME} - ${heading}`;
+    }
+    document.title = title.trim();
 }
 
-function getDateForDisplay(date) {
-    if (date.slice(0, 2) === "00") {
-        return date.slice(5);
-    }
-    return date;
-}
 
 /**
  * Opens a modal and sets up focus management within it.
@@ -31,15 +42,15 @@ function getDateForDisplay(date) {
  * @returns {HTMLElement} The modal element that was opened.
  */
 function modalOpen(modal, elementToFocus = '.close-modal', triggerElement = null) {
-    console.log(`Opening modal ${modal.id}`)
+    // console.log(`Opening modal ${modal.id}`)
     const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
             const {target} = mutation;
             const element = !elementToFocus ? target : (target.querySelector(elementToFocus) || target);
             if(!target.classList.contains("hiddenElement")) {
                 element.focus(); 
-                console.info("Element in focus is", document.activeElement);
-                target.addEventListener("keydown", (event) => modalTrapFocus(event, target));
+                // console.info("Element in focus is", document.activeElement);
+                target.addEventListener("keydown", (event) => elementTrapFocus(event, target));
             } else {
                 observer.disconnect();
             }
@@ -65,7 +76,7 @@ function modalOpen(modal, elementToFocus = '.close-modal', triggerElement = null
 function modalClose(modal) {
     console.log(`Closing modal ${modal.id}`)
     modal.classList.add("hiddenElement");
-    modal.removeEventListener("keydown", modalTrapFocus);
+    modal.removeEventListener("keydown", elementTrapFocus);
     const activeModal = getActiveModal();
     if(!modal.id === 'print-modal') {
         activeModal ? activeModal.focus() : document.body.focus()
@@ -73,43 +84,81 @@ function modalClose(modal) {
         const printButton = activeModal.querySelector('#print-modal-button');
         if(printButton)
             printButton.focus();
-        console.info("Element in focus is", document.activeElement);
+        // console.info("Element in focus is", document.activeElement);
     }
     modal.setAttribute("aria-hidden", "true");
 }
   
+/**
+ * Retrieves the currently active modal element on the page.
+ * 
+ * This function searches for and returns the first visible modal element,
+ * which can be either a page container or a popup modal.
+ * 
+ * @returns {HTMLElement|null} The active modal element if found, or null if no active modal is present.
+ */
 function getActiveModal() {
     return document.querySelector(".page-container:not(.hiddenElement), .popup-modal:not(.hiddenElement)");
 };
 
+
 /**
- * Traps focus within a modal dialog when the Tab key is pressed.
- * This function ensures that focus stays within the modal by redirecting
- * focus to the first focusable element when tabbing from the last element.
- *
+ * Traps focus within a specified element, typically used for modal dialogs or other UI components.
+ * This function handles keyboard navigation to ensure focus remains within the element's focusable children.
+ * 
  * @param {KeyboardEvent} event - The keyboard event object.
- * @param {HTMLElement} modal - The modal element containing focusable elements.
+ * @param {HTMLElement} element - The container element within which focus should be trapped.
  * @returns {void}
  */
-function modalTrapFocus(event, modal) {
+function elementTrapFocus(event, element) {
+    if(event.type !== "keydown") 
+        return false;
 
-    const focusableElements = modal.querySelectorAll("button, a, [tabindex='0']");
+    // console.info(`Focus trapped in ${element.id}`)
+    const focusableElements = element.querySelectorAll("button, a, [tabindex='0']");
     const firstElement = focusableElements[0];
     const lastElement  = focusableElements[focusableElements.length - 1];
     const {keyCode, key, code, shiftKey} = event;
+    
     const {activeElement} = document;
 
-    if (keyCode === 9 || key.toLowerCase() === "tab" || code.toLowerCase() === "tab") {
-        // case last element, back to the first element
-        if (!shiftKey && activeElement === lastElement) {
-            event.preventDefault();
-            firstElement.focus(); 
-        } else if (shiftKey && activeElement === firstElement) {
-            // case first element, back to the last element
-            event.preventDefault();
-            lastElement.focus(); 
+    if (keyCode === 27 || key.toLowerCase() === "escape" || code.toLowerCase() === "escape") {
+        const closeButton = element.querySelector('.close-modal');
+        if(closeButton) {
+            const modalContainer = closeButton.closest('.popup-modal, .page-container, .modal-container');
+            if(modalContainer) {
+                event.preventDefault();
+                closeButton.dispatchEvent(new Event("click"), {cancelable: false});
+            }
+        }
+    } else {
+        if (keyCode === 9 || key.toLowerCase() === "tab" || code.toLowerCase() === "tab") {
+            // case last element, back to the first element
+            if (!shiftKey && activeElement === lastElement) {
+                event.preventDefault();
+                firstElement.focus(); 
+            } else if (shiftKey && activeElement === firstElement) {
+                // case first element, back to the last element
+                event.preventDefault();
+                lastElement.focus(); 
+            }
         }
     }
+}
+
+function convertToLastMonthDay(date) {
+    let expireDateConverted = date.replace("00", "01");
+    expireDateConverted = new Date(expireDateConverted.replaceAll(' ', ''));
+    expireDateConverted.setFullYear(expireDateConverted.getFullYear(), expireDateConverted.getMonth() + 1, 0);
+    expireDateConverted = expireDateConverted.getTime();
+    return expireDateConverted;
+}
+
+function getDateForDisplay(date) {
+    if (date.slice(0, 2) === "00") {
+        return date.slice(5);
+    }
+    return date;
 }
 
 function getExpiryTime(expiry) {
@@ -513,5 +562,7 @@ export {
     sanitizeLogMessage,
     modalOpen,
     modalClose,
-    getActiveModal
+    getActiveModal,
+    setPageTitle,
+    elementTrapFocus
 }

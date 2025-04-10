@@ -260,9 +260,9 @@ code,text,status,key
 326,"Kuidas skannida, animeeritud gif",,scan_gif
 327,Näidend,,gif_play
 328,Paus,,gif_pause
-329,Play / pausi animatsiooni nupp,,play_pause_gif
+329,Animatsiooni mängima,,play_pause_gif
 330,Sulgur,,top_close
 331,Sulgege veateade,,close_error_message
-332,Menüünupp,,menu_button
+332,Menüü,,menu_button
 333,Voldiku saadaolevad dokumendid,,leaflet_available_doc
 334,Voldiku saadaolevad keeled,,leaflet_available_lang

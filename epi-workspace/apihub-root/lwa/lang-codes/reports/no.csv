@@ -259,9 +259,9 @@ code,text,status,key
 326,"Hvordan skanne, animerte gif",,scan_gif
 327,Spille,,gif_play
 328,Pause,,gif_pause
-329,Spill / pause animasjonsknapp,,play_pause_gif
+329,Spill animasjon,,play_pause_gif
 330,Lukke,,top_close
 331,Lukk feilmeldingen,,close_error_message
-332,Menyknapp,,menu_button
+332,Meny,,menu_button
 333,Brosjyrens tilgjengelige dokumenter,,leaflet_available_doc
 334,Brosjyrens tilgjengelige språk,,leaflet_available_lang

@@ -260,7 +260,7 @@ code,text,status,key
 326,"Πώς να σαρώσετε, κινούμενο gif",,scan_gif
 327,Παιχνίδι,,gif_play
 328,Παύση,,gif_pause
-329,Κουμπί αναπαραγωγής / παύσης,,play_pause_gif
+329,Παίζω κινούμενα σχέδια,,play_pause_gif
 330,Κοντά,,top_close
 331,Κλείστε το μήνυμα σφάλματος,,close_error_message
 332,Μενού,,menu_button

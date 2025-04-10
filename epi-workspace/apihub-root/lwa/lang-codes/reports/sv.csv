@@ -260,9 +260,9 @@ code,text,status,key
 326,"Hur man skannar, animerad gif",,scan_gif
 327,Spela,,gif_play
 328,Paus,,gif_pause
-329,Spela / Paus Animation -knappen,,play_pause_gif
+329,Spela animering,,play_pause_gif
 330,Nära,,top_close
 331,Stäng felmeddelandet,,close_error_message
-332,Menyknapp,,menu_button
+332,Meny,,menu_button
 333,Broschyrens tillgängliga dokument,,leaflet_available_doc
 334,Broschyrens tillgängliga språk,,leaflet_available_lang

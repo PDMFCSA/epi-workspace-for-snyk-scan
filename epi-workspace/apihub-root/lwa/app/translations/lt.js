@@ -1,5 +1,5 @@
 const data = {
-  "app_version": "Programėlės versija: ", 
+  "app_version": "Programėlės versija: ",
   "welcome": "Sveiki atvykę į „PharmaLedger“",
   "scan_explain": "Raskite „Datamatrix“ ant savo vaisto. Žiūrėkite aukščiau pateiktą pavyzdį.",
   "scan_button": "Nuskaityti „DataMatrix“",
@@ -259,10 +259,10 @@ const data = {
   "scan_gif": "Kaip nuskaityti, animuoti GIF",
   "gif_play": "Žaisk",
   "gif_pause": "Pauzė",
-  "play_pause_gif": "Žaisk / pristabdykite animacijos mygtuką",
+  "play_pause_gif": "Žaisk animaciją",
   "top_close": "Uždaryti",
   "close_error_message": "Uždarykite klaidos pranešimą",
-  "menu_button": "Meniu mygtukas",
+  "menu_button": "Meniu",
   "alert_icon": "Įspėjimo piktograma",
   "leaflet_available_doc": "Lankstinukas turimi dokumentai",
   "leaflet_available_lang": "Lankstinukas turimas kalbas"

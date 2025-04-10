@@ -269,9 +269,9 @@ code,text,status,key
 326,"How to scan, animated gif",,scan_gif
 327,Play,,gif_play
 328,Pause,,gif_pause
-329,Play / Pause animation button,,play_pause_gif
+329,Play animation,,play_pause_gif
 330,Close,,top_close
 331,Close the error message,,close_error_message
-332,Menu button,,menu_button
+332,Menu,,menu_button
 333,Leaflet's available documents,,leaflet_available_doc
 334,Leaflet's available languages,,leaflet_available_lang

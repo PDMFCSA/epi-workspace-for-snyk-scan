@@ -259,9 +259,9 @@ code,text,status,key
 326,"Nasıl taranır, animasyonlu GIF",,scan_gif
 327,Oynamak,,gif_play
 328,Duraklamak,,gif_pause
-329,Animasyon düğmesini oynat / duraklat,,play_pause_gif
+329,Animasyon oyna,,play_pause_gif
 330,Kapalı,,top_close
 331,Hata mesajını kapatın,,close_error_message
-332,Menü düğmesi,,menu_button
+332,Menü,,menu_button
 333,Broşürün Mevcut Belgeleri,,leaflet_available_doc
 334,Broşürün Mevcut Dilleri,,leaflet_available_lang

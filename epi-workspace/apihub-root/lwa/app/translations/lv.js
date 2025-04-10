@@ -258,10 +258,10 @@ const data = {
   "scan_gif": "Kā skenēt, animēt GIF",
   "gif_play": "Rotaļlieta",
   "gif_pause": "Apturēt",
-  "play_pause_gif": "Spēlēt / pauzēt animācijas pogu",
+  "play_pause_gif": "Play animācija",
   "top_close": "Tuvs",
   "close_error_message": "Aizveriet kļūdas ziņojumu",
-  "menu_button": "Izvēlnes poga",
+  "menu_button": "Ēdienkarte",
   "alert_icon": "Brīdinājuma ikona",
   "leaflet_available_doc": "Beamplet pieejamie dokumenti",
   "leaflet_available_lang": "Beamplet pieejamās valodas"

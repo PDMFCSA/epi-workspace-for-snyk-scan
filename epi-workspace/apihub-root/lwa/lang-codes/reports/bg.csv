@@ -259,9 +259,9 @@ code,text,status,key
 326,"Как да сканираме, анимиран GIF",,scan_gif
 327,Игра,,gif_play
 328,Пауза,,gif_pause
-329,Бутон за анимация за възпроизвеждане / пауза,,play_pause_gif
+329,Играйте анимация,,play_pause_gif
 330,Затворете,,top_close
 331,Затворете съобщението за грешка,,close_error_message
-332,Бутон за менюто,,menu_button
+332,Меню,,menu_button
 333,Наличните документи на листовка,,leaflet_available_doc
 334,Наличните езици на листовка,,leaflet_available_lang

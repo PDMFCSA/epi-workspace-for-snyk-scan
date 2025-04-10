@@ -259,10 +259,10 @@ const data = {
   "scan_gif": "Ako skenovať, animovaný gif",
   "gif_play": "Hračka",
   "gif_pause": "Pozastaviť",
-  "play_pause_gif": "Tlačidlo prehrať / pozastaviť animáciu",
+  "play_pause_gif": "Animácia",
   "top_close": "Zatvoriť",
   "close_error_message": "Zatvorte chybovú správu",
-  "menu_button": "Tlačidlo ponuky",
+  "menu_button": "Ponuka",
   "alert_icon": "Ikona výstrahy",
   "leaflet_available_doc": "Dostupné dokumenty letákov",
   "leaflet_available_lang": "Dostupné jazyky letákov"

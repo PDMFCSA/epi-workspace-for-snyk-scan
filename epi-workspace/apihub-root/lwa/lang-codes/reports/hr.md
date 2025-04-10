@@ -265,9 +265,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | scan_gif | Kako skenirati, animirani gif |  | 326 |
 | gif_play | Igrati |  | 327 |
 | gif_pause | Pauza |  | 328 |
-| play_pause_gif | Gumb za animaciju reproduciraj / pauzu |  | 329 |
+| play_pause_gif | Igranje animacije |  | 329 |
 | top_close | Zatvoriti |  | 330 |
 | close_error_message | Zatvorite poruku o pogrešci |  | 331 |
-| menu_button | Gumb |  | 332 |
+| menu_button | Jelovnik |  | 332 |
 | leaflet_available_doc | Dostupni dokumenti Leaflet |  | 333 |
 | leaflet_available_lang | Dostupni jezici Leaflet |  | 334 |

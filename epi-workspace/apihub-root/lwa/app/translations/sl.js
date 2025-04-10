@@ -259,10 +259,10 @@ const data = {
   "scan_gif": "Kako skenirati, animirani gif",
   "gif_play": "Igrati",
   "gif_pause": "Premor",
-  "play_pause_gif": "Gumb za predvajanje / pavzo animacije",
+  "play_pause_gif": "Predvajaj animacijo",
   "top_close": "Blizu",
   "close_error_message": "Zaprite sporočilo o napaki",
-  "menu_button": "Gumb za meni",
+  "menu_button": "Meni",
   "alert_icon": "Ikona opozorila",
   "leaflet_available_doc": "Na voljo dokumenti z letaki",
   "leaflet_available_lang": "Na voljo jezikov"

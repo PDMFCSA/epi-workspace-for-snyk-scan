@@ -267,10 +267,10 @@ const data = {
   "scan_gif": "Como digitalizar, GIF animado",
   "gif_play": "Começar",
   "gif_pause": "Pausa",
-  "play_pause_gif": "Botão de reprodução / pausa da animação",
+  "play_pause_gif": "Jogue animação",
   "top_close": "Fechar",
   "close_error_message": "Fechar a mensagem de erro",
-  "menu_button": "Botão de menu",
+  "menu_button": "Menu",
   "alert_icon": "Ícone de alerta",
   "leaflet_available_doc": "Documentos disponíveis do folheto",
   "leaflet_available_lang": "Línguas disponíveis do folheto"

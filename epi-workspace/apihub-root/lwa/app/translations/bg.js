@@ -258,10 +258,10 @@ const data = {
   "scan_gif": "Как да сканираме, анимиран GIF",
   "gif_play": "Игра",
   "gif_pause": "Пауза",
-  "play_pause_gif": "Бутон за анимация за възпроизвеждане / пауза",
+  "play_pause_gif": "Играйте анимация",
   "top_close": "Затворете",
   "close_error_message": "Затворете съобщението за грешка",
-  "menu_button": "Бутон за менюто",
+  "menu_button": "Меню",
   "alert_icon": "Икона за предупреждение",
   "leaflet_available_doc": "Наличните документи на листовка",
   "leaflet_available_lang": "Наличните езици на листовка"

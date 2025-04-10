@@ -18,101 +18,93 @@
 
 </head>
 <body>
+    <div class="loader-container main-page-loader">
+        <div class="loader"></div>
+    </div>
 
-<div class="loader-container main-page-loader">
-    <div class="loader"></div>
-</div>
-
-<div id="home-page" class="page-container fill-available-width hiddenElement">
-    <header>
-        <div class="icon-container" role="banner">
-            <nav class="menu-nav-container">
-                <button type="button"
-                        id="hamburger-menu-button"
-                        aria-haspopup="true"
-                        aria-controls="menu-items-list"
-                        aria-label="menu_button"
-                        aria-expanded="false"
-                        class="menu-icon"
-                        tabindex="0">
-                </button>
-                <ul class="app-menu-container hidden" id="menu-items-list" role="list" 
-                    aria-labelledby="hamburger-menu-button">
-                    <li id="terms-link" class="forward-to-page" modal-name="terms" role="listitem" tabindex="0">
-                        <a role="link" class="label" translate="fwd_terms"></a>
-                        <div class="fwd-icon"></div>
-                    </li>
-                    <li id="privacy-link" class="forward-to-page" modal-name="privacy" role="listitem"
-                        tabindex="0">
-                        <a role="link" class="label" translate="fwd_privacy"></a>
-                        <div class="fwd-icon"></div>
-                    </li>
-                    <li id="about-link" class="forward-to-page" modal-name="about" role="listitem"
-                        tabindex="0">
-                        <a role="link" class="label" translate="fwd_about"></a>
-                        <div class="fwd-icon"></div>
-                    </li>
-                    <li id="help-link" class="forward-to-page" modal-name="help" role="listitem"
-                        tabindex="0">
-                        <a role="link" class="label" translate="fwd_help"></a>
-                        <div class="fwd-icon"></div>
-                    </li>
-                    <li class="more-options-link app-version-item" role="listitem">
-                        <span translate="app_version"></span> <span id="app_version_number"></span>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-    <main class="page-content-section">
-        <section class="welcome-container">
-            <div role="heading" aria-level="1" id="welcome-text" translate="welcome" class="hiddenElement"></div>
-            <div role="heading" aria-level="1" id="onbording-text" translate="onboarding_welcome"
-                 class="hiddenElement"></div>
-            <span class="system-env"></span>
-        </section>
-        <section class="terms-content-container" role="region">
-            <div class="terms-container">
-                <div class="extra-text" translate="disagree_extra_text"></div>
-                <div class="terms-content" translate="terms_content"></div>
-                <div class="terms-buttons-container">
-                    <button id="disagree-button" class="scan-button terms-button disagree"
-                            translate="disagree"></button>
-                    <button id="agree-button" class="scan-button terms-button agree"
-                            translate="agree"></button>
-                </div>
-            </div>
-        </section>
-
-        <div class="content-container" role="region">
-            <div>
-                <img id="pack-gif" src="images/medicine-pack.gif" 
-                rel:auto_play="1"
-                alt="scan_gif" />
-                <!-- "How to scan animated gif" -->
-
-                <div class="control-container">
-                    <button class="playing" aria-label="play_pause_gif" id="control-gif" type="button" aria-pressed="false">
-                    <img class="play" src="images/play.svg" alt="gif_play" title="gif_play"/>
-                    <img class="pause" src="images/pause.svg" alt="gif_pause" title="gif_pause"/>
+    <div id="home-page" class="page-container fill-available-width hiddenElement">
+        <header role="banner">
+            <div class="icon-container">
+                <nav class="menu-nav-container" role="navigation">
+                    <button type="button"
+                            id="hamburger-menu-button"
+                            aria-haspopup="true"
+                            aria-controls="menu-items-list"
+                            aria-label="menu_button"
+                            aria-expanded="false"
+                            class="menu-icon">
                     </button>
+                    <ul class="app-menu-container hidden" id="menu-items-list" role="list" 
+                        aria-labelledby="hamburger-menu-button">
+                        <li id="terms-link" class="forward-to-page" modal-name="terms" role="listitem" tabindex="0">
+                            <a role="link" class="label" translate="fwd_terms"></a>
+                            <div class="fwd-icon"></div>
+                        </li>
+                        <li id="privacy-link" class="forward-to-page" modal-name="privacy" role="listitem"
+                            tabindex="0">
+                            <a role="link" class="label" translate="fwd_privacy"></a>
+                            <div class="fwd-icon"></div>
+                        </li>
+                        <li id="about-link" class="forward-to-page" modal-name="about" role="listitem"
+                            tabindex="0">
+                            <a role="link" class="label" translate="fwd_about"></a>
+                            <div class="fwd-icon"></div>
+                        </li>
+                        <li id="help-link" class="forward-to-page" modal-name="help" role="listitem"
+                            tabindex="0">
+                            <a role="link" class="label" translate="fwd_help"></a>
+                            <div class="fwd-icon"></div>
+                        </li>
+                        <li class="more-options-link app-version-item" role="listitem">
+                            <span translate="app_version"></span> <span id="app_version_number"></span>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main class="page-content-section">
+            <section class="welcome-container">
+                <div role="heading" aria-level="1" id="welcome-text" translate="welcome" class="hiddenElement"></div>
+                <div role="heading" aria-level="1" id="onbording-text" translate="onboarding_welcome"
+                    class="hiddenElement"></div>
+                <div class="system-env" hidden></div>
+            </section>
+            <section class="terms-content-container" role="region">
+                <div class="terms-container">
+                    <div class="extra-text" translate="disagree_extra_text"></div>
+                    <div class="terms-content" translate="terms_content"></div>
+                    <div class="terms-buttons-container">
+                        <button id="disagree-button" class="scan-button terms-button disagree"
+                                translate="disagree"></button>
+                        <button id="agree-button" class="scan-button terms-button agree"
+                                translate="agree"></button>
+                    </div>
+                </div>
+            </section>
+
+            <div class="content-container" role="region">
+                <div>
+                    <img id="pack-gif" src="images/medicine-pack.gif" rel:auto_play="1" alt="scan_gif" />
+                    <!-- "How to scan animated gif" -->
+
+                    <div class="control-container">
+                        <button class="playing" aria-label="play_pause_gif" id="control-gif" type="button" aria-pressed="false">
+                            <img class="play" src="images/play.svg" alt="gif_play" title="gif_play"/>
+                            <img class="pause" src="images/pause.svg" alt="gif_pause" title="gif_pause"/>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-      
-        <div class="explain-container">
-            <div translate="scan_explain"></div>
-        </div>
-        <div class="scan-button-container">
-            <button id="scan-button" class="scan-button full_width">
-                <div translate="scan_button"></div>
-            </button>
-        </div>
-    </main>
-</div>
-
-</div>
-
+        
+            <div class="explain-container">
+                <div translate="scan_explain"></div>
+            </div>
+            <div class="scan-button-container">
+                <button id="scan-button" class="scan-button full_width">
+                    <div translate="scan_button"></div>
+                </button>
+            </div>
+        </main>
+    </div>
 </body>
-
 </html>

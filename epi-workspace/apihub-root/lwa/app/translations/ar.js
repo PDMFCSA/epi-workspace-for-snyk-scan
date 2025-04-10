@@ -1,7 +1,7 @@
 const data = {
   "app_version": "إصدار التطبيق:",
   "welcome": "مرحبا بك في فارما ليدجر",
-  "scan_explain": "ابحث ابحث عن Datamatrix على  الدواء الخاص بك. انظر المثال أعلاه.",
+  "scan_explain": "ابحث ابحث عن Datamatrix على  الدواء الخاص بك. انظر المثال أعلاه.\u0001",
   "scan_button": "امسح الداتا ماتركس",
   "cancel": "الغاء",
   "change_camera": "بدل الكاميرا",
@@ -259,10 +259,10 @@ const data = {
   "scan_gif": "كيفية مسح ، الرسوم المتحركة gif",
   "gif_play": "يلعب",
   "gif_pause": "يوقف",
-  "play_pause_gif": "زر التشغيل / الإيقاف المؤقت للرسوم المتحركة",
+  "play_pause_gif": "لعب الرسوم المتحركة",
   "top_close": "يغلق",
   "close_error_message": "أغلق رسالة الخطأ",
-  "menu_button": "زر القائمة",
+  "menu_button": "قائمة طعام",
   "alert_icon": "أيقونة التنبيه",
   "leaflet_available_doc": "مستندات النشرة المتاحة",
   "leaflet_available_lang": "اللغات المتاحة للنشرة"

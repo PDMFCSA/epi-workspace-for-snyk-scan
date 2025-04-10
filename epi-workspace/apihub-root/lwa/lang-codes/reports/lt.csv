@@ -261,9 +261,9 @@ code,text,status,key
 326,"Kaip nuskaityti, animuoti GIF",,scan_gif
 327,Žaisk,,gif_play
 328,Pauzė,,gif_pause
-329,Žaisk / pristabdykite animacijos mygtuką,,play_pause_gif
+329,Žaisk animaciją,,play_pause_gif
 330,Uždaryti,,top_close
 331,Uždarykite klaidos pranešimą,,close_error_message
-332,Meniu mygtukas,,menu_button
+332,Meniu,,menu_button
 333,Lankstinukas turimi dokumentai,,leaflet_available_doc
 334,Lankstinukas turimas kalbas,,leaflet_available_lang

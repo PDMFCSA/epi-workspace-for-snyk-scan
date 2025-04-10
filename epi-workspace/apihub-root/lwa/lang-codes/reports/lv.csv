@@ -259,9 +259,9 @@ code,text,status,key
 326,"Kā skenēt, animēt GIF",,scan_gif
 327,Rotaļlieta,,gif_play
 328,Apturēt,,gif_pause
-329,Spēlēt / pauzēt animācijas pogu,,play_pause_gif
+329,Play animācija,,play_pause_gif
 330,Tuvs,,top_close
 331,Aizveriet kļūdas ziņojumu,,close_error_message
-332,Izvēlnes poga,,menu_button
+332,Ēdienkarte,,menu_button
 333,Beamplet pieejamie dokumenti,,leaflet_available_doc
 334,Beamplet pieejamās valodas,,leaflet_available_lang

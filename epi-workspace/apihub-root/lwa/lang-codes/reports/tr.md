@@ -265,9 +265,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | scan_gif | Nasıl taranır, animasyonlu GIF |  | 326 |
 | gif_play | Oynamak |  | 327 |
 | gif_pause | Duraklamak |  | 328 |
-| play_pause_gif | Animasyon düğmesini oynat / duraklat |  | 329 |
+| play_pause_gif | Animasyon oyna |  | 329 |
 | top_close | Kapalı |  | 330 |
 | close_error_message | Hata mesajını kapatın |  | 331 |
-| menu_button | Menü düğmesi |  | 332 |
+| menu_button | Menü |  | 332 |
 | leaflet_available_doc | Broşürün Mevcut Belgeleri |  | 333 |
 | leaflet_available_lang | Broşürün Mevcut Dilleri |  | 334 |

@@ -265,9 +265,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | scan_gif | Cum să scanați, GIF animat |  | 326 |
 | gif_play | Juca |  | 327 |
 | gif_pause | Pauză |  | 328 |
-| play_pause_gif | Butonul de animație de redare / pauză |  | 329 |
+| play_pause_gif | Joacă animație |  | 329 |
 | top_close | Aproape |  | 330 |
 | close_error_message | Închideți mesajul de eroare |  | 331 |
-| menu_button | Butonul de meniu |  | 332 |
+| menu_button | Meniu |  | 332 |
 | leaflet_available_doc | Documentele disponibile ale prospectului |  | 333 |
 | leaflet_available_lang | Limbile disponibile ale prospectului |  | 334 |

@@ -266,9 +266,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | scan_gif | How to scan, animated gif |  | 326 |
 | gif_play | Play |  | 327 |
 | gif_pause | Pause |  | 328 |
-| play_pause_gif | Play / Pause animation button |  | 329 |
+| play_pause_gif | Play animation |  | 329 |
 | top_close | Close |  | 330 |
 | close_error_message | Close the error message |  | 331 |
-| menu_button | Menu button |  | 332 |
+| menu_button | Menu |  | 332 |
 | leaflet_available_doc | Leaflet's available documents |  | 333 |
 | leaflet_available_lang | Leaflet's available languages |  | 334 |

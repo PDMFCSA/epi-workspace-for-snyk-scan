@@ -259,10 +259,10 @@ const data = {
   "scan_gif": "스캔하는 방법, 애니메이션 GIF",
   "gif_play": "놀다",
   "gif_pause": "정지시키다",
-  "play_pause_gif": "플레이 / 일시 중지 애니메이션 버튼",
+  "play_pause_gif": "애니메이션을 재생하십시오",
   "top_close": "닫다",
   "close_error_message": "오류 메시지를 닫습니다",
-  "menu_button": "메뉴 버튼",
+  "menu_button": "메뉴",
   "alert_icon": "경고 아이콘",
   "leaflet_available_doc": "리플렛의 사용 가능한 문서",
   "leaflet_available_lang": "리플렛의 사용 가능한 언어"

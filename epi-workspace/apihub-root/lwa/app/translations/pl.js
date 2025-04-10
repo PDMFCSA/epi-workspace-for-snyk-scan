@@ -258,10 +258,10 @@ const data = {
   "scan_gif": "Jak skanować, animowany GIF",
   "gif_play": "Grać",
   "gif_pause": "Pauza",
-  "play_pause_gif": "Przycisk odtwarzania / pauzy",
+  "play_pause_gif": "Odtwarzaj animację",
   "top_close": "Zamknąć",
   "close_error_message": "Zamknij komunikat o błędzie",
-  "menu_button": "Przycisk menu",
+  "menu_button": "Menu",
   "alert_icon": "Ikona alertów",
   "leaflet_available_doc": "Dostępne dokumenty ulotki",
   "leaflet_available_lang": "Dostępne języki ulotki"

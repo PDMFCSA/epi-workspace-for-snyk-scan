@@ -265,9 +265,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | scan_gif | Kuinka skannata, animoitu gif |  | 326 |
 | gif_play | Pelata |  | 327 |
 | gif_pause | Tauko |  | 328 |
-| play_pause_gif | Toista / keskeyttää animaatiopainike |  | 329 |
+| play_pause_gif | Toistaa animaatiota |  | 329 |
 | top_close | Lähellä |  | 330 |
 | close_error_message | Sulje virheilmoitus |  | 331 |
-| menu_button | Valikkopainike |  | 332 |
+| menu_button | Valikko |  | 332 |
 | leaflet_available_doc | Lehtisen käytettävissä olevat asiakirjat |  | 333 |
 | leaflet_available_lang | Lehteisen kielet |  | 334 |

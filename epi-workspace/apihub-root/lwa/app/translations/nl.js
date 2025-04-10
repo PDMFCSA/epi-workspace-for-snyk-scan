@@ -259,10 +259,10 @@ const data = {
   "scan_gif": "Hoe te scannen, geanimeerde gif",
   "gif_play": "Toneelstuk",
   "gif_pause": "Pauze",
-  "play_pause_gif": "Speel / pauzeer animatieknop",
+  "play_pause_gif": "Speel animatie",
   "top_close": "Dichtbij",
   "close_error_message": "Sluit het foutbericht",
-  "menu_button": "Menu-knop",
+  "menu_button": "Menu",
   "alert_icon": "Alert pictogram",
   "leaflet_available_doc": "De beschikbare documenten van folder",
   "leaflet_available_lang": "De beschikbare talen van folder"

@@ -17,37 +17,33 @@
 
 </head>
 <body>
-
-<div class="loader-container scan-page-loader">
-    <div class="loader"></div>
-</div>
-
-<div class="page-container fill-available-width scan-page">
-    <div class="scan-header">
-        <button id="cancel-scan-button" class="scan-cancel" translate="cancel"></button>
-        <button id="change-camera-button" class="camera-switch" translate="change_camera"></button>
+    <div class="loader-container scan-page-loader">
+        <div class="loader"></div>
     </div>
-    <div id="scan-error" class="modal-container error-modal popup-modal hiddenElement" role="alertdialog" aria-modal="true" aria-labelledby="error-title" aria-describedby="error-message" tabindex="0">
-        <div class="modal-body">
-            <div class="modal-header centered-header">
-                <button id="close-modal-button" class="close-modal" modal-id="scan-error"
-                aria-label="close_error_message" tabindex="0"></button>
-                <div class="icon-title-container">
-                    <div class="modal-icon"  aria-hidden="true"></div>
-                    <h2 class="modal-title bold-title" id="error-title" translate="scan_error_title"></h2>
-                </div>
-               
-            </div>
-            <div class="modal-content" id="error-message"  translate="camera_error_message" role="alert">
-            </div>
-
+    <main class="page-container fill-available-width scan-page">
+        <h1 class="hidden" translate="scan_button"></h1>
+        <div class="scan-header">
+            <button id="cancel-scan-button" class="scan-cancel" translate="cancel"></button>
+            <button id="change-camera-button" class="camera-switch" translate="change_camera"></button>
         </div>
-    </div>
+        <div id="scan-error" class="modal-container error-modal popup-modal hiddenElement" role="alertdialog" aria-modal="true" aria-labelledby="error-title" aria-describedby="error-message" tabindex="0">
+            <div class="modal-body">
+                <div class="modal-header centered-header">
+                    <button id="close-modal-button" class="close-modal" modal-id="scan-error" aria-label="close_error_message"></button>
+                    <div class="icon-title-container">
+                        <div class="modal-icon"  aria-hidden="true"></div>
+                        <h2 class="modal-title bold-title" id="error-title" translate="scan_error_title"></h2>
+                    </div>
+                
+                </div>
+                <div class="modal-content" id="error-message"  translate="camera_error_message">
+                </div>
+            </div>
+        </div>
 
-    <div id="scanner-placeholder">
-        <!-- injected automatically -->
-    </div>
-
-</div>
+        <div id="scanner-placeholder">
+            <!-- injected automatically -->
+        </div>
+    </main>
 </body>
 </html>

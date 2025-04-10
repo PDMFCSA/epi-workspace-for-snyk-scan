@@ -265,9 +265,9 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | scan_gif | Kā skenēt, animēt GIF |  | 326 |
 | gif_play | Rotaļlieta |  | 327 |
 | gif_pause | Apturēt |  | 328 |
-| play_pause_gif | Spēlēt / pauzēt animācijas pogu |  | 329 |
+| play_pause_gif | Play animācija |  | 329 |
 | top_close | Tuvs |  | 330 |
 | close_error_message | Aizveriet kļūdas ziņojumu |  | 331 |
-| menu_button | Izvēlnes poga |  | 332 |
+| menu_button | Ēdienkarte |  | 332 |
 | leaflet_available_doc | Beamplet pieejamie dokumenti |  | 333 |
 | leaflet_available_lang | Beamplet pieejamās valodas |  | 334 |

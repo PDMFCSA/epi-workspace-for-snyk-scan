@@ -259,9 +259,9 @@ code,text,status,key
 326,"Hvordan man scanner, animeret gif",,scan_gif
 327,Spil,,gif_play
 328,Pause,,gif_pause
-329,Play / Pause Animation -knap,,play_pause_gif
+329,Spil animation,,play_pause_gif
 330,Tæt,,top_close
 331,Luk fejlmeddelelsen,,close_error_message
-332,Menu -knap,,menu_button
+332,Menu,,menu_button
 333,Poles ledige dokumenter,,leaflet_available_doc
 334,Poles ledige sprog,,leaflet_available_lang
