@@ -119,6 +119,10 @@
     .invisible {
         visibility: hidden;
     }
+
+    .voiceover-pause {
+        display: none !important;
+    }
     
     .container::-webkit-scrollbar {
         display: none;  /* Safari and Chrome */

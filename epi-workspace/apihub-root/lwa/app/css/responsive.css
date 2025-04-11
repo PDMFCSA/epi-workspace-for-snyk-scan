@@ -81,6 +81,13 @@ b {
     font-weight: 700;
 }
 
+.page-container:focus,
+.modal-container:focus,
+.popup-modal:focus,
+.modal-body:focus {
+    outline: none;
+}
+
 .invisible {
     visibility: hidden;
 }
