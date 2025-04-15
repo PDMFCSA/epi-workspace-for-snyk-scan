@@ -272,3 +272,4 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | menu_button | Menu |  | 332 |
 | leaflet_available_doc | Documents disponibles de la dépliante |  | 333 |
 | leaflet_available_lang | Langues disponibles de la dépliante |  | 334 |
+| leaflet_page_title | Documents |  | 335 |

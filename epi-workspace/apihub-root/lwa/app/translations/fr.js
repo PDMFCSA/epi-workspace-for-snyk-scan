@@ -265,7 +265,8 @@ const data = {
   "menu_button": "Menu",
   "alert_icon": "Icône d'alerte",
   "leaflet_available_doc": "Documents disponibles de la dépliante",
-  "leaflet_available_lang": "Langues disponibles de la dépliante"
+  "leaflet_available_lang": "Langues disponibles de la dépliante",
+  "leaflet_page_title": "Documents"
 }
 
 export default data;

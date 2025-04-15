@@ -266,3 +266,4 @@ code,text,status,key
 332,Speisekarte,,menu_button
 333,Die verfügbaren Dokumente von Broschüren,,leaflet_available_doc
 334,Die verfügbaren Sprachen von Broschüren,,leaflet_available_lang
+335,Unterlagen,,leaflet_page_title

@@ -263,7 +263,7 @@ function LeafletController() {
             renderLeaflet(result, this.metadata);
             this.loadPrintContent("settings-modal");
             if (isExpired(this.expiry))
-                modalOpen(document.querySelector("#expired-modal"));
+                modalOpen(document.querySelector("#expired-modal"), null);
             
         } catch (e) {
             console.error(e);
@@ -390,9 +390,9 @@ function LeafletController() {
      *
      * @returns {string} The detected language, formatted as a lowercase ISO 639-1 code.
      */
-    this.getLanguageFromBrowser = function(){
+    this.getLanguageFromBrowser = function(fallback = true){
         let browserLang = transformToISOStandardLangCode(navigator.language);
-        browserLang = getLanguageFallback(browserLang.toLowerCase()) || browserLang;
+        browserLang = getLanguageFallback(browserLang.toLowerCase(), fallback) || browserLang;
         return browserLang.toLowerCase();
     }
 
@@ -414,7 +414,7 @@ function LeafletController() {
         
         this.showLoader(true);
 
-        const browserLang = this.getLanguageFromBrowser();
+        const browserLang = this.getLanguageFromBrowser(false);
         if (languages.length >= 1) {
             if (languages.map(r => r.value.toLowerCase()).includes(browserLang)) {
                 return setSelectedLanguage(browserLang);

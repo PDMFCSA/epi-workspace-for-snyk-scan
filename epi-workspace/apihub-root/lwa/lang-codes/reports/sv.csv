@@ -266,3 +266,4 @@ code,text,status,key
 332,Meny,,menu_button
 333,Broschyrens tillgängliga dokument,,leaflet_available_doc
 334,Broschyrens tillgängliga språk,,leaflet_available_lang
+335,Dokument,,leaflet_page_title

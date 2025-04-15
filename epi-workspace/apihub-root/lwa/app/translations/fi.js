@@ -264,7 +264,8 @@ const data = {
   "menu_button": "Valikko",
   "alert_icon": "Hälytyskuvake",
   "leaflet_available_doc": "Lehtisen käytettävissä olevat asiakirjat",
-  "leaflet_available_lang": "Lehteisen kielet"
+  "leaflet_available_lang": "Lehteisen kielet",
+  "leaflet_page_title": "Asiakirjat"
 }
 
 export default data;

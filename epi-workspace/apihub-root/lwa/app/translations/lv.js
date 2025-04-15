@@ -264,7 +264,8 @@ const data = {
   "menu_button": "Ēdienkarte",
   "alert_icon": "Brīdinājuma ikona",
   "leaflet_available_doc": "Beamplet pieejamie dokumenti",
-  "leaflet_available_lang": "Beamplet pieejamās valodas"
+  "leaflet_available_lang": "Beamplet pieejamās valodas",
+  "leaflet_page_title": "Dokumenti"
 }
 
 export default data;

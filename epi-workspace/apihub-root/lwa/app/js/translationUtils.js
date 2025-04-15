@@ -186,7 +186,7 @@ export function translateAccessibilityAttributes(){
     })
 }
 
-export function getLanguageFallback(appLang) {
+export function getLanguageFallback(appLang, fallback = true) {
      
     let specialLang = specialLangSubtypesMap[appLang.toLowerCase()];
     if(specialLang){
@@ -198,7 +198,7 @@ export function getLanguageFallback(appLang) {
     if(supportedLanguages.includes(appLang.split("-")[0])){
         return appLang.split("-")[0];
     }
-    return "en";
+    return fallback ? "en" : appLang;
 
 
 }

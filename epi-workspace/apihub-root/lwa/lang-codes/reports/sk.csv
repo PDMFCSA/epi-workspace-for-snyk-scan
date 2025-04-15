@@ -266,3 +266,4 @@ code,text,status,key
 332,Ponuka,,menu_button
 333,Dostupné dokumenty letákov,,leaflet_available_doc
 334,Dostupné jazyky letákov,,leaflet_available_lang
+335,Dokumenty,,leaflet_page_title

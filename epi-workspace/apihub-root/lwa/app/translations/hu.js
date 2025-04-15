@@ -265,7 +265,8 @@ const data = {
   "menu_button": "Menü",
   "alert_icon": "Riasztási ikon",
   "leaflet_available_doc": "A szórólap rendelkezésre álló dokumentumai",
-  "leaflet_available_lang": "A szórólap rendelkezésre álló nyelvei"
+  "leaflet_available_lang": "A szórólap rendelkezésre álló nyelvei",
+  "leaflet_page_title": "Dokumentumok"
 }
 
 export default data;

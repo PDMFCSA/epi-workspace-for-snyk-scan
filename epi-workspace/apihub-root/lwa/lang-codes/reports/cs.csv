@@ -265,3 +265,4 @@ code,text,status,key
 332,Menu,,menu_button
 333,Dostupné dokumenty letáku,,leaflet_available_doc
 334,Dostupné jazyky letáku,,leaflet_available_lang
+335,Dokumenty,,leaflet_page_title

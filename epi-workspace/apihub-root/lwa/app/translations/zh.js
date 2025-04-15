@@ -265,7 +265,8 @@ const data = {
   "menu_button": "菜单",
   "alert_icon": "警报图标",
   "leaflet_available_doc": "传单的可用文件",
-  "leaflet_available_lang": "传单的可用语言"
+  "leaflet_available_lang": "传单的可用语言",
+  "leaflet_page_title": "文件"
 }
 
 export default data;

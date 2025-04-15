@@ -273,7 +273,8 @@ const data = {
   "close_error_message": "Close the error message",
   "menu_button": "Menu",
   "leaflet_available_doc": "Leaflet's available documents",
-  "leaflet_available_lang": "Leaflet's available languages"
+  "leaflet_available_lang": "Leaflet's available languages",
+  "leaflet_page_title": "Documents"
 }
 
 export default data;

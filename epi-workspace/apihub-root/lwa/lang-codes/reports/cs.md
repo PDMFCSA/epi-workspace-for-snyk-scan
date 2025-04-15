@@ -271,3 +271,4 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | menu_button | Menu |  | 332 |
 | leaflet_available_doc | Dostupné dokumenty letáku |  | 333 |
 | leaflet_available_lang | Dostupné jazyky letáku |  | 334 |
+| leaflet_page_title | Dokumenty |  | 335 |

@@ -271,3 +271,4 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | menu_button | Ēdienkarte |  | 332 |
 | leaflet_available_doc | Beamplet pieejamie dokumenti |  | 333 |
 | leaflet_available_lang | Beamplet pieejamās valodas |  | 334 |
+| leaflet_page_title | Dokumenti |  | 335 |

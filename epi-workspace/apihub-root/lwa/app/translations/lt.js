@@ -265,7 +265,8 @@ const data = {
   "menu_button": "Meniu",
   "alert_icon": "Įspėjimo piktograma",
   "leaflet_available_doc": "Lankstinukas turimi dokumentai",
-  "leaflet_available_lang": "Lankstinukas turimas kalbas"
+  "leaflet_available_lang": "Lankstinukas turimas kalbas",
+  "leaflet_page_title": "Dokumentai"
 }
 
 export default data;

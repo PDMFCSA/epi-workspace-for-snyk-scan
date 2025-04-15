@@ -272,3 +272,4 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | menu_button | Меню |  | 332 |
 | leaflet_available_doc | Доступні документи листівки |  | 333 |
 | leaflet_available_lang | Наявні мови листівки |  | 334 |
+| leaflet_page_title | Документи |  | 335 |

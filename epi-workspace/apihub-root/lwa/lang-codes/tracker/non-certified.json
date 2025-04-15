@@ -285,5 +285,6 @@
   "close_error_message": 331,
   "menu_button": 332,
   "leaflet_available_doc": 333,
-  "leaflet_available_lang": 334
+  "leaflet_available_lang": 334,
+  "leaflet_page_title": 335
 }

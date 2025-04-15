@@ -265,7 +265,8 @@ const data = {
   "menu_button": "Speisekarte",
   "alert_icon": "Alarm -Symbol",
   "leaflet_available_doc": "Die verfügbaren Dokumente von Broschüren",
-  "leaflet_available_lang": "Die verfügbaren Sprachen von Broschüren"
+  "leaflet_available_lang": "Die verfügbaren Sprachen von Broschüren",
+  "leaflet_page_title": "Unterlagen"
 }
 
 export default data;

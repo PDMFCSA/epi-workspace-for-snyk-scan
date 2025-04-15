@@ -265,7 +265,8 @@ const data = {
   "menu_button": "قائمة طعام",
   "alert_icon": "أيقونة التنبيه",
   "leaflet_available_doc": "مستندات النشرة المتاحة",
-  "leaflet_available_lang": "اللغات المتاحة للنشرة"
+  "leaflet_available_lang": "اللغات المتاحة للنشرة",
+  "leaflet_page_title": "وثائق"
 }
 
 export default data;

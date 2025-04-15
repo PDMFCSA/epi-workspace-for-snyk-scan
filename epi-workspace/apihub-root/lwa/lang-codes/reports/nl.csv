@@ -266,3 +266,4 @@ code,text,status,key
 332,Menu,,menu_button
 333,De beschikbare documenten van folder,,leaflet_available_doc
 334,De beschikbare talen van folder,,leaflet_available_lang
+335,Documenten,,leaflet_page_title

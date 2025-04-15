@@ -266,3 +266,4 @@ code,text,status,key
 332,Меню,,menu_button
 333,Доступні документи листівки,,leaflet_available_doc
 334,Наявні мови листівки,,leaflet_available_lang
+335,Документи,,leaflet_page_title

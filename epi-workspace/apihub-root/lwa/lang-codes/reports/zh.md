@@ -272,3 +272,4 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | menu_button | 菜单 |  | 332 |
 | leaflet_available_doc | 传单的可用文件 |  | 333 |
 | leaflet_available_lang | 传单的可用语言 |  | 334 |
+| leaflet_page_title | 文件 |  | 335 |

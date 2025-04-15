@@ -264,7 +264,8 @@ const data = {
   "menu_button": "Menüü",
   "alert_icon": "Hoiatusikoon",
   "leaflet_available_doc": "Voldiku saadaolevad dokumendid",
-  "leaflet_available_lang": "Voldiku saadaolevad keeled"
+  "leaflet_available_lang": "Voldiku saadaolevad keeled",
+  "leaflet_page_title": "Dokumendid"
 }
 
 export default data;

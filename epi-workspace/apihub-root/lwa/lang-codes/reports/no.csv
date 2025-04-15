@@ -265,3 +265,4 @@ code,text,status,key
 332,Meny,,menu_button
 333,Brosjyrens tilgjengelige dokumenter,,leaflet_available_doc
 334,Brosjyrens tilgjengelige språk,,leaflet_available_lang
+335,Dokumenter,,leaflet_page_title

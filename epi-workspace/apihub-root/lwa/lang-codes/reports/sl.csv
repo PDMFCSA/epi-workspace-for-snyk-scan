@@ -266,3 +266,4 @@ code,text,status,key
 332,Meni,,menu_button
 333,Na voljo dokumenti z letaki,,leaflet_available_doc
 334,Na voljo jezikov,,leaflet_available_lang
+335,Dokumenti,,leaflet_page_title

@@ -264,7 +264,8 @@ const data = {
   "menu_button": "Menú",
   "alert_icon": "Icono de alerta",
   "leaflet_available_doc": "Documentos disponibles del folleto",
-  "leaflet_available_lang": "Idiomas disponibles del folleto"
+  "leaflet_available_lang": "Idiomas disponibles del folleto",
+  "leaflet_page_title": "Documentos"
 }
 
 export default data;

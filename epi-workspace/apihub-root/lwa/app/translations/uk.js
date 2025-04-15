@@ -265,7 +265,8 @@ const data = {
   "menu_button": "Меню",
   "alert_icon": "Піктограма оповіщення",
   "leaflet_available_doc": "Доступні документи листівки",
-  "leaflet_available_lang": "Наявні мови листівки"
+  "leaflet_available_lang": "Наявні мови листівки",
+  "leaflet_page_title": "Документи"
 }
 
 export default data;

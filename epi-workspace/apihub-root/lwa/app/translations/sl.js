@@ -265,7 +265,8 @@ const data = {
   "menu_button": "Meni",
   "alert_icon": "Ikona opozorila",
   "leaflet_available_doc": "Na voljo dokumenti z letaki",
-  "leaflet_available_lang": "Na voljo jezikov"
+  "leaflet_available_lang": "Na voljo jezikov",
+  "leaflet_page_title": "Dokumenti"
 }
 
 export default data;

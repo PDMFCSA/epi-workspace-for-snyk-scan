@@ -265,7 +265,8 @@ const data = {
   "menu_button": "Menu",
   "alert_icon": "Alert pictogram",
   "leaflet_available_doc": "De beschikbare documenten van folder",
-  "leaflet_available_lang": "De beschikbare talen van folder"
+  "leaflet_available_lang": "De beschikbare talen van folder",
+  "leaflet_page_title": "Documenten"
 }
 
 export default data;

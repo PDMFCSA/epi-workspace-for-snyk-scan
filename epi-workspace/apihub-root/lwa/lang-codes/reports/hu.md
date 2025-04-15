@@ -272,3 +272,4 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | menu_button | Menü |  | 332 |
 | leaflet_available_doc | A szórólap rendelkezésre álló dokumentumai |  | 333 |
 | leaflet_available_lang | A szórólap rendelkezésre álló nyelvei |  | 334 |
+| leaflet_page_title | Dokumentumok |  | 335 |

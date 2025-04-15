@@ -264,7 +264,8 @@ const data = {
   "menu_button": "Jelovnik",
   "alert_icon": "Ikona upozorenja",
   "leaflet_available_doc": "Dostupni dokumenti Leaflet",
-  "leaflet_available_lang": "Dostupni jezici Leaflet"
+  "leaflet_available_lang": "Dostupni jezici Leaflet",
+  "leaflet_page_title": "Dokumenti"
 }
 
 export default data;

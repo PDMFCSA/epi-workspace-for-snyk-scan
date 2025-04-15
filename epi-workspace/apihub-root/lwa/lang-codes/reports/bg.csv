@@ -265,3 +265,4 @@ code,text,status,key
 332,Меню,,menu_button
 333,Наличните документи на листовка,,leaflet_available_doc
 334,Наличните езици на листовка,,leaflet_available_lang
+335,Документи,,leaflet_page_title

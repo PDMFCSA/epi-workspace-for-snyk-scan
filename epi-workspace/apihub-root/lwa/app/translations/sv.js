@@ -265,7 +265,8 @@ const data = {
   "menu_button": "Meny",
   "alert_icon": "Varna ikon",
   "leaflet_available_doc": "Broschyrens tillgängliga dokument",
-  "leaflet_available_lang": "Broschyrens tillgängliga språk"
+  "leaflet_available_lang": "Broschyrens tillgängliga språk",
+  "leaflet_page_title": "Dokument"
 }
 
 export default data;

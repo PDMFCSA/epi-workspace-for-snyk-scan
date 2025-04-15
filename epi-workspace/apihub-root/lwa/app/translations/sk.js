@@ -265,7 +265,8 @@ const data = {
   "menu_button": "Ponuka",
   "alert_icon": "Ikona výstrahy",
   "leaflet_available_doc": "Dostupné dokumenty letákov",
-  "leaflet_available_lang": "Dostupné jazyky letákov"
+  "leaflet_available_lang": "Dostupné jazyky letákov",
+  "leaflet_page_title": "Dokumenty"
 }
 
 export default data;

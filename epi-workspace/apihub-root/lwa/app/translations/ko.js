@@ -265,7 +265,8 @@ const data = {
   "menu_button": "메뉴",
   "alert_icon": "경고 아이콘",
   "leaflet_available_doc": "리플렛의 사용 가능한 문서",
-  "leaflet_available_lang": "리플렛의 사용 가능한 언어"
+  "leaflet_available_lang": "리플렛의 사용 가능한 언어",
+  "leaflet_page_title": "서류"
 }
 
 export default data;

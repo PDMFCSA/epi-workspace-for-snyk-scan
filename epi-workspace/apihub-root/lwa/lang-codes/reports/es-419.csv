@@ -265,3 +265,4 @@ code,text,status,key
 332,Menú,,menu_button
 333,Documentos disponibles del folleto,,leaflet_available_doc
 334,Idiomas disponibles del folleto,,leaflet_available_lang
+335,Documentos,,leaflet_page_title
