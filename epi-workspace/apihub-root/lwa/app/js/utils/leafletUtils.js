@@ -346,5 +346,6 @@ export {
   getFileContentAsBuffer,
   getBase64FileContent,
   getImageAsBase64,
-  renderProductInformation
+  renderProductInformation,
+  upperCaseProductDescriptionProductName
 }
