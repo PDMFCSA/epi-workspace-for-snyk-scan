@@ -29794,6 +29794,7 @@ module.exports = SQLAdapter;
 function CouchDBEnclaveFacade(rootFolder, autosaveInterval, adaptorConstructorFunction) {
     const logger = $$.getLogger("CouchDBEnclaveFacade", "CouchDBEnclaveFacade.js");
     const LightDBAdapter = require("./adapters/LightDBAdapter");
+    const log = require("./utils/logger").conditionalLog;
     const openDSU = require("opendsu");
     const aclAPI = require("acl-magic");
     const utils = openDSU.loadAPI("utils");
@@ -29801,6 +29802,7 @@ function CouchDBEnclaveFacade(rootFolder, autosaveInterval, adaptorConstructorFu
     const EnclaveMixin = openDSU.loadAPI("enclave").EnclaveMixin;
     EnclaveMixin(this);
 
+    log(logger, `CouchDBEnclaveFacade constructor called with rootFolder: ${rootFolder}, autosaveInterval: ${autosaveInterval}, adaptorConstructorFunction: ${adaptorConstructorFunction}`);
     if (typeof rootFolder !== "string") {
         throw new Error("Invalid rootFolder. It must be a string.");
     }
@@ -29858,8 +29860,9 @@ function CouchDBEnclaveFacade(rootFolder, autosaveInterval, adaptorConstructorFu
     const WRITE_ACCESS = "write";
     const READ_ACCESS = "read";
     const WILDCARD = "*";
+    log(logger, `CouchDBEnclaveFacade Initializing Enclave Persistence`);
     const persistence = aclAPI.createEnclavePersistence(this);
-
+    log(logger, `CouchDBEnclaveFacade Enclave Persistence created`);
     this.grantWriteAccess = (forDID, callback) => {
         persistence.grant(WRITE_ACCESS, WILDCARD, forDID, (err) => {
             if (err) {
@@ -29994,8 +29997,9 @@ function CouchDBEnclaveFacade(rootFolder, autosaveInterval, adaptorConstructorFu
         return readOnlyFunctions.indexOf(functionName) !== -1;
     }
 
+    log(logger, `CouchDBEnclaveFacade will bind auto pending functions`);
     utils.bindAutoPendingFunctions(this, ["on", "off", "dispatchEvent", "beginBatch", "isInitialised", "getEnclaveType", "getDID", "getUniqueIdAsync"]);
-
+    log(logger, `CouchDBEnclaveFacade bound auto pending functions`);
     // this.storageDB = new LokiDb(rootFolder, autosaveInterval, adaptorConstructorFunction);
 
     let config;
@@ -30009,24 +30013,31 @@ function CouchDBEnclaveFacade(rootFolder, autosaveInterval, adaptorConstructorFu
     const userName = process.env.DB_USER || config.db.user;
     const secret = process.env.DB_SECRET || config.db.secret;
 
-    this.storageDB = new LightDBAdapter({
+    const adaptorConfig = {
         uri: config.db.uri,
         username: userName,
         secret: secret,
         root: rootFolder,
         readOnlyMode: readOnlyFlag,
         debug: config.db.debug || false
-    }, this);
+    }
+    log(logger, `CouchDBEnclaveFacade will use the following config to initialize the LightDBAdapter(CouchDB): ${JSON.stringify(adaptorConfig)}`);
+    this.storageDB = new LightDBAdapter(adaptorConfig, this);
+    log(logger, `CouchDBEnclaveFacade LightDBAdapter(CouchDB) created`);
+
+    log(logger, `CouchDBEnclaveFacade will start finalizing the initialisation`);
     this.finishInitialisation();
+    log(logger, `CouchDBEnclaveFacade initialisation finished`);
 }
 
 module.exports = CouchDBEnclaveFacade;
-},{"./adapters/LightDBAdapter":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/adapters/LightDBAdapter.js","acl-magic":"acl-magic","apihub":"apihub","opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/CouchDBServer.js":[function(require,module,exports){
+},{"./adapters/LightDBAdapter":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/adapters/LightDBAdapter.js","./utils/logger":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/logger.js","acl-magic":"acl-magic","apihub":"apihub","opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/CouchDBServer.js":[function(require,module,exports){
 const LightDBAdapter = require("./adapters/LightDBAdapter");
 const path = require("path");
 const logger = $$.getLogger("CouchDBServer", "CouchDBEnclaveFacade");
 const DATABASE = "database";
 const getEnclaveKey = (name) => `enclave_${name}`.replaceAll(".", "_");
+const log = require("./utils/logger").conditionalLog;
 
 process.on('uncaughtException', err => {
     logger.critical('There was an uncaught error', err, err.message, err.stack);
@@ -30060,19 +30071,25 @@ function CouchDBServer(config, callback) {
     //     secret: config.db.secret
     // });
 
-
+    log(logger, `CouchDBServer Initializing with storage: ${lightDBStorage}`);
     const enclaves = {};
     // const clonedEnclaves = {};
     const fs = require("fs");
     fs.accessSync(lightDBStorage);
     const folderContent = fs.readdirSync(lightDBStorage, {withFileTypes: true});
+    log(logger, `CouchDBServer found ${folderContent.length} folders in ${lightDBStorage}`);
+    log(logger, `CouchDBServer found ${folderContent.map(entry => entry.name + ":" + entry.isDirectory()).join(", ")} in ${lightDBStorage}`);
     const promises = folderContent
         .filter(entry => entry.isDirectory())
         .map(entry => {
             return new Promise((resolve, reject) => {
                 const enclaveName = entry.name;
-                const enclaveKey = getEnclaveKey(enclaveName);
-                enclaves[enclaveName] = LokiEnclaveFacade.createCouchDBEnclaveFacadeInstance(path.join(lightDBStorage, enclaveName, DATABASE));
+                log(logger, `CouchDBServer found folder ${enclaveName} in ${lightDBStorage}`);
+                // const enclaveKey = getEnclaveKey(enclaveName);
+                const rootFolder = path.join(lightDBStorage, enclaveName, DATABASE);
+                log(logger, `CouchDBServer using root folder folder ${rootFolder} to create CouchDBEnclaveFacadeInstance`);
+                enclaves[enclaveName] = LokiEnclaveFacade.createCouchDBEnclaveFacadeInstance(rootFolder);
+                log(logger, `CouchDBServer created CouchDBEnclaveFacadeInstance ${enclaveName}`);
                 resolve()
                 // dbAdapter.createCollection(undefined, enclaveKey, [], (err) => {
                 //     if (err) {
@@ -30363,7 +30380,7 @@ function CouchDBServer(config, callback) {
 }
 
 module.exports = CouchDBServer;
-},{"./adapters/LightDBAdapter":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/adapters/LightDBAdapter.js","apihub":"apihub","fs":false,"loki-enclave-facade":"loki-enclave-facade","opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LightDBServer.js":[function(require,module,exports){
+},{"./adapters/LightDBAdapter":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/adapters/LightDBAdapter.js","./utils/logger":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/logger.js","apihub":"apihub","fs":false,"loki-enclave-facade":"loki-enclave-facade","opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/LightDBServer.js":[function(require,module,exports){
 const logger = $$.getLogger("LightDBServer", "LokiEnclaveFacade");
 const DATABASE = "database";
 process.on('uncaughtException', err => {
@@ -31656,6 +31673,8 @@ const {
 } = require("../utils");
 const {DBService} = require("../services");
 const {parseConditionsToDBQuery} = require("../services/utils")
+const log = require("../utils/logger").conditionalLog;
+
 
 /**
  * @param {string} msg - The custom error message.
@@ -31681,15 +31700,25 @@ function LightDBAdapter(config) {
     const CryptoSkills = w3cDID.CryptographicSkills;
     const baseConfig = config;
 
+    log(logger, `LightDBAdapter constructor called with config: ${JSON.stringify(config)}`);
+
     // const EnclaveMixin = openDSU.loadAPI("enclave").EnclaveMixin;
     // EnclaveMixin(this);
     logger.info(`Initializing CouchDB instance.`);
     if (typeof config.uri === "undefined")
         throw Error("URI was not specified for LightDBAdapter");
-
+    log(logger, `LightDBAdapter creating dbService instance`);
     const dbService = new DBService(config);
+    log(logger, `LightDBAdapter created dbService instance`);
+
+    log(logger, `LightDBAdapter creating Persistence Enclave`);
     const persistence = aclAPI.createEnclavePersistence(this);
+    log(logger, `LightDBAdapter created Persistence Enclave`);
+
+    log(logger, `LightDBAdapter binding auto pending functions`);
     utils.bindAutoPendingFunctions(this);
+    log(logger, `LightDBAdapter bound auto pending functions`);
+
 
     const prefix = config.root.includes("/")
         ? config.root.split("/").slice(config.root.split("/").length -2, config.root.split("/").length -1)[0]
@@ -31699,8 +31728,10 @@ function LightDBAdapter(config) {
     try {
         const fs = require("fs");
         folderPath = config.root.replace(/\/database\/?$/, '')
-        if(!fs.existsSync(folderPath))
+        if(!fs.existsSync(folderPath)) {
             fs.mkdirSync(folderPath, { recursive: true });
+            logger.info(`Created folder required for CouchDB Server initialization: ${folderPath}`);
+        }
     } catch(e) {
         logger.info(`Failed to create folder ${folderPath}. ${e}`);
     }
@@ -32547,6 +32578,8 @@ function LightDBAdapter(config) {
 
         return readOnlyFunctions.indexOf(functionName) !== -1;
     }
+
+    log(logger, `LightDBAdapter initialized.`);
 }
 
 LightDBAdapter.prototype.Adapters = {};
@@ -32554,7 +32587,7 @@ module.exports = LightDBAdapter;
 
 }).call(this)}).call(this,{"isBuffer":require("../../../node_modules/is-buffer/index.js")})
 
-},{"../../../node_modules/is-buffer/index.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/is-buffer/index.js","../services":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/services/index.js","../services/utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/services/utils.js","../utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/index.js","acl-magic":"acl-magic","fs":false,"opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/lib/lokijs/src/loki-fs-structured-adapter.js":[function(require,module,exports){
+},{"../../../node_modules/is-buffer/index.js":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/node_modules/is-buffer/index.js","../services":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/services/index.js","../services/utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/services/utils.js","../utils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/index.js","../utils/logger":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/logger.js","acl-magic":"acl-magic","fs":false,"opendsu":"opendsu"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/lib/lokijs/src/loki-fs-structured-adapter.js":[function(require,module,exports){
 /*
   Loki (node) fs structured Adapter (need to require this script to instance and use it).
 
@@ -32723,9 +32756,29 @@ module.exports = LightDBAdapter;
          * @memberof LokiFsStructuredAdapter
          */
         LokiFsStructuredAdapter.prototype.loadNextCollection = function (dbname, collectionIndex, callback) {
-            let instream = fs.createReadStream(dbname + "." + collectionIndex);
-            let outstream = new stream();
-            let rl = readline.createInterface(instream, outstream);
+            let instream = null;
+            let outstream = null;
+            let rl = null;
+
+            console.log("We are here before: " + dbname + "." + collectionIndex);
+            try {
+                let filePath = dbname + "." + collectionIndex;
+                
+                if(!fs.existsSync(filePath))
+                    throw new Error("File not found");
+
+                instream = fs.createReadStream(dbname + "." + collectionIndex);
+                outstream = new stream();
+                rl = readline.createInterface(instream, outstream);
+            } catch (e) {
+                console.log("Error opening collection file: " + dbname + "." + collectionIndex);
+                instream = fs.createReadStream(dbname.replace("FixedUrls.db", "FixedUrls.db-renamed") + "." + collectionIndex);
+                outstream = new stream();
+                rl = readline.createInterface(instream, outstream);
+            }
+
+            console.log("We are here after: " + dbname + "." + collectionIndex);
+
             let self = this,
                 obj;
 
@@ -42473,15 +42526,27 @@ const dsuUtils = require('./dsuUtils');
 const mapping = require('./mapping');
 const query = require('./query');
 const chunk = require('./chunk');
+const log = require('./logger');
 
 module.exports = {
     ...chunk,
     ...constants,
     ...dsuUtils,
     ...mapping,
-    ...query
+    ...query,
+    ...log
 };
-},{"./chunk":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/chunk.js","./constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/constants.js","./dsuUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/dsuUtils.js","./mapping":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/mapping.js","./query":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/query.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/mapping.js":[function(require,module,exports){
+},{"./chunk":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/chunk.js","./constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/constants.js","./dsuUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/dsuUtils.js","./logger":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/logger.js","./mapping":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/mapping.js","./query":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/query.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/logger.js":[function(require,module,exports){
+
+function conditionalLog(logger, str) {
+    if(process.env.OPENDSU_ENABLE_DEBUG)
+        logger.debug(str);
+}
+
+module.exports = {
+    conditionalLog
+}
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/mapping.js":[function(require,module,exports){
 const {DBKeys, OpenDSUKeys, DBOperatorsMap} = require("./constants");
 
 /**
