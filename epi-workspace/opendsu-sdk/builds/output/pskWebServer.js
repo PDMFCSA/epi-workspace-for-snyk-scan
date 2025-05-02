@@ -30609,6 +30609,7 @@ module.exports = LightDBAdapter;
         const fs = require('fs');
         const readline = require('readline');
         const stream = require('stream');
+        const log = require("../../../utils/logger").conditionalLog
 
         /**
          * Loki structured (node) filesystem adapter class.
@@ -30751,24 +30752,30 @@ module.exports = LightDBAdapter;
             let outstream = null;
             let rl = null;
 
-            console.log("We are here before: " + dbname + "." + collectionIndex);
+            let filePath = dbname + "." + collectionIndex;
+            log(console, "Loading next collection: " + filePath);
+
             try {
-                let filePath = dbname + "." + collectionIndex;
-                
                 if(!fs.existsSync(filePath))
                     throw new Error("File not found");
+
+                instream = fs.createReadStream(filePath);
+                outstream = new stream();
+                rl = readline.createInterface(instream, outstream);
+            } catch (e) {
+                log(console, "Error opening collection file: " + dbname + "." + collectionIndex);
+
+                const match = dbname.match(/\/([^\/]+)\/database$/);
+
+                if(match && !dbname.includes("renamed"))
+                    dbname = dbname.replace(match[1], match[1] + "-renamed");
+
+                log(console, "Seems that path is incorrect changing to : " + dbname + "." + collectionIndex);
 
                 instream = fs.createReadStream(dbname + "." + collectionIndex);
                 outstream = new stream();
                 rl = readline.createInterface(instream, outstream);
-            } catch (e) {
-                console.log("Error opening collection file: " + dbname + "." + collectionIndex);
-                instream = fs.createReadStream(dbname.replace("FixedUrls.db", "FixedUrls.db-renamed") + "." + collectionIndex);
-                outstream = new stream();
-                rl = readline.createInterface(instream, outstream);
             }
-
-            console.log("We are here after: " + dbname + "." + collectionIndex);
 
             let self = this,
                 obj;
@@ -30880,7 +30887,7 @@ module.exports = LightDBAdapter;
     }());
 }));
 
-},{"fs":false,"readline":false,"stream":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/lib/lokijs/src/loki-fs-sync-adapter.js":[function(require,module,exports){
+},{"../../../utils/logger":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/utils/logger.js","fs":false,"readline":false,"stream":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/lib/lokijs/src/loki-fs-sync-adapter.js":[function(require,module,exports){
 /*
   A synchronous version of the Loki Filesystem adapter for node.js
 
