@@ -2,12 +2,14 @@
 name: Deploy static content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - app/**
+      - utils.js
+      - leaflet-previewer/**
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -33,11 +35,19 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Prepare site
+        run: |
+          cp -r workdocs/accessibility leaflet-previewer/docs
+          mkdir -p leaflet-previewer/docs/lwa
+          cp -r app/* leaflet-previewer/docs/lwa/
+          cp -r GS1DigitalLinkToolkit leaflet-previewer/docs
+          cp -r interpretGS1scan leaflet-previewer/docs
+          cp  utils.js leaflet-previewer/docs
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: './workdocs/accessibility'
+          path: './leaflet-previewer/docs'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
