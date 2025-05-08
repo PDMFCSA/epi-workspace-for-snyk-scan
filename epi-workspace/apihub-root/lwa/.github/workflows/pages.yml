@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Deploy leaflet previewer
 
 on:
   workflow_dispatch:
@@ -9,45 +9,14 @@ on:
     paths:
       - app/**
       - utils.js
-      - leaflet-previewer/**
+      - workdocs/accessibility/**
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: read
+  id-token: write # This is required for requesting the JWT
   pages: write
-  id-token: write
-
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  contents: read  # This is required for actions/checkout
 
 jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Prepare site
-        run: |
-          cp -r workdocs/accessibility leaflet-previewer/docs
-          mkdir -p leaflet-previewer/docs/lwa
-          cp -r app/* leaflet-previewer/docs/lwa/
-          cp -r GS1DigitalLinkToolkit leaflet-previewer/docs
-          cp -r interpretGS1scan leaflet-previewer/docs
-          cp  utils.js leaflet-previewer/docs
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Upload entire repository
-          path: './leaflet-previewer/docs'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+  DeployLeafletPreviewer:
+    name: 'Deploy Leaflet Previewer'
+    uses: pdmfcsa/leaflet-preview/.github/workflows/static.yml@main

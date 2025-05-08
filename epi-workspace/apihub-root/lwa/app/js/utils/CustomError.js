@@ -5,5 +5,4 @@ class CustomError extends Error {
     this.errData = errData
   }
 }
-
 export default CustomError;
