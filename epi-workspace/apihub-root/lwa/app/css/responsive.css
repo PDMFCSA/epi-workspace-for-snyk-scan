@@ -344,7 +344,7 @@ b {
    
 }
 .terms-button.agree:focus {
-    border-color: var(--mintgreen);
+    border-color: #9F8700;
 }
 
 .terms-button.disagree {
