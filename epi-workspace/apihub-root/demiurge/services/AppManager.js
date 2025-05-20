@@ -570,7 +570,11 @@ class AppManager {
             let envJson = await dsu.readFileAsync("environment.json");
             envJson = JSON.parse(envJson);
             console.warn(JSON.stringify(envJson));
-            env.WALLET_MAIN_DID = envJson.WALLET_MAIN_DID;
+            env.WALLET_MAIN_DID = envJson.WALLET_MAIN_DID || envJson.mainAppDID;
+            if(!envJson.WALLET_MAIN_DID && envJson.mainAppDID) {
+                console.warn(`No WALLET_MAIN_DID found in environment.json, using mainAppDID: ${envJson.mainAppDID}`);
+            }
+
             env.enclaveKeySSI = envJson.enclaveKeySSI;
             env.enclaveType = envJson.enclaveType;
             env.enclaveDID = envJson.enclaveDID;
@@ -693,7 +697,7 @@ class AppManager {
                     let mainEnc = await $$.promisify(scAPI.getMainEnclave)();
                     let keyS = await $$.promisify(mainEnc.getKeySSI)();
                     console.log(keyS.getIdentifier());
-                    didDocument = await $$.promisify(mainEnc.createIdentity)("ssi:name", vaultDomain, userId);
+                    didDocument = await $$.promisify(mainEnc.createIdentity)("ssi:name", vaultDomain, userId.replaceAll("@", "/"));
                     shouldPersist = true;
                     this.walletJustCreated = true;
                 } catch (e) {
@@ -712,7 +716,7 @@ class AppManager {
             await healDID(mainDID);
         } else {
             initialiseIdentityModal = await webSkel.showModal("create-identity-modal");
-            const didIdentifier = `did:ssi:name:${vaultDomain}:${userId}`;
+            const didIdentifier = `did:ssi:name:${vaultDomain}:${userId.replaceAll("@", "/")}`;
             await healDID(didIdentifier);
             shouldPersist = true;
         }
