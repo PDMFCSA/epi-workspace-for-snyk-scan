@@ -7,6 +7,7 @@ exclude:
         # Exclude all files and directories located within any specified folder within your Project. For example, directory_name/** matches and excludes all contents under any directory named directory_name. It is not constrained to the root level or the location of the .snyk file.
         - epi-workspace/bin/**
         - epi-workspace/ethadapter/**
+        - epi-workspace/openapi/**
         - epi-workspace/apihub-root/lwa/**
         - epi-workspace/opendsu-sdk/modules/**
         - epi-workspace/gtin-resolver/tests/**
