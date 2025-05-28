@@ -38,7 +38,8 @@ function SecretsService(serverRootFolder) {
         uri: dbConfig.uri,
         username: userName,
         secret: secret,
-        debug: dbConfig.debug || false
+        debug: dbConfig.debug || false,
+        readonlyMode: process.env.READ_ONLY_MODE || false
     }
 
     const dbService = new DBService(dbServiceConfig);
@@ -91,13 +92,23 @@ function SecretsService(serverRootFolder) {
         }
     }
 
+    this.listDBEntries = async () => {
+        let db = dbService.client.use(DB_NAME);
+        const result = await db.find({
+            selector: {},
+            limit: 100,
+            skip: 0
+        });
+        return result.docs;
+    }
+
     this.loadAsync = async () => {
         await ensureFolderExists(getStorageFolderPath());
-        let secretsContainersNames = await dbService.listDocuments(DB_NAME);
+        let secretsContainersNames = await this.listDBEntries();  //await dbService.listDocuments(DB_NAME);
         if (secretsContainersNames.length) {
             secretsContainersNames = secretsContainersNames.map((containerName) => {
-                const extIndex = containerName.pk.lastIndexOf(".");
-                return path.basename(containerName.pk).substring(0, extIndex);
+                const extIndex = containerName._id.lastIndexOf(".");
+                return path.basename(containerName._id).substring(0, extIndex);
             })
 
             for (let containerName of secretsContainersNames) {
@@ -121,11 +132,12 @@ function SecretsService(serverRootFolder) {
 
     const writeSecrets = async (secretsContainerName) => {
         if (readonlyMode) {
-            throw new createError(555, `Secrets Service is in readonly mode`);
+            throw createError(555, `Secrets Service is in readonly mode`);
         }
         let secrets = containers[secretsContainerName];
         secrets = JSON.stringify(secrets);
-        const encryptedSecrets = encryptSecret(secrets);
+        let encryptedSecrets = encryptSecret(secrets);
+        encryptedSecrets = ArrayBuffertoBase64(encryptedSecrets)
 
         let result;
         try {
@@ -156,6 +168,33 @@ function SecretsService(serverRootFolder) {
         }
     }
 
+    this.createDatabase = async (db) => {
+        return ensureFolderExists(db)
+    }
+
+    function ArrayBuffertoBase64(buffer){
+        let binary = '';
+        const bytes = new Uint8Array(buffer);
+        const len = bytes.byteLength;
+        for (let i = 0; i < len; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+
+        const value = btoa(binary);   
+        return value
+    }
+
+    function Base64toArrayBuffer(str){
+        const binaryString = atob(str); // Decode Base64 to binary string
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len); // Create a Uint8Array
+        for (let i = 0; i < len; i++) {
+            bytes[i] = binaryString.charCodeAt(i); // Convert binary string to byte array
+        }
+        const buff = bytes.buffer; // Return as ArrayBuffer  
+        return Buffer.from(buff);
+    }
+
 
     const getSecretFilePath = (secretsContainerName) => {
         const folderPath = getStorageFolderPath();
@@ -178,6 +217,9 @@ function SecretsService(serverRootFolder) {
     }
     const decryptSecret = async (secretsContainerName, encryptedSecret) => {
         let decryptedSecret;
+        if(!!encryptedSecret.data)
+            encryptedSecret = encryptedSecret.data;
+
         try {
             decryptedSecret = decryptAndParseSecrets(secretsContainerName, encryptedSecret, writeEncryptionKey);
             readonlyMode = false;
@@ -200,29 +242,32 @@ function SecretsService(serverRootFolder) {
         }
     };
 
-    const getDecryptedSecrets = (secretsContainerName, callback) => {
+    const getDecryptedSecrets = async (secretsContainerName, callback) => {
         const filePath = getSecretFilePath(secretsContainerName);
-        
-        dbService.readDocument(DB_NAME, secretsContainerName)
-        .then(async (record) => {
-            const secrets = record.value;
-        
+
+        try {
+            let record = await dbService.readDocument(DB_NAME, filePath)
+            const secrets = Base64toArrayBuffer(record.value);
+
             if (!secrets) {
-                logger.log(`No secret found for ${secretsContainerName}`);
-                return callback(createError(404, `No secret found for ${secretsContainerName}`));
+                logger.log(`No secret found for ${filePath}`);
+                throw createError(404, `No secret found for ${secretsContainerName}`);
             }
+
             let decryptedSecrets;
             try {
                 decryptedSecrets = await decryptSecret(secretsContainerName, secrets);
             } catch (e) {
-                return callback(e);
+                throw e;
             }
 
-            callback(undefined, decryptedSecrets);
-        }).catch((err) => {
+            return decryptedSecrets;
+        } catch (e) {
                 logger.log(`Failed to read secret ${filePath}`);
-                return callback(createError(404, `Failed to read file ${filePath}: ${err}`));
-        });
+                throw createError(404, `Failed to read file ${filePath}: ${e}`);
+        }
+        
+
         // fs.readFile(filePath, async (err, secrets) => {
         //     if (err || !secrets) {
         //         logger.log(`Failed to read file ${filePath}`);
@@ -241,7 +286,7 @@ function SecretsService(serverRootFolder) {
     }
 
     const getDecryptedSecretsAsync = async (secretsContainerName) => {
-        return await $$.promisify(getDecryptedSecrets, this)(secretsContainerName);
+        return await getDecryptedSecrets(secretsContainerName);
     }
 
     this.putSecretAsync = async (secretsContainerName, secretName, secret, isAdmin) => {

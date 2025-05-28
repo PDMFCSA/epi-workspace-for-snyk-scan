@@ -3,7 +3,6 @@ const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
 const apihubModule = require("apihub");
-const { Entry } = require("selenium-webdriver/lib/logging");
 const config = apihubModule.getServerConfig();
 const apihubRootFolder = config.storage;
 
@@ -135,11 +134,23 @@ const insertRecord = async (dbName, pk, value) => {
         if (!exists)
             throw new Error(`Database Doesn't exist: ${dbName}! Failed to migrate!`);
 
-        await dbService.insertDocument(dbName, pk, value)
+        await dbService.insertDocument(dbName, pk, {value: ArrayBuffertoBase64(value)})
     } catch (e) {
         console.log("Record Already exists!");
         // throw e
     }
+}
+
+function ArrayBuffertoBase64(buffer){
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
+    }
+
+    const value = btoa(binary);   
+    return value
 }
 
 async function migrateSecretFile(file, encryptionKey){
@@ -150,7 +161,7 @@ async function migrateSecretFile(file, encryptionKey){
         const secretContent = fs.readFileSync(secretPath);
         const decryptedContent = decrypt(secretContent, encryptionKey);
 
-        await insertSecretIntoCouchDB(DB_NAME, fileName, secretContent);
+        await insertSecretIntoCouchDB(fileName, secretContent);
     } catch (error) {
         console.log(`Error migrating ${fileName}:`, error);
     }
@@ -174,6 +185,7 @@ async function migrateSecretsToCouchDB() {
         // continue with migration
     }
 
+    const readOnlyFlag = process.env.READ_ONLY_MODE || false;
     const userName = process.env.DB_USER || config.db.user;
     const secret = process.env.DB_SECRET || config.db.secret;
 
@@ -181,7 +193,8 @@ async function migrateSecretsToCouchDB() {
         uri: config.db.uri,
         username: userName,
         secret: secret,
-        debug: config.db.debug || false
+        debug: config.db.debug || false,
+        readOnlyMode: readOnlyFlag,
     });
 
     let files;
@@ -196,8 +209,11 @@ async function migrateSecretsToCouchDB() {
 
     const key = await getEncryptionKey();
     const encryptionKey = Buffer.from(key, "base64");
-
-    await createCollection(DB_NAME);
+    try {
+        await createCollection(DB_NAME);
+    } catch (error) {
+        console.log("Error creating database ", DB_NAME, ": ", error);
+    }
 
     for(const file of files) {
         await migrateSecretFile(file, encryptionKey);
