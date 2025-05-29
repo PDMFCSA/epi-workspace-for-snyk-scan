@@ -4116,23 +4116,18 @@ const path = require("path");
 const config = require("../../http-wrapper/config");
 const {DBService} = require("../../../loki-enclave-facade/services/DBService");
 const {CONTAINERS} = require("./constants");
-
+const Lock = require("../../middlewares/SimpleLock/Lock")
 
 function SecretsService(serverRootFolder) {
+    const lock = new Lock()
     const DB_NAME= "db_secrets";
-    serverRootFolder = serverRootFolder || config.getConfig("storage");
     const DEFAULT_CONTAINER_NAME = "default";
     const API_KEY_CONTAINER_NAME = "apiKeys";
     const getStorageFolderPath = () => {
         return DB_NAME;
         //return path.join(serverRootFolder, config.getConfig("externalStorage"), "secrets");
     }
-    const getStorageFolderPathOld = () => {
-        return path.join(serverRootFolder, config.getConfig("externalStorage"), "secrets");
-    }
 
-    const lockPath = path.join(getStorageFolderPathOld(), "secret.lock");
-    const lock = require("../../http-wrapper/utils/ExpiringFileLock").getLock(lockPath, 10000);
     console.log("Secrets Service initialized");
     const logger = $$.getLogger("secrets", "apihub/secrets");
     const openDSU = require("opendsu");
@@ -4154,6 +4149,8 @@ function SecretsService(serverRootFolder) {
         debug: dbConfig.debug || false,
         readonlyMode: process.env.READ_ONLY_MODE || false
     }
+
+    logger.info(`Secrets Service connecting to DB in ${dbServiceConfig.readonlyMode ? "readonly mode" : ""}${dbServiceConfig.debug ? " and debug" : ""}`);
 
     const dbService = new DBService(dbServiceConfig);
 
@@ -4403,7 +4400,7 @@ function SecretsService(serverRootFolder) {
     }
 
     this.putSecretAsync = async (secretsContainerName, secretName, secret, isAdmin) => {
-        await lock.lock();
+        await lock.acquire();
         let res;
         try {
             await loadContainerAsync(secretsContainerName);
@@ -4420,10 +4417,10 @@ function SecretsService(serverRootFolder) {
             }
             res = await writeSecretsAsync(secretsContainerName);
         } catch (e) {
-            await lock.unlock();
+            lock.release();
             throw e;
         }
-        await lock.unlock();
+        lock.release();
         return res;
     }
 
@@ -4503,7 +4500,7 @@ function SecretsService(serverRootFolder) {
     }
 
     this.deleteSecretAsync = async (secretsContainerName, secretName) => {
-        await lock.lock();
+        await lock.acquire();
         try {
             await loadContainerAsync(secretsContainerName);
             if (!containers[secretsContainerName]) {
@@ -4516,10 +4513,10 @@ function SecretsService(serverRootFolder) {
             delete containers[secretsContainerName][secretName];
             await writeSecretsAsync(secretsContainerName);
         } catch (e) {
-            await lock.unlock();
+            lock.release();
             throw e;
         }
-        await lock.unlock();
+        lock.release();
     }
 }
 
@@ -4547,7 +4544,7 @@ module.exports = {
 
 }).call(this)}).call(this,require("buffer").Buffer)
 
-},{"../../../loki-enclave-facade/services/DBService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/services/DBService.js","../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","../../http-wrapper/utils/ExpiringFileLock":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/ExpiringFileLock.js","./constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/constants.js","buffer":false,"fs":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/constants.js":[function(require,module,exports){
+},{"../../../loki-enclave-facade/services/DBService":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/loki-enclave-facade/services/DBService.js","../../http-wrapper/config":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/config/index.js","../../middlewares/SimpleLock/Lock":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/SimpleLock/Lock.js","./constants":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/constants.js","buffer":false,"fs":false,"opendsu":"opendsu","path":false}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/components/secrets/constants.js":[function(require,module,exports){
 module.exports = {
     CONTAINERS: {
         API_KEY_CONTAINER_NAME: "apiKeys",
@@ -7576,54 +7573,7 @@ const Router = require('./classes/Router');
 module.exports = {Server, Client, httpUtils, Router};
 
 
-},{"./classes/Client":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/classes/Client.js","./classes/Router":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/classes/Router.js","./classes/Server":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/classes/Server.js","./httpUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/httpUtils.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/ExpiringFileLock.js":[function(require,module,exports){
-function ExpiringFileLock(folderLock, timeout) {
-    const fsPromisesName = 'node:fs/promises';
-    const fsPromises = require(fsPromisesName);
-
-    function asyncSleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    this.lock = async () => {
-        while (true) {
-            try {
-                const stat = await fsPromises.stat(folderLock);
-                const currentTime = Date.now();
-                // console.log("checking if lock is expired", folderLock, stat.ctime.getTime(), currentTime - timeout, stat.ctime.getTime() < currentTime - timeout);
-                if (stat.ctime.getTime() < currentTime - timeout) {
-                    await fsPromises.rmdir(folderLock);
-                    console.log("Removed expired lock", folderLock);
-                }
-            } catch (e) {
-                // No such file or directory
-            }
-
-            try {
-                await fsPromises.mkdir(folderLock, {recursive: true});
-                return;
-            } catch (e) {
-                console.log("Retrying to acquire lock", folderLock, "after 100ms");
-                await asyncSleep(100);
-            }
-        }
-    }
-
-    this.unlock = async () => {
-        try {
-            await fsPromises.rmdir(folderLock);
-        } catch (e) {
-            // Nothing to do
-        }
-    }
-}
-
-module.exports = {
-    getLock: (folderLock, timeout) => {
-        return new ExpiringFileLock(folderLock, timeout);
-    }
-};
-},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/backupUtils.js":[function(require,module,exports){
+},{"./classes/Client":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/classes/Client.js","./classes/Router":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/classes/Router.js","./classes/Server":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/classes/Server.js","./httpUtils":"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/src/httpUtils.js"}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/http-wrapper/utils/backupUtils.js":[function(require,module,exports){
 const fs = require('fs');
 const path = require('path');
 const serverConfig = require('../config').getConfig();
@@ -8328,6 +8278,40 @@ module.exports = {
     readMessageBufferFromHTTPStream
 }
 
+},{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/SimpleLock/Lock.js":[function(require,module,exports){
+class Lock {
+    constructor() {
+        this.queue = [];
+        this.locked = false;
+    }
+    async acquire() {
+        const self = this;
+        if (self.locked) {
+            return new Promise(((resolve) => self.queue.push(resolve)));
+        }
+        else {
+            self.locked = true;
+            return Promise.resolve();
+        }}
+
+    release() {
+        const self = this;
+        const next = self.queue.shift();
+        if(next) {
+            const cb = () => {
+                next();
+            };
+            if (typeof globalThis.window === 'undefined')
+                globalThis.process.nextTick(cb);
+            else
+                setTimeout(cb, 0);
+        }else {
+            self.locked = false;
+        }
+    }
+}
+
+module.exports = Lock;
 },{}],"/home/runner/work/epi-workspace-for-snyk-scan/epi-workspace-for-snyk-scan/epi-workspace/opendsu-sdk/modules/apihub/middlewares/SimpleLock/index.js":[function(require,module,exports){
 const fsname = "fs";
 const fs = require(fsname);
@@ -41843,6 +41827,10 @@ class DBService {
      * @param {{uri: string, username?: string, secret?: string, readOnlyMode: boolean, debug: boolean}} config - Configuration object containing database connection details.
      */
     constructor(config) {
+
+        config.readOnlyMode = !!config.readOnlyMode || process.env.READ_ONLY_MODE === "true" || false;
+        if (config.readOnlyMode)
+            logger.info("DB service booted in Readonly mode")
         if (dbService)
             return dbService;
 
