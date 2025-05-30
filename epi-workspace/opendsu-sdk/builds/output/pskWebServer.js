@@ -42737,7 +42737,6 @@ function readEnvFile(callback) {
 
             try {
                 env = JSON.parse(env.toString());
-                console.log(`Environment:`, JSON.stringify(env));
             } catch (e) {
                 return callback(createOpenDSUErrorWrapper(`Failed parse env file`, e));
             }
