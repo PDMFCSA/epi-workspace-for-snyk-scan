@@ -112,7 +112,7 @@ class LeafletService {
     this.epiDomain = epiDomain;
     this.epiMarket = epiMarket;
     this.leafletType = "leaflet";
-    this.availableKeys = [];
+    // this.availableKeys = [];
 
     this.bdnsCache = undefined;
     this.gtinOwnerCache = new Map();
@@ -230,9 +230,9 @@ class LeafletService {
     }
 
     let queryParams = buildQueryParams(this.gtin, this.batch, this.leafletLang, this.leafletType, this.epiMarket);
-    if (!this.availableKeys.includes(queryParams)) {
-      queryParams = buildQueryParams(this.gtin, undefined, this.leafletLang, this.leafletType, this.epiMarket);
-    }
+    // if (!this.availableKeys.includes(queryParams)) {
+    //   queryParams = buildQueryParams(this.gtin, undefined, this.leafletLang, this.leafletType, this.epiMarket);
+    // }
 
     smartUrl = smartUrl.concatWith(`${urlPart}?${queryParams}`);
 
@@ -277,7 +277,6 @@ class LeafletService {
    * @param {boolean} legacyMode - Made the request using v3.0 endpoints
    *
    * @returns {Promise<{
-   *   availableKeys: string[],
    *   productData: {
    *     productCode: string,
    *     epiProtocol: string,
