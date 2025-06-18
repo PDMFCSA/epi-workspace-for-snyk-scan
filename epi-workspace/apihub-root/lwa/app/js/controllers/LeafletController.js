@@ -558,13 +558,13 @@ function LeafletController() {
 
         const content =  document.querySelector(`#${modal} .content-to-print`).cloneNode(true);
         const printContent =  document.querySelector('#print-content');
-        content.querySelectorAll('[style], [nowrap], video').forEach(element => {
-            if(['table', 'th', 'td', 'tr', 'thead', 'tbody', 'tfoot', 'caption'].includes(element.tagName.toLowerCase()))  
-                element.removeAttribute('style');
+        content.querySelectorAll('[nowrap], video').forEach(element => {
+            // if(['table', 'th', 'td', 'tr', 'thead', 'tbody', 'tfoot', 'caption'].includes(element.tagName.toLowerCase()))  
+            //     element.removeAttribute('style');
             element.removeAttribute('nowrap');
             element.removeAttribute('xmlns');  
         });
-
+        
         printContent.innerHTML = "";
         printContent.innerHTML = content.innerHTML;
         

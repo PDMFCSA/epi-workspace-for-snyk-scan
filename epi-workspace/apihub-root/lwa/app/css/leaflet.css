@@ -1,9 +1,12 @@
 @import "prerequisites.css";
 
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
 .voiceover-pause {
     opacity: 0;
 }
-
 
 fieldset {
     border: none;
@@ -51,7 +54,7 @@ button:not([disabled]) {
 #leaflet-content p,
 #leaflet-content h4 {
     font-size: var(--font-size--basic);
-}
+} 
 
 #leaflet-content .select-lang-text {
     padding: 35px;
@@ -100,6 +103,10 @@ button:not([disabled]) {
 #leaflet-content figure {
     display: block;
     margin: 0 auto;
+}
+
+#leaflet-content table figure {
+    font-size: 0px !important;
 }
 
 /* Force hidden content for images because xslt rule not working for safari < 16. */
