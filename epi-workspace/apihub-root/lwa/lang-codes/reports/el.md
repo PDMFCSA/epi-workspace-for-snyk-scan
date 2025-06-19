@@ -272,3 +272,4 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_available_doc | Τα διαθέσιμα έγγραφα του φυλλαδίου |  | 333 |
 | leaflet_available_lang | Οι διαθέσιμες γλώσσες του φυλλαδίου |  | 334 |
 | leaflet_page_title | Εγγραφα |  | 335 |
+| controlled_substance | Ελεγχόμενη ουσία |  | 336 |

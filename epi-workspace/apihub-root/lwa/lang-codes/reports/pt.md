@@ -273,3 +273,4 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_available_doc | Documentos disponíveis do folheto |  | 333 |
 | leaflet_available_lang | Línguas disponíveis do folheto |  | 334 |
 | leaflet_page_title | Documentos |  | 335 |
+| controlled_substance | Substância controlada |  | 336 |

@@ -272,3 +272,4 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_available_doc | Voldiku saadaolevad dokumendid |  | 333 |
 | leaflet_available_lang | Voldiku saadaolevad keeled |  | 334 |
 | leaflet_page_title | Dokumendid |  | 335 |
+| controlled_substance | Kontrollitav aine |  | 336 |

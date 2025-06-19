@@ -267,3 +267,4 @@ code,text,status,key
 333,Dostupné dokumenty letákov,,leaflet_available_doc
 334,Dostupné jazyky letákov,,leaflet_available_lang
 335,Dokumenty,,leaflet_page_title
+336,Kontrolovaná látka,,controlled_substance

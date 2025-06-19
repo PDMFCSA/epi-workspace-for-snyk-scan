@@ -273,3 +273,4 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_available_doc | Leaflet's available documents |  | 333 |
 | leaflet_available_lang | Leaflet's available languages |  | 334 |
 | leaflet_page_title | Documents |  | 335 |
+| controlled_substance | Controlled Substance |  | 336 |

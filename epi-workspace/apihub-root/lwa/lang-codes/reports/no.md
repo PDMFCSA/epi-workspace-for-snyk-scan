@@ -272,3 +272,4 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_available_doc | Brosjyrens tilgjengelige dokumenter |  | 333 |
 | leaflet_available_lang | Brosjyrens tilgjengelige språk |  | 334 |
 | leaflet_page_title | Dokumenter |  | 335 |
+| controlled_substance | Kontrollert stoff |  | 336 |

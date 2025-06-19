@@ -1,7 +1,8 @@
 import XMLDisplayService from "../services/XMLDisplayService/XMLDisplayService.js";
 import constants from "../../../constants.js";
-import {setTextDirectionForLanguage} from "../../../utils.js";
+import {setTextDirectionForLanguage, zoomFont} from "../../../utils.js";
 import {observerVideos, mediaUrlRegex} from "../services/XMLDisplayService/leafletXSL.js"
+import { getTranslation } from "../translationUtils.js";
 
 
 const TITLES = {
@@ -136,10 +137,12 @@ let renderLeaflet = function (leafletData, metadata) {
 
   if(!!metadata && !!metadata.productData)
     leafletData.productData = metadata.productData;
-    
+  
   document.querySelector(".product-name").innerText = leafletData.productData.inventedName || leafletData.productData.name;
   let productDescriptionName = upperCaseProductDescriptionProductName(leafletData.productData.nameMedicinalProduct || leafletData.productData.description, leafletData.productData.inventedName || leafletData.productData.name);
-  document.querySelector(".product-description").innerText = productDescriptionName;
+  document.querySelector(".product-description").innerHTML = productDescriptionName;
+
+
 
    /* document.querySelector(".leaflet-title-icon").classList.remove("hiddenElement");*/
   let xmlService = new XMLDisplayService("#leaflet-content");
@@ -168,7 +171,7 @@ let renderLeaflet = function (leafletData, metadata) {
 
   validateLeafletFiles(htmlContent, leafletImages, leafletData.leafletImages);
 
-  const contentContainer =  document.querySelector("#leaflet-content");
+  const contentContainer =  document.querySelector("#leaflet-content");zoomFont
   contentContainer.parentNode.hidden = false;
 
   document.querySelector("#leaflet-content").innerHTML = htmlContent;
@@ -177,11 +180,72 @@ let renderLeaflet = function (leafletData, metadata) {
   handleLeafletAccordion();
   document.querySelector(".loader-container").setAttribute('style', 'display:none');
   focusModalHeader();
+  renderControlledSubstancesSymbol(leafletData);
 };
 
-const upperCaseProductDescriptionProductName = function (text , searchText) {
-  let regex = new RegExp(searchText, "gi");
-  return text.replace(regex, (match) => match.toUpperCase());
+const upperCaseProductDescriptionProductName = function (text, searchText) {
+  let regex = new RegExp(`(?<=\\b)${searchText}(?=\\b)`, "gi");
+  return text.replace(regex, (match) => `${match.toUpperCase()}`);
+}
+
+/**
+ * If controlled substance detected wrappe it in a span
+ * @param {string} description 
+ * @param {string} title 
+ * @returns 
+ */
+const setupDescriptionProductName = function (description, title) {
+  let regex = new RegExp(`(?<=\\b)${title}(?=\\b)`, "gi");
+  return description.replace(regex, (match) => `<span class="controlled-substance-description">${match.toUpperCase()}</span>`);
+}
+
+/**
+ * Replace element with id "controlled-substance" with an image of the Canadian controlled substance symbol on the leaflet 
+ */
+const renderControlledSubstancesSymbol = function(leafletData) {
+  const controlSubstances = document.querySelectorAll(".controlled-substance");
+  if(controlSubstances.length != 0){
+    const descriptionName = setupDescriptionProductName(leafletData.productData.nameMedicinalProduct || leafletData.productData.description, leafletData.productData.inventedName || leafletData.productData.name);
+    document.querySelector(".product-description").innerHTML = descriptionName;
+    addControlledSymbolToProductName();
+    addControlledSymbolToProductDescription();
+    controlSubstances.forEach((controlSubstance) => {
+      const img = document.createElement('img');
+      img.src = 'images/controlled_substance.svg';
+      img.alt = getTranslation("controlled_substance");
+      img.className = 'controlled-substance-p '
+      controlSubstance.insertBefore(img, controlSubstance.firstChild);
+    })
+  }
+}
+
+/**
+ * Add the controlled substance symbol to the product description
+ */
+const addControlledSymbolToProductDescription = async function() {
+  const controlSubstances = document.querySelectorAll(".controlled-substance-description");
+  if(controlSubstances.length !=0){
+    controlSubstances.forEach(async (controlSubstance) => {
+      const img = document.createElement('img');
+      img.src = 'images/controlled_substance_contrast.svg';
+      img.alt = getTranslation("controlled_substance");
+      img.className = 'controlled-substance-p '
+      controlSubstance.insertBefore(img, controlSubstance.firstChild);
+    })
+  }
+}
+
+/**
+ * Add the controlled substance symbol to the product name
+ */
+const addControlledSymbolToProductName = async function() {
+  const prodName = document.getElementById("product-leaf-title");
+  const img = document.createElement('img');
+  img.src = 'images/controlled_substance_contrast.svg';
+  img.alt = getTranslation("controlled_substance");
+  img.className = 'controlled-substance-p '
+  prodName.insertBefore(img, prodName.firstChild);
+  prodName.classList.add("controlled-substance-header")
 }
 
 
@@ -347,5 +411,6 @@ export {
   getBase64FileContent,
   getImageAsBase64,
   renderProductInformation,
-  upperCaseProductDescriptionProductName
+  upperCaseProductDescriptionProductName,
+  setupDescriptionProductName
 }

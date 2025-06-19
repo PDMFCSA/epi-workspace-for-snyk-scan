@@ -274,3 +274,4 @@ code,text,status,key
 333,리플렛의 사용 가능한 문서,,leaflet_available_doc
 334,리플렛의 사용 가능한 언어,,leaflet_available_lang
 335,서류,,leaflet_page_title
+336,제어 된 물질,,controlled_substance

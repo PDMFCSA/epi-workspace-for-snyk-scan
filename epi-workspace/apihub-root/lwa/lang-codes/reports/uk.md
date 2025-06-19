@@ -273,3 +273,4 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_available_doc | Доступні документи листівки |  | 333 |
 | leaflet_available_lang | Наявні мови листівки |  | 334 |
 | leaflet_page_title | Документи |  | 335 |
+| controlled_substance | Контрольована речовина |  | 336 |

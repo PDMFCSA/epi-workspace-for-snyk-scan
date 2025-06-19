@@ -272,3 +272,4 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_available_doc | Documentele disponibile ale prospectului |  | 333 |
 | leaflet_available_lang | Limbile disponibile ale prospectului |  | 334 |
 | leaflet_page_title | Documente |  | 335 |
+| controlled_substance | Substanță controlată |  | 336 |

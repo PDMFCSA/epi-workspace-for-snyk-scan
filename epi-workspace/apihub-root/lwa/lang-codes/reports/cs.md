@@ -272,3 +272,4 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_available_doc | Dostupné dokumenty letáku |  | 333 |
 | leaflet_available_lang | Dostupné jazyky letáku |  | 334 |
 | leaflet_page_title | Dokumenty |  | 335 |
+| controlled_substance | Kontrolovaná látka |  | 336 |

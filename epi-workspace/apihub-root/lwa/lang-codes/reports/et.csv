@@ -267,3 +267,4 @@ code,text,status,key
 333,Voldiku saadaolevad dokumendid,,leaflet_available_doc
 334,Voldiku saadaolevad keeled,,leaflet_available_lang
 335,Dokumendid,,leaflet_page_title
+336,Kontrollitav aine,,controlled_substance
