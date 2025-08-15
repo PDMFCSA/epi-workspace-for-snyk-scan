@@ -3,9 +3,20 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   build: {
     lib: {
-      entry: 'webSkel.js',
+      entry: {
+        webskel: 'index.js'
+      },
       name: 'WebSkel',
-      fileName: 'webskel'
+      fileName: (format, entryName) => {
+        return `${entryName}.${format === 'es' ? 'mjs' : 'umd.js'}`
+      }
+    },
+    rollupOptions: {
+      external: [],
+      output: {
+        globals: {},
+        exports: 'named'
+      }
     }
   }
 })

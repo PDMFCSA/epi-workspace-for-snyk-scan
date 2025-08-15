@@ -19,7 +19,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout main repository
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.repository.default_branch }}
@@ -33,106 +33,33 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
+      - name: Build with Vite
         run: npm run build
 
-      - name: Create bundle entry point
+      - name: Verify build output
         run: |
-          cat > bundle-entry.js << 'EOF'
-          // Bundle entry point that includes all WebSkel files
-          import WebSkel from './webSkel.js';
-          import { ResourceManager } from './managers/ResourceManager.js';
+          echo "Build output verification:"
+          ls -la dist/
+          echo ""
+          echo "Checking bundle sizes:"
+          du -h dist/*.mjs dist/*.umd.js
+          echo ""
+          echo "Checking that webskel.mjs contains all utilities:"
+          grep -c "export" dist/webskel.mjs || echo "No exports found in webskel.mjs"
 
-          // Import all utilities
-          import * as browserUtils from './utils/browser-utils.js';
-          import * as domUtils from './utils/dom-utils.js';
-          import * as formUtils from './utils/form-utils.js';
-          import * as modalUtils from './utils/modal-utils.js';
-          import * as templateUtils from './utils/template-utils.js';
-          const utils = {
-              browserUtils,
-              domUtils,
-              formUtils,
-              modalUtils,
-              templateUtils
-          };
+      - name: Checkout releases repository
+        uses: actions/checkout@v4
+        with:
+          repository: OutfinityResearch/webskel-releases
+          token: ${{ secrets.GIT_TOKEN }}
+          path: webskel-releases
 
-          const originalInitialise = WebSkel.initialise;
-
-          WebSkel.initialise = async function(configsPath) {
-              if (WebSkel.instance) {
-                  return WebSkel.instance;
-              }
-              let webSkel = new WebSkel();
-              for (const utilBundle of Object.values(utils)) {
-                  for (const [fnName, fn] of Object.entries(utilBundle)) {
-                      webSkel[fnName] = fn;
-                  }
-              }
-              await webSkel.loadConfigs(configsPath);
-              WebSkel.instance = webSkel;
-              return WebSkel.instance;
-          };
-
-          // Export everything for the bundle
-          export default WebSkel;
-          export {
-              ResourceManager,
-              browserUtils,
-              domUtils,
-              formUtils,
-              modalUtils,
-              templateUtils
-          };
-
-          // Also make WebSkel available globally for UMD builds
-          if (typeof globalThis !== 'undefined') {
-              globalThis.WebSkel = WebSkel;
-          }
-          EOF
-
-      - name: Bundle ESM (inline utils)
+      - name: Copy bundles to releases repository
         run: |
-          mkdir -p dist
-          npx --yes esbuild bundle-entry.js \
-            --bundle \
-            --format=esm \
-            --platform=browser \
-            --outfile=dist/webskel.mjs
-
-      - name: Bundle UMD (inline utils)
-        run: |
-          npx --yes esbuild bundle-entry.js \
-            --bundle \
-            --format=iife \
-            --global-name=WebSkel \
-            --platform=browser \
-            --outfile=dist/webskel.umd.js
-
-      - name: Copy bundles to releases folder
-        run: |
-          mkdir -p releases
-          cp -f dist/webskel.mjs releases/webskel.mjs
-          cp -f dist/webskel.umd.js releases/webskel.umd.js
-
-      - name: Clean up temporary files
-        run: rm -f bundle-entry.js
-
-      - name: Show git status
-        run: git status
-
-      - name: Commit bundles into repo
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add releases/ dist/
-          if git diff --cached --quiet; then
-            echo "No bundle changes to commit"
-          else
-            echo "Committing bundles into releases/"
-            git commit -m "chore(release): add bundles for ${{ github.event.inputs.version }}"
-            git push origin HEAD:${{ github.event.repository.default_branch }}
-          fi
+          cp -f dist/webskel.mjs webskel-releases/webskel.mjs
+          cp -f dist/webskel.umd.js webskel-releases/webskel.umd.js
+          echo "Bundles copied to releases repository:"
+          ls -la webskel-releases/
 
       - name: Compute tag name
         id: tag
@@ -141,13 +68,57 @@ jobs:
           if [[ "$VERSION" =~ ^v ]]; then TAG="$VERSION"; else TAG="v$VERSION"; fi
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.tag.outputs.tag }}
-          name: ${{ steps.tag.outputs.tag }}
-          draft: false
-          prerelease: ${{ github.event.inputs.prerelease }}
+      - name: Commit, tag, and push to releases repository
+        working-directory: webskel-releases
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add webskel.mjs webskel.umd.js
+          if git diff --cached --quiet; then
+            echo "No bundle changes to commit"
+          else
+            echo "Committing bundles for version ${{ github.event.inputs.version }}"
+            git commit -m "chore(release): add Vite bundles for ${{ github.event.inputs.version }}"
+            git tag -a "${{ steps.tag.outputs.tag }}" -m "Release ${{ github.event.inputs.version }}"
+            git push
+            git push origin "${{ steps.tag.outputs.tag }}"
+          fi
+
+      - name: Create GitHub Release in releases repository
+        working-directory: webskel-releases
+        run: |
+          gh release create "${{ steps.tag.outputs.tag }}" \
+            --repo OutfinityResearch/webskel-releases \
+            --title "${{ github.event.inputs.version }}" \
+            --notes "$(cat <<'EOF'
+          ## WebSkel ${{ github.event.inputs.version }}
+          
+          ### Bundle Files
+          - `webskel.mjs` - All utilities and main class (ES Module)
+          - `webskel.umd.js` - All utilities and main class (UMD)
+          
+          ### Import Examples
+          \`\`\`javascript
+          // Import everything
+          import { sanitize, getBrowser, WebSkel } from 'webskel';
+          
+          // Import main class only
+          import { WebSkel } from 'webskel/webskel';
+          
+          // Import specific utilities
+          import { sanitize } from 'webskel/dom-utils';
+          import { showModal } from 'webskel/modal-utils';
+          \`\`\`
+          
+          ### Features
+          - ✅ Tree-shaking friendly imports
+          - ✅ Individual utility exports
+          - ✅ ES Module and UMD support
+          - ✅ Optimized bundle sizes
+          EOF
+          )" \
+            ${{ github.event.inputs.prerelease == 'true' && '--prerelease' || '' }} \
+            webskel.mjs webskel.umd.js
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
 
