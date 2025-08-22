@@ -27,12 +27,15 @@ class WebSkel {
         }
         console.log("creating new app manager instance");
     }
-
+    async reinit(configsPath){
+        await WebSkel.instance.loadConfigs(configsPath);
+    }
     static async initialise(configsPath) {
         if (WebSkel.instance) {
             return WebSkel.instance;
         }
         let webSkel = new WebSkel();
+        window.webSkel = webSkel;
         const utilModules = [
             domUtils,
             formUtils,
@@ -115,7 +118,7 @@ class WebSkel {
         try {
             this.validateTagName(pageHtmlTagName);
         } catch (e) {
-            await window.showApplicationError(e, e, e);
+            await window.showApplicationError(`Failed to navigate to ${pageHtmlTagName} with Url ${url}`, e.message, e.stack.toString());
             console.error(e);
             return;
         }
@@ -182,7 +185,7 @@ class WebSkel {
         try {
             this.preventExternalResources(content);
         } catch (e) {
-            await window.showApplicationError(e, e, e);
+            await window.showApplicationError("UpdateAppContent", e.message, e.stack.toString());
             console.error(e);
             return;
         }
