@@ -22,6 +22,7 @@ export class ResourceManager {
 
         const key = identifier || url;
         let refCount = this.loadedStyleSheets.get(key) || 0;
+        this.loadedStyleSheets.set(key, refCount + 1);
 
         if (refCount === 0) {
             return new Promise((resolve, reject) => {
@@ -32,14 +33,11 @@ export class ResourceManager {
                         style.className = identifier;
                     }
                     document.head.appendChild(style);
-                    this.loadedStyleSheets.set(key, refCount + 1);
                     resolve(style.outerHTML);
                 } catch (error) {
                     reject(new Error(`Failed to inject the CSS text: ${error.message}`));
                 }
             });
-        } else {
-            this.loadedStyleSheets.set(key, refCount + 1);
         }
     }
 
@@ -72,34 +70,16 @@ export class ResourceManager {
             };
 
             return this.components[component.name].loadingPromise = (async () => {
-                function getFullPath(component, extension){
-                    const { rootDir, webComponentsRootDir } = WebSkel.instance.configs;
-
-                    // pick root (prefer rootDir, then webComponentsRootDir, else empty string)
-                    let basePath = rootDir || webComponentsRootDir || '';
-
-                    // add optional directory
-                    if (component.directory) {
-                        basePath = `${basePath}/${component.directory}`;
-                    }
-
-                    // if still empty, fall back depending on configs
-                    if (!basePath) {
-                        basePath = webComponentsRootDir
-                            ? `./${webComponentsRootDir}${component.directory ? `/${component.directory}` : ''}`
-                            : `${component.directory ? `/${component.directory}` : ''}`;
-                    }
-
-                    // final assembly
-                    return `${basePath}/${component.type}/${component.name}/${component.name}.${extension}`;
-                }
-
                 try {
                     let componentPath;
                     let cssPath;
-                    componentPath = getFullPath(component, "html");
-                    cssPath  = getFullPath(component, "css");
-
+                    if(component.directory){
+                        componentPath = `./${WebSkel.instance.configs.webComponentsRootDir}/${component.directory}/${component.type}/${component.name}/${component.name}.html`;
+                        cssPath = `./${WebSkel.instance.configs.webComponentsRootDir}/${component.directory}/${component.type}/${component.name}/${component.name}.css`;
+                    } else {
+                        componentPath = `./${WebSkel.instance.configs.webComponentsRootDir}/${component.type}/${component.name}/${component.name}.html`;
+                        cssPath = `./${WebSkel.instance.configs.webComponentsRootDir}/${component.type}/${component.name}/${component.name}.css`;
+                    }
                     const template = component.loadedTemplate || await (await fetch(componentPath)).text();
                     this.components[component.name].html = template;
 
@@ -108,16 +88,21 @@ export class ResourceManager {
                     await this.loadStyleSheets(css, component.name);
 
                     if (component.presenterClassName) {
-                        if (component.presenterModule) {
+                        if(component.presenterModule){
                             this.registerPresenter(component.name, component.presenterModule[component.presenterClassName]);
                         } else {
-                            let presenterPath = getFullPath(component, "js");
+                            let presenterPath;
+                            if(component.directory){
+                                presenterPath = `../../${WebSkel.instance.configs.webComponentsRootDir}/${component.directory}/${component.type}/${component.name}/${component.name}.js`;
+                            } else {
+                                presenterPath = `../../${WebSkel.instance.configs.webComponentsRootDir}/${component.type}/${component.name}/${component.name}.js`;
+                            }
                             const PresenterModule = await import(presenterPath);
                             this.registerPresenter(component.name, PresenterModule[component.presenterClassName]);
                         }
                     }
                     this.components[component.name].isPromiseFulfilled = true;
-                    return {html: template, css: css};
+                    return { html: template, css: css };
                 } catch (error) {
                     throw error;
                 }
@@ -140,14 +125,14 @@ export class ResourceManager {
         this.components[name].presenter = presenterClass;
     }
 
-    initialisePresenter(presenterName, component, invalidate, props = {}) {
+    initialisePresenter(presenterName, component, invalidate,props={}) {
         let presenter;
         try {
-            presenter = new this.components[component.componentName].presenter(component, invalidate, props);
+            presenter = new this.components[component.componentName].presenter(component, invalidate,props);
             component.isPresenterReady = true;
             component.onPresenterReady();
         } catch (e) {
-            showApplicationError(`Error creating a presenter instance`, `Encountered an error during the initialization of ${presenterName} for component: ${component.componentName}`, e + ":" + e.stack.split('\n')[1]);
+            showApplicationError(`Error creating a presenter instance`, `Encountered an error during the initialization of ${presenterName} for component: ${component.componentName}`, e + ":"+ e.stack.split('\n')[1]);
         }
         return presenter;
     }

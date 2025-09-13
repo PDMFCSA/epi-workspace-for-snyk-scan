@@ -1,10 +1,7 @@
-import { ResourceManager } from "./managers/ResourceManager.js";
-import { sanitize } from "./utils/dom-utils.js";
-import * as domUtils from "./utils/dom-utils.js";
-import * as formUtils from "./utils/form-utils.js";
-import * as modalUtils from "./utils/modal-utils.js";
-import * as templateUtils from "./utils/template-utils.js";
-import * as browserUtils from "./utils/browser-utils.js";
+import {createTemplateArray, findDoubleDollarWords} from "./utils/template-utils.js";
+import {showModal} from "./utils/modal-utils.js";
+import {ResourceManager} from "./managers/ResourceManager.js";
+import {sanitize} from "./utils/dom-utils.js";
 
 class WebSkel {
     constructor() {
@@ -19,7 +16,7 @@ class WebSkel {
         this.defaultLoader.classList.add("spinner");
         this.defaultLoader.classList.add("spinner-default-style");
         window.showApplicationError = async (title, message, technical) => {
-            return await modalUtils.showModal("show-error-modal", {
+            return await showModal("show-error-modal", {
                 title: title,
                 message: message,
                 technical: technical
@@ -27,24 +24,22 @@ class WebSkel {
         }
         console.log("creating new app manager instance");
     }
-    async reinit(configsPath){
-        await WebSkel.instance.loadConfigs(configsPath);
-    }
+
     static async initialise(configsPath) {
         if (WebSkel.instance) {
             return WebSkel.instance;
         }
         let webSkel = new WebSkel();
-        window.webSkel = webSkel;
         const utilModules = [
-            domUtils,
-            formUtils,
-            modalUtils,
-            templateUtils,
-            browserUtils
+            './utils/dom-utils.js',
+            './utils/form-utils.js',
+            './utils/modal-utils.js',
+            './utils/template-utils.js',
+            './utils/browser-utils.js'
         ];
-        for (const module of utilModules) {
-            for (const [fnName, fn] of Object.entries(module)) {
+        for (const path of utilModules) {
+            const moduleExports = await import(path);
+            for (const [fnName, fn] of Object.entries(moduleExports)) {
                 webSkel[fnName] = fn;
             }
         }
@@ -58,21 +53,41 @@ class WebSkel {
             const response = await fetch(jsonPath);
             const config = await response.json();
             this.configs = config;
+            for (const service of config.services) {
+                const ServiceModule = await import(service.path);
+                this.initialiseService(ServiceModule[service.name]);
+            }
             for (const component of config.components) {
                 await this.defineComponent(component);
             }
         } catch (error) {
             console.error(error);
-            await window.showApplicationError("Error loading configs", "Error loading configs", `Encountered ${error} while trying loading webSkel configs`);
+            await showApplicationError("Error loading configs", "Error loading configs", `Encountered ${error} while trying loading webSkel configs`);
         }
     }
 
 
-
+    initialiseService(instance) {
+        let service = new instance;
+        const methodNames = Object.getOwnPropertyNames(instance.prototype)
+            .filter(method => method !== 'constructor');
+        methodNames.forEach(methodName => {
+            this.appServices[methodName] = service[methodName].bind(service);
+        });
+    }
 
     showLoading() {
+        function generateRandomId(length) {
+            const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let randomId = '';
+            for (let i = 0; i < length; i++) {
+                randomId += charset.charAt(Math.floor(Math.random() * charset.length));
+            }
+            return randomId;
+        }
+
         let loader = this.defaultLoader.cloneNode(true);
-        let id = crypto.randomUUID();
+        let id = generateRandomId(12);
         loader.setAttribute("data-id", id)
         if (this.loaderCount === 0) {
             document.body.appendChild(loader);
@@ -118,7 +133,7 @@ class WebSkel {
         try {
             this.validateTagName(pageHtmlTagName);
         } catch (e) {
-            await window.showApplicationError(`Failed to navigate to ${pageHtmlTagName} with Url ${url}`, e.message, e.stack.toString());
+            showApplicationError(e, e, e);
             console.error(e);
             return;
         }
@@ -130,9 +145,9 @@ class WebSkel {
             const result = `<${pageHtmlTagName} data-presenter="${pageHtmlTagName}" ${attributesStringPresenter}></${pageHtmlTagName}>`;
             if (!skipHistoryState) {
                 const path = ["#", url].join("");
-                window.history.pushState({ pageHtmlTagName, relativeUrlContent: result }, path.toString(), path);
+                window.history.pushState({pageHtmlTagName, relativeUrlContent: result}, path.toString(), path);
             }
-            await this.updateAppContent(result);
+            this.updateAppContent(result);
         } catch (error) {
             console.error("Failed to change page", error);
         } finally {
@@ -155,7 +170,7 @@ class WebSkel {
         const loadingId = this.showLoading();
         try {
             const pageContent = await this.fetchTextResult(pageUrl, skipHistoryState);
-            await this.updateAppContent(pageContent);
+            this.updateAppContent(pageContent);
         } catch (error) {
             console.log("Failed to change page", error);
         } finally {
@@ -181,11 +196,11 @@ class WebSkel {
         this._appContent = elem;
     }
 
-    async updateAppContent(content) {
+    updateAppContent(content) {
         try {
             this.preventExternalResources(content);
         } catch (e) {
-            await window.showApplicationError("UpdateAppContent", e.message, e.stack.toString());
+            showApplicationError(e, e, e);
             console.error(e);
             return;
         }
@@ -214,6 +229,7 @@ class WebSkel {
             }
         };
 
+        // register listener for data-action attribute
         this._documentElement.addEventListener("click", async (event) => {
             let target = event.target;
             let stopPropagation = false;
@@ -237,7 +253,7 @@ class WebSkel {
                             }
                             currentCustomElement = currentCustomElement.parentElement;
                             if (currentCustomElement === document) {
-                                await window.showApplicationError("Error executing action", "Action not found in any Presenter", "Action not found in any Presenter");
+                                await showApplicationError("Error executing action", "Action not found in any Presenter", "Action not found in any Presenter");
                                 return;
                             }
                         }
@@ -247,7 +263,7 @@ class WebSkel {
                                 actionHandled = true;
                             } catch (error) {
                                 console.error(error);
-                                await window.showApplicationError("Error executing action", "There is no action for the button to execute", `Encountered ${error}`);
+                                await showApplicationError("Error executing action", "There is no action for the button to execute", `Encountered ${error}`);
                                 return;
                             }
                         } else {
@@ -302,7 +318,7 @@ class WebSkel {
         const result = await response.text();
         if (!skipHistoryState) {
             const path = appBaseUrl + "#" + relativeUrlPath;
-            window.history.pushState({ relativeUrlPath, relativeUrlContent: result }, path.toString(), path);
+            window.history.pushState({relativeUrlPath, relativeUrlContent: result}, path.toString(), path);
         }
         return result;
     }
@@ -436,7 +452,7 @@ class WebSkel {
             }
         };
 
-        const { proxy, revoke } = Proxy.revocable(target, handler);
+        const {proxy, revoke} = Proxy.revocable(target, handler);
 
         if (observe) {
             for (const key in target) {
@@ -446,7 +462,7 @@ class WebSkel {
             }
         }
 
-        return { proxy, revoke };
+        return {proxy, revoke};
     }
 
 
@@ -477,12 +493,12 @@ class WebSkel {
                             this.props = this._webSkelProps.proxy;
                         }
                         this.resources = await WebSkel.instance.ResourceManager.loadComponent(component);
-                        let vars = templateUtils.findDoubleDollarWords(this.resources.html);
+                        let vars = findDoubleDollarWords(this.resources.html);
                         vars.forEach((vn) => {
                             vn = vn.slice(2);
                             this.variables[vn] = "";
                         });
-                        this.templateArray = templateUtils.createTemplateArray(this.resources.html);
+                        this.templateArray = createTemplateArray(this.resources.html);
                         let self = this;
                         let presenter = null;
 
