@@ -267,7 +267,8 @@ const data = {
   "leaflet_available_doc": "Broschyrens tillgängliga dokument",
   "leaflet_available_lang": "Broschyrens tillgängliga språk",
   "leaflet_page_title": "Dokument",
-  "controlled_substance": "Kontrollerad substans"
+  "leaflet_search": "Söka",
+  "leaflet_search_input": "Typ för att söka"
 }
 
 export default data;

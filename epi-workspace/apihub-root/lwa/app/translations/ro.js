@@ -266,7 +266,8 @@ const data = {
   "leaflet_available_doc": "Documentele disponibile ale prospectului",
   "leaflet_available_lang": "Limbile disponibile ale prospectului",
   "leaflet_page_title": "Documente",
-  "controlled_substance": "Substanță controlată"
+  "leaflet_search": "Căutare",
+  "leaflet_search_input": "Tip de căutare"
 }
 
 export default data;

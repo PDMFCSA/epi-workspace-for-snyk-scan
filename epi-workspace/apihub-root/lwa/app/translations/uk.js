@@ -267,7 +267,8 @@ const data = {
   "leaflet_available_doc": "Доступні документи листівки",
   "leaflet_available_lang": "Наявні мови листівки",
   "leaflet_page_title": "Документи",
-  "controlled_substance": "Контрольована речовина"
+  "leaflet_search": "Пошук",
+  "leaflet_search_input": "Введіть для пошуку"
 }
 
 export default data;

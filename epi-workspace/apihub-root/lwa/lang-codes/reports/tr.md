@@ -272,4 +272,5 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_available_doc | Broşürün Mevcut Belgeleri |  | 333 |
 | leaflet_available_lang | Broşürün Mevcut Dilleri |  | 334 |
 | leaflet_page_title | Belgeler |  | 335 |
-| controlled_substance | Kontrollü madde |  | 336 |
+| leaflet_search | Aramak |  | 336 |
+| leaflet_search_input | Arama yazın |  | 337 |

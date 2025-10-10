@@ -4,7 +4,7 @@ import {
 import constants from "../../../constants.js";
 import LeafletService from "../services/LeafletService.js";
 import environment from "../../../environment.js";
-import {focusModalHeader, renderLeaflet, showExpired, renderProductInformation} from "../utils/leafletUtils.js"
+import {focusModalHeader, renderLeaflet, showExpired, handleLeafletAccordion, renderProductInformation} from "../utils/leafletUtils.js"
 import {translate, getTranslation, transformToISOStandardLangCode, getLanguageFallback,translateAccessibilityAttributes} from "../translationUtils.js";
 import {getCountry} from "../countriesUtils.js";
 
@@ -556,10 +556,12 @@ function LeafletController() {
         
         setTextDirectionForLanguage(this.selectedLanguage, "#print-content");
 
-        const content =  document.querySelector(`#${modal} .content-to-print`).cloneNode(true);
+        const contentContainer = document.querySelector(`#${modal} .content-to-print`);
+        const content = contentContainer.cloneNode(true);
+        contentContainer.classList.add("active");
         const printContent =  document.querySelector('#print-content');
         content.querySelectorAll('[nowrap], video').forEach(element => {
-            // if(['table', 'th', 'td', 'tr', 'thead', 'tbody', 'tfoot', 'caption'].includes(element.tagName.toLowerCase()))  
+             // if(['table', 'th', 'td', 'tr', 'thead', 'tbody', 'tfoot', 'caption'].includes(element.tagName.toLowerCase()))  
             //     element.removeAttribute('style');
             element.removeAttribute('nowrap');
             element.removeAttribute('xmlns');  
@@ -575,7 +577,6 @@ function LeafletController() {
                 // Hide the video for the print
                 element.remove();
             }
-
         });
     }
 
@@ -654,7 +655,51 @@ function LeafletController() {
         }
     };
 
+     this.toggleSearch = () => {
+        console.log('toggleSearch');
+        const searchContainer = document.querySelector("#search-input-container");
+        searchContainer.classList.toggle("active");
+        if(searchContainer.classList.contains("active"))
+            searchContainer.querySelector("input").focus();
+    };
+
+
+    function debounceSearch(fn, delay) {
+        let timeout;
+        return function (...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => fn.apply(this, args), delay);
+        };
+    }
+
+    this.handleSearch = debounceSearch(function () {
+        const value = document.querySelector("#search-input").value.trim();
+        const content = document.querySelector(".content-to-print.active");
+        // clean up previous highlights
+        content.innerHTML = content.innerHTML.replace(/<\/?mark>/g, "");
+        if (value.length >= 2) {
+            const regex = new RegExp(`(${value})`, "gi");
+            function search(node) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    const replaced = node.textContent.replace(regex, '<mark>$1</mark>');
+                    if (replaced !== node.textContent) {
+                        const span = document.createElement("span");
+                        span.innerHTML = replaced;
+                        node.replaceWith(span);
+                    }
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    node.childNodes.forEach(search);
+                }
+            }
+            search(content);
+        }   
+        handleLeafletAccordion();
+    });
+
     const addEventListeners = () => {
+        document.getElementById("search-modal-button").addEventListener("click", this.toggleSearch);
+        document.getElementById("search-input").addEventListener("input", this.handleSearch);
+
         document.getElementById("scan-again-button").addEventListener("click", this.scanAgainHandler);
         document.getElementById("modal-print-button").addEventListener("click", this.printContent.bind(this));
         document.querySelectorAll("#print-modal-button").forEach(button => button.addEventListener("click", this.showPrintModal));

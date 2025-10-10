@@ -267,4 +267,5 @@ code,text,status,key
 333,传单的可用文件,,leaflet_available_doc
 334,传单的可用语言,,leaflet_available_lang
 335,文件,,leaflet_page_title
-336,受控物质,,controlled_substance
+336,搜索,,leaflet_search
+337,类型要搜索,,leaflet_search_input

@@ -267,4 +267,5 @@ code,text,status,key
 333,De beschikbare documenten van folder,,leaflet_available_doc
 334,De beschikbare talen van folder,,leaflet_available_lang
 335,Documenten,,leaflet_page_title
-336,Gecontroleerde stof,,controlled_substance
+336,Zoekopdracht,,leaflet_search
+337,Type om te zoeken,,leaflet_search_input

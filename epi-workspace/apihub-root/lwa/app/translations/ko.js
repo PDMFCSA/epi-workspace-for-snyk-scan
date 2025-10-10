@@ -267,7 +267,8 @@ const data = {
   "leaflet_available_doc": "리플렛의 사용 가능한 문서",
   "leaflet_available_lang": "리플렛의 사용 가능한 언어",
   "leaflet_page_title": "서류",
-  "controlled_substance": "제어 된 물질"
+  "leaflet_search": "찾다",
+  "leaflet_search_input": "검색 할 유형"
 }
 
 export default data;

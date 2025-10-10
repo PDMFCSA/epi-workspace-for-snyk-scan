@@ -174,8 +174,8 @@ export function stringFormat(text, ...args) {
 };
 
 export function translateAccessibilityAttributes(){
-    ["alt", "title", "aria-label"].forEach((attr) => {
-        let altElements = document.querySelectorAll(`[${attr}]`);
+    ["alt", "title", "aria-label", "placeholder"].forEach((attr) => {
+        let altElements = document.querySelectorAll(`[${attr}]`);  
         altElements.forEach((element) => {
             let elAttr = element.getAttribute(`${attr}`);
             let elAttrTranslated = getTranslation(elAttr);

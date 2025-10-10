@@ -236,7 +236,7 @@ button:not([disabled]) {
 .leaflet-page .icon-title-container > div:not(.print-icon-container) {
     width: calc(100% - 80px);
 }
-
+.leaflet-page .icon-title-container #search-modal-button,
 .leaflet-page .icon-title-container #print-modal-button,
 .leaflet-page .icon-title-container .print-icon-container {
     width: 80px;
@@ -370,7 +370,56 @@ video {
     margin: 0 auto;
 }
 
+/* Search On Top 
 
+  #search-input-container {
+    display: none;
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+} 
+
+#search-input-container.active {
+    display: inline-block;
+}
+
+#search-input-container input {
+  height: 40px;
+  min-width: 100px;
+  padding: 0 1rem;
+  width: 100%;
+  font-size: var(--font-size--basic);
+  border: none;
+  outline: none;
+  border: 0px !important;
+  outline: none !important; 
+} */
+
+/* Search Below Title */
+#search-input-container {
+    display: none;
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+} 
+
+#search-input-container.active {
+    display: inline-block;
+    top: -80px;
+    position: relative;
+}
+
+#search-input-container input {
+  height: 40px;
+  min-width: 100px;
+  padding: 0 1rem;
+  width: 100%;
+  font-size: var(--font-size--basic);
+  border: none;
+  outline: none;
+  border: 0px !important;
+  outline: none !important;
+}
 
 /* .modal-container:not(#print-modal).hiddenElement > div,
 .page-container.hiddenElement > div{

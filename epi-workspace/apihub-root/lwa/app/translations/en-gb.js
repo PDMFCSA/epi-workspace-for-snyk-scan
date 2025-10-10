@@ -267,7 +267,8 @@ const data = {
   "leaflet_available_doc": "Leaflet's available documents",
   "leaflet_available_lang": "Leaflet's available languages",
   "leaflet_page_title": "Documents",
-  "controlled_substance": "Controlled Substance"
+  "leaflet_search": "Search",
+  "leaflet_search_input": "Type to search"
 }
 
 export default data;

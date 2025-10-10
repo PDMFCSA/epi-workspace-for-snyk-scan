@@ -268,4 +268,5 @@ code,text,status,key
 333,A szórólap rendelkezésre álló dokumentumai,,leaflet_available_doc
 334,A szórólap rendelkezésre álló nyelvei,,leaflet_available_lang
 335,Dokumentumok,,leaflet_page_title
-336,Ellenőrzött anyag,,controlled_substance
+336,Keresés,,leaflet_search
+337,Írja be a keresést,,leaflet_search_input

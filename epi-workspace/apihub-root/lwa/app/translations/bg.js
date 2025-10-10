@@ -266,7 +266,8 @@ const data = {
   "leaflet_available_doc": "Наличните документи на листовка",
   "leaflet_available_lang": "Наличните езици на листовка",
   "leaflet_page_title": "Документи",
-  "controlled_substance": "Контролирано вещество"
+  "leaflet_search": "Търсене",
+  "leaflet_search_input": "Въведете за търсене"
 }
 
 export default data;

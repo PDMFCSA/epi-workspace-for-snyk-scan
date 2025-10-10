@@ -1111,6 +1111,14 @@ body[dir="RTL"] .modal-content .languages-container .language-item-container .la
     padding: min(3vh, 3vw);
 }
 
+.info-modal .modal-header .modal-icon.menu-search-icon {
+    background: url(./../images/search.svg) no-repeat;
+    height: 35px;              
+    background-size: contain; 
+    display: inline-block;    
+}
+
+
 /* .proceed-button.print-button {
     width: unset;
 } */

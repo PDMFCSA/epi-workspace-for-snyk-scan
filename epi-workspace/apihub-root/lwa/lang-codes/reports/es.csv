@@ -275,4 +275,5 @@ code,text,status,key
 333,Documentos disponibles del folleto,,leaflet_available_doc
 334,Idiomas disponibles del folleto,,leaflet_available_lang
 335,Documentos,,leaflet_page_title
-336,Sustancia controlada,,controlled_substance
+336,Buscar,,leaflet_search
+337,Escribe para buscar,,leaflet_search_input

@@ -266,7 +266,8 @@ const data = {
   "leaflet_available_doc": "Documentos disponibles del folleto",
   "leaflet_available_lang": "Idiomas disponibles del folleto",
   "leaflet_page_title": "Documentos",
-  "controlled_substance": "Sustancia controlada"
+  "leaflet_search": "Buscar",
+  "leaflet_search_input": "Tipo para buscar"
 }
 
 export default data;

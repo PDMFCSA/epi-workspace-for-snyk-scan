@@ -273,4 +273,5 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_available_doc | Broschyrens tillgängliga dokument |  | 333 |
 | leaflet_available_lang | Broschyrens tillgängliga språk |  | 334 |
 | leaflet_page_title | Dokument |  | 335 |
-| controlled_substance | Kontrollerad substans |  | 336 |
+| leaflet_search | Söka |  | 336 |
+| leaflet_search_input | Typ för att söka |  | 337 |

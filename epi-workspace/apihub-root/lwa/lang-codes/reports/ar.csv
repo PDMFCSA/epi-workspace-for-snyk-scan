@@ -267,4 +267,5 @@ code,text,status,key
 333,مستندات النشرة المتاحة,,leaflet_available_doc
 334,اللغات المتاحة للنشرة,,leaflet_available_lang
 335,وثائق,,leaflet_page_title
-336,مادة خاضعة للرقابة,,controlled_substance
+336,يبحث,,leaflet_search
+337,اكتب للبحث,,leaflet_search_input

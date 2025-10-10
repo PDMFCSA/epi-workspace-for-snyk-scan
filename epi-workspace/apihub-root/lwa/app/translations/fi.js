@@ -266,7 +266,8 @@ const data = {
   "leaflet_available_doc": "Lehtisen käytettävissä olevat asiakirjat",
   "leaflet_available_lang": "Lehteisen kielet",
   "leaflet_page_title": "Asiakirjat",
-  "controlled_substance": "Hallittu aine"
+  "leaflet_search": "Haku",
+  "leaflet_search_input": "Kirjoita haku"
 }
 
 export default data;

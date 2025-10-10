@@ -267,4 +267,5 @@ code,text,status,key
 333,Broschyrens tillgängliga dokument,,leaflet_available_doc
 334,Broschyrens tillgängliga språk,,leaflet_available_lang
 335,Dokument,,leaflet_page_title
-336,Kontrollerad substans,,controlled_substance
+336,Söka,,leaflet_search
+337,Typ för att söka,,leaflet_search_input

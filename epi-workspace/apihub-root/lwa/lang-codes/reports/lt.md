@@ -273,4 +273,5 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_available_doc | Lankstinukas turimi dokumentai |  | 333 |
 | leaflet_available_lang | Lankstinukas turimas kalbas |  | 334 |
 | leaflet_page_title | Dokumentai |  | 335 |
-| controlled_substance | Kontroliuojama medžiaga |  | 336 |
+| leaflet_search | Ieškoti |  | 336 |
+| leaflet_search_input | Įveskite paiešką |  | 337 |

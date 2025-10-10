@@ -272,4 +272,5 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_available_doc | Lehtisen käytettävissä olevat asiakirjat |  | 333 |
 | leaflet_available_lang | Lehteisen kielet |  | 334 |
 | leaflet_page_title | Asiakirjat |  | 335 |
-| controlled_substance | Hallittu aine |  | 336 |
+| leaflet_search | Haku |  | 336 |
+| leaflet_search_input | Kirjoita haku |  | 337 |

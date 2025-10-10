@@ -266,4 +266,5 @@ code,text,status,key
 333,Documentele disponibile ale prospectului,,leaflet_available_doc
 334,Limbile disponibile ale prospectului,,leaflet_available_lang
 335,Documente,,leaflet_page_title
-336,Substanță controlată,,controlled_substance
+336,Căutare,,leaflet_search
+337,Tip de căutare,,leaflet_search_input

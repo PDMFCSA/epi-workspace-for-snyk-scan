@@ -281,4 +281,5 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_available_doc | Documentos disponibles del folleto |  | 333 |
 | leaflet_available_lang | Idiomas disponibles del folleto |  | 334 |
 | leaflet_page_title | Documentos |  | 335 |
-| controlled_substance | Sustancia controlada |  | 336 |
+| leaflet_search | Buscar |  | 336 |
+| leaflet_search_input | Escribe para buscar |  | 337 |

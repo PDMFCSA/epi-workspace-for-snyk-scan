@@ -267,7 +267,8 @@ const data = {
   "leaflet_available_doc": "Na voljo dokumenti z letaki",
   "leaflet_available_lang": "Na voljo jezikov",
   "leaflet_page_title": "Dokumenti",
-  "controlled_substance": "Nadzorovana snov"
+  "leaflet_search": "Iskanje",
+  "leaflet_search_input": "Tip za iskanje"
 }
 
 export default data;

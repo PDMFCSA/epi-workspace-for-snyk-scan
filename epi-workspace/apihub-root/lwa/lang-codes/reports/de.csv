@@ -267,4 +267,5 @@ code,text,status,key
 333,Die verfügbaren Dokumente von Broschüren,,leaflet_available_doc
 334,Die verfügbaren Sprachen von Broschüren,,leaflet_available_lang
 335,Unterlagen,,leaflet_page_title
-336,Kontrollierte Substanz,,controlled_substance
+336,Suchen,,leaflet_search
+337,Geben Sie eine Suche ein,,leaflet_search_input

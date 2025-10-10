@@ -266,4 +266,5 @@ code,text,status,key
 333,Brosjyrens tilgjengelige dokumenter,,leaflet_available_doc
 334,Brosjyrens tilgjengelige språk,,leaflet_available_lang
 335,Dokumenter,,leaflet_page_title
-336,Kontrollert stoff,,controlled_substance
+336,Søk,,leaflet_search
+337,Skriv for å søke,,leaflet_search_input

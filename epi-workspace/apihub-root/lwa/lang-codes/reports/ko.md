@@ -273,4 +273,5 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_available_doc | 리플렛의 사용 가능한 문서 |  | 333 |
 | leaflet_available_lang | 리플렛의 사용 가능한 언어 |  | 334 |
 | leaflet_page_title | 서류 |  | 335 |
-| controlled_substance | 제어 된 물질 |  | 336 |
+| leaflet_search | 찾다 |  | 336 |
+| leaflet_search_input | 검색 할 유형 |  | 337 |

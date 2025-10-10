@@ -273,4 +273,5 @@ To ease the translation the Code refers where it is used on our app screen, see 
 | leaflet_available_doc | 传单的可用文件 |  | 333 |
 | leaflet_available_lang | 传单的可用语言 |  | 334 |
 | leaflet_page_title | 文件 |  | 335 |
-| controlled_substance | 受控物质 |  | 336 |
+| leaflet_search | 搜索 |  | 336 |
+| leaflet_search_input | 类型要搜索 |  | 337 |

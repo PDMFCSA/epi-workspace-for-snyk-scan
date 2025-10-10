@@ -266,4 +266,5 @@ code,text,status,key
 333,Lehtisen käytettävissä olevat asiakirjat,,leaflet_available_doc
 334,Lehteisen kielet,,leaflet_available_lang
 335,Asiakirjat,,leaflet_page_title
-336,Hallittu aine,,controlled_substance
+336,Haku,,leaflet_search
+337,Kirjoita haku,,leaflet_search_input

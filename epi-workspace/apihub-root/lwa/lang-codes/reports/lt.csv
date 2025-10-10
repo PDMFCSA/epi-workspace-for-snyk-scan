@@ -268,4 +268,5 @@ code,text,status,key
 333,Lankstinukas turimi dokumentai,,leaflet_available_doc
 334,Lankstinukas turimas kalbas,,leaflet_available_lang
 335,Dokumentai,,leaflet_page_title
-336,Kontroliuojama medžiaga,,controlled_substance
+336,Ieškoti,,leaflet_search
+337,Įveskite paiešką,,leaflet_search_input

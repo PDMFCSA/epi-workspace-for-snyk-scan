@@ -267,7 +267,8 @@ const data = {
   "leaflet_available_doc": "A szórólap rendelkezésre álló dokumentumai",
   "leaflet_available_lang": "A szórólap rendelkezésre álló nyelvei",
   "leaflet_page_title": "Dokumentumok",
-  "controlled_substance": "Ellenőrzött anyag"
+  "leaflet_search": "Keresés",
+  "leaflet_search_input": "Írja be a keresést"
 }
 
 export default data;

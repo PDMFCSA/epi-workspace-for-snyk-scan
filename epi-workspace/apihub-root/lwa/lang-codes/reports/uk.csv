@@ -267,4 +267,5 @@ code,text,status,key
 333,Доступні документи листівки,,leaflet_available_doc
 334,Наявні мови листівки,,leaflet_available_lang
 335,Документи,,leaflet_page_title
-336,Контрольована речовина,,controlled_substance
+336,Пошук,,leaflet_search
+337,Введіть для пошуку,,leaflet_search_input

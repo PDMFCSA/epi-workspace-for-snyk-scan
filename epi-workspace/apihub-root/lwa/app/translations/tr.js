@@ -266,7 +266,8 @@ const data = {
   "leaflet_available_doc": "Broşürün Mevcut Belgeleri",
   "leaflet_available_lang": "Broşürün Mevcut Dilleri",
   "leaflet_page_title": "Belgeler",
-  "controlled_substance": "Kontrollü madde"
+  "leaflet_search": "Aramak",
+  "leaflet_search_input": "Arama yazın"
 }
 
 export default data;

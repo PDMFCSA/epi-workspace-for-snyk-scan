@@ -412,5 +412,5 @@ export {
   getImageAsBase64,
   renderProductInformation,
   upperCaseProductDescriptionProductName,
-  setupDescriptionProductName
+  handleLeafletAccordion
 }

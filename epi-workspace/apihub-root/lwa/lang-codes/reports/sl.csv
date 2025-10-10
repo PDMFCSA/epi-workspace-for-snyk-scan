@@ -267,4 +267,5 @@ code,text,status,key
 333,Na voljo dokumenti z letaki,,leaflet_available_doc
 334,Na voljo jezikov,,leaflet_available_lang
 335,Dokumenti,,leaflet_page_title
-336,Nadzorovana snov,,controlled_substance
+336,Iskanje,,leaflet_search
+337,Tip za iskanje,,leaflet_search_input

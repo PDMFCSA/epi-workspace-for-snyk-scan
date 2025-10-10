@@ -267,4 +267,5 @@ papierowej ulotki dla pacjenta z informacjami o produkcie, którą zwykle można
 333,Dostępne dokumenty ulotki,,leaflet_available_doc
 334,Dostępne języki ulotki,,leaflet_available_lang
 335,Dokumenty,,leaflet_page_title
-336,Substancja kontrolowana,,controlled_substance
+336,Szukaj,,leaflet_search
+337,Wpisz do wyszukiwania,,leaflet_search_input

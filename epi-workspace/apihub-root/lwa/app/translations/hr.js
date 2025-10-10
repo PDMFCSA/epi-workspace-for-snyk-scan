@@ -266,7 +266,8 @@ const data = {
   "leaflet_available_doc": "Dostupni dokumenti Leaflet",
   "leaflet_available_lang": "Dostupni jezici Leaflet",
   "leaflet_page_title": "Dokumenti",
-  "controlled_substance": "Kontrolirana tvar"
+  "leaflet_search": "Pretraživanje",
+  "leaflet_search_input": "Tip za pretragu"
 }
 
 export default data;
